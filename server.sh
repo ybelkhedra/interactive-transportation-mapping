@@ -28,5 +28,5 @@ sudo cp *.csv /var/www/html
 # Demander a l'utilisateur le nom du fichier a executer
 #wslview http://localhost/home.php
 
-echo "visiter http://localhost/connection.php pour voir le resultat"
+echo "visiter http://localhost/[nomfichier] pour voir le resultat"
 
