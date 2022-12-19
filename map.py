@@ -1,10 +1,15 @@
 import folium ## folium est une bibliothèque qui permet de créer des cartes interactives en s'appuyant sur leaflet.js
 import requests ## requests est une bibliothèque qui permet de faire des requêtes http pour les API
 import json ## json est une bibliothèque qui permet de manipuler des fichiers json
-import time
 
-map = folium.Map(location=[44.795170, -0.603537], zoom_start=14) ## On crée une carte centrée sur Bordeaux
 
+def color_vehicule(data):
+    if data['fields']['vehicule'] == "TRAM":
+        return "red"
+    else :
+        return "blue"
+
+map = folium.Map(location=[44.795170, -0.603537], zoom_start=14, min_zoom=14,max_bounds=True, min_lat=44.795170,max_lat=44.795170,min_lon= -0.603537, max_lon=-0.603537) ## On crée une carte centrée sur Bordeaux
 
 
 parking_group = folium.FeatureGroup(name="Parking").add_to(map) ## On crée un groupe pour les parkings
@@ -38,12 +43,13 @@ lignes_group = folium.FeatureGroup(name="Lignes de transport").add_to(map)
 
 with open('chemins_lignes.json') as mon_fichier:
     data = json.load(mon_fichier)
+    
     for i in data:
         tmp = i['fields']['geo_shape']['coordinates']
         # inverser les coordonnées dans tmp
         for j in tmp:
             j.reverse()
-        folium.PolyLine(i['fields']['geo_shape']['coordinates'], color="red", weight=2.5, opacity=1).add_to(lignes_group)
+        folium.PolyLine(i['fields']['geo_shape']['coordinates'], color=color_vehicule(i), weight=2.5, opacity=1).add_to(lignes_group)
 
     
 folium.LayerControl().add_to(map) ## On ajoute un contrôle pour activer/désactiver les couche
