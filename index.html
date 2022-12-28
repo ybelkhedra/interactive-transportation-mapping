@@ -105,7 +105,7 @@
                 <button type="button" class="collapsible">Points statiques</button>
                 <div class="content">
                     <div>
-                        <input type="checkbox" class="parkingCheckbox" checked>
+                        <input type="checkbox" class="parkingCheckbox" checked> <!--Génère une checkbox-->
                         <label for="parkingCheckbox">Parkings</label>
                         <script> 
                         if ($(".parkingCheckbox").is(':checked')) {var parkingCheckbox = true;} else {var parkingCheckbox = false;}
@@ -113,10 +113,10 @@
                         <script> 
                             $(".parkingCheckbox").click(function(){ 
                             if (parkingCheckbox===true) { 
-                                layerControlNumber.overlays["Parking"].remove();
+                                layerControlNumber.overlays["Parking"].remove(); // Si au click, la checkbox est true, il faut alors enlever le contenu
                                 parkingCheckbox=false}
                             else if (parkingCheckbox===false) {
-                                layerControlNumber.overlays["Parking"].addTo(mapNumber);
+                                layerControlNumber.overlays["Parking"].addTo(mapNumber); // Sinon, on rajoute le contenu
                                 parkingCheckbox=true}
                         });
                         </script>
@@ -192,6 +192,7 @@
             </div>
 
                 <script>
+                    // Script qui gère les menus déroulants
                     var coll = document.getElementsByClassName("collapsible");
                     var i;
 
