@@ -62,6 +62,22 @@
             }
         });
         
+        // recuperation des données du WebService GeoJSON : https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=sv_vehic_p
+        $.getJSON("https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=sv_vehic_p", function(data) {
+            // ajout des données GeoJSON à la carte
+            //L.geoJson(data).addTo(map);
+            $.each(data.features, function(key, val) {
+
+                console.log(val.geometry.coordinates[0], val.geometry.coordinates[1]);
+                L.marker([val.geometry.coordinates[1], val.geometry.coordinates[0]], {icon: L.AwesomeMarkers.icon({icon: 'bus', prefix: 'fa', markerColor: 'red'})}).bindPopup("TYPE : " + val.properties.vehicule + " DESTINATION : " + val.properties.terminus).addTo(map);
+            });
+
+        });
+
+        // la page est mise à jour toutes les 10 secondes
+        setInterval(function() {
+            location.reload();
+        }, 10000);
 
 
     </script>
