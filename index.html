@@ -189,6 +189,26 @@
                         }); 
                         </script>
                 </div> 
+
+
+                <button type="button" class="collapsible">Trafic temps reel</button>
+                <div class="content">
+                        <input type="checkbox" class="busTempsReelCheckbox" checked>
+                        <label for="busTempsReelCheckbox">Bus en temps reel</label>
+                        <script>
+                        if ($(".busTempsReelCheckbox").is(':checked')) {var busTempsReelCheckbox = true;} else {var busTempsReelCheckbox = false;}
+                        </script>
+                        <script> $(".busTempsReelCheckbox").click(function(){ 
+                            if (busTempsReelCheckbox===true) { 
+                                layerControlNumber.overlays["Bus en temps reel"].remove();
+                                busTempsReelCheckbox=false;}
+                            else if (busTempsReelCheckbox===false) {
+                                layerControlNumber.overlays["Bus en temps reel"].addTo(mapNumber);
+                                busTempsReelCheckbox=true;}
+                        }); 
+                        </script>
+                </div> 
+
             </div>
 
                 <script>
