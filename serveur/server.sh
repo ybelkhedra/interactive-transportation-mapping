@@ -15,6 +15,8 @@ sudo cp -r img /var/www/html
 
 sudo cp -r sources /var/www/html
 
+sudo cp -r beta /var/www/html
+
 sudo cp *.html /var/www/html
 
 sudo cp -r donnees/ /var/www/html

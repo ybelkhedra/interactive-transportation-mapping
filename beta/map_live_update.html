@@ -44,10 +44,16 @@
         }).addTo(map);
 
         //creer layer bus en temps reel
+        var bus = L.layerGroup().addTo(map);
+        //creer layer tram en temps reel
+        var tram = L.layerGroup().addTo(map);
+        //creer layer autres
+        var autres = L.layerGroup().addTo(map);
+        var parkings = L.layerGroup().addTo(map);
         
 
         $.ajax({
-            url: '../donnees/coordinates.csv',
+            url: '../donnees/csv/coordinates.csv',
             type: 'GET',
             success: function(csvContents) {
                 csvContents.split('\n').forEach(function(line) {
@@ -60,10 +66,32 @@
                     }
                     // Ajout d'un marker sur la carte
                     //console.log(latitude, longitude);
-                    L.marker([latitude, longitude]).addTo(map);
+                    L.marker([latitude, longitude]).addTo(autres);
                 });
             }
         });
+
+
+
+        $.ajax({
+            url: '../donnees/json/parking_cord.json',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                $.each(data, function(key, val) {
+                    // Récupération des valeurs de latitude et longitude
+                    var latitude = parseFloat(val.fields.geo_shape.coordinates[1]);
+                    var longitude = parseFloat(val.fields.geo_shape.coordinates[0]);
+                    if (isNaN(latitude) || isNaN(longitude)) {
+                        return;
+                    }
+                    // Ajout d'un marker sur la carte
+                    //console.log(latitude, longitude);
+                    L.marker([latitude, longitude]).addTo(parkings);
+                });
+            }
+        });
+
 
 
         function updateMarkers() {
@@ -80,9 +108,14 @@
             
             {
               // suppression des marqueurs existants de la carte
-              map.eachLayer(function (layer) {
+              bus.eachLayer(function (layer) {
                 if (layer instanceof L.Marker) {
-                  map.removeLayer(layer);
+                  bus.removeLayer(layer);
+                }
+              });
+              tram.eachLayer(function (layer) {
+                if (layer instanceof L.Marker) {
+                  tram.removeLayer(layer);
                 }
               });
                 var success = 0;
@@ -93,13 +126,13 @@
                 // création d'un marqueur avec l'icône spécifiée et ajout de la fenêtre contextuelle avec les informations sur le bus ou le tram
                     if (val.properties.vehicule == "BUS")
                     {
-                        console.log(val.geometry.coordinates[0] + " " + val.geometry.coordinates[1])
+                        //console.log(val.geometry.coordinates[0] + " " + val.geometry.coordinates[1])
 
                         if (val.geometry.coordinates[1] > 44.78 && val.geometry.coordinates[1] < 44.82 && val.geometry.coordinates[0] > -0.65 && val.geometry.coordinates[0] < -0.57)
                         {
 
                             var marker = L.marker([val.geometry.coordinates[1], val.geometry.coordinates[0]], {icon: L.AwesomeMarkers.icon({icon: 'bus', prefix: 'fa', markerColor: 'red'})}).bindPopup("TYPE : " + val.properties.vehicule + " DESTINATION : " + val.properties.terminus);
-                            marker.addTo(map);
+                            marker.addTo(bus);
                             
                         }
                     }
@@ -108,7 +141,7 @@
                         if (val.geometry.coordinates[1] > 44.78 && val.geometry.coordinates[1] < 44.82 && val.geometry.coordinates[0] > -0.65 && val.geometry.coordinates[0] < -0.57)
                         {
                             var marker = L.marker([val.geometry.coordinates[1], val.geometry.coordinates[0]], {icon: L.AwesomeMarkers.icon({icon: 'subway', prefix: 'fa', markerColor: 'blue'})}).bindPopup("TYPE : " + val.properties.vehicule + " DESTINATION : " + val.properties.terminus);
-                            marker.addTo(map);
+                            marker.addTo(tram);
                         }
                     }
                         // ajout du marqueur à la carte
@@ -137,6 +170,18 @@
               updateMarkers();
               console.log("mise à jour des marqueurs");
             }, 10000);
+
+            //ajouter une legende de controle des layers
+
+            var baseMaps = {
+                "Autres": autres,
+                "Bus": bus,
+                "Tram": tram,
+                "Parkings": parkings
+            };
+
+            L.control.layers(baseMaps).addTo(map);
+
 
 
 

@@ -129,13 +129,16 @@
                         <script>
                         if ($(".busTempsReelCheckbox").is(':checked')) {var busTempsReelCheckbox = true;} else {var busTempsReelCheckbox = false;}
                         </script>
-                        <script> $(".busTempsReelCheckbox").click(function(){ 
+                        <script> 
+                            $(".busTempsReelCheckbox").click(function(){ 
                             if (busTempsReelCheckbox===true) { 
                                 layerControlNumber.overlays["Bus en temps reel"].remove();
-                                busTempsReelCheckbox=false;}
+                                busTempsReelCheckbox=false;
+                            }
                             else if (busTempsReelCheckbox===false) {
                                 layerControlNumber.overlays["Bus en temps reel"].addTo(mapNumber);
-                                busTempsReelCheckbox=true;}
+                                busTempsReelCheckbox=true;
+                            }
                         }); 
                         </script>
                 </div> 
