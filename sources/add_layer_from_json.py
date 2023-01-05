@@ -1,7 +1,50 @@
 import os
+import json
+
+
+
+import json
+
+def get_coordinates_path(json_string: str) -> list:
+    json_data = json.loads(json_string)
+    coordinates_path = []
+    def find_coordinates(data, path):
+        if isinstance(data, dict):
+            for key, value in data.items():
+                if key == "coordinates":
+                    coordinates_path.extend(path + [key])
+                    return
+                else:
+                    find_coordinates(value, path + [key])
+        elif isinstance(data, list):
+            for i, item in enumerate(data):
+                find_coordinates(item, path + [i])
+    find_coordinates(json_data, [])
+    if coordinates_path:
+        return coordinates_path
+    else:
+        return None
+
+
+
 
 # Demande le nom du fichier JSON à l'utilisateur
 json_filename = input("Entrez le nom du fichier JSON : ")
+
+with open("../donnees/json/"+json_filename, "r") as f:
+    json_string = f.read()
+
+coordinates_path = get_coordinates_path(json_string)
+##trouver la premiere occurence de coordinates dans coordinates_path
+coordinates_path_str = ""
+for i in coordinates_path:
+    if i == "coordinates":
+        coordinates_path_str += str(i)
+        break
+    coordinates_path_str += str(i) + "."
+##enlever tous ce qui est avant le premier point
+coordinates_path_str = coordinates_path_str[coordinates_path_str.find(".")+1:]
+
 
 # Demande la couleur de logo à l'utilisateur
 logo_color = input("Entrez la couleur de logo souhaitée (rouge, vert, bleu, etc.) : ")
@@ -22,8 +65,8 @@ code_to_add = f"""
         success: function(data) {{
             $.each(data, function(key, val) {{
                 // Récupération des valeurs de latitude et longitude
-                var latitude = parseFloat(val.fields.geo_shape.coordinates[1]);
-                var longitude = parseFloat(val.fields.geo_shape.coordinates[0]);
+                var latitude = parseFloat(val.{coordinates_path_str}[1]);
+                var longitude = parseFloat(val.{coordinates_path_str}[0]);
                 if (isNaN(latitude) || isNaN(longitude)) {{
                     return;
                 }}
