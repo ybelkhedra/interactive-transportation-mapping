@@ -143,6 +143,65 @@
                         </script>
                 </div> 
 
+
+
+
+                <button type="button" class="collapsible">Arrets de bus</button>
+                <div class="content">
+                        <input type="checkbox" class="arretBusCheckbox" unchecked>
+                        <script>
+                            layerControlNumber.overlays["Arrets de bus"].remove();
+                            </script>
+                        <label for="arretBusCheckbox">Arrets de bus</label>
+                        <script>
+                        if ($(".arretBusCheckbox").is(':checked')) {var arretBusCheckbox = true;} else {var arretBusCheckbox = false;}
+                        </script>
+                        <script> 
+                            $(".arretBusCheckbox").click(function(){ 
+                            if (arretBusCheckbox===true) { 
+                                layerControlNumber.overlays["Arrets de bus"].remove();
+                                arretBusCheckbox=false;
+                            }
+                            else if (arretBusCheckbox===false) {
+                                layerControlNumber.overlays["Arrets de bus"].addTo(mapNumber);
+                                arretBusCheckbox=true;
+                            }
+                        }); 
+                        </script>
+                </div> 
+
+
+
+
+
+                <button type="button" class="collapsible">Etat du traffic</button>
+                <div class="content">
+                        <input type="checkbox" class="trafficCheckbox" unchecked>
+                        <script>
+                            layerControlNumber.overlays["Etat du traffic"].remove();
+                            </script>
+                        <label for="trafficCheckbox">Etat du traffic</label>
+                        <script>
+                        if ($(".trafficCheckbox").is(':checked')) {var trafficCheckbox = true;} else {var trafficCheckbox = false;}
+                        </script>
+                        <script> 
+                            $(".trafficCheckbox").click(function(){ 
+                            if (trafficCheckbox===true) { 
+                                layerControlNumber.overlays["Etat du traffic"].remove();
+                                trafficCheckbox=false;
+                            }
+                            else if (trafficCheckbox===false) {
+                                layerControlNumber.overlays["Etat du traffic"].addTo(mapNumber);
+                                trafficCheckbox=true;
+                            }
+                        }); 
+                        </script>
+                </div> 
+
+
+
+
+
             </div>
 
                 <script>

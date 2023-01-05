@@ -195,9 +195,38 @@
 
 
 
+            var feature_group_arrets_bus = L.featureGroup(
+
+                {}
+
+            ).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
 
-            function updateMarkers() {
+            $.ajax({
+                url: '../donnees/json/arrets_bus.json',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $.each(data, function(key, val) {
+                        // Récupération des valeurs de latitude et longitude
+                        var latitude = parseFloat(val.fields.geo_shape.coordinates[1]);
+                        var longitude = parseFloat(val.fields.geo_shape.coordinates[0]);
+                        if (isNaN(latitude) || isNaN(longitude)) {
+                            return;
+                        }
+                        // Ajout d'un marker sur la carte
+                        if (val.fields.vehicule == "BUS")
+                            L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'grey'})}).addTo(feature_group_arrets_bus);
+                        else if (val.fields.vehicule == "TRAM")
+                            L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'black'})}).addTo(feature_group_arrets_bus);
+                    });
+                }
+            });
+
+
+
+
+            function updateMarkersVehicule() {
 
 
                 try {
@@ -250,14 +279,80 @@
     
          
     
-            updateMarkers();
+            updateMarkersVehicule();
     
               setInterval(
                 function() {
-                  updateMarkers();
+                    updateMarkersVehicule();
                   console.log("mise à jour des marqueurs");
                 }, 10000);
     
+
+
+            var feature_group_traffic= L.featureGroup(
+
+                {}
+
+            ).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
+
+
+
+
+        function updateMarkersTraffic() {
+
+
+                    try {
+                    // récupération des données de position de bus et de tram en utilisant l'URL du WebService GeoJSON
+                    
+                    $.ajax({
+                        url: "https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=ci_trafi_l",
+                        dataType: "json",
+                        cache: false,
+                        success: function(data) {
+                    
+                    {
+                      // suppression des marqueurs existants de la carte
+                      feature_group_traffic.eachLayer(function (layer) {
+                        if (layer instanceof L.Marker) {
+                            feature_group_traffic.removeLayer(layer);
+                        }
+                      });
+                      // ajout de ligne de traffic chargé ou fluide
+                      $.each(data.features, function(key, val) {
+                        //inversé les coordonnées val.features.geometry.coordinates
+                        for (var i = 0; i < val.geometry.coordinates.length; i++) {
+                                val.geometry.coordinates[i].reverse();
+                        }
+                        if (val.properties.etat == "FLUIDE") {
+                            var polyline = L.polyline(val.geometry.coordinates, {color: 'green'}).addTo(feature_group_traffic);
+                    }
+                        else {
+                            var polyline = L.polyline(val.geometry.coordinates, {color: 'red'}).addTo(feature_group_traffic);
+                        }
+                        });
+                    }
+
+                        }
+                    });
+                    }   
+                    catch (e) {
+                        console.log(e);
+                    }
+                }
+
+                
+
+
+
+
+                updateMarkersTraffic();
+
+                    setInterval(
+                    function() {
+                        updateMarkersTraffic();
+                        console.log("mise à jour du traffic");
+                    }, 20000);
+
 
 
 
@@ -299,6 +394,10 @@
                     "Lignes de transport" : feature_group_2c8baec54a38159e19461b6f5698af3b,
 
                     "Bus en temps reel" : feature_group_bus_temps_reel,
+
+                    "Arrets de bus" : feature_group_arrets_bus,
+
+                    "Etat du traffic" : feature_group_traffic,
                 },
 
             };
