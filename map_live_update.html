@@ -46,7 +46,7 @@
         //creer layer bus en temps reel
         
 
-        /*$.ajax({
+        $.ajax({
             url: 'coordinates.csv',
             type: 'GET',
             success: function(csvContents) {
@@ -59,11 +59,11 @@
                         return;
                     }
                     // Ajout d'un marker sur la carte
-                    console.log(latitude, longitude);
+                    //console.log(latitude, longitude);
                     L.marker([latitude, longitude]).addTo(map);
                 });
             }
-        });*/
+        });
 
 
         function updateMarkers() {
@@ -93,14 +93,25 @@
                 // création d'un marqueur avec l'icône spécifiée et ajout de la fenêtre contextuelle avec les informations sur le bus ou le tram
                     if (val.properties.vehicule == "BUS")
                     {
-                        var marker = L.marker([val.geometry.coordinates[1], val.geometry.coordinates[0]], {icon: L.AwesomeMarkers.icon({icon: 'bus', prefix: 'fa', markerColor: 'red'})}).bindPopup("TYPE : " + val.properties.vehicule + " DESTINATION : " + val.properties.terminus);
+                        console.log(val.geometry.coordinates[0] + " " + val.geometry.coordinates[1])
+
+                        if (val.geometry.coordinates[1] > 44.78 && val.geometry.coordinates[1] < 44.82 && val.geometry.coordinates[0] > -0.65 && val.geometry.coordinates[0] < -0.57)
+                        {
+
+                            var marker = L.marker([val.geometry.coordinates[1], val.geometry.coordinates[0]], {icon: L.AwesomeMarkers.icon({icon: 'bus', prefix: 'fa', markerColor: 'red'})}).bindPopup("TYPE : " + val.properties.vehicule + " DESTINATION : " + val.properties.terminus);
+                            marker.addTo(map);
+                            
+                        }
                     }
                     else
                     {
-                        var marker = L.marker([val.geometry.coordinates[1], val.geometry.coordinates[0]], {icon: L.AwesomeMarkers.icon({icon: 'subway', prefix: 'fa', markerColor: 'blue'})}).bindPopup("TYPE : " + val.properties.vehicule + " DESTINATION : " + val.properties.terminus);
+                        if (val.geometry.coordinates[1] > 44.78 && val.geometry.coordinates[1] < 44.82 && val.geometry.coordinates[0] > -0.65 && val.geometry.coordinates[0] < -0.57)
+                        {
+                            var marker = L.marker([val.geometry.coordinates[1], val.geometry.coordinates[0]], {icon: L.AwesomeMarkers.icon({icon: 'subway', prefix: 'fa', markerColor: 'blue'})}).bindPopup("TYPE : " + val.properties.vehicule + " DESTINATION : " + val.properties.terminus);
+                            marker.addTo(map);
+                        }
                     }
                         // ajout du marqueur à la carte
-                    marker.addTo(map);
                     success++;
                 }
                 else {
