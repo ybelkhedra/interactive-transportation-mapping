@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="css/index_style.css"/>
+        
+</head>
+<body>
+    
+            <div class="folium-map" id="map_5c3862ba13c7e615013e758f79b1f9bb" >
+                <div class="loader"></div> 
+            </div>
+
+            <script src="sources/map.js"></script>
+            <script src="sources/mapHelper.js"></script>
+            
+            <div class="main_deroulant">
+                <button type="button" class="collapsible">Points statiques</button>
+                <div class="content">
+                    <div>
+                        <input type="checkbox" class="parkingCheckbox" checked> <!--Génère une checkbox-->
+                        <label for="parkingCheckbox">Parkings</label>
+                        <script> 
+                        if ($(".parkingCheckbox").is(':checked')) {var parkingCheckbox = true;} else {var parkingCheckbox = false;}
+                        </script>
+                        <script> 
+                            $(".parkingCheckbox").click(function(){ 
+                            if (parkingCheckbox===true) { 
+                                layerControlNumber.overlays["Parking"].remove(); // Si au click, la checkbox est true, il faut alors enlever le contenu
+                                parkingCheckbox=false}
+                            else if (parkingCheckbox===false) {
+                                layerControlNumber.overlays["Parking"].addTo(mapNumber); // Sinon, on rajoute le contenu
+                                parkingCheckbox=true}
+                        });
+                        </script>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" class="pointDeChargeCheckbox" checked>
+                        <label for="pointDeChargeCheckbox">Points de charge</label>
+                        <script> 
+                        if ($(".pointDeChargeCheckbox").is(':checked')) {var pointDeChargeCheckbox = true;} else {var pointDeChargeCheckbox = false;}
+                        </script>
+                        <script> $(".pointDeChargeCheckbox").click(function(){ 
+                            if (pointDeChargeCheckbox===true) { 
+                                layerControlNumber.overlays["Points de charge"].remove();
+                                pointDeChargeCheckbox=false;}
+                            else if (pointDeChargeCheckbox===false) {
+                                layerControlNumber.overlays["Points de charge"].addTo(mapNumber);
+                                pointDeChargeCheckbox=true;}
+                        }); 
+                        </script>
+                    </div>
+                    <div>
+                        <input type="checkbox" class="covoiturageCheckbox" checked>
+                        <label for="covoiturageCheckbox">Points de covoiturage</label>
+                        <script>
+                        if ($(".covoiturageCheckbox").is(':checked')) {var covoiturageCheckbox = true;} else {var covoiturageCheckbox = false;}
+                        </script>
+                        <script> $(".covoiturageCheckbox").click(function(){ 
+                            if (covoiturageCheckbox===true) { 
+                                layerControlNumber.overlays["Covoiturage"].remove();
+                                covoiturageCheckbox=false;}
+                            else if (covoiturageCheckbox===false) {
+                                layerControlNumber.overlays["Covoiturage"].addTo(mapNumber);
+                                covoiturageCheckbox=true;}
+                        }); 
+                        </script>
+                    </div>
+                    <div>
+                        <input type="checkbox" class="autopartageCheckbox" checked>
+                        <label for="autopartageCheckbox">Points d'autopartage</label>
+                        <script>
+                        if ($(".autopartageCheckbox").is(':checked')) {var autopartageCheckbox = true;} else {var autopartageCheckbox = false;}
+                        </script>
+                        <script> $(".autopartageCheckbox").click(function(){ 
+                            if (autopartageCheckbox===true) { 
+                                layerControlNumber.overlays["Autopartage"].remove();
+                                autopartageCheckbox=false;}
+                            else if (autopartageCheckbox===false) {
+                                layerControlNumber.overlays["Autopartage"].addTo(mapNumber);
+                                autopartageCheckbox=true;}
+                        }); 
+                        </script>
+                    </div>
+                </div>
+
+                <button type="button" class="collapsible">Lignes statiques</button>
+                <div class="content">
+                        <input type="checkbox" class="ligneDeTransportCheckbox" checked>
+                        <label for="ligneDeTransportCheckbox">Lignes de transports</label>
+                        <script>
+                        if ($(".ligneDeTransportCheckbox").is(':checked')) {var ligneDeTransportCheckbox = true;} else {var ligneDeTransportCheckbox = false;}
+                        </script>
+                        <script> $(".ligneDeTransportCheckbox").click(function(){ 
+                            if (ligneDeTransportCheckbox===true) { 
+                                layerControlNumber.overlays["Lignes de transport"].remove();
+                                ligneDeTransportCheckbox=false;}
+                            else if (ligneDeTransportCheckbox===false) {
+                                layerControlNumber.overlays["Lignes de transport"].addTo(mapNumber);
+                                ligneDeTransportCheckbox=true;}
+                        }); 
+                        </script>
+                </div> 
+
+
+                <button type="button" class="collapsible">Trafic temps reel</button>
+                <div class="content">
+                        <input type="checkbox" class="busTempsReelCheckbox" checked>
+                        <label for="busTempsReelCheckbox">Bus en temps reel</label>
+                        <script>
+                        if ($(".busTempsReelCheckbox").is(':checked')) {var busTempsReelCheckbox = true;} else {var busTempsReelCheckbox = false;}
+                        </script>
+                        <script> 
+                            $(".busTempsReelCheckbox").click(function(){ 
+                            if (busTempsReelCheckbox===true) { 
+                                layerControlNumber.overlays["Bus en temps reel"].remove();
+                                busTempsReelCheckbox=false;
+                            }
+                            else if (busTempsReelCheckbox===false) {
+                                layerControlNumber.overlays["Bus en temps reel"].addTo(mapNumber);
+                                busTempsReelCheckbox=true;
+                            }
+                        }); 
+                        </script>
+                </div> 
+
+
+
+
+                <button type="button" class="collapsible">Arrets de bus</button>
+                <div class="content">
+                        <input type="checkbox" class="arretBusCheckbox" unchecked>
+                        <script>
+                            layerControlNumber.overlays["Arrets de bus"].remove();
+                            </script>
+                        <label for="arretBusCheckbox">Arrets de bus</label>
+                        <script>
+                        if ($(".arretBusCheckbox").is(':checked')) {var arretBusCheckbox = true;} else {var arretBusCheckbox = false;}
+                        </script>
+                        <script> 
+                            $(".arretBusCheckbox").click(function(){ 
+                            if (arretBusCheckbox===true) { 
+                                layerControlNumber.overlays["Arrets de bus"].remove();
+                                arretBusCheckbox=false;
+                            }
+                            else if (arretBusCheckbox===false) {
+                                layerControlNumber.overlays["Arrets de bus"].addTo(mapNumber);
+                                arretBusCheckbox=true;
+                            }
+                        }); 
+                        </script>
+                </div> 
+
+
+
+
+
+                     
+    <button type="button" class="collapsible">Etat du traffic</button>
+                <div class="content">
+                        <input type="checkbox" class="trafficCheckbox" unchecked>
+                        <script>
+                            layerControlNumber.overlays["Etat du traffic"].remove();
+                            </script>
+                        <label for="trafficCheckbox">Etat du traffic</label>
+                        <script>
+                        if ($(".trafficCheckbox").is(':checked')) {var trafficCheckbox = true;} else {var trafficCheckbox = false;}
+                        </script>
+                        <script> 
+                            $(".trafficCheckbox").click(function(){ 
+                            if (trafficCheckbox===true) { 
+                                layerControlNumber.overlays["Etat du traffic"].remove();
+                                trafficCheckbox=false;
+                            }
+                            else if (trafficCheckbox===false) {
+                                layerControlNumber.overlays["Etat du traffic"].addTo(mapNumber);
+                                trafficCheckbox=true;
+                            }
+                        }); 
+                        </script>
+                </div> 
+
+
+
+
+
+            </div>
+
+                <script>
+                    // Script qui gère les menus déroulants
+                    var coll = document.getElementsByClassName("collapsible");
+                    var i;
+
+                    for (i = 0; i < coll.length; i++) {
+                    coll[i].addEventListener("click", function() {
+                        this.classList.toggle("active");
+                        var content = this.nextElementSibling;
+                        if (content.style.maxHeight){
+                        content.style.maxHeight = null;
+                        } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        } 
+                    });
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <!-- afficher l'heure de derniere mise à jours des données que l'on recuperera avec javascript-->
+    <div class="dateMaj">
+        <p>Dernière mise à jour des données : <span id="date"></span></p>
+    </div>
+
+    
+  
+</body>
+</html>

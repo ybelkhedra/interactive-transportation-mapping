@@ -236,8 +236,8 @@
 
 
 
-            
-function updateMarkersVehicule() {
+             
+        function updateMarkersVehicule() {
 
 
                 try {
