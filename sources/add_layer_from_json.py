@@ -40,6 +40,7 @@ def get_coordinates_path(json_string: str) -> list:
 def add_file():
     print("Ajout d'un fichier JSON")
     file = input("Entrez le chemin d'accès complet au fichier JSON : ")
+    print(file)
     #tester si le fichier existe
     if os.path.isfile(file):
         #tester si le fichier est un fichier json
@@ -81,6 +82,7 @@ def add_file():
             print("Le fichier n'est pas un fichier JSON")
     else:
         print("Le fichier n'existe pas")
+        print(os.path.isfile(file))
     return None
     
 
