@@ -236,9 +236,37 @@
                 {}
             ).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
+            var feature_group_pdc_bdd = L.featureGroup(
+                {}
+            ).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
+
+            var feature_group_covoiturage_bdd = L.featureGroup(
+                {}
+            ).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
+
 
 
             function updateBdd(){
+
+            // suppression des marqueurs existants de la carte
+            feature_group_parkings_bdd.eachLayer(function (layer) {
+                if (layer instanceof L.Marker) {
+                    feature_group_parkings_bdd.removeLayer(layer);
+                }
+              });
+            // suppression des marqueurs existants de la carte
+            feature_group_pdc_bdd.eachLayer(function (layer) {
+                if (layer instanceof L.Marker) {
+                    feature_group_pdc_bdd.removeLayer(layer);
+                }
+              });
+            // suppression des marqueurs existants de la carte
+            feature_group_covoiturage_bdd.eachLayer(function (layer) {
+                if (layer instanceof L.Marker) {
+                    feature_group_covoiturage_bdd.removeLayer(layer);
+                }
+              });
+
             //récupération des données de la bdd
             fetch('./sources/requetes/parkings.php')
             .then(response => response.json())
@@ -247,6 +275,32 @@
               data.forEach(function(parking) {
                     var marker = L.marker([parking.latitude, parking.longitude]).addTo(feature_group_parkings_bdd);
                     marker.bindPopup(parking.nom + "<br>" + parking.nb_places + " places disponibles <br>" + parking.informations_complementaires + "<br> PAYANT : " + parking.payant + "<br> HANDICAPE : " + parking.handicape+ "<br> HORS VOIRIE : " + parking.hors_voirie);
+              });
+              
+            })
+            .catch(error => console.error(error));
+
+            //récupération des données de la bdd
+            fetch('./sources/requetes/points_de_charges.php')
+            .then(response => response.json())
+            .then(data => {
+              console.log(data);
+              data.forEach(function(pdc) {
+                    var marker = L.marker([pdc.latitude, pdc.longitude]).addTo(feature_group_pdc_bdd);
+                    marker.bindPopup(pdc.nom + "<br> PAYANT : " + pdc.payant + "<br> PRIVE : " + pdc.prive);
+              });
+              
+            })
+            .catch(error => console.error(error));
+
+            //récupération des données de la bdd
+            fetch('./sources/requetes/points_de_covoiturages.php')
+            .then(response => response.json())
+            .then(data => {
+              console.log(data);
+              data.forEach(function(covoiturage) {
+                    var marker = L.marker([covoiturage.latitude, covoiturage.longitude]).addTo(feature_group_covoiturage_bdd);
+                    marker.bindPopup(covoiturage.nom + "<br> Informations complémentaires : " + covoiturage.informations_complementaires);
               });
               
             })
@@ -421,6 +475,11 @@
                 },
 
                 overlays :  {
+
+                    "Points de covoiturages (BDD)" : feature_group_covoiturage_bdd,
+
+                    "Points de charges (BDD)" : feature_group_pdc_bdd,
+
                     "Parking (BDD)" : feature_group_parkings_bdd,
 
                     "Parking" : feature_group_9eca2e6aae733fb41e9c12f6a296531b,

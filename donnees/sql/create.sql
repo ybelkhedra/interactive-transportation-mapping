@@ -67,7 +67,7 @@ reference INT NOT NULL);
 CREATE TABLE points_de_covoiturages (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 nom TEXT,
-informations_complementaires INT);
+informations_complementaires TEXT);
 
 CREATE TABLE emplacement_covoiturage (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,

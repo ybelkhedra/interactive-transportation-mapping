@@ -56,84 +56,107 @@ $database = $_POST['database'];
 
     </form>
 
-    <!-- Titre : Affichage de la table [NOM DE LA TABLE SELECTIONNER] -->
-    <h1>Affichage de la table <?php echo $_POST['table'] ?></h1>
 
 
 
 
 
 <?php
-// connection mysql
-if (!($link = mysqli_connect("localhost", $user, $password, $database)))
-{
-    echo "Error: Could not connect to database ==> " . mysqli_connect_error() . "";
-}
 
-// Execution de la commande sql adapté a la table selectionner
-$sql = "SELECT * FROM " . $_POST['table'];
-//si l'utilisateur a selecitonner une table
+//si l'utilisateur a selectionner une table
 if (isset($_POST['table'])) {
-    //si la requete a reussi
-    if ($result = mysqli_query($link, $sql)) {
-        if (mysqli_num_rows($result) > 0) {
-            echo "<table class=\"styled-table\" CELLPADDING=\"15\" >";
-            echo "<thead>";
-            echo "<tr>";
-            //recuperer les titres des colonnes de la table dans une liste
-            $colums = mysqli_query($link, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" . $_POST['table'] . "' order by ORDINAL_POSITION;");
-            //afficher le nom de chaque colonne
-            while ($col = mysqli_fetch_array($colums)) {
-                // la chaine "numero" est compris dans col['COLUMN_NAME'] alors nom_colone_id = col['COLUMN_NAME']
-                if (strpos($col['COLUMN_NAME'], "id") !== false) {
-                    $nom_colone_id = $col['COLUMN_NAME'];
-                }
-                echo "<th>" . $col['COLUMN_NAME'] . "</th>";
-            }
-            echo "</tr>";
-            echo "</thead>";
-            echo "<tbody>";
-            while ($row = mysqli_fetch_array($result)) {
-                echo "<tr>";
-                //texte centré sur les colonnes
-                //afficher les valeurs de toutes la table quelque soit le nom des attributs
-                $nb_col = mysqli_num_fields($result);
-                for ($i = 0; $i < $nb_col; $i++) {
-                    echo "<td align=\"center\">" . $row[$i] . "</td>";
-                }
-                // a chaque fin de ligne, ajouter un bouton pour editer la ligne
-                // embaler dans un classe editer
-                echo "<td align=\"center\"><a class=\"editer\" href=\"editer_un_produit.php?table=" . $_POST['table'] . "&" . $nom_colone_id . "=" . $row[$nom_colone_id] . "&user=" . $user . "&password=" . $password . "&database=" . $database . "&table=" . $_POST['table'] . "&id=" . $row[0] . "&colone=" . $nom_colone_id . "\">Editer</a></td>";
-                // a chaque fin de ligne, ajouter un bouton pour supprimer la ligne
-                echo "<td align=\"center\"><a class=\"supprimer\" href=\"supprimer_un_produit.php?user=" . $_POST['user'] . "&password=" . $_POST['password'] . "&database=" . $_POST['database'] . "&table=" . $_POST['table'] . "&id=" . $row[0] . "&colone=" . $nom_colone_id . "\">Supprimer</a></td>";
-                echo "</tr>";
-            }
-            echo "</tbody>";
-            echo "</table>";
-            // Liberation du resultat
-            mysqli_free_result($result);
-        } else {
-            echo "Aucun resultat";
-        }
-    } else {
-        echo "Erreur impossible d'executer la commande $sql. " . mysqli_error($link);
-    }
-}
-    // fermeture de la connection
-mysqli_close($link);
 
+    echo "<h1>Affichage de la table ". $_POST['table'] ."</h1>";
+
+    // connection mysql
+    if (!($link = mysqli_connect("localhost", $user, $password, $database))) {
+        echo "Error: Could not connect to database ==> " . mysqli_connect_error() . "";
+    }
+
+    // Execution de la commande sql adapté a la table selectionner
+    $sql = "SELECT * FROM " . $_POST['table'];
+    //si l'utilisateur a selecitonner une table
+    if (isset($_POST['table'])) {
+        //si la requete a reussi
+        if ($result = mysqli_query($link, $sql)) {
+            if (mysqli_num_rows($result) > 0) {
+                echo "<table class=\"styled-table\" CELLPADDING=\"15\" >";
+                echo "<thead>";
+                echo "<tr>";
+                //recuperer les titres des colonnes de la table dans une liste
+                $colums = mysqli_query($link, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" . $_POST['table'] . "' order by ORDINAL_POSITION;");
+                //afficher le nom de chaque colonne
+                while ($col = mysqli_fetch_array($colums)) {
+                    // la chaine "numero" est compris dans col['COLUMN_NAME'] alors nom_colone_id = col['COLUMN_NAME']
+                    if (strpos($col['COLUMN_NAME'], "id") !== false) {
+                        $nom_colone_id = $col['COLUMN_NAME'];
+                    }
+                    echo "<th>" . $col['COLUMN_NAME'] . "</th>";
+                }
+                echo "</tr>";
+                echo "</thead>";
+                echo "<tbody>";
+                while ($row = mysqli_fetch_array($result)) {
+                    echo "<tr>";
+                    //texte centré sur les colonnes
+                    //afficher les valeurs de toutes la table quelque soit le nom des attributs
+                    $nb_col = mysqli_num_fields($result);
+                    for ($i = 0; $i < $nb_col; $i++) {
+                        echo "<td align=\"center\">" . $row[$i] . "</td>";
+                    }
+                    // a chaque fin de ligne, ajouter un bouton pour editer la ligne
+                    // embaler dans un classe editer
+                    echo "<td align=\"center\"><a class=\"editer\" href=\"editer_un_produit.php?table=" . $_POST['table'] . "&" . $nom_colone_id . "=" . $row[$nom_colone_id] . "&user=" . $user . "&password=" . $password . "&database=" . $database . "&table=" . $_POST['table'] . "&id=" . $row[0] . "&colone=" . $nom_colone_id . "\">Editer</a></td>";
+                    // a chaque fin de ligne, ajouter un bouton pour supprimer la ligne
+                    echo "<td align=\"center\"><a class=\"supprimer\" href=\"supprimer_un_produit.php?user=" . $_POST['user'] . "&password=" . $_POST['password'] . "&database=" . $_POST['database'] . "&table=" . $_POST['table'] . "&id=" . $row[0] . "&colone=" . $nom_colone_id . "\">Supprimer</a></td>";
+                    echo "</tr>";
+                }
+                echo "</tbody>";
+                echo "</table>";
+                // Liberation du resultat
+                mysqli_free_result($result);
+            } else {
+                echo "Aucun resultat";
+            }
+        } else {
+            echo "Erreur impossible d'executer la commande $sql. " . mysqli_error($link);
+        }
+    }
+    // fermeture de la connection
+    mysqli_close($link);
+}
 ?>
 
 <div>
 <!-- bouton href ajouter un item -->
 <?php
-if ($_POST['table'] == "produits") {
-    echo "<a class=\"add_item\" href=\"add_product.php?user=" . $user . "&password=" . $password . "&database=" . $database . "&table=" . $_POST['table'] . "\">Ajouter un produit</a>";
+
+if (isset($_POST['table'])) {
+    if ($_POST['table'] == "produits") {
+        echo "<form action=\"add_product.php\" method=\"post\">";
+        echo "<input type=\"hidden\" name=\"user\" value=\"" . $user . "\">";
+        echo "<input type=\"hidden\" name=\"password\" value=\"" . $password . "\">";
+        echo "<input type=\"hidden\" name=\"database\" value=\"" . $database . "\">";
+        echo "<input type=\"hidden\" name=\"table\" value=\"" . $_POST['table'] . "\">";
+        echo "<input type=\"submit\" value=\"Ajouter un item\">";
+        echo "</form>";
+        // echo "<a class=\"add_item\" href=\"add_product.php?user=" . $user . "&password=" . $password . "&database=" . $database . "&table=" . $_POST['table'] . "\">Ajouter un produit</a>";
+    }
+    else 
+    {
+        echo "<form action=\"ajouter_un_produit.php\" method=\"post\">";
+        echo "<input type=\"hidden\" name=\"user\" value=\"" . $user . "\">";
+        echo "<input type=\"hidden\" name=\"password\" value=\"" . $password . "\">";
+        echo "<input type=\"hidden\" name=\"database\" value=\"" . $database . "\">";
+        echo "<input type=\"hidden\" name=\"table\" value=\"" . $_POST['table'] . "\">";
+        echo "<input type=\"submit\" value=\"Ajouter un item\">";
+        echo "</form>";
+        //echo "<a class=\"add_item\" href=\"ajouter_un_produit.php?user=" . $user . "&password=" . $password . "&database=" . $database . "&table=" . $_POST['table'] . "\">Ajouter un item</a>";
+    }
 }
-else 
-{
-    echo "<a class=\"add_item\" href=\"ajouter_un_produit.php?user=" . $user . "&password=" . $password . "&database=" . $database . "&table=" . $_POST['table'] . "\">Ajouter un item</a>";
-}
+
+echo " ";
+echo "<a class=\"add_item\" href=\"../../index.html" . "\">Carte</a>";
 ?>
 
 </div>

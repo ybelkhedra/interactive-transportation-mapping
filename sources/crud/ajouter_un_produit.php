@@ -13,19 +13,19 @@
 
 <?php
 //recuperation info connection
-$user = $_GET['user'];
-$password = $_GET['password'];
-$database = $_GET['database'];
-$table = $_GET['table'];
+$user = $_POST['user'];
+$password = $_POST['password'];
+$database = $_POST['database'];
+$table = $_POST['table'];
 ?>
 
 
 <!-- recuperation des noms de colone de la $table -->
 <?php
 // connection mysql
-$link = mysqli_connect("localhost", $_GET['user'], $_GET['password'], $_GET['database']);
+$link = mysqli_connect("localhost", $_POST['user'], $_POST['password'], $_POST['database']);
 //recuperation de la liste des colones de la table selectionner
-$columns = mysqli_query($link, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '" . $_GET['database'] . "' AND TABLE_NAME = '" . $_GET['table'] . "' order by ORDINAL_POSITION;");
+$columns = mysqli_query($link, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '" . $_POST['database'] . "' AND TABLE_NAME = '" . $_POST['table'] . "' order by ORDINAL_POSITION;");
 ?>
 
 
@@ -34,7 +34,7 @@ $columns = mysqli_query($link, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUM
 
 
 <!-- formulaire d'ajout d'item en fonction des colones de la table selectionnée  -->
-<form action="ajouter_un_produit.php" method="get">
+<form action="ajouter_un_produit.php" method="post">
     <?php
     $tmp=0;
     // affichage des input pour chaque colone de la table selectionner
@@ -52,7 +52,7 @@ $columns = mysqli_query($link, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUM
     <input type="hidden" name="table" value="<?php echo $table; ?>">
     <input type="hidden" name="modifier" value=" oui">
     <?php
-    if (isset($_GET['add_product'])) {
+    if (isset($_POST['add_product'])) {
         echo "<input type='hidden' name='add_product' value='1'>";
     }
     ?>
@@ -65,11 +65,11 @@ $columns = mysqli_query($link, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUM
 
 <!-- Si le bouton ajouter est appuyer on ajoute les données à la table selectionnée -->
 <?php
-if (isset($_GET['modifier'])) {
+if (isset($_POST['modifier'])) {
     //recuperer les nouvelles valeurs des colones
-    $columns = mysqli_query($link, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '" . $_GET['database'] . "' AND TABLE_NAME = '" . $_GET['table'] . "' order by ORDINAL_POSITION;");
+    $columns = mysqli_query($link, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '" . $_POST['database'] . "' AND TABLE_NAME = '" . $_POST['table'] . "' order by ORDINAL_POSITION;");
     //ajouter les nouvelles valeurs dans la table selectionner pour les colones selectionner sauf la premiere
-    $query = "INSERT INTO " . $_GET['table'] . "(";
+    $query = "INSERT INTO " . $_POST['table'] . "(";
     $cpt=0;
     while ($column = mysqli_fetch_array($columns)) {
         if ($cpt>0) {
@@ -82,12 +82,12 @@ if (isset($_GET['modifier'])) {
         $query = substr($query, 0, -1);
     }
     $query = $query. ") VALUES ( ";
-    $columns = mysqli_query($link, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '" . $_GET['database'] . "' AND TABLE_NAME = '" . $_GET['table'] . "' order by ORDINAL_POSITION;");
+    $columns = mysqli_query($link, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '" . $_POST['database'] . "' AND TABLE_NAME = '" . $_POST['table'] . "' order by ORDINAL_POSITION;");
     $cpt=0;
     while ($column = mysqli_fetch_array($columns)) {
         if ($cpt>0) {
-            if ($_GET[$column['COLUMN_NAME']] != ""){
-            $query = $query . "'" . $_GET[$column['COLUMN_NAME']] . "',";
+            if ($_POST[$column['COLUMN_NAME']] != ""){
+            $query = $query . "'" . $_POST[$column['COLUMN_NAME']] . "',";
             }
             else{
                 $query = $query . "NULL,";
@@ -102,7 +102,7 @@ if (isset($_GET['modifier'])) {
         echo "Item ajouté";
 
         //recuperer l'id de l'item ajouter
-        $query = "SELECT MAX(id) FROM " . $_GET['table'] . ";";
+        $query = "SELECT MAX(id) FROM " . $_POST['table'] . ";";
         $result = mysqli_query($link, $query);
         $row = mysqli_fetch_array($result);
         $id_table = $row[0];
@@ -117,7 +117,7 @@ if (isset($_GET['modifier'])) {
         echo "<input type='submit' value='Ajouter un emplacement'>";
 
         //retour page precedente avec info connection
-        //if (isset($_GET['add_product'])) {
+        //if (isset($_POST['add_product'])) {
         //    echo "<a href='add_product.php?user=" . $user . "&password=" . $password . "&database=" . $database . "&table=" . $table . "&add_product=1'>Retour</a>";
         //} else {
             //echo "<a href='crud.php?user=" . $user . "&password=" . $password . "&database=" . $database . "&table=" . $table . "'>Retour</a>";
@@ -135,7 +135,7 @@ if (isset($_GET['modifier'])) {
 
 <!-- bouton retour -->
 <?php 
-if (isset($_GET['add_product'])) {
+if (isset($_POST['add_product'])) {
     //dans une classe nommé "bouton_retour" dans le css
     echo "<a class='bouton_retour' href='add_product.php?user=" . $user . "&password=" . $password . "&database=" . $database . "&table=" . $table . "&add_product=1'>Retour</a>"; 
 } else {

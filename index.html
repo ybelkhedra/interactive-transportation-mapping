@@ -190,26 +190,77 @@
                      
     
     
-        <button type="button" class="collapsible">Parking (BDD)</button>
-        <div class="content">
-        <input type="checkbox" class="parkingsBddCheckbox" checked>
-        <label for="parkingsBddCheckbox">Parking (BDD)</label>
-        <script>
-        if ($(".parkingsBddCheckbox").is(':checked')) {var parkingsBddCheckbox = true;} else {var parkingsBddCheckbox = false;}
-        </script>
-        <script>
-        $(".parkingsBddCheckbox").click(function(){
-        if (parkingsBddCheckbox===true) {
-        layerControlNumber.overlays["Parking (BDD)"].remove();
-        parkingsBddCheckbox=false;
-        }
-        else if (parkingsBddCheckbox===false) {
-        layerControlNumber.overlays["Parking (BDD)"].addTo(mapNumber);
-        parkingsBddCheckbox=true;
-        }
-        });
-        </script>
+    
+    <button type="button" class="collapsible">Base de donnée</button>
+                <div class="content">
+                
+                <div>  
+                
+                <input type="checkbox" class="parkingsBddCheckbox" checked>
+                <label for="parkingsBddCheckbox">Parking (BDD)</label>
+                <script>
+                if ($(".parkingsBddCheckbox").is(':checked')) {var parkingsBddCheckbox = true;} else {var parkingsBddCheckbox = false;}
+                </script>
+                <script>
+                $(".parkingsBddCheckbox").click(function(){
+                if (parkingsBddCheckbox===true) {
+                layerControlNumber.overlays["Parking (BDD)"].remove();
+                parkingsBddCheckbox=false;
+                }
+                else if (parkingsBddCheckbox===false) {
+                layerControlNumber.overlays["Parking (BDD)"].addTo(mapNumber);
+                parkingsBddCheckbox=true;
+                }
+                });
+                </script>
+        
+                </div>  
+                
+                
+                <div>
+                    <input type="checkbox" class="pdcBddCheckbo" checked>
+                    <label for="pdcBddCheckbo">Points de charges (BDD)</label>
+                    <script>
+                        if ($(".pdcBddCheckbo").is(':checked')) {var pdcBddCheckbo = true;} else {var pdcBddCheckbo = false;}
+                    </script>
+                    <script>
+                        $(".pdcBddCheckbo").click(function(){
+                        if (pdcBddCheckbo===true) {
+                            layerControlNumber.overlays["Points de charges (BDD)"].remove();
+                            pdcBddCheckbo=false;
+                        }
+                        else if (pdcBddCheckbo===false) {
+                            layerControlNumber.overlays["Points de charges (BDD)"].addTo(mapNumber);
+                            pdcBddCheckbo=true;
+                        }
+                        });
+                    </script>
+                </div>
+
+
+                <div>
+                    <input type="checkbox" class="covoiturageBddCheckbox" checked>
+                    <label for="covoiturageBddCheckbox">Points de covoiturage (BDD)</label>
+                    <script>
+                        if ($(".covoiturageBddCheckbox").is(':checked')) {var covoiturageBddCheckbox = true;} else {var covoiturageBddCheckbox = false;}
+                    </script>
+                    <script>
+                        $(".covoiturageBddCheckbox").click(function(){
+                        if (covoiturageBddCheckbox===true) {
+                            layerControlNumber.overlays["Points de covoiturages (BDD)"].remove();
+                            covoiturageBddCheckbox=false;
+                        }
+                        else if (covoiturageBddCheckbox===false) {
+                            layerControlNumber.overlays["Points de covoiturages (BDD)"].addTo(mapNumber);
+                            covoiturageBddCheckbox=true;
+                        }
+                        });
+                    </script>
+                </div>
+
+
         </div>
+
         
     <button type="button" class="collapsible">Etat du traffic</button>
                 <div class="content">
