@@ -135,7 +135,6 @@ else
     echo "<a class=\"add_item\" href=\"ajouter_un_produit.php?user=" . $user . "&password=" . $password . "&database=" . $database . "&table=" . $_POST['table'] . "\">Ajouter un item</a>";
 }
 ?>
-<a class="add_item" href="client.php?user=<?php echo $user; ?>&password=<?php echo $password; ?>&database=<?php echo $database; ?>&table=<?php echo $_POST['table']; ?>">filtre</a>
 
 </div>
 </div>

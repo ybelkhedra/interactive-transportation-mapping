@@ -32,20 +32,7 @@
             <script src="sources/map.js"></script>
             <script src="sources/mapHelper.js"></script>
             
-
-
-
-
-
-
             <div class="main_deroulant">
-
-
-                <div>
-                    <!-- bouton vers ./sources/crud/connection.php -->
-                    <a href="sources/crud/connection.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Connexion</a>
-                </div>
-
                 <button type="button" class="collapsible">Points statiques</button>
                 <div class="content">
                     <div>
@@ -188,29 +175,6 @@
 
 
                      
-    
-    
-        <button type="button" class="collapsible">Parking (BDD)</button>
-        <div class="content">
-        <input type="checkbox" class="parkingsBddCheckbox" checked>
-        <label for="parkingsBddCheckbox">Parking (BDD)</label>
-        <script>
-        if ($(".parkingsBddCheckbox").is(':checked')) {var parkingsBddCheckbox = true;} else {var parkingsBddCheckbox = false;}
-        </script>
-        <script>
-        $(".parkingsBddCheckbox").click(function(){
-        if (parkingsBddCheckbox===true) {
-        layerControlNumber.overlays["Parking (BDD)"].remove();
-        parkingsBddCheckbox=false;
-        }
-        else if (parkingsBddCheckbox===false) {
-        layerControlNumber.overlays["Parking (BDD)"].addTo(mapNumber);
-        parkingsBddCheckbox=true;
-        }
-        });
-        </script>
-        </div>
-        
     <button type="button" class="collapsible">Etat du traffic</button>
                 <div class="content">
                         <input type="checkbox" class="trafficCheckbox" unchecked>

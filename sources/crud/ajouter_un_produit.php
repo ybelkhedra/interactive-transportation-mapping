@@ -27,6 +27,12 @@ $link = mysqli_connect("localhost", $_GET['user'], $_GET['password'], $_GET['dat
 //recuperation de la liste des colones de la table selectionner
 $columns = mysqli_query($link, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '" . $_GET['database'] . "' AND TABLE_NAME = '" . $_GET['table'] . "' order by ORDINAL_POSITION;");
 ?>
+
+
+
+
+
+
 <!-- formulaire d'ajout d'item en fonction des colones de la table selectionnée  -->
 <form action="ajouter_un_produit.php" method="get">
     <?php
@@ -52,6 +58,10 @@ $columns = mysqli_query($link, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUM
     ?>
     <input type="submit" value="Ajouter">
 </form>
+
+
+
+
 
 <!-- Si le bouton ajouter est appuyer on ajoute les données à la table selectionnée -->
 <?php
@@ -90,12 +100,28 @@ if (isset($_GET['modifier'])) {
     // execution de la requete d'ajout
     if (mysqli_query($link, $query)) {
         echo "Item ajouté";
+
+        //recuperer l'id de l'item ajouter
+        $query = "SELECT MAX(id) FROM " . $_GET['table'] . ";";
+        $result = mysqli_query($link, $query);
+        $row = mysqli_fetch_array($result);
+        $id_table = $row[0];
+        
+        // formulaire POST vers ajout_emplacement.php avec info de connection, table et id_table
+        echo "<form action='ajout_emplacement.php' method='post'>";
+        echo "<input type='hidden' name='user' value='" . $user . "'>";
+        echo "<input type='hidden' name='password' value='" . $password . "'>";
+        echo "<input type='hidden' name='database' value='" . $database . "'>";
+        echo "<input type='hidden' name='table' value='" . $table . "'>";
+        echo "<input type='hidden' name='id_table' value='" . $id_table . "'>";
+        echo "<input type='submit' value='Ajouter un emplacement'>";
+
         //retour page precedente avec info connection
-        if (isset($_GET['add_product'])) {
-            echo "<a href='add_product.php?user=" . $user . "&password=" . $password . "&database=" . $database . "&table=" . $table . "&add_product=1'>Retour</a>";
-        } else {
+        //if (isset($_GET['add_product'])) {
+        //    echo "<a href='add_product.php?user=" . $user . "&password=" . $password . "&database=" . $database . "&table=" . $table . "&add_product=1'>Retour</a>";
+        //} else {
             //echo "<a href='crud.php?user=" . $user . "&password=" . $password . "&database=" . $database . "&table=" . $table . "'>Retour</a>";
-        }
+        //}
     }
     else
     {

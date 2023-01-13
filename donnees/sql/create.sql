@@ -20,7 +20,7 @@ ALTER TABLE emplacement_covoiturage
 DROP FOREIGN KEY emplacement_covoiturage_point_coordonnees_gps_id;
 
 ALTER TABLE emplacement_stationnement_velo
-DROP FOREIGN KEY emplacement_stationnement_velo_point_coordonnees_gps_id;;
+DROP FOREIGN KEY emplacement_stationnement_velo_point_coordonnees_gps_id;
 
 
 DROP TABLE IF EXISTS parkings;
@@ -37,6 +37,7 @@ DROP TABLE IF EXISTS emplacement_stationnement_velo;
 CREATE TABLE parkings (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 nom TEXT NOT NULL,
+nb_places INT NOT NULL,
 payant BOOL NOT NULL,
 handicape BOOL NOT NULL,
 hors_voirie BOOL NOT NULL,
@@ -92,3 +93,44 @@ ALTER TABLE emplacement_covoiturage ADD CONSTRAINT emplacement_covoiturage_point
 ALTER TABLE emplacement_covoiturage ADD CONSTRAINT emplacement_covoiturage_reference_points_de_covoiturages_id FOREIGN KEY (reference) REFERENCES points_de_covoiturages(id);
 ALTER TABLE emplacement_stationnement_velo ADD CONSTRAINT emplacement_stationnement_velo_point_coordonnees_gps_id FOREIGN KEY (point) REFERENCES coordonnees_gps(id);
 ALTER TABLE emplacement_stationnement_velo ADD CONSTRAINT emplacement_stationnement_velo_reference_stationnement_velo_id FOREIGN KEY (reference) REFERENCES stationnement_velo(id);
+
+
+DELIMITER $$
+CREATE TRIGGER delete_parking_emplacements_parkings 
+BEFORE DELETE ON parkings
+FOR EACH ROW 
+BEGIN
+    DELETE FROM emplacements_parkings WHERE reference = OLD.id;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE TRIGGER delete_pdc_emplacement_pdc 
+BEFORE DELETE ON points_de_charges
+FOR EACH ROW 
+BEGIN
+    DELETE FROM emplacement_pdc WHERE reference = OLD.id;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE TRIGGER delete_covoiturage_emplacement_covoiturage 
+BEFORE DELETE ON points_de_covoiturages
+FOR EACH ROW 
+BEGIN
+    DELETE FROM emplacement_covoiturage WHERE reference = OLD.id;
+END$$
+DELIMITER ;
+
+
+
+DELIMITER $$
+CREATE TRIGGER delete_stationnement_emplacement_stationnement 
+BEFORE DELETE ON stationnement_velo
+FOR EACH ROW 
+BEGIN
+    DELETE FROM emplacement_stationnement_velo WHERE reference = OLD.id;
+END$$
+DELIMITER ;
