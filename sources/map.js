@@ -174,25 +174,74 @@
             ).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
 
-            $.ajax({
-                url: '../donnees/json/chemins_lignes.json',
-                type: 'GET',
-                dataType: 'json',
-                success: function(data) {
+            // $.ajax({
+            //     url: '../donnees/json/chemins_lignes.json',
+            //     type: 'GET',
+            //     dataType: 'json',
+            //     success: function(data) {
+            //         $.each(data, function(key, val) {
+            //             // Récupération des valeurs de latitude et longitude
+            //             //inverser les coordonnées de val.fields.geo_shape.coordinates
+            //                 for (var i = 0; i < val.fields.geo_shape.coordinates.length; i++) {
+            //                     val.fields.geo_shape.coordinates[i].reverse();
+            //                 }
+            //                 if (val.fields.vehicule == "BUS")
+            //                     L.polyline(val.fields.geo_shape.coordinates, {color: 'blue'}).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
+            //                 else if (val.fields.vehicule == "TRAM")
+            //                     L.polyline(val.fields.geo_shape.coordinates, {color: 'red'}).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
+            //         });
+            //     }
+            // });
+
+
+            function numberToColorLeaflet(i) {
+                var r = (i * 4) % 256;
+                var g = (i * 7) % 256;
+                var b = (i * 13) % 256;
+
+                return [r,b,g];
+              }
+              
+function chemin_lignes(){
+
+            try {            
+                $.ajax({
+                    //url: "https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=sv_chem_l",
+                    url: '../donnees/json/sv_chem_l.json',
+                    type: 'GET',
+                    dataType: "json",
+                    cache: false,
+                    success: function(data) {
+
                     $.each(data, function(key, val) {
+                        //console.log("TEST : "+val.type+val.geometry.coordinates);
                         // Récupération des valeurs de latitude et longitude
-                        //inverser les coordonnées de val.fields.geo_shape.coordinates
-                            for (var i = 0; i < val.fields.geo_shape.coordinates.length; i++) {
-                                val.fields.geo_shape.coordinates[i].reverse();
+                        // inverser les coordonnées de val.fields.geo_shape.coordinates
+                            for (var i = 0; i < val.geo_shape.geometry.coordinates.length; i++) {
+                                val.geo_shape.geometry.coordinates[i].reverse();
                             }
-                            if (val.fields.vehicule == "BUS")
-                                L.polyline(val.fields.geo_shape.coordinates, {color: 'blue'}).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
-                            else if (val.fields.vehicule == "TRAM")
-                                L.polyline(val.fields.geo_shape.coordinates, {color: 'red'}).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
+                            var T = numberToColorLeaflet(val.rs_sv_ligne_a);
+                            var r = T[0];
+                            var g = T[1];
+                            var b = T[2];
+                            //console.log(r+" ,"+g+","+ b);
+                            if (val.vehicule == "BUS")
+                                L.polyline( val.geo_shape.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.vehicule + "<br>" +val.libelle + "<br>" +val.sens).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
+                            else if (val.vehicule == "TRAM")
+                                L.polyline(val.geo_shape.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.vehicule + "<br>" +val.libelle + "<br>" +val.sens).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
+                                
+
                     });
+                    
                 }
             });
+        }
+        catch(e){
+            console.log(e);
+        }
+}
 
+chemin_lignes();
 
 
             var feature_group_arrets_bus = L.featureGroup(
@@ -224,6 +273,49 @@
             });
 
 
+            
+            var feature_group_freefloating = L.featureGroup(
+                {}
+            ).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
+
+
+
+            try {
+                // récupération des données de position de bus et de tram en utilisant l'URL du WebService GeoJSON
+                
+                $.ajax({
+                    url: "https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=st_freefloating_p",
+                    dataType: "json",
+                    cache: false,
+                    success: function(data) {
+                
+                {
+                  // suppression des marqueurs existants de la carte
+                  feature_group_freefloating.eachLayer(function (layer) {
+                    if (layer instanceof L.Marker) {
+                        feature_group_freefloating.removeLayer(layer);
+                    }
+                  });
+                  // ajout de ligne de traffic chargé ou fluide
+                  $.each(data.features, function(key, val) {
+                        // Récupération des valeurs de latitude et longitude
+                        var latitude = parseFloat(val.geometry.coordinates[1]);
+                        var longitude = parseFloat(val.geometry.coordinates[0]);
+                        if (isNaN(latitude) || isNaN(longitude)) {
+                            return;
+                        }
+                        // Ajout d'un marker sur la carte
+                        L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'pink'})}).addTo(feature_group_freefloating);
+                    });
+                }
+
+                    }
+                });
+                }   
+                catch (e) {
+                    console.log(e);
+                }
+            
             
 
 
@@ -271,7 +363,6 @@
             fetch('./sources/requetes/parkings.php')
             .then(response => response.json())
             .then(data => {
-              console.log(data);
               data.forEach(function(parking) {
                     var marker = L.marker([parking.latitude, parking.longitude]).addTo(feature_group_parkings_bdd);
                     marker.bindPopup(parking.nom + "<br>" + parking.nb_places + " places disponibles <br>" + parking.informations_complementaires + "<br> PAYANT : " + parking.payant + "<br> HANDICAPE : " + parking.handicape+ "<br> HORS VOIRIE : " + parking.hors_voirie);
@@ -284,7 +375,6 @@
             fetch('./sources/requetes/points_de_charges.php')
             .then(response => response.json())
             .then(data => {
-              console.log(data);
               data.forEach(function(pdc) {
                     var marker = L.marker([pdc.latitude, pdc.longitude]).addTo(feature_group_pdc_bdd);
                     marker.bindPopup(pdc.nom + "<br> PAYANT : " + pdc.payant + "<br> PRIVE : " + pdc.prive);
@@ -297,7 +387,6 @@
             fetch('./sources/requetes/points_de_covoiturages.php')
             .then(response => response.json())
             .then(data => {
-              console.log(data);
               data.forEach(function(covoiturage) {
                     var marker = L.marker([covoiturage.latitude, covoiturage.longitude]).addTo(feature_group_covoiturage_bdd);
                     marker.bindPopup(covoiturage.nom + "<br> Informations complémentaires : " + covoiturage.informations_complementaires);
@@ -309,12 +398,6 @@
         }
 
         updateMarkersVehicule();
-    
-        setInterval(
-          function() {
-            updateBdd();
-            console.log("mise à jour des marqueurs de la Bdd");
-          }, 5000);
           
 
 
@@ -360,7 +443,7 @@
                         error++;
                     }
                     });
-                    console.log("success : " + success + " error : " + error + "données datant du : " + data.features[0].properties.mdate);
+                    //console.log("success : " + success + " error : " + error + "données datant du : " + data.features[0].properties.mdate);
                 }
                     }
                 });
@@ -377,7 +460,6 @@
               setInterval(
                 function() {
                     updateMarkersVehicule();
-                  console.log("mise à jour des marqueurs");
                 }, 10000);
     
 
@@ -443,7 +525,6 @@
                     setInterval(
                     function() {
                         updateMarkersTraffic();
-                        console.log("mise à jour du traffic");
                     }, 20000);
 
 
@@ -475,6 +556,7 @@
                 },
 
                 overlays :  {
+                    "Points de freefloating" : feature_group_freefloating,
 
                     "Points de covoiturages (BDD)" : feature_group_covoiturage_bdd,
 
@@ -515,3 +597,23 @@
 
             ).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
+//get element by id index.html class="loader"
+function chargement(bool) {
+    return new Promise(function(resolve, reject) {
+        var loader = document.getElementsByClassName("container")[0];
+        if(!loader){
+            console.log("Loading element not found");
+            reject();
+        }
+        if (bool) {
+            loader.style.display = "block";
+            setTimeout(function() {
+                resolve();
+            }, 2000);
+        }
+        else {
+            loader.style.display = "none";
+            resolve();
+        }
+    });
+}

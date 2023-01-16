@@ -21,25 +21,33 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="css/index_style.css"/>
+
+
         
 </head>
 <body>
-    
+
+   
             <div class="folium-map" id="map_5c3862ba13c7e615013e758f79b1f9bb" >
                 <div class="loader"></div> 
+                <div class="container">
+                    <div class="item item-1"></div>
+                    <div class="item item-2"></div>
+                    <div class="item item-3"></div>
+                    <div class="item item-4"></div>
+                  </div>
             </div>
 
+       
             <script src="sources/map.js"></script>
             <script src="sources/mapHelper.js"></script>
-            
-
-
 
 
 
 
             <div class="main_deroulant">
 
+  
 
                 <div>
                     <!-- bouton vers ./sources/crud/connection.php -->
@@ -55,14 +63,20 @@
                         if ($(".parkingCheckbox").is(':checked')) {var parkingCheckbox = true;} else {var parkingCheckbox = false;}
                         </script>
                         <script> 
-                            $(".parkingCheckbox").click(function(){ 
-                            if (parkingCheckbox===true) { 
-                                layerControlNumber.overlays["Parking"].remove(); // Si au click, la checkbox est true, il faut alors enlever le contenu
-                                parkingCheckbox=false}
-                            else if (parkingCheckbox===false) {
-                                layerControlNumber.overlays["Parking"].addTo(mapNumber); // Sinon, on rajoute le contenu
-                                parkingCheckbox=true}
-                        });
+                            $(".parkingCheckbox").click(function(){
+                                chargement(1).then(function() {
+                                    if (parkingCheckbox===true) { 
+                                        layerControlNumber.overlays["Parking"].remove(); // Si au click, la checkbox est true, il faut alors enlever le contenu
+                                        parkingCheckbox=false}
+                                    else if (parkingCheckbox===false) {
+                                        layerControlNumber.overlays["Parking"].addTo(mapNumber); // Sinon, on rajoute le contenu
+                                        parkingCheckbox=true}
+                                return chargement(0);
+                                })
+                                .catch(function() {
+                                    console.log("Loading element not found");
+                                });
+                            });
                         </script>
                     </div>
 
@@ -72,14 +86,20 @@
                         <script> 
                         if ($(".pointDeChargeCheckbox").is(':checked')) {var pointDeChargeCheckbox = true;} else {var pointDeChargeCheckbox = false;}
                         </script>
-                        <script> $(".pointDeChargeCheckbox").click(function(){ 
-                            if (pointDeChargeCheckbox===true) { 
-                                layerControlNumber.overlays["Points de charge"].remove();
-                                pointDeChargeCheckbox=false;}
-                            else if (pointDeChargeCheckbox===false) {
-                                layerControlNumber.overlays["Points de charge"].addTo(mapNumber);
-                                pointDeChargeCheckbox=true;}
-                        }); 
+                        <script> $(".pointDeChargeCheckbox").click(function(){
+                            chargement(1).then(function() {
+                                if (pointDeChargeCheckbox===true) { 
+                                    layerControlNumber.overlays["Points de charge"].remove();
+                                    pointDeChargeCheckbox=false;}
+                                else if (pointDeChargeCheckbox===false) {
+                                    layerControlNumber.overlays["Points de charge"].addTo(mapNumber);
+                                    pointDeChargeCheckbox=true;}
+                            return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
                         </script>
                     </div>
                     <div>
@@ -88,14 +108,21 @@
                         <script>
                         if ($(".covoiturageCheckbox").is(':checked')) {var covoiturageCheckbox = true;} else {var covoiturageCheckbox = false;}
                         </script>
-                        <script> $(".covoiturageCheckbox").click(function(){ 
-                            if (covoiturageCheckbox===true) { 
-                                layerControlNumber.overlays["Covoiturage"].remove();
-                                covoiturageCheckbox=false;}
-                            else if (covoiturageCheckbox===false) {
-                                layerControlNumber.overlays["Covoiturage"].addTo(mapNumber);
-                                covoiturageCheckbox=true;}
-                        }); 
+                        <script> $(".covoiturageCheckbox").click(function(){
+                            chargement(1).then(function() {
+                                if (covoiturageCheckbox===true) { 
+                                    layerControlNumber.overlays["Covoiturage"].remove();
+                                    covoiturageCheckbox=false;}
+                                else if (covoiturageCheckbox===false) {
+                                    layerControlNumber.overlays["Covoiturage"].addTo(mapNumber);
+                                    covoiturageCheckbox=true;
+                                }
+                                return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
                         </script>
                     </div>
                     <div>
@@ -104,16 +131,89 @@
                         <script>
                         if ($(".autopartageCheckbox").is(':checked')) {var autopartageCheckbox = true;} else {var autopartageCheckbox = false;}
                         </script>
-                        <script> $(".autopartageCheckbox").click(function(){ 
-                            if (autopartageCheckbox===true) { 
-                                layerControlNumber.overlays["Autopartage"].remove();
-                                autopartageCheckbox=false;}
-                            else if (autopartageCheckbox===false) {
-                                layerControlNumber.overlays["Autopartage"].addTo(mapNumber);
-                                autopartageCheckbox=true;}
-                        }); 
+                        <script> 
+                            $(".autopartageCheckbox").click(function(){
+                            chargement(1).then(function() {
+                                if (autopartageCheckbox===true) { 
+                                    layerControlNumber.overlays["Autopartage"].remove();
+                                    autopartageCheckbox=false;}
+                                else if (autopartageCheckbox===false) {
+                                    layerControlNumber.overlays["Autopartage"].addTo(mapNumber);
+                                    autopartageCheckbox=true;
+                                }
+                                return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
                         </script>
                     </div>
+
+                    <div>
+                            <input type="checkbox" class="arretBusCheckbox" unchecked>
+                            <script>
+                                layerControlNumber.overlays["Arrets de bus"].remove();
+                                </script>
+                            <label for="arretBusCheckbox">Arrets de bus</label>
+                            <script>
+                            if ($(".arretBusCheckbox").is(':checked')) {var arretBusCheckbox = true;} else {var arretBusCheckbox = false;}
+                            </script>
+                            <script> 
+
+                                $(".arretBusCheckbox").click(function(){
+                                    chargement(1)
+                                    .then(function() {
+                                        if (arretBusCheckbox===true) { 
+                                            layerControlNumber.overlays["Arrets de bus"].remove();
+                                            arretBusCheckbox=false;
+                                        }
+                                        else if (arretBusCheckbox===false) {
+                                            layerControlNumber.overlays["Arrets de bus"].addTo(mapNumber);
+                                            arretBusCheckbox=true;
+                                        }
+                                    return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
+                                });                           
+                                           
+                            </script>
+                    </div> 
+
+                    <div>
+                            <input type="checkbox" class="freefloatingCheckbox" unchecked>
+                            <script>
+                                layerControlNumber.overlays["Points de freefloating"].remove();
+                                </script>
+                            <label for="freefloatingCheckbox">Points de freefloating</label>
+                            <script>
+                            if ($(".freefloatingCheckbox").is(':checked')) {var freefloatingCheckbox = true;} else {var freefloatingCheckbox = false;}
+                            </script>
+                            <script> 
+                                $(".freefloatingCheckbox").click(function(){
+                                    chargement(1).then(function() {
+                                        if (freefloatingCheckbox===true) { 
+                                            layerControlNumber.overlays["Points de freefloating"].remove();
+                                            freefloatingCheckbox=false;
+                                        }
+                                        else if (freefloatingCheckbox===false) {
+                                            layerControlNumber.overlays["Points de freefloating"].addTo(mapNumber);
+                                            freefloatingCheckbox=true;
+                                        }
+                                    return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
+                                });
+                            </script>
+                    
+                </div>
+
+
+                    
                 </div>
 
                 <button type="button" class="collapsible">Lignes statiques</button>
@@ -123,65 +223,86 @@
                         <script>
                         if ($(".ligneDeTransportCheckbox").is(':checked')) {var ligneDeTransportCheckbox = true;} else {var ligneDeTransportCheckbox = false;}
                         </script>
-                        <script> $(".ligneDeTransportCheckbox").click(function(){ 
-                            if (ligneDeTransportCheckbox===true) { 
-                                layerControlNumber.overlays["Lignes de transport"].remove();
-                                ligneDeTransportCheckbox=false;}
-                            else if (ligneDeTransportCheckbox===false) {
-                                layerControlNumber.overlays["Lignes de transport"].addTo(mapNumber);
-                                ligneDeTransportCheckbox=true;}
-                        }); 
+                        <script> $(".ligneDeTransportCheckbox").click(function(){
+                            chargement(1).then(function() {
+                                if (ligneDeTransportCheckbox===true) { 
+                                    layerControlNumber.overlays["Lignes de transport"].remove();
+                                    ligneDeTransportCheckbox=false;}
+                                else if (ligneDeTransportCheckbox===false) {
+                                    layerControlNumber.overlays["Lignes de transport"].addTo(mapNumber);
+                                    ligneDeTransportCheckbox=true;}
+                                return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
                         </script>
                 </div> 
 
 
                 <button type="button" class="collapsible">Trafic temps reel</button>
                 <div class="content">
+                    <div>
                         <input type="checkbox" class="busTempsReelCheckbox" checked>
                         <label for="busTempsReelCheckbox">Bus en temps reel</label>
                         <script>
                         if ($(".busTempsReelCheckbox").is(':checked')) {var busTempsReelCheckbox = true;} else {var busTempsReelCheckbox = false;}
                         </script>
                         <script> 
-                            $(".busTempsReelCheckbox").click(function(){ 
-                            if (busTempsReelCheckbox===true) { 
-                                layerControlNumber.overlays["Bus en temps reel"].remove();
-                                busTempsReelCheckbox=false;
-                            }
-                            else if (busTempsReelCheckbox===false) {
-                                layerControlNumber.overlays["Bus en temps reel"].addTo(mapNumber);
-                                busTempsReelCheckbox=true;
-                            }
-                        }); 
+                            $(".busTempsReelCheckbox").click(function(){
+                                chargement(1).then(function() {
+                                    if (busTempsReelCheckbox===true) { 
+                                        layerControlNumber.overlays["Bus en temps reel"].remove();
+                                        busTempsReelCheckbox=false;
+                                    }
+                                    else if (busTempsReelCheckbox===false) {
+                                        layerControlNumber.overlays["Bus en temps reel"].addTo(mapNumber);
+                                        busTempsReelCheckbox=true;
+                                    }
+                                return chargement(0);
+                                })
+                                .catch(function() {
+                                    console.log("Loading element not found");
+                                });
+                            });
                         </script>
                 </div> 
-
-
-
-
-                <button type="button" class="collapsible">Arrets de bus</button>
-                <div class="content">
-                        <input type="checkbox" class="arretBusCheckbox" unchecked>
+                <div>
+                        <input type="checkbox" class="trafficCheckbox" unchecked>
                         <script>
-                            layerControlNumber.overlays["Arrets de bus"].remove();
+                            layerControlNumber.overlays["Etat du traffic"].remove();
                             </script>
-                        <label for="arretBusCheckbox">Arrets de bus</label>
+                        <label for="trafficCheckbox">Etat du traffic</label>
                         <script>
-                        if ($(".arretBusCheckbox").is(':checked')) {var arretBusCheckbox = true;} else {var arretBusCheckbox = false;}
+                        if ($(".trafficCheckbox").is(':checked')) {var trafficCheckbox = true;} else {var trafficCheckbox = false;}
                         </script>
                         <script> 
-                            $(".arretBusCheckbox").click(function(){ 
-                            if (arretBusCheckbox===true) { 
-                                layerControlNumber.overlays["Arrets de bus"].remove();
-                                arretBusCheckbox=false;
-                            }
-                            else if (arretBusCheckbox===false) {
-                                layerControlNumber.overlays["Arrets de bus"].addTo(mapNumber);
-                                arretBusCheckbox=true;
-                            }
-                        }); 
+                            $(".trafficCheckbox").click(function(){
+                                chargement(1).then(function() {
+                                    if (trafficCheckbox===true) { 
+                                        layerControlNumber.overlays["Etat du traffic"].remove();
+                                        trafficCheckbox=false;
+                                    }
+                                    else if (trafficCheckbox===false) {
+                                        layerControlNumber.overlays["Etat du traffic"].addTo(mapNumber);
+                                        trafficCheckbox=true;
+                                    }
+                                return chargement(0);
+                                })
+                                .catch(function() {
+                                    console.log("Loading element not found");
+                                });
+                            });
                         </script>
                 </div> 
+                </div>
+
+
+
+
+
+
 
 
 
@@ -203,17 +324,22 @@
                 </script>
                 <script>
                 $(".parkingsBddCheckbox").click(function(){
-                if (parkingsBddCheckbox===true) {
-                layerControlNumber.overlays["Parking (BDD)"].remove();
-                parkingsBddCheckbox=false;
-                }
-                else if (parkingsBddCheckbox===false) {
-                layerControlNumber.overlays["Parking (BDD)"].addTo(mapNumber);
-                parkingsBddCheckbox=true;
-                }
+                    chargement(1).then(function(){
+                        if (parkingsBddCheckbox===true) {
+                            layerControlNumber.overlays["Parking (BDD)"].remove();
+                            parkingsBddCheckbox=false;
+                        }
+                        else if (parkingsBddCheckbox===false) {
+                            layerControlNumber.overlays["Parking (BDD)"].addTo(mapNumber);
+                            parkingsBddCheckbox=true;
+                        }
+                    return chargement(0);
+                    })
+                    .catch(function() {
+                        console.log("Loading element not found");
+                    });
                 });
-                </script>
-        
+                </script>       
                 </div>  
                 
                 
@@ -225,14 +351,20 @@
                     </script>
                     <script>
                         $(".pdcBddCheckbo").click(function(){
-                        if (pdcBddCheckbo===true) {
-                            layerControlNumber.overlays["Points de charges (BDD)"].remove();
-                            pdcBddCheckbo=false;
-                        }
-                        else if (pdcBddCheckbo===false) {
-                            layerControlNumber.overlays["Points de charges (BDD)"].addTo(mapNumber);
-                            pdcBddCheckbo=true;
-                        }
+                            chargement(1).then(function(){
+                                if (pdcBddCheckbo===true) {
+                                    layerControlNumber.overlays["Points de charges (BDD)"].remove();
+                                    pdcBddCheckbo=false;
+                                }
+                                else if (pdcBddCheckbo===false) {
+                                    layerControlNumber.overlays["Points de charges (BDD)"].addTo(mapNumber);
+                                    pdcBddCheckbo=true;
+                                }
+                            return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
                         });
                     </script>
                 </div>
@@ -246,51 +378,33 @@
                     </script>
                     <script>
                         $(".covoiturageBddCheckbox").click(function(){
-                        if (covoiturageBddCheckbox===true) {
-                            layerControlNumber.overlays["Points de covoiturages (BDD)"].remove();
-                            covoiturageBddCheckbox=false;
-                        }
-                        else if (covoiturageBddCheckbox===false) {
-                            layerControlNumber.overlays["Points de covoiturages (BDD)"].addTo(mapNumber);
-                            covoiturageBddCheckbox=true;
-                        }
+                            chargement(1).then(function(){
+                                if (covoiturageBddCheckbox===true) {
+                                    layerControlNumber.overlays["Points de covoiturages (BDD)"].remove();
+                                    covoiturageBddCheckbox=false;
+                                }
+                                else if (covoiturageBddCheckbox===false) {
+                                    layerControlNumber.overlays["Points de covoiturages (BDD)"].addTo(mapNumber);
+                                    covoiturageBddCheckbox=true;
+                                }
+                            return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
                         });
                     </script>
                 </div>
-
-
         </div>
 
+
+
+
+
+
+
         
-    <button type="button" class="collapsible">Etat du traffic</button>
-                <div class="content">
-                        <input type="checkbox" class="trafficCheckbox" unchecked>
-                        <script>
-                            layerControlNumber.overlays["Etat du traffic"].remove();
-                            </script>
-                        <label for="trafficCheckbox">Etat du traffic</label>
-                        <script>
-                        if ($(".trafficCheckbox").is(':checked')) {var trafficCheckbox = true;} else {var trafficCheckbox = false;}
-                        </script>
-                        <script> 
-                            $(".trafficCheckbox").click(function(){ 
-                            if (trafficCheckbox===true) { 
-                                layerControlNumber.overlays["Etat du traffic"].remove();
-                                trafficCheckbox=false;
-                            }
-                            else if (trafficCheckbox===false) {
-                                layerControlNumber.overlays["Etat du traffic"].addTo(mapNumber);
-                                trafficCheckbox=true;
-                            }
-                        }); 
-                        </script>
-                </div> 
-
-
-
-
-
-            </div>
+   
 
                 <script>
                     // Script qui gère les menus déroulants
