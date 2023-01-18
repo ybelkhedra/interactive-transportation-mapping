@@ -157,6 +157,13 @@ if (isset($_POST['table'])) {
 
 echo " ";
 echo "<a class=\"add_item\" href=\"../../index.html" . "\">Carte</a>";
+echo " ";
+echo "<form action=\"ajout_automatique/json_import.php\" method=\"post\">";
+echo "<input type=\"hidden\" name=\"user\" value=\"" . $user . "\">";
+echo "<input type=\"hidden\" name=\"password\" value=\"" . $password . "\">";
+echo "<input type=\"hidden\" name=\"database\" value=\"" . $database . "\">";
+echo "<input type=\"submit\" value=\"Importer un Json\">";
+echo "</form>";
 ?>
 
 </div>
