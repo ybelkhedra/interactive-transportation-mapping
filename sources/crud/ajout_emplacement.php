@@ -18,6 +18,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <script src="../addCoordinatesLine.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
@@ -38,6 +39,29 @@
 </head>
 
 <body>
+
+<script>
+    var nbCords = 1;
+    function addCoords() {
+        addCoordinatesLine(nbCords);
+        ++nbCords;
+    }
+
+    function removeCoords(el) {
+        if (nbCords > 1) {
+            removeCoordinatesLine(el);
+            --nbCords;
+        }
+    }
+
+    function getNbCords() {
+        return nbCords;
+    }
+
+    function resetNbCoords() {
+        nbCords = 1;
+    }
+</script>
 
 <?php
 //recupere info de connection
@@ -73,9 +97,15 @@ $longitude = 0;
             //console.log(e);
             marker.setLatLng(e.latlng);
         
-            // fill the form inputs with the coordinates 
-            document.getElementById("latitude").value = e.latlng.lat;
-            document.getElementById("longitude").value = e.latlng.lng;
+            // fill the form inputs with the coordinates
+            if (getNbCords() == 1) {
+                document.getElementById("latitude").value = e.latlng.lat;
+                document.getElementById("longitude").value = e.latlng.lng;
+            } else {
+                i = getNbCords() - 1;
+                document.getElementById("latitude" + i).value = e.latlng.lat;
+                document.getElementById("longitude" + i).value = e.latlng.lng;
+            }
         });
 
 </script>
@@ -84,6 +114,8 @@ $longitude = 0;
 
 // bouton pour valider l'ajout de coordonnée
 echo "<form action='ajout_emplacement.php' method='post'>";
+echo "<div id = 'add-coordinates'>";
+echo "<div class='form-line'>";
 echo "<input type='hidden' name='user' value='$user'>";
 echo "<input type='hidden' name='password' value='$password'>";
 echo "<input type='hidden' name='database' value='$database'>";
@@ -94,6 +126,9 @@ echo "<label for='latitude'>Latitude</label>";
 echo "<input type='text' name='latitude' id='latitude' value='44.79517'>";
 echo "<label for='longitude'>Longitude</label>";
 echo "<input type='text' name='longitude' id='longitude' value='-0.603537'>";
+echo "</div>";
+echo "</div>";
+echo "<input type='button' value='+' id='add-coordinates-button' onClick = 'addCoords()'>";
 echo "<br>";
 echo "<input type='hidden' name='ajout' value='oui'>";
 echo "<input type='submit' value='Ajouter'>";
@@ -103,50 +138,68 @@ echo "</form>";
 if (isset($_POST['ajout'])) {
     $conn = mysqli_connect("localhost", $_POST['user'], $_POST['password'], $_POST['database']);
 
-    echo "ajout en cours ...";
     // recupere les coordonnées
     $latitude = $_POST['latitude'];
     $longitude = $_POST['longitude'];
-    // ajoute les coordonnées dans la table coordonnees_gps
-    $sql1 = "INSERT INTO coordonnees_gps (latitude, longitude) VALUES ('$latitude', '$longitude');";
-    echo $sql1;
-    if (mysqli_query($conn, $sql1)) {
-        echo "New record created successfully";
 
-        // recupere l'id de la derniere coordonnée ajoutée
-        $last_id_gps = mysqli_insert_id($conn);
-        echo "id de la derniere coordonnée ajoutée : $last_id_gps";
-        echo "TABLE : $table";
-        if ($table == "parkings")
-        {
+    $sql1 = "INSERT INTO coordonnees_gps (latitude, longitude) VALUES ('$latitude', '$longitude');";
+
+    switch ($table) {
+        case "parkings":
             $table_corespondance = "emplacements_parkings";
-        }
-        else if ($table == "points_de_charges")
-        {
+            break;
+        case "points_de_charges":
             $table_corespondance = "emplacement_pdc";
-        }
-        else if ($table == "stationnement_velo")
-        {
+            break;
+        case "stationnement_velo":
             $table_corespondance = "emplacement_stationnement_velo";
-        }
-        else if ($table == "points_de_covoiturages")
-        {
+            break;
+        case "points_de_covoiturages":
             $table_corespondance = "emplacement_covoiturage";
-        }
-        $last_id = $_POST['id_table'];
-        echo "id de la derniere entrée dans parking ajoutée : $last_id";
-        // ajoute l'id de la coordonnée dans la table emplacement
-        $sql2 = "INSERT INTO $table_corespondance (point, reference) VALUES ('$last_id_gps', '$last_id');";
-        echo $sql2;
-        if (mysqli_query($conn, $sql2)) {
+            break;
+        default:
+            $table_corespondance = "emplacement_pdc";
+    }
+
+    // ajoute les coordonnées dans la table coordonnees_gps
+
+
+    $k = 0;
+
+    echo $_POST['latitude1'];
+    echo $_POST['longitude1'];
+    echo $_POST['latitude'];
+    
+    while (isset($_POST['latitude'.$k]) || $k == 0) {
+        if (mysqli_query($conn, $sql1)) {
+
+            echo 'latitude' . $k;
+
+            if ($k > 0 ){
+                $latitude = $_POST['latitude'.$k];
+                $longitude = $_POST['longitude'.$k];
+            }
+
+            $k++;
+
             echo "New record created successfully";
+
+            // recupere l'id de la derniere coordonnée ajoutée
+            $last_id_gps = mysqli_insert_id($conn);
+
+            $last_id = $_POST['id_table'];
+
+            // ajoute l'id de la coordonnée dans la table emplacement
+            $sql2 = "INSERT INTO $table_corespondance (point, reference) VALUES ('$last_id_gps', '$last_id');";
+
+            if (mysqli_query($conn, $sql2)) {
+                echo "New record created successfully";
+            } else {
+                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            }
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
-        //bouton retour vers crud post info de conneciton
-
-    } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
 
     echo "<form action='crud.php' method='post'>";
@@ -154,6 +207,7 @@ if (isset($_POST['ajout'])) {
     echo "<input type='hidden' name='password' value='$password'>";
     echo "<input type='hidden' name='database' value='$database'>";
     echo "<input type='hidden' name='table' value='$table'>";
+    //bouton retour vers crud post info de conneciton
     echo "<input type='submit' value='Retour'>";
 }
 
