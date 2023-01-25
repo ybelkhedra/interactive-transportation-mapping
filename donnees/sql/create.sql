@@ -39,8 +39,8 @@ ALTER TABLE situer_lignes DROP FOREIGN KEY situer_lignes_id_lignes_id;
 ALTER TABLE situer_lignes DROP FOREIGN KEY situer_lignes_column_2_coordonnees_lignes_id;
 ALTER TABLE lignes DROP FOREIGN KEY lignes_type_types_lignes_id;
 ALTER TABLE autoriser DROP FOREIGN KEY autoriser_vehicule_vehicules_freefloating_id;
-ALTER TABLE installer DROP FOREIGN KEY installer_column_2_types_accroches_velo_id;
-ALTER TABLE installer DROP FOREIGN KEY installer_id_stations_velo_id;
+ALTER TABLE installer DROP FOREIGN KEY installer_type_accroche_types_accroches_velo_id;
+ALTER TABLE installer DROP FOREIGN KEY installer_station_velo_stations_velo_id;
 
 
 
@@ -201,7 +201,8 @@ nom TEXT NOT NULL);
 
 CREATE TABLE installer (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
-column_2 INT NOT NULL);
+station_velo INT NOT NULL,
+type_accroche INT NOT NULL);
 
 CREATE TABLE pistes_velo (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
@@ -386,8 +387,8 @@ ALTER TABLE situer_pts_covoit ADD CONSTRAINT situer_pts_covoit_point_de_covoitur
 ALTER TABLE situer_pts_covoit ADD CONSTRAINT situer_pts_covoit_coordonnee_coordonnees_pts_covoit_id FOREIGN KEY (coordonnee) REFERENCES coordonnees_pts_covoit(id);
 ALTER TABLE situer_stations_velo ADD CONSTRAINT situer_stations_velo_pt_velo_stations_velo_id FOREIGN KEY (pt_velo) REFERENCES stations_velo(id);
 ALTER TABLE situer_stations_velo ADD CONSTRAINT situer_stations_velo_coordonnee_coordonnees_stations_velo_id FOREIGN KEY (coordonnee) REFERENCES coordonnees_stations_velo(id);
-ALTER TABLE installer ADD CONSTRAINT installer_id_stations_velo_id FOREIGN KEY (id) REFERENCES stations_velo(id);
-ALTER TABLE installer ADD CONSTRAINT installer_column_2_types_accroches_velo_id FOREIGN KEY (column_2) REFERENCES types_accroches_velo(id);
+ALTER TABLE installer ADD CONSTRAINT installer_station_velo_stations_velo_id FOREIGN KEY (station_velo) REFERENCES stations_velo(id);
+ALTER TABLE installer ADD CONSTRAINT installer_type_accroche_types_accroches_velo_id FOREIGN KEY (type_accroche) REFERENCES types_accroches_velo(id);
 ALTER TABLE pistes_velo ADD CONSTRAINT pistes_velo_type_piste_types_pistes_velo_id FOREIGN KEY (type_piste) REFERENCES types_pistes_velo(id);
 ALTER TABLE situer_pistes_velo ADD CONSTRAINT situer_pistes_velo_piste_velo_pistes_velo_id FOREIGN KEY (piste_velo) REFERENCES pistes_velo(id);
 ALTER TABLE situer_pistes_velo ADD CONSTRAINT situer_pistes_velo_coordonnee_coordonnees_pistes_velo_id FOREIGN KEY (coordonnee) REFERENCES coordonnees_pistes_velo(id);
@@ -416,4 +417,5 @@ ALTER TABLE situer_lignes ADD CONSTRAINT situer_lignes_id_lignes_id FOREIGN KEY 
 ALTER TABLE situer_lignes ADD CONSTRAINT situer_lignes_column_2_coordonnees_lignes_id FOREIGN KEY (column_2) REFERENCES coordonnees_lignes(id);
 ALTER TABLE desservir ADD CONSTRAINT desservir_arret_arrets_id FOREIGN KEY (arret) REFERENCES arrets(id);
 ALTER TABLE desservir ADD CONSTRAINT desservir_ligne_lignes_id FOREIGN KEY (ligne) REFERENCES lignes(id);
+
 

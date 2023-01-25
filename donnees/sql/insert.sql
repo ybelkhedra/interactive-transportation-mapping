@@ -20,7 +20,11 @@ INSERT INTO coordonnees_stations_velo (latitude, longitude) VALUES (48.856614, 2
 INSERT INTO situer_stations_velo (pt_velo, coordonnee) VALUES (1, 1);
 
 INSERT INTO types_accroches_velo (nom) VALUES ('Vélo classique');
-INSERT INTO installer (id, column_2) VALUES (1, 1);
+INSERT INTO types_accroches_velo (nom) VALUES ('Vélo autre');
+
+INSERT INTO installer (station_velo, type_accroche) VALUES (1, 1);
+INSERT INTO installer (station_velo, type_accroche) VALUES (1, 2);
+
 
 INSERT INTO types_pistes_velo (nom) VALUES ('piste cyclable');
 INSERT INTO pistes_velo (type_piste, info_complementaires) VALUES (1, 'piste cyclable');
