@@ -12,13 +12,10 @@ ALTER TABLE situer_pts_covoit DROP FOREIGN KEY situer_pts_covoit_point_de_covoit
 ALTER TABLE situer_pts_covoit DROP FOREIGN KEY situer_pts_covoit_coordonnee_coordonnees_pts_covoit_id;
 ALTER TABLE situer_stations_velo DROP FOREIGN KEY situer_stations_velo_pt_velo_stations_velo_id;
 ALTER TABLE situer_stations_velo DROP FOREIGN KEY situer_stations_velo_coordonnee_coordonnees_stations_velo_id;
-ALTER TABLE installer DROP FOREIGN KEY installer_pt_velo_stations_velo_id;
-ALTER TABLE installer DROP FOREIGN KEY installer_type_accroche_velo_types_accroches_velo_id;
 ALTER TABLE pistes_velo DROP FOREIGN KEY pistes_velo_type_piste_types_pistes_velo_id;
 ALTER TABLE situer_pistes_velo DROP FOREIGN KEY situer_pistes_velo_piste_velo_pistes_velo_id;
 ALTER TABLE situer_pistes_velo DROP FOREIGN KEY situer_pistes_velo_coordonnee_coordonnees_pistes_velo_id;
 ALTER TABLE lignes_cars DROP FOREIGN KEY lignes_cars_depart_arrets_cars_id;
-ALTER TABLE lignes_cars DROP FOREIGN KEY lignes_cars_arrivee_arrets_cars_id;
 ALTER TABLE situer_lignes_cars DROP FOREIGN KEY situer_lignes_cars_ligne_car_lignes_cars_id;
 ALTER TABLE situer_lignes_cars DROP FOREIGN KEY situer_lignes_cars_coordonnee_coordonnees_lignes_cars_id;
 ALTER TABLE situer_arrets_cars DROP FOREIGN KEY situer_arrets_cars_arret_car_arrets_cars_id;
@@ -30,40 +27,22 @@ ALTER TABLE siter_gares_ter DROP FOREIGN KEY siter_gares_ter_coordonnee_coordonn
 ALTER TABLE situer_pt_freefloat DROP FOREIGN KEY situer_pt_freefloat_pt_freefloat_pt_freefloat_id;
 ALTER TABLE situer_pt_freefloat DROP FOREIGN KEY situer_pt_freefloat_coordonnee_coordonnees_pt_freefloat_id;
 ALTER TABLE autoriser DROP FOREIGN KEY autoriser_pt_freefloat_pt_freefloat_id;
-ALTER TABLE autoriser DROP FOREIGN KEY autoriser_type_de_prise_types_de_prises_id;
-ALTER TABLE situer_stations_vcube DROP FOREIGN KEY situer_stations_velo_station_velo_stations_velo_id;
-ALTER TABLE situer_stations_vcube DROP FOREIGN KEY situer_stations_velo_coordonnee_coordonnees_stations_velo_id;
 ALTER TABLE arrets DROP FOREIGN KEY arrets_station_vcube_proximite_stations_vcube_id;
 ALTER TABLE situer_arrets DROP FOREIGN KEY situer_arrets_arret_arrets_id;
 ALTER TABLE situer_arrets DROP FOREIGN KEY situer_arrets_coordonnee_coordonnees_arrets_id;
 ALTER TABLE lignes DROP FOREIGN KEY lignes_direction_arrets_id;
-ALTER TABLE lignes DROP FOREIGN KEY lignes_depart_arrets_id;
-ALTER TABLE situer_lignes DROP FOREIGN KEY situer_lignes_ligne_lignes_id;
-ALTER TABLE situer_lignes DROP FOREIGN KEY situer_lignes_coordonnee_coordonnees_lignes_id;
 ALTER TABLE desservir DROP FOREIGN KEY desservir_ligne_lignes_id;
 ALTER TABLE desservir DROP FOREIGN KEY desservir_arret_arrets_id;
-ALTER TABLE points_de_recharges DROP FOREIGN KEY points_de_recharges_parking_correspondant_parkings_id;
-ALTER TABLE points_de_covoiturage DROP FOREIGN KEY points_de_covoiturage_parking_correspondant_parkings_id;
-ALTER TABLE vehicules_freefloating DROP FOREIGN KEY autoriser_vehicule_vehicules_freefloating_id;
 ALTER TABLE situer_stations_vcube DROP FOREIGN KEY situer_stations_vcube_station_vcube_stations_vcube_id;
 ALTER TABLE situer_stations_vcube DROP FOREIGN KEY situer_stations_vcube_coordonnee_coordonnees_stations_vcube_id;
 ALTER TABLE situer_lignes DROP FOREIGN KEY situer_lignes_id_lignes_id;
 ALTER TABLE situer_lignes DROP FOREIGN KEY situer_lignes_column_2_coordonnees_lignes_id;
 ALTER TABLE lignes DROP FOREIGN KEY lignes_type_types_lignes_id;
-ALTER TABLE lignes DROP FOREIGN KEY lignes_direction_arrets_id;
 ALTER TABLE autoriser DROP FOREIGN KEY autoriser_vehicule_vehicules_freefloating_id;
-
-
-ALTER TABLE stations_velo DROP FOREIGN KEY installer_id_stations_velo_id;
-ALTER TABLE installer DROP FOREIGN KEY installer_id_stations_velo_id;
-ALTER TABLE types_accroches_velo DROP FOREIGN KEY installer_column_2_types_accroches_velo_id;
-ALTER TABLE vehicules_freefloating DROP FOREIGN KEY autoriser_vehicule_vehicules_freefloating_id;
-ALTER TABLE stations_vcube DROP FOREIGN KEY situer_stations_vcube_station_vcube_stations_vcube_id;
-ALTER TABLE coordonnees_stations_vcube DROP FOREIGN KEY situer_stations_vcube_coordonnee_coordonnees_st;
-ALTER TABLE lignes DROP FOREIGN KEY situer_lignes_id_lignes_id;
-ALTER TABLE coordonnees_lignes DROP FOREIGN KEY situer_lignes_column_2_coordonnees_lignes_id;
-ALTER TABLE types_lignes DROP FOREIGN KEY lignes_type_types_lignes_id;
 ALTER TABLE installer DROP FOREIGN KEY installer_column_2_types_accroches_velo_id;
+ALTER TABLE installer DROP FOREIGN KEY installer_id_stations_velo_id;
+
+
 
 DROP TABLE IF EXISTS parkings;
 DROP TABLE IF EXISTS situer_parkings;
@@ -146,7 +125,7 @@ info_complementaires TEXT);
 
 
 CREATE TABLE situer_pts_recharge (
-id INT NOT NULL,
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 point_de_recharge INT NOT NULL,
 coordonnee INT NOT NULL);
 
@@ -168,11 +147,13 @@ puissance FLOAT NOT NULL);
 
 
 CREATE TABLE compatible (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 type_de_prise INT NOT NULL,
 point_de_recharge INT NOT NULL);
 
 
 CREATE TABLE recharger (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 puissance INT NOT NULL,
 point_de_recharge INT NOT NULL);
 
@@ -186,6 +167,7 @@ info_complementaires TEXT);
 
 
 CREATE TABLE situer_pts_covoit (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 point_de_covoiturage INT NOT NULL,
 coordonnee INT NOT NULL);
 
@@ -209,6 +191,7 @@ latitude FLOAT NOT NULL,
 longitude FLOAT NOT NULL);
 
 CREATE TABLE situer_stations_velo (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 pt_velo INT NOT NULL,
 coordonnee INT NOT NULL);
 
@@ -217,7 +200,7 @@ id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 nom TEXT NOT NULL);
 
 CREATE TABLE installer (
-id INT NOT NULL,
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 column_2 INT NOT NULL);
 
 CREATE TABLE pistes_velo (
@@ -232,6 +215,7 @@ longitude FLOAT NOT NULL);
 
 
 CREATE TABLE situer_pistes_velo (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 piste_velo INT NOT NULL,
 coordonnee INT NOT NULL);
 
@@ -252,6 +236,7 @@ info_complementaires TEXT);
 
 
 CREATE TABLE situer_lignes_cars (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 ligne_car INT NOT NULL,
 coordonnee INT NOT NULL);
 
@@ -273,10 +258,12 @@ latitude FLOAT NOT NULL,
 longitude FLOAT NOT NULL);
 
 CREATE TABLE situer_arrets_cars (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 arret_car INT NOT NULL,
 coordonnee INT NOT NULL);
 
 CREATE TABLE desservir_car (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 ligne_car INT NOT NULL,
 arret_car INT NOT NULL);
 
@@ -286,6 +273,7 @@ nom TEXT NOT NULL,
 info_complementaires TEXT);
 
 CREATE TABLE siter_gares_ter (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 gare_ter INT NOT NULL,
 coordonnee INT NOT NULL);
 
@@ -305,6 +293,7 @@ latitude FLOAT NOT NULL,
 longitude FLOAT NOT NULL);
 
 CREATE TABLE situer_pt_freefloat (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 pt_freefloat INT NOT NULL,
 coordonnee INT NOT NULL);
 
@@ -313,6 +302,7 @@ id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 vehicule TEXT NOT NULL);
 
 CREATE TABLE autoriser (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 pt_freefloat INT NOT NULL,
 vehicule INT NOT NULL);
 
@@ -331,6 +321,7 @@ latitude FLOAT NOT NULL,
 longitude FLOAT NOT NULL);
 
 CREATE TABLE situer_stations_vcube (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 station_vcube INT NOT NULL,
 coordonnee INT NOT NULL);
 
@@ -346,6 +337,7 @@ latitude FLOAT NOT NULL,
 longitude FLOAT NOT NULL);
 
 CREATE TABLE situer_arrets (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 arret INT NOT NULL,
 coordonnee INT NOT NULL);
 
@@ -362,10 +354,11 @@ latitude FLOAT NOT NULL,
 longitude FLOAT NOT NULL);
 
 CREATE TABLE situer_lignes (
-id INT NOT NULL,
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 column_2 INT NOT NULL);
 
 CREATE TABLE desservir (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 arret INT NOT NULL,
 ligne INT NOT NULL,
 heure_premier_passage TIME,
