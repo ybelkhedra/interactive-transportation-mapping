@@ -396,7 +396,7 @@ chemin_lignes();
             .catch(error => console.error(error));
 
         }
-
+        updateBdd();
         updateMarkersVehicule();
           
 
