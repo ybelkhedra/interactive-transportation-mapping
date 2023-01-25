@@ -108,13 +108,13 @@ if (isset($_POST['modifier'])) {
         $id_table = $row[0];
         
         // formulaire POST vers ajout_emplacement.php avec info de connection, table et id_table
-        echo "<form action='ajout_emplacement.php' method='post'>";
-        echo "<input type='hidden' name='user' value='" . $user . "'>";
-        echo "<input type='hidden' name='password' value='" . $password . "'>";
-        echo "<input type='hidden' name='database' value='" . $database . "'>";
-        echo "<input type='hidden' name='table' value='" . $table . "'>";
-        echo "<input type='hidden' name='id_table' value='" . $id_table . "'>";
-        echo "<input type='submit' value='Ajouter un emplacement'>";
+        // echo "<form action='ajout_emplacement.php' method='post'>";
+        // echo "<input type='hidden' name='user' value='" . $user . "'>";
+        // echo "<input type='hidden' name='password' value='" . $password . "'>";
+        // echo "<input type='hidden' name='database' value='" . $database . "'>";
+        // echo "<input type='hidden' name='table' value='" . $table . "'>";
+        // echo "<input type='hidden' name='id_table' value='" . $id_table . "'>";
+        // echo "<input type='submit' value='Ajouter un emplacement'>";
 
         //retour page precedente avec info connection
         //if (isset($_POST['add_product'])) {

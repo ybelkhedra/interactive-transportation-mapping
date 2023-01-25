@@ -143,23 +143,8 @@ if (isset($_POST['ajout'])) {
     $longitude = $_POST['longitude'];
 
     $sql1 = "INSERT INTO coordonnees_gps (latitude, longitude) VALUES ('$latitude', '$longitude');";
-
-    switch ($table) {
-        case "parkings":
-            $table_corespondance = "emplacements_parkings";
-            break;
-        case "points_de_charges":
-            $table_corespondance = "emplacement_pdc";
-            break;
-        case "stationnement_velo":
-            $table_corespondance = "emplacement_stationnement_velo";
-            break;
-        case "points_de_covoiturages":
-            $table_corespondance = "emplacement_covoiturage";
-            break;
-        default:
-            $table_corespondance = "emplacement_pdc";
-    }
+    
+    $table_corespondance = "situer_".$table;
 
     // ajoute les coordonnées dans la table coordonnees_gps
 
