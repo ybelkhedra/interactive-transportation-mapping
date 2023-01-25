@@ -41,7 +41,40 @@ $columns = mysqli_query($link, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUM
     while ($column = mysqli_fetch_array($columns)) {
         if ($tmp>0){
         echo "<label for='" . $column['COLUMN_NAME'] . "'>" . $column['COLUMN_NAME'] . "</label>";
-        echo "<input type='text' name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'><br>";
+        //determiner le type de la colone (int, text, date, boolean, etc ...)
+        $type = mysqli_query($link, "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '" . $_POST['database'] . "' AND TABLE_NAME = '" . $_POST['table'] . "' AND COLUMN_NAME = '" . $column['COLUMN_NAME'] . "';");
+        $type = mysqli_fetch_array($type);
+        $type = $type['DATA_TYPE'];
+        //si la colone est un boolean on affiche un select
+        if ($type == "tinyint") {
+            echo "<select name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'>";
+            echo "<option value='0'>Non</option>";
+            echo "<option value='1'>Oui</option>";
+            echo "</select><br>";
+        }
+        //si la colone est un int on affiche un input type number
+        elseif ($type == "int") {
+            echo "<input type='number' name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'><br>";
+        }
+        //si la colone est un float on affiche un input type number
+        elseif ($type == "float") {
+            echo "<input type='number' name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'><br>";
+        }
+        //si la colone est un date on affiche un input type date
+        elseif ($type == "date") {
+            echo "<input type='date' name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'><br>";
+        }
+        //si la colone est un datetime on affiche un input type datetime-local
+        elseif ($type == "datetime") {
+            echo "<input type='datetime-local' name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'><br>";
+        }
+        //si la colone est un text on affiche un input type text
+        elseif ($type == "text") {
+            echo "<input type='text' name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'><br>";
+        } 
+        else {
+                echo "<input type='text' name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'><br>";
+            }
         }
         $tmp++;
     }
