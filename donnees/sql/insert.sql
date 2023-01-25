@@ -17,7 +17,7 @@ INSERT INTO situer_pts_covoit (point_de_covoiturage, coordonnee) VALUES (1, 1);
 
 INSERT INTO stations_velo (nb_places, securise, abrite, info_complementaires) VALUES (10, 1, 1, "test");
 INSERT INTO coordonnees_stations_velo (latitude, longitude) VALUES (48.856614, 2.3522219000000177);
-INSERT INTO situer_de_stations_velo (pt_velo, coordonnee) VALUES (1, 1);
+INSERT INTO situer_stations_velo (pt_velo, coordonnee) VALUES (1, 1);
 
 INSERT INTO types_accroches_velo (nom) VALUES ('Vélo classique');
 INSERT INTO installer (id, column_2) VALUES (1, 1);

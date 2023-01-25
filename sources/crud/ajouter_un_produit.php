@@ -58,7 +58,7 @@ $columns = mysqli_query($link, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUM
         }
         //si la colone est un float on affiche un input type number
         elseif ($type == "float") {
-            echo "<input type='number' name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'><br>";
+            echo "<input type='number' step='0.000001' name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'><br>";
         }
         //si la colone est un date on affiche un input type date
         elseif ($type == "date") {
