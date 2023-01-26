@@ -18,16 +18,59 @@ DELIMITER ;
 -- 1) Lorque l'on supprime un point de recharge on supprime les coordonnées qui lui sont associées dans la table situer_pt_recharge, les coordonnées dans coordonnees_pt_recharge.
 -- On supprime aussi les relations dans la table compatible et les relations dans la table recharger.
 
+DELIMITER $$
+CREATE TRIGGER delete_pt_recharge BEFORE DELETE ON pt_recharge
+FOR EACH ROW
+BEGIN
+DELETE FROM situer_pt_recharge WHERE pt_recharge = OLD.id;
+DELETE FROM coordonnees_pt_recharge WHERE id = OLD.id;
+DELETE FROM compatible WHERE pt_recharge = OLD.id;
+DELETE FROM recharger WHERE pt_recharge = OLD.id;
+END$$
+DELIMITER ;
+
 -- 2) Lorsque l'on supprime un type de borne on supprime aussi les relations dans la table compatible. (pourquoi pas aussi les points de recharge associés aussi ? a discuter dans un second temps)
+
 
 -- 3) Lorsque l'on supprime un puissances  on supprime aussi les relations dans la table recharger. (pourquoi pas aussi les points de recharge associés aussi ? a discuter dans un second temps)
 
+
 -- 4) Lorsque l'on supprime un point de covoiturage on supprime les coordonnées qui lui sont associées dans la table situer_pt_covoiturage, les coordonnées dans coordonnees_pt_covoiturage.
+
+DELIMITER $$
+CREATE TRIGGER delete_pts_covoit BEFORE DELETE ON pts_covoit
+FOR EACH ROW
+BEGIN
+DELETE FROM situer_pts_covoit WHERE pts_covoit = OLD.id;
+DELETE FROM coordonnees_pts_covoit WHERE id = OLD.id;
+END$$
+DELIMITER ;
+
+
 
 -- 5) Lorsque l'on supprime un point de stationnement velo on supprime les coordonnées qui lui sont associées dans la table situer_pt_velo, les coordonnées dans coordonnees_pt_velo.
 -- On supprime aussi les relations avec types_accroches dans la table installer.
 
+DELIMITER $$
+CREATE TRIGGER delete_stations_velo BEFORE DELETE ON stations_velo
+FOR EACH ROW
+BEGIN
+DELETE FROM situer_stations_velo WHERE pt_velo = OLD.id;
+DELETE FROM coordonnees_stations_velo WHERE id = OLD.id;
+DELETE FROM installer WHERE pt_velo = OLD.id;
+END$$
+DELIMITER ;
+
+
 -- 6) Lorsque l'on supprime un type d'accroche, on supprime aussi les relations avec points de stationnement velo dans la table installer. (pourquoi pas aussi les points de recharge associés aussi ? a discuter dans un second temps)
+
+DELIMITER $$
+CREATE TRIGGER delete_types_accroches_velo BEFORE DELETE ON types_accroches_velo
+FOR EACH ROW
+BEGIN
+DELETE FROM installer WHERE column_2 = OLD.id;
+END$$
+DELIMITER ;
 
 -- 7) Lorsque l'on supprime une piste cyclable on supprime les coordonnées qui lui sont associées dans la table situer_piste_cyclable, les coordonnées dans coordonnees_piste_cyclable.
 
