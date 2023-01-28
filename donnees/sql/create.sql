@@ -35,8 +35,8 @@ ALTER TABLE desservir DROP FOREIGN KEY desservir_ligne_lignes_id;
 ALTER TABLE desservir DROP FOREIGN KEY desservir_arret_arrets_id;
 ALTER TABLE situer_stations_vcube DROP FOREIGN KEY situer_stations_vcube_station_vcube_stations_vcube_id;
 ALTER TABLE situer_stations_vcube DROP FOREIGN KEY situer_stations_vcube_coordonnee_coordonnees_stations_vcube_id;
-ALTER TABLE situer_lignes DROP FOREIGN KEY situer_lignes_id_lignes_id;
-ALTER TABLE situer_lignes DROP FOREIGN KEY situer_lignes_column_2_coordonnees_lignes_id;
+ALTER TABLE situer_lignes DROP FOREIGN KEY situer_lignes_ligne_lignes_id;
+ALTER TABLE situer_lignes DROP FOREIGN KEY situer_lignes_coordonnee_coordonnees_lignes_id;
 ALTER TABLE lignes DROP FOREIGN KEY lignes_type_types_lignes_id;
 ALTER TABLE autoriser DROP FOREIGN KEY autoriser_vehicule_vehicules_freefloating_id;
 ALTER TABLE installer DROP FOREIGN KEY installer_type_accroche_types_accroches_velo_id;
@@ -356,7 +356,8 @@ longitude FLOAT NOT NULL);
 
 CREATE TABLE situer_lignes (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
-column_2 INT NOT NULL);
+ligne INT NOT NULL,
+coordonnee INT NOT NULL);
 
 CREATE TABLE desservir (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
@@ -413,8 +414,8 @@ ALTER TABLE situer_arrets ADD CONSTRAINT situer_arrets_arret_arrets_id FOREIGN K
 ALTER TABLE situer_arrets ADD CONSTRAINT situer_arrets_coordonnee_coordonnees_arrets_id FOREIGN KEY (coordonnee) REFERENCES coordonnees_arrets(id);
 ALTER TABLE lignes ADD CONSTRAINT lignes_direction_arrets_id FOREIGN KEY (direction) REFERENCES arrets(id);
 ALTER TABLE lignes ADD CONSTRAINT lignes_type_types_lignes_id FOREIGN KEY (type) REFERENCES types_lignes(id);
-ALTER TABLE situer_lignes ADD CONSTRAINT situer_lignes_id_lignes_id FOREIGN KEY (id) REFERENCES lignes(id);
-ALTER TABLE situer_lignes ADD CONSTRAINT situer_lignes_column_2_coordonnees_lignes_id FOREIGN KEY (column_2) REFERENCES coordonnees_lignes(id);
+ALTER TABLE situer_lignes ADD CONSTRAINT situer_lignes_ligne_lignes_id FOREIGN KEY (ligne) REFERENCES lignes(id);
+ALTER TABLE situer_lignes ADD CONSTRAINT situer_lignes_coordonnee_coordonnees_lignes_id FOREIGN KEY (coordonnee) REFERENCES coordonnees_lignes(id);
 ALTER TABLE desservir ADD CONSTRAINT desservir_arret_arrets_id FOREIGN KEY (arret) REFERENCES arrets(id);
 ALTER TABLE desservir ADD CONSTRAINT desservir_ligne_lignes_id FOREIGN KEY (ligne) REFERENCES lignes(id);
 

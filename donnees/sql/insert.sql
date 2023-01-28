@@ -52,10 +52,26 @@ INSERT INTO situer_lignes_cars (ligne_car, coordonnee) VALUES (1, 2);
 INSERT INTO situer_lignes_cars (ligne_car, coordonnee) VALUES (1, 3);
 INSERT INTO situer_lignes_cars (ligne_car, coordonnee) VALUES (1, 4);
 
+INSERT INTO desservir_car (ligne_car, arret_car) VALUES (1, 1);
 
 
 
 
+INSERT INTO stations_vcube (nom, nb_velos_max, nb_velos_dispo, vcube_plus, velos_electriques, info_complementaires) VALUES ('vcube Arts et Metiers', 30, 12, 1, 0, 'nil');
+INSERT INTO coordonnees_stations_vcube (latitude, longitude) VALUES (48.615, 2.374321);
+INSERT INTO situer_stations_vcube (station_vcube, coordonnee) VALUES (1, 1);
+
+ 
+
+INSERT INTO arrets (nom, station_vcube_proximite, info_complementaires) VALUES ('Arts et Metiers', 1, 'nil');
+INSERT INTO coordonnees_arrets (latitude, longitude) VALUES (48.614, 2.374221);
+INSERT INTO situer_arrets (arret, coordonnee) VALUES (1, 1);
 
 
+INSERT INTO types_lignes (nom) VALUES ('Frequence elevee');
+INSERT INTO lignes (nom, direction, type, info_complementaires) VALUES ('Ligne B', 1, 1, 'nil');
+INSERT INTO coordonnees_lignes (latitude, longitude) VALUES (48.624, 2.394221);
+INSERT INTO situer_lignes (ligne, coordonnee) VALUES (1, 1);
 
+INSERT INTO desservir (arret, ligne, heure_premier_passage, heure_dernier_passage, heure_prochain_passage, frequence, diurne, nocturne)
+VALUES (1, 1, CURRENT_TIME, CURRENT_TIME, CURRENT_TIME, CURRENT_TIME, 1, 0);
