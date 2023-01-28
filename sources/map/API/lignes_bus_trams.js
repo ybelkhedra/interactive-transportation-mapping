@@ -35,6 +35,7 @@ function chemin_lignes(){
                     var g = T[1];
                     var b = T[2];
                     //console.log(r+" ,"+g+","+ b);
+                    val.geo_shape.geometry.coordinates = filtreCordonneesTab(val.geo_shape.geometry.coordinates);
                     if (val.vehicule == "BUS")
                         L.polyline( val.geo_shape.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.vehicule + "<br>" +val.libelle + "<br>" +val.sens).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
                     else if (val.vehicule == "TRAM")

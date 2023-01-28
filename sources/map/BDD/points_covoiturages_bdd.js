@@ -24,4 +24,4 @@ function updateBddCovoiturage() {
     .catch(error => console.error(error));
 }
 
-updateBddCovoiturage();
+//updateBddCovoiturage();

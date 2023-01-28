@@ -23,4 +23,4 @@ function updateBddPointsCharges() {
     .catch(error => console.error(error));
 }
 
-updateBddPointsCharges();
+//updateBddPointsCharges();

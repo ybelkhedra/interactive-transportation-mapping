@@ -25,7 +25,7 @@ try {
             // Récupération des valeurs de latitude et longitude
             var latitude = parseFloat(val.geometry.coordinates[1]);
             var longitude = parseFloat(val.geometry.coordinates[0]);
-            if (isNaN(latitude) || isNaN(longitude)) {
+            if (isNaN(latitude) || isNaN(longitude) || !filtreCordonnees(latitude, longitude)) {
                 return;
             }
             // Ajout d'un marker sur la carte

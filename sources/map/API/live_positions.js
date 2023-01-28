@@ -29,17 +29,20 @@ function updateMarkersVehicule() {
       $.each(data.features, function(key, val) {
         if (val.properties.localise) {//(val.geometry && val.geometry.coordinates) {
         // création d'un marqueur avec l'icône spécifiée et ajout de la fenêtre contextuelle avec les informations sur le bus ou le tram
-            if (val.properties.vehicule == "BUS")
+            if (filtreCordonnees(val.geometry.coordinates[1], val.geometry.coordinates[0]))
             {
-                var marker = L.marker([val.geometry.coordinates[1], val.geometry.coordinates[0]], {icon: L.AwesomeMarkers.icon({icon: 'bus', prefix: 'fa', markerColor: 'red'})}).bindPopup("TYPE : " + val.properties.vehicule + " DESTINATION : " + val.properties.terminus);
+                if (val.properties.vehicule == "BUS")
+                {
+                    var marker = L.marker([val.geometry.coordinates[1], val.geometry.coordinates[0]], {icon: L.AwesomeMarkers.icon({icon: 'bus', prefix: 'fa', markerColor: 'red'})}).bindPopup("TYPE : " + val.properties.vehicule + " DESTINATION : " + val.properties.terminus);
+                }
+                else
+                {
+                    var marker = L.marker([val.geometry.coordinates[1], val.geometry.coordinates[0]], {icon: L.AwesomeMarkers.icon({icon: 'subway', prefix: 'fa', markerColor: 'blue'})}).bindPopup("TYPE : " + val.properties.vehicule + " DESTINATION : " + val.properties.terminus);
+                }
+                    // ajout du marqueur à la carte
+                marker.addTo(feature_group_bus_temps_reel);
+                success++;
             }
-            else
-            {
-                var marker = L.marker([val.geometry.coordinates[1], val.geometry.coordinates[0]], {icon: L.AwesomeMarkers.icon({icon: 'subway', prefix: 'fa', markerColor: 'blue'})}).bindPopup("TYPE : " + val.properties.vehicule + " DESTINATION : " + val.properties.terminus);
-            }
-                // ajout du marqueur à la carte
-            marker.addTo(feature_group_bus_temps_reel);
-            success++;
         }
         else {
             error++;

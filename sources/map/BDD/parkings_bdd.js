@@ -22,4 +22,4 @@ function updateBddParkings(){
     .catch(error => console.error(error));
 }
 
-updateBddParkings();
+//updateBddParkings();

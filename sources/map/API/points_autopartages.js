@@ -14,7 +14,7 @@ $.ajax({
             // Récupération des valeurs de latitude et longitude
             var latitude = parseFloat(val.fields.geo_shape.coordinates[1]);
             var longitude = parseFloat(val.fields.geo_shape.coordinates[0]);
-            if (isNaN(latitude) || isNaN(longitude)) {
+            if (isNaN(latitude) || isNaN(longitude) || !filtreCordonnees(latitude, longitude)) {
                 return;
             }
             // Ajout d'un marker sur la carte
