@@ -11,6 +11,17 @@ def enleverCaracteresSpeciaux(mot):
     mot = mot.replace("'"," ")
     return mot
 
+def presenceHorairesList(ligne, direction, heure, horaires):
+    i=0
+    for horaire in horaires:
+        if horaire['ligne'] == ligne and horaire['direction'] == direction and horaire['heure'] == heure:
+            return -2
+        elif horaire['ligne'] == ligne and horaire['direction'] == direction:
+            return i
+        i+=1
+    return -1
+    
+
 # Connection a la base de donnees
 cnx = mysql.connector.connect(user='root', password='@Password0', host='localhost', database='campus')
 
@@ -37,6 +48,7 @@ for arret in data:
     for ligne in arret['lignes']:
         nom_ligne = ligne['nom']
         direction =[]
+        horaires = []
         if len(ligne['courses_associees'][0]['aller']) > 0:
             for course in ligne['courses_associees'][0]['aller']:
                 # trouver id de direction
@@ -49,6 +61,13 @@ for arret in data:
                 requete = "SELECT id FROM arrets WHERE nom = '"+enleverCaracteresSpeciaux(course['arret_arrivee'])+"'"
                 cursor.execute(requete)
                 id_dir = cursor.fetchall()[0][0]
+                if course['horaires'] != None:
+                    horaire = {"ligne": nom_ligne, "direction": id_dir, "heure": course['horaires']}
+                    if presenceHorairesList(nom_ligne, id_dir, course['horaires'], horaires) == -1:
+                        horaires.append(horaire)
+                    elif presenceHorairesList(nom_ligne, id_dir, course['horaires'], horaires) >= 0:
+                        horaires[presenceHorairesList(nom_ligne, id_dir, course['horaires'], horaires)]['heure'] += course['horaires']
+
                 direction.append(id_dir)
         if len(ligne['courses_associees'][1]['retour']) > 0:
             for course in ligne['courses_associees'][1]['retour']:
@@ -62,6 +81,12 @@ for arret in data:
                 requete = "SELECT id FROM arrets WHERE nom = '"+enleverCaracteresSpeciaux(course['arret_arrivee'])+"'"
                 cursor.execute(requete)
                 id_dir = cursor.fetchall()[0][0]
+                if course['horaires'] != None:
+                    horaire = {"ligne": nom_ligne, "direction": id_dir, "heure": course['horaires']}
+                    if presenceHorairesList(nom_ligne, id_dir, course['horaires'], horaires) == -1:
+                        horaires.append(horaire)
+                    elif presenceHorairesList(nom_ligne, id_dir, course['horaires'], horaires) >= 0:
+                        horaires[presenceHorairesList(nom_ligne, id_dir, course['horaires'], horaires)]['heure'] += course['horaires']
                 direction.append(id_dir)
         #si dans la table ligne on ne retrouve pas le couple nom_ligne et direction alors on l'ajoute
         for dir in direction:
@@ -81,6 +106,18 @@ for arret in data:
             if len(cursor.fetchall()) == 0:
                 requete = "INSERT INTO desservir (arret, ligne) VALUES ('"+str(id_arret)+"', '"+str(id_ligne)+"')"
                 cursor.execute(requete)
+        for hor in horaires:
+            print("ajout horaire")
+            ##recuperation de l'id de la ligne
+            requete = "SELECT id FROM lignes WHERE nom = '"+enleverCaracteresSpeciaux(hor['ligne'])+"' AND direction = '"+str(hor['direction'])+"'"
+            cursor.execute(requete)
+            id_ligne = cursor.fetchall()[0][0]
+            id_dir = hor['direction']
+            #ajout des horaires dans la table horaires
+            for h in hor['heure']:
+                if h != None:
+                    requete = "INSERT INTO horaires (ligne, direction, arret, horaire) VALUES ('"+str(id_ligne)+"', '"+str(id_dir)+"', '"+str(id_arret)+"', '"+enleverCaracteresSpeciaux(str(h))+"')"
+                    cursor.execute(requete) 
     #affichage de l'avancement et verification de la base de donnees avec requete de selection
     print("Ajout de l'arret "+str(enleverCaracteresSpeciaux(arret['nom'])) + " dans la base de donnees")
     print("")

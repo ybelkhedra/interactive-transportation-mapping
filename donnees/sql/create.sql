@@ -42,6 +42,11 @@ ALTER TABLE autoriser DROP FOREIGN KEY autoriser_vehicule_vehicules_freefloating
 ALTER TABLE installer DROP FOREIGN KEY installer_type_accroche_types_accroches_velo_id;
 ALTER TABLE installer DROP FOREIGN KEY installer_station_velo_stations_velo_id;
 
+ALTER TABLE horaires DROP FOREIGN KEY horaires_ligne_lignes_id;
+ALTER TABLE horaires DROP FOREIGN KEY horaires_arret_arrets_id;
+ALTER TABLE horaires DROP FOREIGN KEY horaires_direction_arrets_id;
+
+
 
 
 DROP TABLE IF EXISTS parkings;
@@ -92,6 +97,15 @@ DROP TABLE IF EXISTS coordonnees_lignes;
 DROP TABLE IF EXISTS situer_lignes;
 DROP TABLE IF EXISTS desservir;
 DROP TABLE IF EXISTS types_lignes;
+DROP TABLE IF EXISTS horaires;
+
+CREATE TABLE horaires (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
+ligne INT NOT NULL,
+arret INT NOT NULL,
+direction INT NOT NULL,
+horaire TEXT NOT NULL
+);
 
 CREATE TABLE parkings (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
@@ -419,5 +433,11 @@ ALTER TABLE situer_lignes ADD CONSTRAINT situer_lignes_ligne_lignes_id FOREIGN K
 ALTER TABLE situer_lignes ADD CONSTRAINT situer_lignes_coordonnee_coordonnees_lignes_id FOREIGN KEY (coordonnee) REFERENCES coordonnees_lignes(id);
 ALTER TABLE desservir ADD CONSTRAINT desservir_arret_arrets_id FOREIGN KEY (arret) REFERENCES arrets(id);
 ALTER TABLE desservir ADD CONSTRAINT desservir_ligne_lignes_id FOREIGN KEY (ligne) REFERENCES lignes(id);
+ALTER TABLE horaires ADD CONSTRAINT horaires_ligne_lignes_id FOREIGN KEY (ligne) REFERENCES lignes(id);
+ALTER TABLE horaires ADD CONSTRAINT horaires_arret_arrets_id FOREIGN KEY (arret) REFERENCES arrets(id);
+ALTER TABLE horaires ADD CONSTRAINT horaires_direction_arrets_id FOREIGN KEY (direction) REFERENCES arrets(id);
 
-
+select arrets.nom, lignes.nom, lignes.direction, horaires.horaire
+from arrets join desservir on desservir.arret = arrets.id
+join lignes on desservir.ligne = lignes.id
+join horaires on horaires.ligne = lignes.id;
