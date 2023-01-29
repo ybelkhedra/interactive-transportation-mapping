@@ -329,7 +329,7 @@ coordonnee INT NOT NULL);
 CREATE TABLE arrets (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 nom TEXT NOT NULL,
-station_vcube_proximite INT NOT NULL,
+station_vcube_proximite INT,
 info_complementaires TEXT);
 
 CREATE TABLE coordonnees_arrets (
@@ -346,7 +346,7 @@ CREATE TABLE lignes (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 nom TEXT NOT NULL,
 direction INT NOT NULL,
-type INT NOT NULL,
+type INT,
 info_complementaires TEXT);
 
 CREATE TABLE coordonnees_lignes (
@@ -365,9 +365,10 @@ ligne INT NOT NULL,
 heure_premier_passage TIME,
 heure_dernier_passage TIME,
 heure_prochain_passage TIME,
+horaires TEXT,
 frequence TIME,
-diurne BOOLEAN NOT NULL,
-nocturne BOOLEAN NOT NULL);
+diurne BOOLEAN,
+nocturne BOOLEAN);
 
 CREATE TABLE types_lignes (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
