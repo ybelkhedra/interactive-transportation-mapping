@@ -16,8 +16,18 @@ FROM pt_freefloat INNER JOIN situer_pt_freefloat on pt_freefloat.id = situer_pt_
     // chaque ligne de la reponse est stockée dans $row (un tableau associatif)
     while ($row = $result->fetch_assoc()) {
         
+
+        $row = array_merge($row, array("coordonnees" => array("latitude" => float, "longitude" => float)));
+        // on recupere les coordonnees du parking
+        $result2 = $db->query("SELECT coordonnees_pt_freefloat.latitude AS latitude, coordonnees_pt_freefloat.longitude AS longitude FROM coordonnees_pt_freefloat INNER JOIN situer_pt_freefloat ON situer_pt_freefloat.coordonnee = coordonnees_pt_freefloat.id WHERE pt_freefloat = ".$row['id'].";");
+        
+        while ($row2 = $result2->fetch_assoc()) {
+            // on ajoute le type d'accroche courant à la liste des types d'accroches de la station courante
+            $row['coordonnees']['latitude'] = $row2['latitude'];
+            $row['coordonnees']['longitude'] = $row2['longitude'];
+        }
+
         $row = array_merge($row, array("vehicules_freefloating" => array()));
-        // on recupere les points de recharges du parkings
         $result2 = $db->query("SELECT vehicules_freefloating.vehicule FROM vehicules_freefloating INNER JOIN autoriser ON vehicules_freefloating.id = autoriser.pt_freefloat WHERE pt_freefloat = ".$row['id'].";");
         
         while ($row2 = $result2->fetch_assoc()) {
