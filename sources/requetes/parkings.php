@@ -18,7 +18,7 @@ FROM parkings INNER JOIN situer_parkings ON parkings.id = situer_parkings.parkin
         
         $row = array_merge($row, array("points_de_recharge" => array()));
         // on recupere les points de recharges du parkings
-        $result2 = $db->query("SELECT pts_recharge.id as points_de_recharge FROM pts_recharge, parkings WHERE parking_correspondant = ".$row['id'].";");
+        $result2 = $db->query("SELECT pts_recharge.id as points_de_recharge FROM pts_recharge WHERE parking_correspondant = ".$row['id'].";");
         
         while ($row2 = $result2->fetch_assoc()) {
             // on ajoute le type d'accroche courant à la liste des types d'accroches de la station courante
