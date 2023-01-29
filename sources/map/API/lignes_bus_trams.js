@@ -37,9 +37,9 @@ function chemin_lignes(){
                     //console.log(r+" ,"+g+","+ b);
                     val.geo_shape.geometry.coordinates = filtreCordonneesTab(val.geo_shape.geometry.coordinates);
                     if (val.vehicule == "BUS")
-                        L.polyline( val.geo_shape.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.vehicule + "<br>" +val.libelle + "<br>" +val.sens).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
+                        L.polyline( val.geo_shape.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.vehicule + "<br>" +val.libelle + "<br>" +val.sens + "<br> nd : " + val.rg_sv_arret_p_nd + "<br> na : " + val.rg_sv_arret_p_na).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
                     else if (val.vehicule == "TRAM")
-                        L.polyline(val.geo_shape.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.vehicule + "<br>" +val.libelle + "<br>" +val.sens).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
+                        L.polyline(val.geo_shape.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.vehicule + "<br>" +val.libelle + "<br>" +val.sens + "<br> nd : " + val.rg_sv_arret_p_nd + "<br> na : " + val.rg_sv_arret_p_na).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
                         
 
             });
