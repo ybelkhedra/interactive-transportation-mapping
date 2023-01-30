@@ -37,8 +37,21 @@ for arret in data:
     cursor.execute(requete)
     if len(cursor.fetchall()) == 0:
         #ajout du nom de l'arret dans la table arret
-        requete = "INSERT INTO arrets (nom) VALUES ('"+enleverCaracteresSpeciaux(arret['nom'])+"')"
+        requete = "INSERT INTO arrets (nom, vehicule) VALUES ('"+enleverCaracteresSpeciaux(arret['nom'])+"','"+enleverCaracteresSpeciaux(arret['vehicule'])+"')"
         cursor.execute(requete)
+        id_arret = cursor.lastrowid
+    else :
+        requete = "SELECT id FROM arrets WHERE nom = '"+enleverCaracteresSpeciaux(arret['nom'])+"'"
+        cursor.execute(requete)
+        id_arret = cursor.fetchall()[0][0]
+    #ajout des coordonnees de l'arret dans la table coordonnees_arrets
+    requete = "INSERT INTO coordonnees_arrets (latitude, longitude) VALUES ("+enleverCaracteresSpeciaux(str(arret['lat']))+","+ enleverCaracteresSpeciaux(str(arret['lon']))+")"
+    cursor.execute(requete)
+    #recuperation de l'id des coordonnees de l'arret
+    id_coordonnees = cursor.lastrowid
+    ## ajout du lien dans la table situer_arrets
+    requete = "INSERT INTO situer_arrets (arret, coordonnee) VALUES ("+str(id_arret)+","+str(id_coordonnees)+")"
+    cursor.execute(requete)
 for arret in data:
     #recuperation de l'id de l'arret
     requete = "SELECT id FROM arrets WHERE nom = '"+enleverCaracteresSpeciaux(arret['nom'])+"'"
@@ -107,7 +120,6 @@ for arret in data:
                 requete = "INSERT INTO desservir (arret, ligne) VALUES ('"+str(id_arret)+"', '"+str(id_ligne)+"')"
                 cursor.execute(requete)
         for hor in horaires:
-            print("ajout horaire")
             ##recuperation de l'id de la ligne
             requete = "SELECT id FROM lignes WHERE nom = '"+enleverCaracteresSpeciaux(hor['ligne'])+"' AND direction = '"+str(hor['direction'])+"'"
             cursor.execute(requete)
@@ -120,7 +132,6 @@ for arret in data:
                     cursor.execute(requete) 
     #affichage de l'avancement et verification de la base de donnees avec requete de selection
     print("Ajout de l'arret "+str(enleverCaracteresSpeciaux(arret['nom'])) + " dans la base de donnees")
-    print("")
             
 
 # Fermeture de la connexion

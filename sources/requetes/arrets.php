@@ -27,28 +27,31 @@ INNER JOIN coordonnees_arrets
 ;
 ")) {
     while ($row = $result->fetch_assoc()) {
-        // une particularité de cet exemple : chaque station de velo peut avoir plusieur types d'accroches
-        // cette exemple peut donc servir de base pour les autres requetes qui ont des relations 1-n ou n-n (plusieurs types d'accroches, plusieurs types de vehicules autorisés, plusieurs points gps (cf lignes), etc.)
         
-        // on ajoute une colone "type_accroche" à notre tableau $row afin de stocker les types d'accroches de la station correspondant à la ligne courante
         $row = array_merge($row, array("ligne" => array()));
-        // on recupere les types d'accroches de la station courante
-        $result2 = $db->query("SELECT lignes.nom as ligne, heure_premier_passage, heure_dernier_passage, frequence, diurne, nocturne FROM desservir INNER JOIN lignes ON desservir.ligne = lignes.id WHERE arret = ".$row['id'].";");
-        
-        // on parcourt les types d'accroches de la station courante
+        $result2 = $db->query("SELECT lignes.nom as ligne, lignes.id as id_ligne, arrets.nom as direction, direction as dir_id, heure_premier_passage, heure_dernier_passage, frequence, diurne, nocturne FROM (desservir INNER JOIN lignes ON desservir.ligne = lignes.id) INNER JOIN arrets on lignes.direction = arrets.id WHERE arret = ".$row['id'].";");
+
         while ($row2 = $result2->fetch_assoc()) {
-            // on ajoute le type d'accroche courant à la liste des types d'accroches de la station courante
-            $row['ligne'][] = $row2['ligne'];
+
+            // $row['ligne'][] = {"nom":$row2['ligne'],"direction":$row2['direction'],"heure_premier_passage":$row2['heure_premier_passage'],"heure_dernier_passage":$row2['heure_dernier_passage'],"frequence":$row2['frequence'],"diurne":$row2['diurne'],"nocturne":$row2['nocturne']};
+            $dico_ligne = array("nom" => $row2['ligne'], "direction" => $row2['direction'], "heure_premier_passage" => $row2['heure_premier_passage'], "heure_dernier_passage" => $row2['heure_dernier_passage'], "frequence" => $row2['frequence'], "diurne" => $row2['diurne'], "nocturne" => $row2['nocturne']);
+            
+
+            //on ajoute un tableau a dicto_ligne qui contient les horaires de passage
+            $dico_ligne = array_merge($dico_ligne, array("horaires" => array()));
+            $result3 = $db->query("SELECT DISTINCT horaire FROM horaires WHERE ligne = ".$row2['id_ligne']." AND direction = ".$row2['dir_id']." AND arret = ".$row['id']." and horaire != 'NULL' ORDER BY horaire;");
+            while ($row3 = $result3->fetch_assoc()) {
+                $dico_ligne['horaires'][] = $row3['horaire'];
+            }
+            $result3->free();
+            
+            $row['ligne'][] = $dico_ligne;
         }
-        // on libere la memoire
         $result2->free();
-        // on ajoute la station courante à la liste des stations
         $parkings[] = $row;
     }
-    // on libere la memoire
     $result->free();
 }
-// on encode la liste des stations au format json, et on l'affiche
 echo json_encode($parkings);
 
 $db->close();
