@@ -1,9 +1,3 @@
-<!-- 
-    On fait la liste des stations de freefloating, avec pour chacun toutes ses informations statiques mais aussi : 
-- la position GPS sous forme de liste de points qui lui sont associés 
-- la liste des vehicules autorisés qui lui sont associés
--->
-
 <?php
 $db = new mysqli("localhost", "root", "@Password0", "campus");
 
@@ -17,26 +11,26 @@ FROM pt_freefloat INNER JOIN situer_pt_freefloat on pt_freefloat.id = situer_pt_
     while ($row = $result->fetch_assoc()) {
         
 
-        $row = array_merge($row, array("coordonnees" => array("latitude" => float, "longitude" => float)));
-        // on recupere les coordonnees du parking
+        $tab_coord = array_merge($row, array("coordonnees" => array()));
+        // on recupere les coordonnees
         $result2 = $db->query("SELECT coordonnees_pt_freefloat.latitude AS latitude, coordonnees_pt_freefloat.longitude AS longitude FROM coordonnees_pt_freefloat INNER JOIN situer_pt_freefloat ON situer_pt_freefloat.coordonnee = coordonnees_pt_freefloat.id WHERE pt_freefloat = ".$row['id'].";");
         
         while ($row2 = $result2->fetch_assoc()) {
             // on ajoute le type d'accroche courant à la liste des types d'accroches de la station courante
-            $row['coordonnees']['latitude'] = $row2['latitude'];
-            $row['coordonnees']['longitude'] = $row2['longitude'];
+            $tab_coord['coordonnees'][] = array('latitude' => $row2['latitude'], 'longitude' => $row2['longitude']);
         }
 
-        $row = array_merge($row, array("vehicules_freefloating" => array()));
+
+        $tab_vehicule = array_merge($tab_coord, array("vehicules_freefloating" => array()));
         $result2 = $db->query("SELECT vehicules_freefloating.vehicule FROM vehicules_freefloating INNER JOIN autoriser ON vehicules_freefloating.id = autoriser.pt_freefloat WHERE pt_freefloat = ".$row['id'].";");
         
         while ($row2 = $result2->fetch_assoc()) {
             // on ajoute le type d'accroche courant à la liste des types d'accroches de la station courante
-            $row['vehicules_freefloating'][] = $row2['vehicules_freefloating'];
+            $tab_vehicule['vehicules_freefloating'][] = $row2['vehicules_freefloating'];
         }
         $result2->free();
         // on ajoute la station courante à la liste des stations
-        $parkings[] = $row;
+        $parkings[] = $tab_vehicule;
     }
     // on libere la memoire
     $result->free();
