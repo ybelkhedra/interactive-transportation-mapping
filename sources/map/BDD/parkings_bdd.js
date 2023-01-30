@@ -10,7 +10,7 @@ function updateBddParkings(){
         }
         });
     //récupération des données de la bdd
-    fetch('../../requetes/parkings.php')
+    fetch('./sources/requetes/parkings.php')
     .then(response => response.json())
     .then(data => {
         data.forEach(function(parking) {
