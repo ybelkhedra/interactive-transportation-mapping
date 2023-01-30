@@ -120,7 +120,7 @@ informations_complementaires TEXT);
 
 
 CREATE TABLE situer_parkings (
-id INT NOT NULL,
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 parking INT NOT NULL,
 coordonnee INT NOT NULL);
 

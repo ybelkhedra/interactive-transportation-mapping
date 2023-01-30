@@ -5,10 +5,10 @@
 
 -->
 <?php
-$db = new mysqli("localhost", "root", "@Password0", "campus");
+$db = new mysqli("localhost", "root", "Password@", "map");
 
 if ($result = $db->query("
-SELECT parkings.id, parkings.nom, parkings.nb_places_max, parkings.payant, parkings.nb_places_handicapes, parkings.hors_voirie, parkings.prive, parkings.info_complementaires
+SELECT parkings.id, parkings.nom, parkings.nb_places_max, parkings.payant, parkings.nb_places_handicapes, parkings.hors_voirie, parkings.prive, parkings.informations_complementaires
 FROM parkings INNER JOIN situer_parkings ON parkings.id = situer_parkings.parking INNER JOIN coordonnees_parkings ON situer_parkings.coordonnee = coordonnees_parkings.id
 ;
 ")) {
@@ -31,15 +31,15 @@ FROM parkings INNER JOIN situer_parkings ON parkings.id = situer_parkings.parkin
         $result2 = $db->query("SELECT count(*) FROM pts_recharge WHERE parking_correspondant = ".$row['id'].";");
         
         while ($row2 = $result2->fetch_assoc()) {
-            $row['points_de_recharge'] = $row2['points_de_recharge'];
+            $row['nb_pts_recharge'] = $row2['nb_pts_recharge'];
         }
 
-        $row = array_merge($row, array("nb_pts_covoiturage" => int));
+        $row = array_merge($row, array("nb_pts_covoit" => int));
         // on recupere les points de covoiturage du parkings
-        $result2 = $db->query("SELECT count(*) FROM pts_covoiturage WHERE parking_correspondant = ".$row['id'].";");
+        $result2 = $db->query("SELECT count(*) FROM pts_covoit WHERE parking_correspondant = ".$row['id'].";");
 
         while ($row2 = $result2->fetch_assoc()) {
-            $row['points_de_covoiturage'] = $row2['points_de_covoiturage'];
+            $row['nb_pts_covoit'] = $row2['nb_pts_covoit'];
         }
 
         $result2->free();
@@ -48,6 +48,9 @@ FROM parkings INNER JOIN situer_parkings ON parkings.id = situer_parkings.parkin
     }
     // on libere la memoire
     $result->free();
+}
+else {
+    echo "Erreur : " . $db->error;
 }
 // on encode la liste des stations au format json, et on l'affiche
 echo json_encode($parkings);
