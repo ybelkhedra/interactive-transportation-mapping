@@ -56,7 +56,6 @@ function afficherPopupArret(e) {
 fetch('./sources/requetes/arrets.php')
     .then(response => response.json())
     .then(data => {
-        console.log(data);
         data.forEach(function(arret) {
             var latitude = parseFloat(arret.latitude);
             var longitude = parseFloat(arret.longitude);

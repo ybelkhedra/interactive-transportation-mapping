@@ -1,11 +1,11 @@
-<!-- On fait la liste des parkings, avec pour chacun toutes ses informations statiques mais aussi :
-- la liste des positions gps qui lui sont associées
-- le nombre de points de recharges qui lui sont associés
-- le nombre de points de covoiturages qui lui sont associés
-
--->
 <?php
-$db = new mysqli("localhost", "root", "Password@", "map");
+// <!-- On fait la liste des parkings, avec pour chacun toutes ses informations statiques mais aussi :
+//     - la liste des positions gps qui lui sont associées
+//     - le nombre de points de recharges qui lui sont associés
+//     - le nombre de points de covoiturages qui lui sont associés
+    
+//     -->
+$db = new mysqli("localhost", "root", "@Password0", "campus");
 
 if ($result = $db->query("
 SELECT DISTINCT parkings.id, parkings.nom, parkings.nb_places_max, parkings.payant, parkings.nb_places_handicapes, parkings.hors_voirie, parkings.prive, parkings.informations_complementaires
