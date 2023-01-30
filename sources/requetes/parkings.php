@@ -5,7 +5,7 @@
 
 -->
 <?php
-$db = new mysqli("localhost", "root", "Password@", "map");
+$db = new mysqli("localhost", "root", "@Password0", "campus");
 
 if ($result = $db->query("
 SELECT DISTINCT parkings.id, parkings.nom, parkings.nb_places_max, parkings.payant, parkings.nb_places_handicapes, parkings.hors_voirie, parkings.prive, parkings.informations_complementaires
