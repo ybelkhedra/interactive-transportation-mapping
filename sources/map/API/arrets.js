@@ -53,33 +53,26 @@ function afficherPopupArret(e) {
 
 
 
-$.ajax({
-    url: '../../requetes/arrets.php',
-    type: 'GET',
-    dataType: 'json',
-    success: function(data) {
+fetch('./sources/requetes/arrets.php')
+    .then(response => response.json())
+    .then(data => {
         console.log(data);
-        $.each(data, function(key, val) {
-            console.log(val);
-            // Récupération des valeurs de latitude et longitude
-            var latitude = parseFloat(val.latitude);
-            var longitude = parseFloat(val.longitude);
-            if (isNaN(latitude) || isNaN(longitude) || (val.vehicule != "BUS" && val.vehicule != "TRAM")) {
+        data.forEach(function(arret) {
+            var latitude = parseFloat(arret.latitude);
+            var longitude = parseFloat(arret.longitude);
+            if (filtreCordonnees(latitude,longitude) == false ||  arret.ligne.length == 0) {
                 return;
             }
-            // Ajout d'un marker sur la carte
-            if (filtreCordonnees(latitude, longitude) == false ||  val.ligne.length == 0) {
-                return;
-            }
-            if (val.vehicule == "BUS")
+            if (arret.vehicule == "BUS")
             {
-                L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'grey'})}).bindPopup(afficherPopupArret(val)).addTo(feature_group_arrets_bus);
+                L.marker([latitude,longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'grey'})}).bindPopup(afficherPopupArret(arret)).addTo(feature_group_arrets_bus);
             }
-            else if (val.vehicule == "TRAM")
+            else if (arret.vehicule == "TRAM")
             {
-                L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'black'})}).bindPopup(afficherPopupArret(val)).addTo(feature_group_arrets_bus);
+                L.marker([latitude,longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'black'})}).bindPopup(afficherPopupArret(arret)).addTo(feature_group_arrets_bus);
             }
-        });
-    }
-});
+        }
+    )}
+);
+
 
