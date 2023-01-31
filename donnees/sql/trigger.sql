@@ -13,7 +13,7 @@ END$$
 DELIMITER ;
 
 
--- 1) Lorque l'on supprime un point de recharge on supprime les coordonnées qui lui sont associées dans la table situer_pt_recharge, les coordonnées dans coordonnees_pt_recharge.
+-- 1) Lorsque l'on supprime un point de recharge on supprime les coordonnées qui lui sont associées dans la table situer_pt_recharge, les coordonnées dans coordonnees_pt_recharge.
 -- On supprime aussi les relations dans la table compatible et les relations dans la table recharger.
 
 DROP TRIGGER IF EXISTS delete_pts_recharge;
@@ -235,16 +235,86 @@ DELETE FROM coordonnees_pt_freefloat WHERE id = OLD.coordonnee;
 END$$
 DELIMITER ;
 
+
+
 -- 13) Lorsque l'on supprime un type de vehicule, on supprime aussi les relations avec stations de freefloating dans la table autoriser. (pourquoi pas aussi les stations de freefloating associés qui n'ont pas d'autre vehicule autorisé aussi ? a discuter dans un second temps)
+DROP TRIGGER IF EXISTS delete_vehicule;
+
+DELIMITER $$
+CREATE TRIGGER delete_vehicule
+BEFORE DELETE ON vehicules_freefloating
+FOR EACH ROW
+BEGIN
+  DELETE FROM autoriser WHERE vehicule = OLD.id;
+END$$
+DELIMITER ;
+
+
 
 -- 14) Lorsque l'on supprime une stations vcube, on supprime les coordonnées qui lui sont associées dans la table situer_stations_vcube, les coordonnées dans coordonnees_stations_vcube.
 -- Les arrets qui avait pour stations vcube a proximité cette stations sont mis a null.
+DROP TRIGGER IF EXISTS delete_station_vcube;
+
+DELIMITER $$
+CREATE TRIGGER delete_station_vcube
+BEFORE DELETE ON stations_vcube
+FOR EACH ROW
+BEGIN
+  DELETE FROM coordonnees_stations_vcube WHERE id = (SELECT coordonnee FROM situer_stations_vcube WHERE station_vcube = OLD.id);
+  DELETE FROM situer_stations_vcube WHERE station_vcube = OLD.id;
+  UPDATE arrets SET station_vcube_proximite = NULL WHERE station_vcube_proximite = OLD.id;
+END$$
+DELIMITER ;
+
+
 
 -- 15) Lorsque l'on supprime un arret, on supprime les coordonnées qui lui sont associées dans la table situer_arret, les coordonnées dans coordonnees_arret.
 -- On supprime aussi les relations avec lignes dans la table desservir. On supprime aussi les lignes qui ont pour direction cet arret.
+DROP TRIGGER IF EXISTS delete_arret;
+
+DELIMITER $$
+CREATE TRIGGER delete_arret
+BEFORE DELETE ON arrets
+FOR EACH ROW
+BEGIN
+  DELETE FROM situer_arret WHERE arret = OLD.id;
+  DELETE FROM coordonnees_arret WHERE id = (SELECT coordonnee FROM situer_arret WHERE arret = OLD.id);
+  DELETE FROM desservir WHERE arret = OLD.id;
+  DELETE FROM ligne WHERE direction = OLD.id;
+END $$
+DELIMITER ;
+
+
 
 -- 16) Lorsque l'on supprime une ligne, on supprime les coordonnées qui lui sont associées dans la table situer_ligne, les coordonnées dans coordonnees_ligne.
 -- On supprime aussi les relations avec arrets dans la table desservir. On ne supprime JAMAIS les arrets associés.
+DROP TRIGGER IF EXISTS delete_ligne;
+
+DELIMITER $$
+CREATE TRIGGER delete_ligne 
+BEFORE DELETE ON lignes
+FOR EACH ROW
+BEGIN
+    DELETE FROM situer_lignes WHERE ligne = OLD.id;
+    DELETE FROM coordonnees_lignes WHERE id = (SELECT coordonnee FROM situer_lignes WHERE ligne = OLD.id);
+    DELETE FROM desservir WHERE ligne = OLD.id;
+END $$
+DELIMITER ;
+
+
 
 -- 17) Lorsque l'on supprime un parking, on supprime les coordonnées qui lui sont associées dans la table situer_parkings, les coordonnées dans coordonnees_parkings.
 -- On supprime aussi les points de charges associés à ce parking si il y en a. De même pour les points de covoiturage.
+DROP TRIGGER IF EXISTS delete_parking;
+
+DELIMITER $$
+CREATE TRIGGER delete_parking 
+BEFORE DELETE ON parkings
+FOR EACH ROW
+BEGIN
+    DELETE FROM situer_parkings WHERE parking = OLD.id;
+    DELETE FROM coordonnees_parkings WHERE id IN (SELECT coordonnee FROM situer_parkings WHERE parking = OLD.id);
+    DELETE FROM pts_recharge WHERE parking_correspondant = OLD.id;
+    DELETE FROM pts_covoit WHERE parking_correspondant = OLD.id;
+END $$
+DELIMITER ;
