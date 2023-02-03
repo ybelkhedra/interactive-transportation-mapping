@@ -27,15 +27,21 @@ INSERT INTO installer (station_velo, type_accroche) VALUES (1, 2);
 
 
 INSERT INTO types_pistes_velo (nom) VALUES ('piste cyclable');
-INSERT INTO pistes_velo (type_piste, info_complementaires) VALUES (1, 'piste cyclable');
+INSERT INTO pistes_velo (type_piste, info_complementaires) VALUES (1, 'piste cyclable1');
+INSERT INTO pistes_velo (type_piste, info_complementaires) VALUES (1, 'piste cyclable2');
+INSERT INTO pistes_velo (type_piste, info_complementaires) VALUES (1, 'piste cyclable3');
 INSERT INTO coordonnees_pistes_velo (id, latitude, longitude) VALUES (1, 48.111111, 2.222222);
-INSERT INTO coordonnees_pistes_velo (id, latitude, longitude) VALUES (2, 48.333333, 2.444444);
-INSERT INTO coordonnees_pistes_velo (id, latitude, longitude) VALUES (3, 48.555555, 2.666666);
-INSERT INTO coordonnees_pistes_velo (id, latitude, longitude) VALUES (4, 48.777777, 2.888888);
+INSERT INTO coordonnees_pistes_velo (id, latitude, longitude) VALUES (2, 36, 64);
+INSERT INTO coordonnees_pistes_velo (id, latitude, longitude) VALUES (3, 42, 58);
+INSERT INTO coordonnees_pistes_velo (id, latitude, longitude) VALUES (4, 13, 10);
+INSERT INTO coordonnees_pistes_velo (id, latitude, longitude) VALUES (5, 28, 16);
+INSERT INTO coordonnees_pistes_velo (id, latitude, longitude) VALUES (6, 14, 11);
 INSERT INTO situer_pistes_velo (piste_velo, coordonnee) VALUES (1, 1);
 INSERT INTO situer_pistes_velo (piste_velo, coordonnee) VALUES (1, 2);
 INSERT INTO situer_pistes_velo (piste_velo, coordonnee) VALUES (1, 3);
-INSERT INTO situer_pistes_velo (piste_velo, coordonnee) VALUES (1, 4);
+INSERT INTO situer_pistes_velo (piste_velo, coordonnee) VALUES (2, 4);
+INSERT INTO situer_pistes_velo (piste_velo, coordonnee) VALUES (2, 5);
+INSERT INTO situer_pistes_velo (piste_velo, coordonnee) VALUES (3, 6);
 
 INSERT INTO arrets_cars (nom, info_complementaires) VALUES ('Gare de Pessax', 'nil');
 INSERT INTO coordonnees_arrets_cars (latitude, longitude) VALUES (48.914, 2.372221);
@@ -68,10 +74,23 @@ INSERT INTO coordonnees_arrets (latitude, longitude) VALUES (48.614, 2.374221);
 INSERT INTO situer_arrets (arret, coordonnee) VALUES (1, 1);
 
 
-INSERT INTO types_lignes (nom) VALUES ('Frequence elevee');
+INSERT INTO types_lignes (nom) VALUES ('Tramway');
+INSERT INTO lignes (nom, direction, type, info_complementaires) VALUES ('Ligne A', 1, 1, 'nil');
 INSERT INTO lignes (nom, direction, type, info_complementaires) VALUES ('Ligne B', 1, 1, 'nil');
+INSERT INTO lignes (nom, direction, type, info_complementaires) VALUES ('Ligne C', 1, 1, 'nil');
 INSERT INTO coordonnees_lignes (latitude, longitude) VALUES (48.624, 2.394221);
+INSERT INTO coordonnees_lignes (latitude, longitude) VALUES (13, 56);
+INSERT INTO coordonnees_lignes (latitude, longitude) VALUES (4, 2);
+INSERT INTO coordonnees_lignes (latitude, longitude) VALUES (43, 125);
+INSERT INTO coordonnees_lignes (latitude, longitude) VALUES (128, 256);
+INSERT INTO coordonnees_lignes (latitude, longitude) VALUES (90, 11);
+INSERT INTO coordonnees_lignes (latitude, longitude) VALUES (7, 7);
 INSERT INTO situer_lignes (ligne, coordonnee) VALUES (1, 1);
+INSERT INTO situer_lignes (ligne, coordonnee) VALUES (1, 2);
+INSERT INTO situer_lignes (ligne, coordonnee) VALUES (1, 3);
+INSERT INTO situer_lignes (ligne, coordonnee) VALUES (2, 4);
+INSERT INTO situer_lignes (ligne, coordonnee) VALUES (2, 5);
+INSERT INTO situer_lignes (ligne, coordonnee) VALUES (3, 6);
 
 INSERT INTO desservir (arret, ligne, heure_premier_passage, heure_dernier_passage, heure_prochain_passage, frequence, diurne, nocturne)
 VALUES (1, 1, CURRENT_TIME, CURRENT_TIME, CURRENT_TIME, CURRENT_TIME, 1, 0);
