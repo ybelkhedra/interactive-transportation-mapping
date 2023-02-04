@@ -7,6 +7,18 @@ var layer_control_643cdab5b83b581cb10d63d05a5a00f0 = {
     },
 
     overlays :  {
+        "Points de stationnement velo (BDD)" : feature_group_pts_stationnement_velo_bdd,
+
+        "Pistes cyclables (BDD)" : feature_group_pistes_cyclables_bdd,
+
+        "Lignes de car (BDD)" : feature_group_lignes_cars_bdd,
+
+        "Lignes de transport TBM (BDD)" : feature_group_lignes_bdd,
+
+        "Arrets de bus/tram (BDD)" : feature_group_arrets_perso_bdd,
+
+        "Gare TER" : feature_group_gares_ter_bdd,
+
         "Points de freefloating" : feature_group_freefloating,
 
         "Points de covoiturages (BDD)" : feature_group_covoiturage_bdd,

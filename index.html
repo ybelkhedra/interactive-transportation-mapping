@@ -40,6 +40,12 @@
 
             <script src="sources/init.js"></script>
             <script src="sources/filtre.js"></script>
+            <script src="sources/map/BDD/arrets_perso_bdd.js"></script>
+            <script src="sources/map/BDD/gares_ter.js"></script>
+            <script src="sources/map/BDD/lignes_bdd.js"></script>
+            <script src="sources/map/BDD/lignes_cars_bdd.js"></script>
+            <script src="sources/map/BDD/pistes_cyclables_bdd.js"></script>
+            <script src="sources/map/BDD/points_stationnement_velo_bdd.js"></script>
             <script src="sources/map/API/arrets.js"></script>
             <script src="sources/map/API/freefloating.js"></script>
             <script src="sources/map/API/lignes_bus_trams.js"></script>
@@ -408,6 +414,187 @@
                         });
                     </script>
                 </div>
+
+
+                <div>
+                    <input type="checkbox" class="pistesCyclablesCheckbox" checked>
+                    <label for="pistesCyclablesCheckbox">Pistes cyclables (BDD)</label>
+                    <script>
+                        if ($(".pistesCyclablesCheckbox").is(':checked')) {var pistesCyclablesCheckbox = true;} else {var pistesCyclablesCheckbox = false;}
+                    </script>
+                    <script>
+                        $(".pistesCyclablesCheckbox").click(function(){
+                            chargement(1).then(function(){
+                                if (pistesCyclablesCheckbox===true) {
+                                    layerControlNumber.overlays["Pistes cyclables (BDD)"].remove();
+                                    pistesCyclablesCheckbox=false;
+                                }
+                                else if (pistesCyclablesCheckbox===false) {
+                                    layerControlNumber.overlays["Pistes cyclables (BDD)"].addTo(mapNumber);
+                                    pistesCyclablesCheckbox=true;
+                                }
+                            return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
+                    </script>
+                </div>
+
+
+
+                <div>
+                    <input type="checkbox" class="lignesCarCheckbox" checked>
+                    <label for="lignesCarCheckbox">Lignes de car (BDD)</label>
+                    <script>
+                        if ($(".lignesCarCheckbox").is(':checked')) {var lignesCarCheckbox = true;} else {var lignesCarCheckbox = false;}
+                    </script>
+                    <script>
+                        $(".lignesCarCheckbox").click(function(){
+                            chargement(1).then(function(){
+                                if (lignesCarCheckbox===true) {
+                                    layerControlNumber.overlays["Lignes de car (BDD)"].remove();
+                                    lignesCarCheckbox=false;
+                                }
+                                else if (lignesCarCheckbox===false) {
+                                    layerControlNumber.overlays["Lignes de car (BDD)"].addTo(mapNumber);
+                                    lignesCarCheckbox=true;
+                                }
+                            return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
+                    </script>
+                </div>
+
+
+
+
+                <div>
+                    <input type="checkbox" class="lignesTransportsBddCheckbox" checked>
+                    <label for="lignesTransportsBddCheckbox">Lignes de transport TBM (BDD)</label>
+                    <script>
+                        if ($(".lignesTransportsBddCheckbox").is(':checked')) {var lignesTransportsBddCheckbox = true;} else {var lignesTransportsBddCheckbox = false;}
+                    </script>
+                    <script>
+                        $(".lignesTransportsBddCheckbox").click(function(){
+                            chargement(1).then(function(){
+                                if (lignesTransportsBddCheckbox===true) {
+                                    layerControlNumber.overlays["Lignes de transport TBM (BDD)"].remove();
+                                    lignesTransportsBddCheckbox=false;
+                                }
+                                else if (lignesTransportsBddCheckbox===false) {
+                                    layerControlNumber.overlays["Lignes de transport TBM (BDD)"].addTo(mapNumber);
+                                    lignesTransportsBddCheckbox=true;
+                                }
+                            return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
+                    </script>
+                </div>
+
+
+
+
+
+                <div>
+                    <input type="checkbox" class="arretsBusTramBddCheckbox" checked>
+                    <label for="arretsBusTramBddCheckbox">Arrets de bus/tram (BDD)</label>
+                    <script>
+                        if ($(".arretsBusTramBddCheckbox").is(':checked')) {var arretsBusTramBddCheckbox = true;} else {var arretsBusTramBddCheckbox = false;}
+                    </script>
+                    <script>
+                        $(".arretsBusTramBddCheckbox").click(function(){
+                            chargement(1).then(function(){
+                                if (arretsBusTramBddCheckbox===true) {
+                                    layerControlNumber.overlays["Arrets de bus/tram (BDD)"].remove();
+                                    arretsBusTramBddCheckbox=false;
+                                }
+                                else if (arretsBusTramBddCheckbox===false) {
+                                    layerControlNumber.overlays["Arrets de bus/tram (BDD)"].addTo(mapNumber);
+                                    arretsBusTramBddCheckbox=true;
+                                }
+                            return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
+                    </script>
+                </div>
+
+
+                
+
+
+
+                <div>
+                    <input type="checkbox" class="gareTerCheckbox" checked>
+                    <label for="gareTerCheckbox">Gare TER</label>
+                    <script>
+                        if ($(".gareTerCheckbox").is(':checked')) {var gareTerCheckbox = true;} else {var gareTerCheckbox = false;}
+                    </script>
+                    <script>
+                        $(".gareTerCheckbox").click(function(){
+                            chargement(1).then(function(){
+                                if (gareTerCheckbox===true) {
+                                    layerControlNumber.overlays["Gare TER"].remove();
+                                    gareTerCheckbox=false;
+                                }
+                                else if (gareTerCheckbox===false) {
+                                    layerControlNumber.overlays["Gare TER"].addTo(mapNumber);
+                                    gareTerCheckbox=true;
+                                }
+                            return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
+                    </script>
+                </div>
+
+
+
+
+
+                <div>
+                    <input type="checkbox" class="ptsStationnementVeloCheckbox" checked>
+                    <label for="ptsStationnementVeloCheckbox">Points de stationnement velo (BDD)</label>
+                    <script>
+                        if ($(".ptsStationnementVeloCheckbox").is(':checked')) {var ptsStationnementVeloCheckbox = true;} else {var ptsStationnementVeloCheckbox = false;}
+                    </script>
+                    <script>
+                        $(".ptsStationnementVeloCheckbox").click(function(){
+                            chargement(1).then(function(){
+                                if (ptsStationnementVeloCheckbox===true) {
+                                    layerControlNumber.overlays["Points de stationnement velo (BDD)"].remove();
+                                    ptsStationnementVeloCheckbox=false;
+                                }
+                                else if (ptsStationnementVeloCheckbox===false) {
+                                    layerControlNumber.overlays["Points de stationnement velo (BDD)"].addTo(mapNumber);
+                                    ptsStationnementVeloCheckbox=true;
+                                }
+                            return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
+                    </script>
+                </div>
+
+
+
+
+
+
         </div>
 
 
