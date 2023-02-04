@@ -38,3 +38,55 @@ try {
 catch (e) {
     console.log(e);
 }
+
+
+function afficherPopupFreeFloating(e) {
+    var nom = "Nom : " + e.nom;
+    var infos = "Informations : "+ e.info_complementaires;
+    var vehicules = [];
+    for (var i = 0; i < e.vehicules_freefloating.length; i++) {
+        vehicules.push(e.vehicules_freefloating[i]);
+    }
+    var vehicules = "Vehicules autorisés : " + vehicules.join(" - ");
+    var popup = nom + "<br>" + infos + "<br>" + vehicules;
+    return popup;
+}
+
+function updateBddStationsFreeFloating() { //a renommer en updateBddPointsCharges
+    // suppression des marqueurs existants de la carte
+    feature_group_freefloating.eachLayer(function (layer) {
+        if (layer instanceof L.Marker) {
+            feature_group_freefloating.removeLayer(layer);
+        }
+        });
+
+    //récupération des données de la bdd
+    fetch('./sources/requetes/stations_freefloating.php')
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(function(freefloating) {
+            if (freefloating.coordonnees.length == 1)
+            {
+                var marker = L.marker([freefloating.coordonnees[0].latitude, freefloating.coordonnees[0].longitude]).addTo(feature_group_freefloating);
+                marker.bindPopup(afficherPopupFreeFloating(freefloating));
+                marker.setStyle({color: 'pink'});
+
+            }
+            else if (freefloating.coordonnees.length > 1)
+            {
+                var latlngs = [];
+                freefloating.coordonnees.forEach(function(coordonnee) {
+                    latlngs.push([coordonnee.latitude,coordonnee.longitude]);
+                }
+                );
+                var polygon = L.polygon(latlngs).addTo(feature_group_freefloating);
+                polygon.setStyle({color: 'pink'});
+                polygon.bindPopup(afficherPopupFreeFloating(freefloating));
+            }
+        });
+        
+    })
+    .catch(error => console.error(error));
+}
+
+updateBddStationsFreeFloating();
