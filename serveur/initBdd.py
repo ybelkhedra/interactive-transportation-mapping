@@ -128,7 +128,7 @@ for arret in data:
             #ajout des horaires dans la table horaires
             for h in hor['heure']:
                 if h != None:
-                    requete = "INSERT INTO horaires (ligne, direction, arret, horaire) VALUES ('"+str(id_ligne)+"', '"+str(id_dir)+"', '"+str(id_arret)+"', '"+enleverCaracteresSpeciaux(str(h))+"')"
+                    requete = "INSERT INTO horaires (gid, ligne, direction, arret, horaire) VALUES ('"+enleverCaracteresSpeciaux(str(h['gid']))+"', '"+str(id_ligne)+"', '"+str(id_dir)+"', '"+str(id_arret)+"', '"+enleverCaracteresSpeciaux(str(h['heure']))+"')"
                     cursor.execute(requete) 
     #affichage de l'avancement et verification de la base de donnees avec requete de selection
     print("Ajout de l'arret "+str(enleverCaracteresSpeciaux(arret['nom'])) + " dans la base de donnees")

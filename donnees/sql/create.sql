@@ -46,7 +46,19 @@ ALTER TABLE horaires DROP FOREIGN KEY horaires_ligne_lignes_id;
 ALTER TABLE horaires DROP FOREIGN KEY horaires_arret_arrets_id;
 ALTER TABLE horaires DROP FOREIGN KEY horaires_direction_arrets_id;
 
-
+ALTER TABLE lignesData DROP FOREIGN KEY lignesData_rs_sv_ligne_a_nomCommercialData_gid;
+ALTER TABLE lignesData DROP FOREIGN KEY lignesData_rg_sv_arret_p_nd_arretsData_gid;
+ALTER TABLE lignesData DROP FOREIGN KEY lignesData_rg_sv_arret_p_na_arretsData_gid;
+ALTER TABLE tronconsData DROP FOREIGN KEY tronconsData_rg_sv_arret_p_nd_arretsData_gid;
+ALTER TABLE tronconsData DROP FOREIGN KEY tronconsData_rg_sv_arret_p_na_arretsData_gid;
+ALTER TABLE relationsLignesTronconsData DROP FOREIGN KEY relationsLignesTronconsData_rs_sv_chem_l_lignesData_gid;
+ALTER TABLE relationsLignesTronconsData DROP FOREIGN KEY relationsLignesTronconsData_rs_sv_tronc_l_tronconsData_gid;
+ALTER TABLE horairesData DROP FOREIGN KEY horairesData_rs_sv_arret_p_arretsData_gid;
+ALTER TABLE horairesData DROP FOREIGN KEY horairesData_rs_sv_cours_a_CoursesData_gid;
+ALTER TABLE CoursesData DROP FOREIGN KEY CoursesData_rs_sv_ligne_a_nomCommercialData_gid;
+ALTER TABLE CoursesData DROP FOREIGN KEY CoursesData_rs_sv_chem_l_lignesData_gid;
+ALTER TABLE CoursesData DROP FOREIGN KEY CoursesData_rg_sv_arret_p_nd_arretsData_gid;
+ALTER TABLE CoursesData DROP FOREIGN KEY CoursesData_rg_sv_arret_p_na_arretsData_gid;
 
 
 DROP TABLE IF EXISTS parkings;
@@ -99,8 +111,83 @@ DROP TABLE IF EXISTS desservir;
 DROP TABLE IF EXISTS types_lignes;
 DROP TABLE IF EXISTS horaires;
 
+
+
+
+
+DROP TABLE IF EXISTS arretsData;
+DROP TABLE IF EXISTS lignesData;
+DROP TABLE IF EXISTS tronconsData;
+DROP TABLE IF EXISTS relationsLignesTronconsData;
+DROP TABLE IF EXISTS horairesData;
+DROP TABLE IF EXISTS CoursesData;
+DROP TABLE IF EXISTS nomCommercialData;
+
+
+CREATE TABLE arretsData (
+gid INT PRIMARY KEY NOT NULL UNIQUE,
+latitude FLOAT NOT NULL,
+longitude FLOAT NOT NULL,
+libelle TEXT NOT NULL,
+vehicule TEXT NOT NULL,
+type TEXT NOT NULL,
+actif BOOLEAN NOT NULL,
+voirie BOOLEAN NOT NULL,
+mdate DATETIME NOT NULL);
+
+CREATE TABLE lignesData (
+gid INT PRIMARY KEY NOT NULL UNIQUE,
+coordonnees LONGTEXT NOT NULL,
+libelle TEXT NOT NULL,
+sens TEXT NOT NULL,
+vehicule TEXT NOT NULL,
+principale BOOLEAN NOT NULL,
+groupe TEXT NOT NULL,
+rs_sv_ligne_a INT NOT NULL,
+rg_sv_arret_p_nd INT NOT NULL,
+rg_sv_arret_p_na INT NOT NULL,
+mdate DATETIME NOT NULL);
+
+CREATE TABLE tronconsData (
+gid INT PRIMARY KEY NOT NULL UNIQUE,
+coordonnees LONGTEXT NOT NULL,
+vehicule TEXT NOT NULL,
+rg_sv_arret_p_nd INT NOT NULL,
+rg_sv_arret_p_na INT NOT NULL,
+mdate DATETIME NOT NULL);
+
+CREATE TABLE relationsLignesTronconsData (
+rs_sv_chem_l INT NOT NULL,
+rs_sv_tronc_l INT NOT NULL);
+
+CREATE TABLE horairesData (
+gid INT PRIMARY KEY NOT NULL UNIQUE,
+hor_theo DATETIME NOT NULL,
+hor_app DATETIME NOT NULL,
+hor_real DATETIME,
+rs_sv_arret_p INT NOT NULL,
+rs_sv_cours_a INT NOT NULL,
+mdate DATETIME NOT NULL);
+
+CREATE TABLE CoursesData (
+gid INT PRIMARY KEY NOT NULL UNIQUE,
+rs_sv_ligne_a INT NOT NULL,
+rs_sv_chem_l INT NOT NULL,
+rg_sv_arret_p_nd INT NOT NULL,
+rg_sv_arret_p_na INT NOT NULL,
+mdate DATETIME NOT NULL);
+
+CREATE TABLE nomCommercialData (
+gid INT PRIMARY KEY NOT NULL UNIQUE,
+libelle TEXT NOT NULL,
+vehicule TEXT NOT NULL,
+mdate DATETIME NOT NULL);
+
+
+
 CREATE TABLE horaires (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
+gid INT NOT NULL,
 ligne INT NOT NULL,
 arret INT NOT NULL,
 direction INT NOT NULL,
@@ -438,7 +525,18 @@ ALTER TABLE horaires ADD CONSTRAINT horaires_ligne_lignes_id FOREIGN KEY (ligne)
 ALTER TABLE horaires ADD CONSTRAINT horaires_arret_arrets_id FOREIGN KEY (arret) REFERENCES arrets(id);
 ALTER TABLE horaires ADD CONSTRAINT horaires_direction_arrets_id FOREIGN KEY (direction) REFERENCES arrets(id);
 
-select arrets.nom, lignes.nom, lignes.direction, horaires.horaire
-from arrets join desservir on desservir.arret = arrets.id
-join lignes on desservir.ligne = lignes.id
-join horaires on horaires.ligne = lignes.id;
+
+
+ALTER TABLE lignesData ADD CONSTRAINT lignesData_rs_sv_ligne_a_nomCommercialData_gid FOREIGN KEY (rs_sv_ligne_a) REFERENCES nomCommercialData(gid);
+ALTER TABLE lignesData ADD CONSTRAINT lignesData_rg_sv_arret_p_nd_arretsData_gid FOREIGN KEY (rg_sv_arret_p_nd) REFERENCES arretsData(gid);
+ALTER TABLE lignesData ADD CONSTRAINT lignesData_rg_sv_arret_p_na_arretsData_gid FOREIGN KEY (rg_sv_arret_p_na) REFERENCES arretsData(gid);
+ALTER TABLE tronconsData ADD CONSTRAINT tronconsData_rg_sv_arret_p_nd_arretsData_gid FOREIGN KEY (rg_sv_arret_p_nd) REFERENCES arretsData(gid);
+ALTER TABLE tronconsData ADD CONSTRAINT tronconsData_rg_sv_arret_p_na_arretsData_gid FOREIGN KEY (rg_sv_arret_p_na) REFERENCES arretsData(gid);
+ALTER TABLE relationsLignesTronconsData ADD CONSTRAINT relationsLignesTronconsData_rs_sv_chem_l_lignesData_gid FOREIGN KEY (rs_sv_chem_l) REFERENCES lignesData(gid);
+ALTER TABLE relationsLignesTronconsData ADD CONSTRAINT relationsLignesTronconsData_rs_sv_tronc_l_tronconsData_gid FOREIGN KEY (rs_sv_tronc_l) REFERENCES tronconsData(gid);
+ALTER TABLE horairesData ADD CONSTRAINT horairesData_rs_sv_arret_p_arretsData_gid FOREIGN KEY (rs_sv_arret_p) REFERENCES arretsData(gid);
+ALTER TABLE horairesData ADD CONSTRAINT horairesData_rs_sv_cours_a_CoursesData_gid FOREIGN KEY (rs_sv_cours_a) REFERENCES CoursesData(gid);
+ALTER TABLE CoursesData ADD CONSTRAINT CoursesData_rs_sv_ligne_a_nomCommercialData_gid FOREIGN KEY (rs_sv_ligne_a) REFERENCES nomCommercialData(gid);
+ALTER TABLE CoursesData ADD CONSTRAINT CoursesData_rs_sv_chem_l_lignesData_gid FOREIGN KEY (rs_sv_chem_l) REFERENCES lignesData(gid);
+ALTER TABLE CoursesData ADD CONSTRAINT CoursesData_rg_sv_arret_p_nd_arretsData_gid FOREIGN KEY (rg_sv_arret_p_nd) REFERENCES arretsData(gid);
+ALTER TABLE CoursesData ADD CONSTRAINT CoursesData_rg_sv_arret_p_na_arretsData_gid FOREIGN KEY (rg_sv_arret_p_na) REFERENCES arretsData(gid);
