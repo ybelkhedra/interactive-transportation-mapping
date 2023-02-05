@@ -25,7 +25,6 @@ function updateBddParkings(){
                 }
                 );
                 var polygon = L.polygon(latlngs).addTo(feature_group_parkings_bdd);
-                console.log(polygon);
                 polygon.setStyle({color: 'blue'});
                 polygon.bindPopup(parking.nom + "<br>" + parking.nb_places_max + " places aux maximum <br>"+ parking.nb_places_handicapes+" places handicapes <br>" + parking.informations_complementaires + "<br> PAYANT : " + parking.payant + "<br> HORS VOIRIE : " + parking.hors_voirie + "<br> PRIVE : " + parking.prive);
             }
