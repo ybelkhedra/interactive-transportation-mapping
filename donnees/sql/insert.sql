@@ -94,3 +94,7 @@ INSERT INTO situer_lignes (ligne, coordonnee) VALUES (3, 6);
 
 INSERT INTO desservir (arret, ligne, heure_premier_passage, heure_dernier_passage, heure_prochain_passage, frequence, diurne, nocturne)
 VALUES (1, 1, CURRENT_TIME, CURRENT_TIME, CURRENT_TIME, CURRENT_TIME, 1, 0);
+
+INSERT INTO gares_ter (nom, info_complementaires) VALUES ('Gare de Pessac', 'nil');
+INSERT INTO coordonnees_gares_ter (latitude, longitude) VALUES (48.624, 2.394222);
+INSERT INTO siter_gares_ter (gare_ter, coordonnee) VALUES (1,1);
