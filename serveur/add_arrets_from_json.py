@@ -3,36 +3,69 @@ import json
 import shutil
 import datetime
 import requests
+from tqdm import tqdm
 
 
 
 #Programme qui se connecte au API de openData pour recuperer les arrets de bus, les lignes de bus, les horaires appliquables a chaque arret et les ajoute a la base de donnees
 
-def getJSON(url) :
-    reponse = requests.get(url,timeout=15)
-    #decode le json
-    reponse = reponse.json()
-    return reponse
+def getJSON(url):
+    try:
+        response = requests.get(url, timeout=90, stream=True)
+    except:
+        print("Erreur lors du téléchargement de : " + str(url))
+        return getJSON(url)
+
+    total_size = int(response.headers.get("Content-Length", 0))
+    block_size = 1024  # 1 Kibibyte
+    progress = tqdm(total=total_size, unit="B", unit_scale=True)
+
+    with open("large_file.json", "wb") as f:
+        for data in response.iter_content(block_size):
+            progress.update(len(data))
+            f.write(data)
+
+    progress.close()
+
+    # decode le json
+    with open("large_file.json", "r") as f:
+        response = f.read()
+    response = json.loads(response)
+    return response
 
 ##afficher le % de progression du telechargement
 print("Telechargement des donnees...")
-# arretsData = getJSON('https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=sv_arret_p')
-arretsData = json.loads(open('arrets.json').read())
+arretsData = getJSON('https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=sv_arret_p')
+with open('arrets.json', 'w') as outfile:
+    json.dump(arretsData, outfile)
+# arretsData = json.loads(open('arrets.json').read())
 print("Telechargement des arrets termine !")
-# lignesData = getJSON('https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=sv_chem_l')
-lignesData = json.loads(open('lignes.json').read())
+lignesData = getJSON('https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=sv_chem_l')
+with open('lignes.json', 'w') as outfile:
+    json.dump(lignesData, outfile)
+# lignesData = json.loads(open('lignes.json').read())
 print("Telechargement des lignes termine !")
-# tronconData = getJSON('https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=sv_tronc_l')
-tronconData = json.loads(open('troncons.json').read())
-# print("Telechargement des troncons termine !")
+tronconData = getJSON('https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=sv_tronc_l')
+with open('troncons.json', 'w') as outfile:
+    json.dump(tronconData, outfile)
+# tronconData = json.loads(open('troncons.json').read())
+print("Telechargement des troncons termine !")
 relationLigneTronconData = getJSON('https://data.bordeaux-metropole.fr/geojson/relations/SV_TRONC_L/SV_CHEM_L?key=177BEEMTWZ')
-# print("Telechargement des relations ligne-troncon termine !")
-# horairesData = getJSON('https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=sv_horai_a')
-horairesData = json.loads(open('horaires.json').read())
+with open('relationLigneTroncon.json', 'w') as outfile:
+    json.dump(relationLigneTronconData, outfile)
+print("Telechargement des relations ligne-troncon termine !")
+horairesData = getJSON('https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=sv_horai_a')
+with open('horaires.json', 'w') as outfile:
+    json.dump(horairesData, outfile)
+# horairesData = json.loads(open('horaires.json').read())
 print("Telechargement des horaires termine !")
 CoursesData = getJSON('https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=sv_cours_a')
+with open('courses.json', 'w') as outfile:
+    json.dump(CoursesData, outfile)
 print("Telechargement des courses termine !")
 nomCommercialData = getJSON('https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=sv_ligne_a')
+with open('nomCommercial.json', 'w') as outfile:
+    json.dump(nomCommercialData, outfile)
 print("Telechargement des noms commerciaux termine !")
 
 
@@ -141,7 +174,7 @@ for i in range(0,taille):
                     dico_course = {'gid':course['properties']['gid'], 'arret_depart':convertion_gid_arret(course['properties']['rg_sv_arret_p_nd']), 'arret_arrivee':convertion_gid_arret(course['properties']['rg_sv_arret_p_na']), 'horaires':[]}
                     for h in range(0,len(horairesData['features'])):
                         if (horairesData['features'][h]['properties']['rs_sv_cours_a'] == course['properties']['gid'] and horairesData['features'][h]['properties']['rs_sv_arret_p'] == arretCourant['gid']) :
-                            dico_course['horaires'].append(horairesData['features'][h]['properties']['hor_estime'])
+                            dico_course['horaires'].append({'gid': horairesData['features'][h]['properties']['gid'] , 'heure':horairesData['features'][h]['properties']['hor_estime']})
                     courses_aller.append(dico_course)
         for ligne_sens_retour in ligne['retour']:
             for course in CoursesData['features']:      
@@ -149,7 +182,7 @@ for i in range(0,taille):
                     dico_course = {'gid':course['properties']['gid'], 'arret_depart':convertion_gid_arret(course['properties']['rg_sv_arret_p_nd']), 'arret_arrivee':convertion_gid_arret(course['properties']['rg_sv_arret_p_na']), 'horaires':[]}
                     for h in range(0,len(horairesData['features'])):
                         if (horairesData['features'][h]['properties']['rs_sv_cours_a'] == course['properties']['gid'] and horairesData['features'][h]['properties']['rs_sv_arret_p'] == arretCourant['gid']) :
-                            dico_course['horaires'].append(horairesData['features'][h]['properties']['hor_estime'])
+                            dico_course['horaires'].append({'gid': horairesData['features'][h]['properties']['gid'] ,'heure':horairesData['features'][h]['properties']['hor_estime']})
                     courses_retour.append(dico_course)
         ligne['courses_associees'].append({'aller':courses_aller})
         ligne['courses_associees'].append({'retour':courses_retour})

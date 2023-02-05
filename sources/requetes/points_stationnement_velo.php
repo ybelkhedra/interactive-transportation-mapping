@@ -1,7 +1,8 @@
-<!-- FICHIER DE REQUETE POUR LES POINTS DE STATIONNEMENT VÉLO -->
-
-<!-- on commence notre script php -->
 <?php
+// <!-- FICHIER DE REQUETE POUR LES POINTS DE STATIONNEMENT VÉLO -->
+
+// <!-- on commence notre script php -->
+
 // on se connecte à la base de données (ne pas changer les paramètres, 
 //car c'est ceux utilisés par le serveur), tant pis si vous ne pouvez 
 //pas executer ce script sur votre machine locale ou alors changez les paramètres de votre bdd mysql

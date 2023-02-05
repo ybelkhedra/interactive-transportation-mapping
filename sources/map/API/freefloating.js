@@ -80,7 +80,7 @@ function updateBddStationsFreeFloating() { //a renommer en updateBddPointsCharge
                 }
                 );
                 var polygon = L.polygon(latlngs).addTo(feature_group_freefloating);
-                polygon.setStyle({color: 'pink'});
+                polygon.setStyle({color: 'blue'});
                 polygon.bindPopup(afficherPopupFreeFloating(freefloating));
             }
         });
