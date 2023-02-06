@@ -5,17 +5,30 @@ var feature_group_bus_temps_reel = L.featureGroup(
 
 ).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
-function addPopupVehicule(vehicule){
-    var destination = "inconnu"
-    return fetch('./sources/requetes/convert_gid_arret.php?gid='+vehicule.rs_sv_arret_p_actu)
+async function get_suivant(gid)
+{
+    var suivant = "inconnu"
+    return await fetch('./sources/requetes/convert_gid_arret.php?gid='+gid)
     .then(response => response.json())
     .then(data => {
-        destination = data
-        console.log(destination)
-    
-        console.log(destination)
+        suivant = data;
+        return suivant;
+    })
+}
 
-        var popup = "<b>Destination : </b>" + destination + "<br>";
+async function addPopupVehicule(vehicule){
+    var en_cours = "inconnu"
+    var suivant = "inconnu"
+    return fetch('./sources/requetes/convert_gid_arret.php?gid='+vehicule.rs_sv_arret_p_actu)
+    .then(response => response.json())
+    .then(async data => {
+        en_cours = data
+
+        suivant = await get_suivant(vehicule.rs_sv_arret_p_suiv)
+
+        var popup = "<b>Destination : </b>" + vehicule.terminus + "<br>";
+        popup += "<b> Arret en cours : "+en_cours+"<br>";
+        popup += "<b> Arret suivant : "+suivant+"<br>";
 
 
         popup += "<b> Type d'itinéraire : "+vehicule.statut+"<br>";
