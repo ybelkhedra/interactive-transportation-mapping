@@ -7,6 +7,8 @@ var layer_control_643cdab5b83b581cb10d63d05a5a00f0 = {
     },
 
     overlays :  {
+        "Stations Vcube" : feature_group_vcube,
+
         "Points de stationnement velo (BDD)" : feature_group_pts_stationnement_velo_bdd,
 
         "Pistes cyclables (BDD)" : feature_group_pistes_cyclables_bdd,
