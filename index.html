@@ -41,6 +41,7 @@
 
             <script src="sources/init.js"></script>
             <script src="sources/filtre.js"></script>
+            <script src="sources/map/API/stations_vcube.js"></script>
             <script src="sources/map/BDD/arrets_perso_bdd.js"></script>
             <script src="sources/map/BDD/gares_ter.js"></script>
             <script src="sources/map/BDD/lignes_bdd.js"></script>
@@ -118,11 +119,110 @@
                                     console.log("Loading element not found");
                                 });
                             });
-                            </script>
-                        </div>
-                        <div>
-                            <input type="checkbox" class="covoiturageCheckbox" checked>
-                            <label for="covoiturageCheckbox">Points de covoiturage</label>
+                        </script>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" class="pointDeChargeCheckbox" checked>
+                        <label for="pointDeChargeCheckbox">Points de charge</label>
+                        <script> 
+                        if ($(".pointDeChargeCheckbox").is(':checked')) {var pointDeChargeCheckbox = true;} else {var pointDeChargeCheckbox = false;}
+                        </script>
+                        <script> $(".pointDeChargeCheckbox").click(function(){
+                            chargement(1).then(function() {
+                                if (pointDeChargeCheckbox===true) { 
+                                    layerControlNumber.overlays["Points de charge"].remove();
+                                    pointDeChargeCheckbox=false;}
+                                else if (pointDeChargeCheckbox===false) {
+                                    layerControlNumber.overlays["Points de charge"].addTo(mapNumber);
+                                    pointDeChargeCheckbox=true;}
+                            return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
+                        </script>
+                    </div>
+                    <div>
+                        <input type="checkbox" class="covoiturageCheckbox" checked>
+                        <label for="covoiturageCheckbox">Points de covoiturage</label>
+                        <script>
+                        if ($(".covoiturageCheckbox").is(':checked')) {var covoiturageCheckbox = true;} else {var covoiturageCheckbox = false;}
+                        </script>
+                        <script> $(".covoiturageCheckbox").click(function(){
+                            chargement(1).then(function() {
+                                if (covoiturageCheckbox===true) { 
+                                    layerControlNumber.overlays["Covoiturage"].remove();
+                                    covoiturageCheckbox=false;}
+                                else if (covoiturageCheckbox===false) {
+                                    layerControlNumber.overlays["Covoiturage"].addTo(mapNumber);
+                                    covoiturageCheckbox=true;
+                                }
+                                return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
+                        </script>
+                    </div>
+                    <div>
+                        <input type="checkbox" class="autopartageCheckbox" checked>
+                        <label for="autopartageCheckbox">Points d'autopartage</label>
+                        <script>
+                        if ($(".autopartageCheckbox").is(':checked')) {var autopartageCheckbox = true;} else {var autopartageCheckbox = false;}
+                        </script>
+                        <script> 
+                            $(".autopartageCheckbox").click(function(){
+                            chargement(1).then(function() {
+                                if (autopartageCheckbox===true) { 
+                                    layerControlNumber.overlays["Autopartage"].remove();
+                                    autopartageCheckbox=false;}
+                                else if (autopartageCheckbox===false) {
+                                    layerControlNumber.overlays["Autopartage"].addTo(mapNumber);
+                                    autopartageCheckbox=true;
+                                }
+                                return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
+                        </script>
+                    </div>
+
+
+
+                    <div>
+                        <input type="checkbox" class="vcubeCheckbox" checked>
+                        <label for="vcubeCheckbox">Stations Vcube</label>
+                        <script>
+                        if ($(".vcubeCheckbox").is(':checked')) {var vcubeCheckbox = true;} else {var vcubeCheckbox = false;}
+                        </script>
+                        <script> 
+                            $(".vcubeCheckbox").click(function(){
+                            chargement(1).then(function() {
+                                if (vcubeCheckbox===true) { 
+                                    layerControlNumber.overlays["Stations Vcube"].remove();
+                                    vcubeCheckbox=false;}
+                                else if (vcubeCheckbox===false) {
+                                    layerControlNumber.overlays["Stations Vcube"].addTo(mapNumber);
+                                    vcubeCheckbox=true;
+                                }
+                                return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
+                        </script>
+                    </div>
+
+
+
+                    <div>
+                            <input type="checkbox" class="arretBusCheckbox" unchecked>
                             <script>
                             if ($(".covoiturageCheckbox").is(':checked')) {var covoiturageCheckbox = true;} else {var covoiturageCheckbox = false;}
                             </script>

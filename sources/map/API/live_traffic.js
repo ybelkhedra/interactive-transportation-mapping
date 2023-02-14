@@ -45,5 +45,5 @@ function updateMarkersTraffic() {
         console.log(e);
     }
 }
-
+updateMarkersTraffic();
 setInterval(updateMarkersTraffic, 30000);
