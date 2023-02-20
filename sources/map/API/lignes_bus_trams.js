@@ -1,6 +1,7 @@
 
 
 function numberToColorLeaflet(i) {
+    //i est le numero de troncon, retrouver le numero de ligne avec le tableau TableauRelationCheminTronc
     var r = (i * 4) % 256;
     var g = (i * 7) % 256;
     var b = (i * 13) % 256;
@@ -37,9 +38,9 @@ function chemin_lignes(){
                     //console.log(r+" ,"+g+","+ b);
                     val.geo_shape.geometry.coordinates = filtreCordonneesTab(val.geo_shape.geometry.coordinates);
                     if (val.vehicule == "BUS")
-                        L.polyline( val.geo_shape.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.vehicule + "<br>" +val.libelle + "<br>" +val.sens + "<br> nd : " + val.rg_sv_arret_p_nd + "<br> na : " + val.rg_sv_arret_p_na).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
+                        L.polyline( val.geo_shape.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.vehicule + "<br> nd : " + val.rg_sv_arret_p_nd + "<br> na : " + val.rg_sv_arret_p_na).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
                     else if (val.vehicule == "TRAM")
-                        L.polyline(val.geo_shape.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.vehicule + "<br>" +val.libelle + "<br>" +val.sens + "<br> nd : " + val.rg_sv_arret_p_nd + "<br> na : " + val.rg_sv_arret_p_na).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
+                        L.polyline(val.geo_shape.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.vehicule + "<br> nd : " + val.rg_sv_arret_p_nd + "<br> na : " + val.rg_sv_arret_p_na).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
                         
 
             });
@@ -52,4 +53,50 @@ function chemin_lignes(){
     }
 }
 
-chemin_lignes();
+
+function chemin_lignes_online()
+{
+    try {
+        $.ajax({
+            url: "https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=sv_tronc_l",
+            type: 'GET',
+            dataType: "json",
+            cache: false,
+            success: function(data) {
+                $.each(data.features, function(key, val) {
+                    for (var i = 0; i < val.geometry.coordinates.length; i++) {
+                        val.geometry.coordinates[i].reverse();
+                    }
+                    if (val.properties.gid != NaN)
+                    {
+                        console.log("gid : "+val.properties.gid)
+                        fetch("./sources/requetes/convert_tronc_chemin.php?gid="+val.properties.gid)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                        });
+                    }
+
+
+                    var T = numberToColorLeaflet(val.properties.gid);
+                    var r = T[0];
+                    var g = T[1];
+                    var b = T[2];
+                    val.geometry.coordinates = filtreCordonneesTab(val.geometry.coordinates);
+                    if (val.properties.vehicule == "BUS")
+                        L.polyline(val.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.properties.vehicule + "<br> nd : " + val.properties.rg_sv_arret_p_nd + "<br> na : " + val.properties.rg_sv_arret_p_na).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
+                    else if (val.properties.vehicule == "TRAM")
+                        L.polyline(val.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.properties.vehicule + "<br> nd : " + val.properties.rg_sv_arret_p_nd + "<br> na : " + val.properties.rg_sv_arret_p_na).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
+                        
+
+                });
+            }
+        });
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
+// chemin_lignes();
+chemin_lignes_online();
