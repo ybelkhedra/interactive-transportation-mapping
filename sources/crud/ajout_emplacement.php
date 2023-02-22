@@ -142,7 +142,7 @@ if (isset($_POST['ajout'])) {
     $latitude = $_POST['latitude'];
     $longitude = $_POST['longitude'];
 
-    $sql1 = "INSERT INTO coordonnees_gps (latitude, longitude) VALUES ('$latitude', '$longitude');";
+    $sql1 = "INSERT INTO coordonnees_".$table." (latitude, longitude) VALUES ('$latitude', '$longitude');";
     
     $table_corespondance = "situer_".$table;
 
@@ -174,9 +174,19 @@ if (isset($_POST['ajout'])) {
 
             $last_id = $_POST['id_table'];
 
-            // ajoute l'id de la coordonnée dans la table emplacement
-            $sql2 = "INSERT INTO $table_corespondance (point, reference) VALUES ('$last_id_gps', '$last_id');";
+            //recuperer le nom des champs de la table_corespondance dans l'ordre de la table et dire que point est le premier champ
+            $sql3 = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '$database' AND TABLE_NAME = '$table_corespondance' ORDER BY ORDINAL_POSITION";
+            $result = mysqli_query($conn, $sql3);
+            $row = mysqli_fetch_array($result);
+            $row = mysqli_fetch_array($result);
+            $point = $row[0];
+            $reference = "coordonnee";
 
+
+
+            // ajoute l'id de la coordonnée dans la table emplacement
+            $sql2 = "INSERT INTO $table_corespondance (".$point.", ".$reference.") VALUES ('$last_id', '$last_id_gps');";
+            echo $sql2;
             if (mysqli_query($conn, $sql2)) {
                 echo "New record created successfully";
             } else {

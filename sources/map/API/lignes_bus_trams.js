@@ -98,5 +98,5 @@ function chemin_lignes_online()
     }
 }
 
-// chemin_lignes();
-chemin_lignes_online();
+chemin_lignes();
+//chemin_lignes_online();
