@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'MapView.dart';
+import 'crud_select_table.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class LoginView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('Page de connection'),
+              const Text('Page de Connexion'),
               const SizedBox(height: 20),
               const TextField(
                 decoration: InputDecoration(
@@ -37,10 +37,11 @@ class LoginView extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => MapView()),
+                          MaterialPageRoute(
+                              builder: (context) => const CrudSelectTable()),
                         );
                       },
-                      child: const Text('Connection'),
+                      child: const Text('Connexion'),
                     ),
                     const SizedBox(width: 20),
                     ElevatedButton(

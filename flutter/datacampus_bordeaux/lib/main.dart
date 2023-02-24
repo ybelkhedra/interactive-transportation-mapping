@@ -3,7 +3,11 @@ import 'login.dart';
 import 'MapView.dart';
 
 void main() async {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    routes: {
+      '/': (context) => const LoginView(),
+    },
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -39,7 +43,7 @@ class _menuState extends State<menu> {
             Row(
       children: [
         Container(
-          color: Color.fromARGB(255, 28, 103, 215),
+          color: const Color.fromARGB(255, 28, 103, 215),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -90,13 +94,13 @@ class _menuState extends State<menu> {
         Expanded(
           child: IndexedStack(
             index: currentPageIndex,
-            children: [
-              const Center(
+            children: const [
+              Center(
                 child: Text('Home'),
               ),
               //const MapView(),
-              const MapView(),
-              const LoginView(),
+              MapView(),
+              LoginView(),
             ],
           ),
         ),
