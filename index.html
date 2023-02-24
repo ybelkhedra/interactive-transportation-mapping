@@ -224,25 +224,30 @@
 
                     <div>
                             <input type="checkbox" class="arretBusCheckbox" unchecked>
+                            <script>
+                                layerControlNumber.overlays["Arrets de bus"].remove();
+                                </script>
                             <label for="arretBusCheckbox">Arrets de bus</label>
                             <script>
-                            if ($(".covoiturageCheckbox").is(':checked')) {var covoiturageCheckbox = true;} else {var covoiturageCheckbox = false;}
+                            if ($(".arretBusCheckbox").is(':checked')) {var arretBusCheckbox = true;} else {var arretBusCheckbox = false;}
                             </script>
-                            <script> $(".covoiturageCheckbox").click(function(){
-                                chargement(1).then(function() {
-                                    if (covoiturageCheckbox===true) { 
-                                        layerControlNumber.overlays["Covoiturage"].remove();
-                                        covoiturageCheckbox=false;}
-                                    else if (covoiturageCheckbox===false) {
-                                        layerControlNumber.overlays["Covoiturage"].addTo(mapNumber);
-                                        covoiturageCheckbox=true;
-                                    }
+                            <script> 
+                                $(".arretBusCheckbox").click(function(){
+                                    chargement(1).then(function() {
+                                        if (arretBusCheckbox===true) { 
+                                            layerControlNumber.overlays["Arrets de bus"].remove();
+                                            arretBusCheckbox=false;
+                                        }
+                                        else if (arretBusCheckbox===false) {
+                                            layerControlNumber.overlays["Arrets de bus"].addTo(mapNumber);
+                                            arretBusCheckbox=true;
+                                        }
                                     return chargement(0);
-                                })
-                                .catch(function() {
-                                    console.log("Loading element not found");
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
                                 });
-                            });
                             </script>
                         </div>
                         <!-- Fonctions déjà implémentées en double ci dessous-->

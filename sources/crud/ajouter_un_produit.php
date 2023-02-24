@@ -45,35 +45,74 @@ $columns = mysqli_query($link, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUM
         $type = mysqli_query($link, "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '" . $_POST['database'] . "' AND TABLE_NAME = '" . $_POST['table'] . "' AND COLUMN_NAME = '" . $column['COLUMN_NAME'] . "';");
         $type = mysqli_fetch_array($type);
         $type = $type['DATA_TYPE'];
-        //si la colone est un boolean on affiche un select
-        if ($type == "tinyint") {
+        
+        //detecter si la colone est une clef etrangere d'une autre table et si oui alors afficher un select avec les valeurs de la table correspondante
+        $foreign_key = mysqli_query($link, "SELECT REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = '" . $_POST['database'] . "' AND TABLE_NAME = '" . $_POST['table'] . "' AND COLUMN_NAME = '" . $column['COLUMN_NAME'] . "';");
+        $foreign_key = mysqli_fetch_array($foreign_key);
+        if ($foreign_key['REFERENCED_TABLE_NAME'] != null) {
+            $foreign_key_table = $foreign_key['REFERENCED_TABLE_NAME'];
+            $foreign_key_values = mysqli_query($link, "SELECT * FROM " . $foreign_key_table . ";");
+            //recuperation des deux premières colones de la table etrangere et leur valeur pour les afficher dans le select
+            $info_col = mysqli_query($link, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '" . $_POST['database'] . "' AND TABLE_NAME = '" . $foreign_key_table . "' order by ORDINAL_POSITION;");
+            $info_col = mysqli_fetch_array($info_col);
+            $foreign_key_column = $info_col['COLUMN_NAME'];
             echo "<select name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'>";
-            echo "<option value='0'>Non</option>";
-            echo "<option value='1'>Oui</option>";
+            while ($foreign_key_value = mysqli_fetch_array($foreign_key_values)) {
+                //si il existe une colone "nom" ou "libelle" on affiche la valeur de cette colone dans le select en plus de l'id
+                if ($foreign_key_value['nom'] != null) {
+                    echo "<option value='" . $foreign_key_value[$foreign_key_column] . "'>" . $foreign_key_value[$foreign_key_column] . " - " . $foreign_key_value['nom'] . "</option>";
+                } elseif ($foreign_key_value['libelle'] != null) {
+                    echo "<option value='" . $foreign_key_value[$foreign_key_column] . "'>" . $foreign_key_value[$foreign_key_column] . " - " . $foreign_key_value['libelle'] . "</option>";
+                } else {
+                    echo "<option value='" . $foreign_key_value[$foreign_key_column] . "'>" . $foreign_key_value[$foreign_key_column] . "</option>";
+                }
+            }
             echo "</select><br>";
+        
+
+            // $info_col = mysqli_query($link, "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '" . $_POST['database'] . "' AND TABLE_NAME = '" . $foreign_key_table . "' order by ORDINAL_POSITION;");
+            // $info_col = mysqli_fetch_array($info_col);
+            // $foreign_key_column = $info_col['COLUMN_NAME'];
+            // echo "<select name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'>";
+
+
+            // while ($foreign_key_value = mysqli_fetch_array($foreign_key_values)) {
+            //     echo "<option value='" . $foreign_key_value[$foreign_key_column] . "'>" . $foreign_key_value[$foreign_key_column] . "</option>";
+            // }
+            // echo "</select><br>";
         }
-        //si la colone est un int on affiche un input type number
-        elseif ($type == "int") {
-            echo "<input type='number' name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'><br>";
-        }
-        //si la colone est un float on affiche un input type number
-        elseif ($type == "float") {
-            echo "<input type='number' step='0.000001' name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'><br>";
-        }
-        //si la colone est un date on affiche un input type date
-        elseif ($type == "date") {
-            echo "<input type='date' name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'><br>";
-        }
-        //si la colone est un datetime on affiche un input type datetime-local
-        elseif ($type == "datetime") {
-            echo "<input type='datetime-local' name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'><br>";
-        }
-        //si la colone est un text on affiche un input type text
-        elseif ($type == "text") {
-            echo "<input type='text' name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'><br>";
-        } 
-        else {
+        else
+            {
+            //si la colone est un boolean on affiche un select
+            if ($type == "tinyint") {
+                echo "<select name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'>";
+                echo "<option value='0'>Non</option>";
+                echo "<option value='1'>Oui</option>";
+                echo "</select><br>";
+            }
+            //si la colone est un int on affiche un input type number
+            elseif ($type == "int") {
+                echo "<input type='number' name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'><br>";
+            }
+            //si la colone est un float on affiche un input type number
+            elseif ($type == "float") {
+                echo "<input type='number' step='0.000001' name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'><br>";
+            }
+            //si la colone est un date on affiche un input type date
+            elseif ($type == "date") {
+                echo "<input type='date' name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'><br>";
+            }
+            //si la colone est un datetime on affiche un input type datetime-local
+            elseif ($type == "datetime") {
+                echo "<input type='datetime-local' name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'><br>";
+            }
+            //si la colone est un text on affiche un input type text
+            elseif ($type == "text") {
                 echo "<input type='text' name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'><br>";
+            } 
+            else {
+                    echo "<input type='text' name='" . $column['COLUMN_NAME'] . "' id='" . $column['COLUMN_NAME'] . "'><br>";
+                }
             }
         }
         $tmp++;
@@ -141,20 +180,20 @@ if (isset($_POST['modifier'])) {
         $id_table = $row[0];
         
         // formulaire POST vers ajout_emplacement.php avec info de connection, table et id_table
-        // echo "<form action='ajout_emplacement.php' method='post'>";
-        // echo "<input type='hidden' name='user' value='" . $user . "'>";
-        // echo "<input type='hidden' name='password' value='" . $password . "'>";
-        // echo "<input type='hidden' name='database' value='" . $database . "'>";
-        // echo "<input type='hidden' name='table' value='" . $table . "'>";
-        // echo "<input type='hidden' name='id_table' value='" . $id_table . "'>";
-        // echo "<input type='submit' value='Ajouter un emplacement'>";
+        echo "<form action='ajout_emplacement.php' method='post'>";
+        echo "<input type='hidden' name='user' value='" . $user . "'>";
+        echo "<input type='hidden' name='password' value='" . $password . "'>";
+        echo "<input type='hidden' name='database' value='" . $database . "'>";
+        echo "<input type='hidden' name='table' value='" . $table . "'>";
+        echo "<input type='hidden' name='id_table' value='" . $id_table . "'>";
+        echo "<input type='submit' value='Ajouter un emplacement'>";
 
-        //retour page precedente avec info connection
-        //if (isset($_POST['add_product'])) {
+        // // retour page precedente avec info connection
+        // if (isset($_POST['add_product'])) {
         //    echo "<a href='add_product.php?user=" . $user . "&password=" . $password . "&database=" . $database . "&table=" . $table . "&add_product=1'>Retour</a>";
-        //} else {
-            //echo "<a href='crud.php?user=" . $user . "&password=" . $password . "&database=" . $database . "&table=" . $table . "'>Retour</a>";
-        //}
+        // } else {
+        //     echo "<a href='crud.php?user=" . $user . "&password=" . $password . "&database=" . $database . "&table=" . $table . "'>Retour</a>";
+        // }
     }
     else
     {
