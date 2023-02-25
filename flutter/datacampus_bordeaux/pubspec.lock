@@ -140,7 +140,7 @@ packages:
     source: hosted
     version: "0.6.1"
   latlong2:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: latlong2
       sha256: "408993a0e3f46e79ce1f129e4cb0386eef6d48dfa6394939ecacfbd7049154ec"
@@ -243,6 +243,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  sidebarx:
+    dependency: "direct main"
+    description:
+      name: sidebarx
+      sha256: "8f3c1acdb4cd85bd7e5ab3f5bd8b13f5d5beeb82950e52d31c403ffea701e8be"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.14.0"
   sky_engine:
     dependency: transitive
     description: flutter

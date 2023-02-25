@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -38,7 +37,7 @@ class MapView extends StatelessWidget {
               double.parse(data[i]['longitude'])),
           builder: (ctx) => Container(
             child: IconButton(
-              icon: Icon(Icons.directions_bus),
+              icon: const Icon(Icons.directions_bus),
               color: Colors.red,
               iconSize: 45.0,
               onPressed: () {
@@ -61,7 +60,7 @@ class MapView extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               color: Colors.grey[350],
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(20),
                 bottomRight: Radius.circular(20),
               ),
@@ -76,21 +75,21 @@ class MapView extends StatelessWidget {
                   children: [
                     //menu accordéon
                     ExpansionTile(
-                      title: Text('Poins statiques'),
+                      title: const Text('Poins statiques'),
                       children: [
                         // menu déroulant : Transport en commun
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Container(
+                            SizedBox(
                               width: 170,
                               child: ExpansionTile(
-                                title: Text('Transport en commun'),
+                                title: const Text('Transport en commun'),
                                 children: [
                                   //bouton avec icone et texte : BUS TBM
                                   TextButton.icon(
                                     onPressed: () {
-                                      print('tram');
+                                      //print('tram');
                                     },
                                     icon: const Icon(Icons.directions_train,
                                         color: Colors.black),
@@ -109,10 +108,10 @@ class MapView extends StatelessWidget {
                               ),
                             ),
                             //mobilite douces
-                            Container(
+                            SizedBox(
                               width: 170,
                               child: ExpansionTile(
-                                title: Text('Mobilite douce'),
+                                title: const Text('Mobilite douce'),
                                 children: [
                                   TextButton.icon(
                                     onPressed: () {
@@ -177,7 +176,7 @@ class MapView extends StatelessWidget {
                         markers: snapshot.data as List<Marker>,
                       );
                     } else if (snapshot.hasError) {
-                      return Text('An error occurred');
+                      return const Text('An error occurred');
                     } else {
                       return Scaffold(
                         body: Center(

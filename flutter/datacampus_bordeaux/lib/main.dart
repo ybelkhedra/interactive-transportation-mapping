@@ -1,10 +1,15 @@
+import 'package:datacampus_bordeaux/crud_select_table.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
 import 'CRUD/parkings.dart';
 import 'MapView.dart';
 
 void main() async {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    routes: {
+      '/': (context) => const menu(),
+    },
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -40,7 +45,7 @@ class _menuState extends State<menu> {
             Row(
       children: [
         Container(
-          color: Color.fromARGB(255, 28, 103, 215),
+          color: const Color.fromARGB(255, 28, 103, 215),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -77,10 +82,10 @@ class _menuState extends State<menu> {
                     //espace entre les icones de 10px
                     const SizedBox(height: 20),
                     IconButton(
-                      icon: const Icon(Icons.electric_car, color: Colors.white),
+                      icon: const Icon(Icons.table_chart, color: Colors.white),
                       onPressed: () {
                         setState(() {
-                          currentPageIndex = 1;
+                          currentPageIndex = 2;
                         });
                       },
                     ),
@@ -89,7 +94,7 @@ class _menuState extends State<menu> {
                       icon: const Icon(Icons.login, color: Colors.white),
                       onPressed: () {
                         setState(() {
-                          currentPageIndex = 2;
+                          currentPageIndex = 3;
                         });
                       },
                     ),
@@ -107,7 +112,7 @@ class _menuState extends State<menu> {
                 child: Text('Home'),
               ),
               parkings(),
-              MapView(),
+              CrudSelectTable(),
               LoginView(),
             ],
           ),
