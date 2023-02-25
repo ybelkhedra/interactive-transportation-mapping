@@ -21,10 +21,11 @@ class MapView extends StatelessWidget {
 
   //fonction qui retourne une liste de markers à partir d'une liste d'arrets de bus (json) obtenu par une requete http
   Future<List<Marker>> getBusStop() async {
+    print("TEST BUS STOP");
     var url = Uri.http("145.239.198.30", "/sources/requetes/arrets_api.php");
     var response = await http.get(url);
-    // print('Response status: ${response.statusCode}');
-    // print('Response body: ${response.body}');
+    print('Response status: ${response.statusCode}');
+    //print('Response body: ${response.body}');
     var data = jsonDecode(response.body);
     List<Marker> markers = [];
     for (var i = 0; i < data.length; i++) {

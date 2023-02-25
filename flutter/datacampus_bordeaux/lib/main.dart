@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login.dart';
+import 'CRUD/parkings.dart';
 import 'MapView.dart';
 
 void main() async {
@@ -65,7 +66,18 @@ class _menuState extends State<menu> {
                     //espace entre les icones de 10px
                     const SizedBox(height: 20),
                     IconButton(
-                      icon: const Icon(Icons.map, color: Colors.white),
+                      icon: const Icon(Icons.local_parking_outlined,
+                          color: Colors.white),
+                      onPressed: () {
+                        setState(() {
+                          currentPageIndex = 1;
+                        });
+                      },
+                    ),
+                    //espace entre les icones de 10px
+                    const SizedBox(height: 20),
+                    IconButton(
+                      icon: const Icon(Icons.electric_car, color: Colors.white),
                       onPressed: () {
                         setState(() {
                           currentPageIndex = 1;
@@ -90,13 +102,13 @@ class _menuState extends State<menu> {
         Expanded(
           child: IndexedStack(
             index: currentPageIndex,
-            children: [
-              const Center(
+            children: const [
+              Center(
                 child: Text('Home'),
               ),
-              //const MapView(),
-              const MapView(),
-              const LoginView(),
+              parkings(),
+              MapView(),
+              LoginView(),
             ],
           ),
         ),
