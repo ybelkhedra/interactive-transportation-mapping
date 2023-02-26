@@ -11,8 +11,8 @@ import 'package:http/http.dart' as http;
 
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class parkings extends StatelessWidget {
-  const parkings({Key? key}) : super(key: key);
+class Parkings extends StatelessWidget {
+  const Parkings({Key? key}) : super(key: key);
 
   //fonction qui retourne une liste de card à partir d'une liste de parkings (json) obtenu par une requete http sur "145.239.198.30", "/sources/requetes/parkings.php"
   Future<List<Widget>> getparkings() async {

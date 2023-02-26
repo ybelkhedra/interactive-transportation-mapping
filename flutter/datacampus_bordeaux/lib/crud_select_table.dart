@@ -1,4 +1,4 @@
-//import 'package:datacampus_bordeaux/CRUD/parkings.dart';
+import 'package:datacampus_bordeaux/CRUD/parkings.dart';
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
 // import 'dart:convert';
@@ -50,9 +50,14 @@ class _CrudSelectTableState extends State<CrudSelectTable> {
                     animation: _controller,
                     builder: (context, child) {
                       //sense contenir le crud pour la table selectionnee
-                      return Center(
-                          child:
-                              Text(snapshot.data![_controller.selectedIndex]));
+                      if (snapshot.data![_controller.selectedIndex] ==
+                          "Parkings") {
+                        return const Parkings();
+                      } else {
+                        return Center(
+                            child: Text(
+                                snapshot.data![_controller.selectedIndex]));
+                      }
                     },
                   ),
                 ))
@@ -143,7 +148,11 @@ class SideBarXExample extends StatelessWidget {
         );
       },
       items: tableNames
-          .map((e) => SidebarXItem(icon: Icons.table_chart, label: e))
+          .map((e) => SidebarXItem(
+              icon: e == "Parkings"
+                  ? Icons.local_parking_outlined
+                  : Icons.table_chart,
+              label: e))
           .toList(),
     );
   }
