@@ -13,7 +13,7 @@ class LoginView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('Page de Connexion'),
+              const Text('Page de connexion'),
               const SizedBox(height: 20),
               const TextField(
                 decoration: InputDecoration(
@@ -45,7 +45,8 @@ class LoginView extends StatelessWidget {
                     ),
                     const SizedBox(width: 20),
                     ElevatedButton(
-                        onPressed: () {}, child: const Text('Inscription')),
+                        onPressed: () {}, //EST SENCE RETOURNER A LA CARTE
+                        child: const Text('Retour à la carte')),
                   ],
                 ),
               )
