@@ -1,11 +1,13 @@
+import 'package:datacampus_bordeaux/crud_select_table.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
+import 'CRUD/parkings.dart';
 import 'MapView.dart';
 
 void main() async {
   runApp(MaterialApp(
     routes: {
-      '/': (context) => const LoginView(),
+      '/': (context) => const menu(),
     },
   ));
 }
@@ -69,10 +71,21 @@ class _menuState extends State<menu> {
                     //espace entre les icones de 10px
                     const SizedBox(height: 20),
                     IconButton(
-                      icon: const Icon(Icons.map, color: Colors.white),
+                      icon: const Icon(Icons.local_parking_outlined,
+                          color: Colors.white),
                       onPressed: () {
                         setState(() {
                           currentPageIndex = 1;
+                        });
+                      },
+                    ),
+                    //espace entre les icones de 10px
+                    const SizedBox(height: 20),
+                    IconButton(
+                      icon: const Icon(Icons.table_chart, color: Colors.white),
+                      onPressed: () {
+                        setState(() {
+                          currentPageIndex = 2;
                         });
                       },
                     ),
@@ -81,7 +94,7 @@ class _menuState extends State<menu> {
                       icon: const Icon(Icons.login, color: Colors.white),
                       onPressed: () {
                         setState(() {
-                          currentPageIndex = 2;
+                          currentPageIndex = 3;
                         });
                       },
                     ),
@@ -98,8 +111,8 @@ class _menuState extends State<menu> {
               Center(
                 child: Text('Home'),
               ),
-              //const MapView(),
-              MapView(),
+              parkings(),
+              CrudSelectTable(),
               LoginView(),
             ],
           ),
