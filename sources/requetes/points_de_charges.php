@@ -28,14 +28,13 @@ INNER JOIN coordonnees_pts_recharge
         $row = array_merge($row, array("puissance" => array()));
 
         $result2 = $db->query("SELECT types_de_prises.nom as type_prise FROM compatible INNER JOIN types_de_prises ON compatible.type_de_prise = types_de_prises.id WHERE point_de_recharge = ".$row['id'].";");
-        $result3 = $db->query("SELECT puissances.puissance as puissance FROM recharger INNER JOIN puissances ON recharger.puissance = puissances.id WHERE point_de_recharge = ".$row['id'].";");
-        
+
         while ($row2 = $result2->fetch_assoc()) {
             $row['type_prise'][] = $row2['type_prise'];
         }
-
+        $result3 = $db->query("SELECT puissances.puissance as puissance FROM recharger INNER JOIN puissances ON recharger.puissance = puissances.id WHERE point_de_recharge = ".$row['id'].";");
         while ($row3 = $result3->fetch_assoc()) {
-            $row['puissance'][] = $row2['puissance'];
+            $row['puissance'][] = $row3['puissance'];
         }
 
         $result2->free();

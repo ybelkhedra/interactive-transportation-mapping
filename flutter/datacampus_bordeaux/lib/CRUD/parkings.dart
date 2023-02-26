@@ -20,6 +20,8 @@ class Parkings extends StatelessWidget {
     var response = await http.get(url);
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
+
+    //print('Response body: ${response.body}');
     final data = jsonDecode(response.body);
     List<Widget> cards = [];
     for (var i = 0; i < data.length; i++) {
@@ -35,66 +37,144 @@ class Parkings extends StatelessWidget {
             ),
             Column(
               children: [
+                //afficher les informations du parking
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Text('Nombre de places max : '),
+                        Text(data[i]['nb_places_max']),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Text('Nombre de places handicapés : '),
+                        Text(data[i]['nb_places_handicapes']),
+                      ],
+                    ),
+                    //si data[i]['payant'] = 0 alors le parking est gratuit est vice versa
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Text('Payant : '),
+                        Text(data[i]['payant'] == '0' ? 'Non' : 'Oui'),
+                      ],
+                    ),
+                    // si data[i]['hors_voirie'] = 0 alors le parking est en voirie et vice versa
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Text('Hors voirie : '),
+                        Text(data[i]['hors_voirie'] == '0' ? 'Non' : 'Oui'),
+                      ],
+                    ),
+                    // si data[i]['prive'] = 0 alors le parking est public et vice versa
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Text('Privé : '),
+                        Text(data[i]['prive'] == '0' ? 'Non' : 'Oui'),
+                      ],
+                    ),
+                    // afficher les informations complementaires data[i]['informations_complementaires'] si elles existent et non null
+                    if (data[i]['informations_complementaires'] != null)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Text('Informations complémentaires : '),
+                          Text(data[i]['informations_complementaires']),
+                        ],
+                      ),
+                  ],
+                ),
                 //afficher une petite carte avec le parking en question (latitude et longitude) sur un marker,
                 //pour cela on utilise la librairie flutter_map
-                Container(
-                  height: 200,
-                  child: FlutterMap(
-                    options: MapOptions(
-                      center: LatLng(
-                          double.parse(data[i]['coordonnees'][0]["latitude"]),
-                          double.parse(data[i]['coordonnees'][0]["longitude"])),
-                      zoom: 15.0,
-                    ),
-                    children: [
-                      TileLayer(
-                        urlTemplate:
-                            "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-                        subdomains: ['a', 'b', 'c'],
-                      ),
-                      Container(
-                        child: MarkerLayer(
-                          markers: [
-                            Marker(
-                              width: 80.0,
-                              height: 80.0,
-                              point: LatLng(
-                                  double.parse(
-                                      data[i]['coordonnees'][0]["latitude"]),
-                                  double.parse(
-                                      data[i]['coordonnees'][0]["longitude"])),
-                              builder: (ctx) => Container(
-                                child: IconButton(
-                                  icon: Icon(Icons.directions_car),
-                                  color: Colors.red,
-                                  iconSize: 45.0,
-                                  onPressed: () {
-                                    print('Marker pressed');
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      height: 100,
+                      width: 200,
+                      child: FlutterMap(
+                        options: MapOptions(
+                          center: LatLng(
+                              double.parse(
+                                  data[i]['coordonnees'][0]["latitude"]),
+                              double.parse(
+                                  data[i]['coordonnees'][0]["longitude"])),
+                          zoom: 15.0,
                         ),
+                        children: [
+                          TileLayer(
+                            urlTemplate:
+                                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                            subdomains: const ['a', 'b', 'c'],
+                          ),
+                          // si data[i]["coordonnees"] est un tableau de taille 1 alors on affiche un marker sinon on affiche un polyline
+                          if (data[i]["coordonnees"].length == 1)
+                            MarkerLayer(
+                              markers: [
+                                Marker(
+                                  width: 80.0,
+                                  height: 80.0,
+                                  point: LatLng(
+                                      double.parse(data[i]['coordonnees'][0]
+                                          ["latitude"]),
+                                      double.parse(data[i]['coordonnees'][0]
+                                          ["longitude"])),
+                                  builder: (ctx) => IconButton(
+                                    icon: const Icon(Icons.local_parking_sharp,
+                                        color: Colors.lightBlue, size: 25.0),
+                                    color: Colors.red,
+                                    iconSize: 45.0,
+                                    onPressed: () {
+                                      print('Marker pressed');
+                                    },
+                                  ),
+                                ),
+                              ],
+                            )
+                          else if (data[i]["coordonnees"].length > 1)
+                            PolylineLayer(
+                              polylines: [
+                                Polyline(
+                                  points: [
+                                    for (var j = 0;
+                                        j < data[i]["coordonnees"].length;
+                                        j++)
+                                      LatLng(
+                                          double.parse(data[i]["coordonnees"][j]
+                                              ["latitude"]),
+                                          double.parse(data[i]["coordonnees"][j]
+                                              ["longitude"]))
+                                  ],
+                                  strokeWidth: 4.0,
+                                  color: Colors.lightBlue,
+                                ),
+                              ],
+                            ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     TextButton(
-                      child: const Text('Plus d\'informations'),
+                      child: const Text('Modifier'),
                       onPressed: () {
-                        /* Afficher une card en dessous de la carte avec les informations du parkings */
+                        /* Formulaire pour modifier les informations */
                       },
                     ),
                     const SizedBox(width: 8),
                     TextButton(
-                      child: const Text('Réserver'),
+                      child: const Text('Supprimer',
+                          style: TextStyle(color: Colors.red)),
                       onPressed: () {
-                        /* ... */
+                        /* Demande confirmation avant suppression */
                       },
                     ),
                     const SizedBox(width: 8),

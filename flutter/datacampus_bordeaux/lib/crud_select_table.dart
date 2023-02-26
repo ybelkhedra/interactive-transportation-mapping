@@ -1,4 +1,5 @@
 import 'package:datacampus_bordeaux/CRUD/parkings.dart';
+import 'package:datacampus_bordeaux/CRUD/points_de_charge.dart';
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
 // import 'dart:convert';
@@ -23,6 +24,7 @@ class _CrudSelectTableState extends State<CrudSelectTable> {
       // List<String> tables = data["name"];
       List<String> tables = [
         "Parkings",
+        "Recharges elec",
         "Pistes cyclabes",
         "Emplacement parking"
       ];
@@ -53,6 +55,9 @@ class _CrudSelectTableState extends State<CrudSelectTable> {
                       if (snapshot.data![_controller.selectedIndex] ==
                           "Parkings") {
                         return const Parkings();
+                      } else if (snapshot.data![_controller.selectedIndex] ==
+                          "Recharges elec") {
+                        return const PointsDeCharge();
                       } else {
                         return Center(
                             child: Text(
@@ -151,7 +156,9 @@ class SideBarXExample extends StatelessWidget {
           .map((e) => SidebarXItem(
               icon: e == "Parkings"
                   ? Icons.local_parking_outlined
-                  : Icons.table_chart,
+                  : e == "Recharges elec"
+                      ? Icons.electric_car
+                      : Icons.table_chart,
               label: e))
           .toList(),
     );
