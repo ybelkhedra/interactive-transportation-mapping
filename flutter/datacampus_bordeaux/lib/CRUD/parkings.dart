@@ -16,7 +16,8 @@ class Parkings extends StatelessWidget {
 
   //fonction qui retourne une liste de card à partir d'une liste de parkings (json) obtenu par une requete http sur "145.239.198.30", "/sources/requetes/parkings.php"
   Future<List<Widget>> getparkings() async {
-    var url = Uri.http("145.239.198.30", "/sources/requetes/parkings.php");
+    var url =
+        Uri.https("datacampus-bordeaux.fr", "/sources/requetes/parkings.php");
     var response = await http.get(url);
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');

@@ -16,8 +16,8 @@ class Freefloating extends StatelessWidget {
 
   //fonction qui retourne une liste de card à partir d'une liste de freefloatings (json) obtenu par une requete http sur "145.239.198.30", "/sources/requetes/freefloatings.php"
   Future<List<Widget>> getfreefloatings() async {
-    var url = Uri.http(
-        "145.239.198.30", "/sources/requetes/stations_freefloating.php");
+    var url = Uri.https("datacampus-bordeaux.fr",
+        "/sources/requetes/stations_freefloating.php");
     var response = await http.get(url);
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
