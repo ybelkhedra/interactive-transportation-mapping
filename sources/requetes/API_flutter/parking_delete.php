@@ -1,11 +1,11 @@
 <?php
 // on recupere le gid du parking à supprimer par get
-$gid = $_POST['gid'];
+$gid = $_GET['id'];
 $db = new mysqli("localhost", "root", "@Password0", "campus");
 
 // on supprime le parking
-echo "DELETE FROM parkings WHERE gid = ".$gid.";";
-if ($db->query("DELETE FROM parkings WHERE gid = ".$gid.";")) {
+echo "DELETE FROM parkings WHERE id = ".$gid.";";
+if ($db->query("DELETE FROM parkings WHERE id = ".$gid.";")) {
     $success = 1;
 
 }
