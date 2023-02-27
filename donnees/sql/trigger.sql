@@ -22,10 +22,10 @@ DELIMITER $$
 CREATE TRIGGER delete_pts_recharge BEFORE DELETE ON pts_recharge
 FOR EACH ROW
 BEGIN
-DELETE FROM situer_pts_recharge WHERE point_recharge = OLD.id;
+DELETE FROM situer_pts_recharge WHERE point_de_recharge = OLD.id;
 DELETE FROM coordonnees_pts_recharge WHERE id = OLD.id;
-DELETE FROM compatible WHERE point_recharge = OLD.id;
-DELETE FROM recharger WHERE point_recharge = OLD.id;
+DELETE FROM compatible WHERE point_de_recharge = OLD.id;
+DELETE FROM recharger WHERE point_de_recharge = OLD.id;
 END$$
 DELIMITER ;
 

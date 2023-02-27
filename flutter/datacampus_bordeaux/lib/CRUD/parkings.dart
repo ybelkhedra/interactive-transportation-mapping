@@ -13,16 +13,23 @@ import 'package:http/http.dart' as http;
 
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class Parkings extends StatelessWidget {
+import 'addParkings.dart';
+
+class Parkings extends StatefulWidget {
   const Parkings({Key? key}) : super(key: key);
 
+  @override
+  State<Parkings> createState() => _ParkingsState();
+}
+
+class _ParkingsState extends State<Parkings> {
   //fonction qui retourne une liste de card à partir d'une liste de parkings (json) obtenu par une requete http sur "145.239.198.30", "/sources/requetes/parkings.php"
   Future<List<Widget>> getparkings() async {
     var url =
         Uri.https("datacampus-bordeaux.fr", "/sources/requetes/parkings.php");
     var response = await http.get(url);
     print('Response status: ${response.statusCode}');
-    //print('Response body: ${response.body}');
+    print('Response body: ${response.body}');
 
     //print('Response body: ${response.body}');
     final data = jsonDecode(response.body);
@@ -176,13 +183,17 @@ class Parkings extends StatelessWidget {
                     TextButton(
                       child: const Text('Supprimer',
                           style: TextStyle(color: Colors.red)),
-                      onPressed: () {
+                      onPressed: () async {
                         /* Popup pour supprimer le parking */
-                        var url = Uri.https("datacampus-bordeaux.fr",
-                            "/sources/requetes/API_flutter/parking_delete.php");
+                        var url = Uri.https(
+                            "datacampus-bordeaux.fr",
+                            "/sources/requetes/API_flutter/parking_delete.php",
+                            {"id": data[i]['id']});
                         print(url);
-                        http.post(url, body: {
-                          "id": data[i]['id'],
+                        await http.post(url);
+                        //supprimer la card correspondante
+                        setState(() {
+                          cards.removeAt(i);
                         });
                       },
                     ),
@@ -201,6 +212,21 @@ class Parkings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Liste des parkings'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              // aller à la page d'ajout de parking
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const addParkings()),
+              );
+            },
+          ),
+        ],
+      ),
       body: Center(
         child: FutureBuilder(
           future: getparkings(),
