@@ -32,20 +32,19 @@ function updateBddLignes(){
             marker.bindPopup(afficherPopupLignes(ligne)); // ajout du popup
             marker.setStyle({color: 'green'}); // on definie la couleur du marker
             }
-            //else if (ligne.coordonnees.length > 1) { // si le ligne a plusieurs coordonnées
-            //    var latlngs = []; // création d'un tableau vide 
-            //    ligne.coordonnees.forEach(function(coordonnee) { // pour chaque coordonnée
-            //        latlngs.push([coordonnee.latitude,coordonnee.longitude]); // ajout des coordonnées au tableau latlngs
-            //    }
-            //    );
-            //    var polygon = L.polygon(latlngs).addTo(feature_group_lignes_bdd); // création du polygone
-            //    polygon.setStyle({color: 'green'}); // changement de la couleur du polygone
-            //    polygon.bindPopup(afficherPopupLignes(ligne)); // ajout du popup
-            //}
+            else if (ligne.coordonnees.length > 1) { // si le ligne a plusieurs coordonnées
+                var latlngs = []; // création d'un tableau vide 
+                ligne.coordonnees.forEach(function(coordonnee) { // pour chaque coordonnée
+                    latlngs.push([coordonnee.latitude,coordonnee.longitude]); // ajout des coordonnées au tableau latlngs
+                });
+                var polyline = L.polyline(latlngs).addTo(feature_group_lignes_bdd); // création de la polyline
+                polyline.setStyle({color: 'green',weight:5}); // changement de la couleur de la polyline
+                polyline.bindPopup(afficherPopupLignes(ligne)); // ajout du popup
+            }
         });
         
     })
     .catch(error => console.error(error)); 
 }
 
-// updateBddLignes(); // affichage des pistes cyclables de la bdd
+updateBddLignes(); // affichage des pistes cyclables de la bdd
