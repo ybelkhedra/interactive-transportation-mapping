@@ -1,8 +1,8 @@
-var feature_group_ea73ace9e1ad1740a59b9950b5af676b = L.featureGroup(
+var feature_group_pdc = L.featureGroup(
 
     {}
 
-).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
+);//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
 
 function afficherInfospdc() {
@@ -121,7 +121,7 @@ $.ajax({
                         return;
                     }
                     // Ajout d'un marker sur la carte
-                    L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'green'})}).bindPopup(addPopuppdc(val,data_2)).addTo(feature_group_ea73ace9e1ad1740a59b9950b5af676b);
+                    L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'green'})}).bindPopup(addPopuppdc(val,data_2)).addTo(feature_group_pdc);
                 });
 
             }

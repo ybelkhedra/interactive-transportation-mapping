@@ -7,8 +7,13 @@ var feature_group_arrets_bus = L.featureGroup(
 
     {}
 
-).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
+);//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
+var feature_group_arrets_tram = L.featureGroup(
+
+    {}
+
+);//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
 function afficherHorairesArret(id)
 {
@@ -82,7 +87,7 @@ fetch('./sources/requetes/arrets_api.php')
             }
             else if (arret.vehicule == "TRAM")
             {
-                L.marker([latitude,longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'black'})}).bindPopup(afficherPopupArret(arret)).addTo(feature_group_arrets_bus);
+                L.marker([latitude,longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'black'})}).bindPopup(afficherPopupArret(arret)).addTo(feature_group_arrets_tram);
             }
         }
     )}

@@ -7,43 +7,41 @@ var layer_control_643cdab5b83b581cb10d63d05a5a00f0 = {
     },
 
     overlays :  {
-        "Stations Vcube" : feature_group_vcube,
+        "Stations Vcube" : feature_group_vcube,//ok
 
-        "Points de stationnement velo (BDD)" : feature_group_pts_stationnement_velo_bdd,
+        "Points de stationnement velo" : feature_group_pts_stationnement_velo_bdd,//ok
 
-        "Pistes cyclables (BDD)" : feature_group_pistes_cyclables_bdd,
+        "Arrets cars" : feature_group_arrets_cars_bdd,//ok
 
-        "Lignes de car (BDD)" : feature_group_lignes_cars_bdd,
+        "Pistes cyclables" : feature_group_pistes_cyclables_bdd,//ok
 
-        "Lignes de transport TBM (BDD)" : feature_group_lignes_bdd,
+        "Lignes de car" : feature_group_lignes_cars_bdd,//ok
 
-        "Arrets de bus/tram (BDD)" : feature_group_arrets_perso_bdd,
+        "Gare TER" : feature_group_gares_ter_bdd,//ok
 
-        "Gare TER" : feature_group_gares_ter_bdd,
+        "Points de freefloating" : feature_group_freefloating,//ok
 
-        "Points de freefloating" : feature_group_freefloating,
+        "Parking" : feature_group_parkings,//ok
 
-        "Points de covoiturages (BDD)" : feature_group_covoiturage_bdd,
+        "Points de charge" : feature_group_pdc,//ok
 
-        "Points de charges (BDD)" : feature_group_pdc_bdd,
+        "Covoiturage" : feature_group_covoiturages,//ok
 
-        "Parking (BDD)" : feature_group_parkings_bdd,
+        "Autopartage" : feature_group_autopartages,//ok
 
-        "Parking" : feature_group_9eca2e6aae733fb41e9c12f6a296531b,
+        "Lignes de BUS" : feature_group_ligne_bus,//ok
 
-        "Points de charge" : feature_group_ea73ace9e1ad1740a59b9950b5af676b,
+        "Lignes de TRAM" : feature_group_ligne_tram,//ok
 
-        "Covoiturage" : feature_group_cf5c634cb92629a9a7265699e3b14613,
+        "Bus en temps reel" : feature_group_bus_temps_reel,//ok
 
-        "Autopartage" : feature_group_3c3d8f447cafac6c7a871b7a2bc74795,
+        "Tram en temps reel" : feature_group_tram_temps_reel,//ok
 
-        "Lignes de transport" : feature_group_2c8baec54a38159e19461b6f5698af3b,
+        "Arrets de bus" : feature_group_arrets_bus,//ok
 
-        "Bus en temps reel" : feature_group_bus_temps_reel,
+        "Arrets de tram" : feature_group_arrets_tram,//ok
 
-        "Arrets de bus" : feature_group_arrets_bus,
-
-        "Etat du traffic" : feature_group_traffic,
+        "Etat du traffic" : feature_group_traffic,//ok
     },
 
 };

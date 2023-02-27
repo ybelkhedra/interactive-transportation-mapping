@@ -1,7 +1,7 @@
-var feature_group_pdc_bdd = L.featureGroup(
-    {}
-).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
-
+// var feature_group_pdc = L.featureGroup(
+//     {}
+// ).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
+// DEJA DEFINI DANS API/points_charges.js
 
 // PARTIE DE CODE A MODIFIER ==>
 
@@ -24,9 +24,9 @@ function afficherPopupPointsDeCharges(e) {
 
 function updateBddStationsPointsDeCharges() { //a renommer en updateBddPointsCharges
     // suppression des marqueurs existants de la carte
-    feature_group_pdc_bdd.eachLayer(function (layer) {
+    feature_group_pdc.eachLayer(function (layer) {
         if (layer instanceof L.Marker) {
-            feature_group_pdc_bdd.removeLayer(layer);
+            feature_group_pdc.removeLayer(layer);
         }
         });
 
@@ -37,7 +37,7 @@ function updateBddStationsPointsDeCharges() { //a renommer en updateBddPointsCha
         data.forEach(function(pointsDeCharge) {//pour chaque point de charge
             if (pointsDeCharge.coordonnees.length == 1) // si le point de charge n'a qu'une seule coordonnée
             { // on ajoute un marker
-                var marker = L.marker([pointsDeCharge.coordonnees[0].latitude, pointsDeCharge.coordonnees[0].longitude]).addTo(feature_group_pdc_bdd);
+                var marker = L.marker([pointsDeCharge.coordonnees[0].latitude, pointsDeCharge.coordonnees[0].longitude]).addTo(feature_group_pdc);
                 marker.bindPopup(afficherPopupPointsDeCharge(pointsDeCharge)); // on ajoute une popup
                 marker.setStyle({color: 'grey'}); // on definie la couleur du marker
             }
@@ -48,7 +48,7 @@ function updateBddStationsPointsDeCharges() { //a renommer en updateBddPointsCha
                     latlngs.push([coordonnee.latitude,coordonnee.longitude]); // on ajoute la coordonnée au tableau
                 }
                 );
-                var polygon = L.polygon(latlngs).addTo(feature_group_pdc_bdd); // on ajoute un polygone sur la carte avec les coordonnées du tableau
+                var polygon = L.polygon(latlngs).addTo(feature_group_pdc); // on ajoute un polygone sur la carte avec les coordonnées du tableau
                 polygon.setStyle({color: 'grey'}); // on definie la couleur du polygone
                 polygon.bindPopup(afficherPopupPointsDeCharge(pointsDeCharge)); // on ajoute une popup
             }

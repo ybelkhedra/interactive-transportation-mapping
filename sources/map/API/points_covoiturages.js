@@ -1,9 +1,9 @@
 
-var feature_group_cf5c634cb92629a9a7265699e3b14613 = L.featureGroup(
+var feature_group_covoiturages = L.featureGroup(
 
     {}
 
-).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
+);//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
 
 function afficherInfoscovoit() {
@@ -57,7 +57,7 @@ function addPopupcovoit(covoit) {
 //                 return;
 //             }
 //             // Ajout d'un marker sur la carte
-//             L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'blue'})}).addTo(feature_group_cf5c634cb92629a9a7265699e3b14613);
+//             L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'blue'})}).addTo(feature_group_covoiturages);
 //         });
 //     }
 // });
@@ -75,7 +75,7 @@ $.ajax({
                 return;
             }
             // Ajout d'un marker sur la carte
-            L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'blue'})}).bindPopup(addPopupcovoit(val)).addTo(feature_group_cf5c634cb92629a9a7265699e3b14613);
+            L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'blue'})}).bindPopup(addPopupcovoit(val)).addTo(feature_group_covoiturages);
         });
     }
 });
