@@ -1,6 +1,6 @@
 var feature_group_pistes_cyclables_bdd = L.featureGroup( // création d'un groupe de marqueurs
     {}
-).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
+);//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
  // ajout du groupe de marqueurs à la carte
 
 function afficherPopupPistesCyclables(piste_cyclable)

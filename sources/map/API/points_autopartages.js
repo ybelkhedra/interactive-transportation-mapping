@@ -1,8 +1,8 @@
-var feature_group_3c3d8f447cafac6c7a871b7a2bc74795 = L.featureGroup(
+var feature_group_autopartages = L.featureGroup(
 
     {}
 
-).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
+);//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
 
 function afficherInfosautoPartage() {
@@ -56,7 +56,7 @@ function addPopupautoPartage(autoPartage) {
 //                 return;
 //             }
 //             // Ajout d'un marker sur la carte
-//             L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'orange'})}).addTo(feature_group_3c3d8f447cafac6c7a871b7a2bc74795);
+//             L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'orange'})}).addTo(feature_group_autopartages);
 //         });
 //     }
 // });
@@ -75,7 +75,7 @@ $.ajax({
                     return;
                 }
                 // Ajout d'un marker sur la carte
-                L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'orange'})}).bindPopup(addPopupautoPartage(val)).addTo(feature_group_3c3d8f447cafac6c7a871b7a2bc74795);
+                L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'orange'})}).bindPopup(addPopupautoPartage(val)).addTo(feature_group_autopartages);
             });
         }
     });

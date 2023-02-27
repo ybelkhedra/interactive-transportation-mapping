@@ -3,7 +3,14 @@ var feature_group_bus_temps_reel = L.featureGroup(
 
     {}
 
-).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
+);//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
+
+
+var feature_group_tram_temps_reel = L.featureGroup(
+
+    {}
+
+);//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
 async function get_suivant(gid)
 {
@@ -79,17 +86,18 @@ async function updateMarkersVehicule() {
                 if (val.properties.vehicule == "BUS")
                 {
                     var marker = L.marker([val.geometry.coordinates[1], val.geometry.coordinates[0]], {icon: L.AwesomeMarkers.icon({icon: 'bus', prefix: 'fa', markerColor: 'red'})}).bindPopup(await addPopupVehicule(val.properties));
+                    marker.addTo(feature_group_bus_temps_reel);
                 }
                 else if (val.properties.vehicule == "TRAM_LONG" || val.properties.vehicule == "TRAM_COURT")
                 {
                     var marker = L.marker([val.geometry.coordinates[1], val.geometry.coordinates[0]], {icon: L.AwesomeMarkers.icon({icon: 'subway', prefix: 'fa', markerColor: 'blue'})}).bindPopup(await addPopupVehicule(val.properties));
+                    marker.addTo(feature_group_tram_temps_reel);
                 }
                 else if (val.properties.vehicule == "TPMR" || val.properties.vehicule == "NAVETTE" || val.properties.vehicule == "VSR" || val.properties.vehicule == "VSM" || val.properties.vehicule == "VSA" || val.properties.vehicule == "INCONNU")
                 {
                     var marker = L.marker([val.geometry.coordinates[1], val.geometry.coordinates[0]], {icon: L.AwesomeMarkers.icon({icon: 'car', prefix: 'fa', markerColor: 'grey'})}).bindPopup(await addPopupVehicule(val.properties));
+                    marker.addTo(feature_group_bus_temps_reel);
                 }
-                    // ajout du marqueur à la carte
-                marker.addTo(feature_group_bus_temps_reel);
                 success++;
             }
         }

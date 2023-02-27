@@ -1,6 +1,6 @@
 var feature_group_freefloating = L.featureGroup(
     {}
-).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
+);//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
 
 

@@ -1,4 +1,4 @@
-var feature_group_lignes_bdd = L.featureGroup( // création d'un groupe de marqueurs
-    {}
-).addTo(map_5c3862ba13c7e615013e758f79b1f9bb); // ajout du groupe de marqueurs à la carte
-
+// var feature_group_lignes_bdd = L.featureGroup( // création d'un groupe de marqueurs
+//     {}
+// ).addTo(map_5c3862ba13c7e615013e758f79b1f9bb); // ajout du groupe de marqueurs à la carte
+// DEJA DEFINI DANS API/lignes_bus_tram.js

@@ -1,8 +1,8 @@
-var feature_group_9eca2e6aae733fb41e9c12f6a296531b = L.featureGroup(
+var feature_group_parkings = L.featureGroup(
 
     {}
 
-).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
+);//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
 function afficherInfosParking() {
     parking = PARKING_GLOBAL_COURANT;
@@ -59,7 +59,7 @@ function addPopupParkings(parking) {
 //             }
 //             // Ajout d'un marker sur la carte
 //             //console.log(latitude, longitude);
-//             L.marker([latitude, longitude]).addTo(feature_group_9eca2e6aae733fb41e9c12f6a296531b);
+//             L.marker([latitude, longitude]).addTo(feature_group_parkings);
 //         });
 //     }
 // });
@@ -76,7 +76,7 @@ $.ajax({
             if (isNaN(latitude) || isNaN(longitude) || !filtreCordonnees(latitude, longitude)) {
                 return;
             }
-            L.marker([latitude, longitude]).bindPopup(addPopupParkings(val)).addTo(feature_group_9eca2e6aae733fb41e9c12f6a296531b);
+            L.marker([latitude, longitude]).bindPopup(addPopupParkings(val)).addTo(feature_group_parkings);
         });
     }
 });

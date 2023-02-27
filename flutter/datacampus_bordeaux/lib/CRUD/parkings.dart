@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -20,7 +22,7 @@ class Parkings extends StatelessWidget {
         Uri.https("datacampus-bordeaux.fr", "/sources/requetes/parkings.php");
     var response = await http.get(url);
     print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
+    //print('Response body: ${response.body}');
 
     //print('Response body: ${response.body}');
     final data = jsonDecode(response.body);
@@ -175,7 +177,13 @@ class Parkings extends StatelessWidget {
                       child: const Text('Supprimer',
                           style: TextStyle(color: Colors.red)),
                       onPressed: () {
-                        /* Demande confirmation avant suppression */
+                        /* Popup pour supprimer le parking */
+                        var url = Uri.https("datacampus-bordeaux.fr",
+                            "/sources/requetes/API_flutter/parking_delete.php");
+                        print(url);
+                        http.post(url, body: {
+                          "id": data[i]['id'],
+                        });
                       },
                     ),
                     const SizedBox(width: 8),

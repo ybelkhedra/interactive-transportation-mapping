@@ -1,7 +1,7 @@
-var feature_group_parkings_bdd = L.featureGroup( // création d'un groupe de marqueurs pour les parkings de la bdd
-    {}
-).addTo(map_5c3862ba13c7e615013e758f79b1f9bb); // ajout du groupe de marqueurs à la carte
-
+// var feature_group_parkings = L.featureGroup( // création d'un groupe de marqueurs pour les parkings de la bdd
+//     {}
+// ).addTo(map_5c3862ba13c7e615013e758f79b1f9bb); // ajout du groupe de marqueurs à la carte
+// DEJA DEFINI DANS API/parkings.js
 
 function afficherPopupParkings(parking)
 {
@@ -34,9 +34,9 @@ function afficherPopupParkings(parking)
 
 function updateBddParkings(){
     // suppression des marqueurs existants de la carte
-    feature_group_parkings_bdd.eachLayer(function (layer) {
+    feature_group_parkings.eachLayer(function (layer) {
         if (layer instanceof L.Marker) {
-            feature_group_parkings_bdd.removeLayer(layer);
+            feature_group_parkings.removeLayer(layer);
         }
         });
     //récupération des données de la bdd
@@ -45,7 +45,7 @@ function updateBddParkings(){
     .then(data => {
         data.forEach(function(parking) { // pour chaque parking
             if (parking.coordonnees.length == 1) {// si le parking n'a qu'une seule coordonnée
-            var marker = L.marker([parking.coordonnees[0].latitude, parking.coordonnees[0].longitude]).addTo(feature_group_parkings_bdd); // création du marqueur
+            var marker = L.marker([parking.coordonnees[0].latitude, parking.coordonnees[0].longitude]).addTo(feature_group_parkings); // création du marqueur
             marker.bindPopup(afficherPopupParkings(parking)); // ajout du popup
             }
             else if (parking.coordonnees.length > 1) { // si le parking a plusieurs coordonnées
@@ -54,7 +54,7 @@ function updateBddParkings(){
                     latlngs.push([coordonnee.latitude,coordonnee.longitude]); // ajout des coordonnées au tableau latlngs
                 }
                 );
-                var polygon = L.polygon(latlngs).addTo(feature_group_parkings_bdd); // création du polygone
+                var polygon = L.polygon(latlngs).addTo(feature_group_parkings); // création du polygone
                 polygon.setStyle({color: 'pink'}); // changement de la couleur du polygone
                 polygon.bindPopup(afficherPopupParkings(parking)); // ajout du popup
             }

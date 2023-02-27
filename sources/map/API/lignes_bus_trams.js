@@ -8,11 +8,17 @@ function numberToColorLeaflet(i) {
     return [r,b,g];
 }
 
-var feature_group_2c8baec54a38159e19461b6f5698af3b = L.featureGroup(
+var feature_group_ligne_bus = L.featureGroup(
 
     {}
 
-).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
+);//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
+
+var feature_group_ligne_tram = L.featureGroup(
+
+    {}
+
+);//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
               
 function chemin_lignes(){
@@ -38,9 +44,9 @@ function chemin_lignes(){
                     //console.log(r+" ,"+g+","+ b);
                     val.geo_shape.geometry.coordinates = filtreCordonneesTab(val.geo_shape.geometry.coordinates);
                     if (val.vehicule == "BUS")
-                        L.polyline( val.geo_shape.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.vehicule + "<br> nd : " + val.rg_sv_arret_p_nd + "<br> na : " + val.rg_sv_arret_p_na).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
+                        L.polyline( val.geo_shape.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.vehicule + "<br> nd : " + val.rg_sv_arret_p_nd + "<br> na : " + val.rg_sv_arret_p_na).addTo(feature_group_ligne_bus);
                     else if (val.vehicule == "TRAM")
-                        L.polyline(val.geo_shape.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.vehicule + "<br> nd : " + val.rg_sv_arret_p_nd + "<br> na : " + val.rg_sv_arret_p_na).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
+                        L.polyline(val.geo_shape.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.vehicule + "<br> nd : " + val.rg_sv_arret_p_nd + "<br> na : " + val.rg_sv_arret_p_na).addTo(feature_group_ligne_tram);
                         
 
             });
@@ -84,9 +90,9 @@ function chemin_lignes_online()
                     var b = T[2];
                     val.geometry.coordinates = filtreCordonneesTab(val.geometry.coordinates);
                     if (val.properties.vehicule == "BUS")
-                        L.polyline(val.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.properties.vehicule + "<br> nd : " + val.properties.rg_sv_arret_p_nd + "<br> na : " + val.properties.rg_sv_arret_p_na).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
+                        L.polyline(val.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.properties.vehicule + "<br> nd : " + val.properties.rg_sv_arret_p_nd + "<br> na : " + val.properties.rg_sv_arret_p_na).addTo(feature_group_ligne_bus);
                     else if (val.properties.vehicule == "TRAM")
-                        L.polyline(val.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.properties.vehicule + "<br> nd : " + val.properties.rg_sv_arret_p_nd + "<br> na : " + val.properties.rg_sv_arret_p_na).addTo(feature_group_2c8baec54a38159e19461b6f5698af3b);
+                        L.polyline(val.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.properties.vehicule + "<br> nd : " + val.properties.rg_sv_arret_p_nd + "<br> na : " + val.properties.rg_sv_arret_p_na).addTo(feature_group_ligne_tram);
                         
 
                 });
