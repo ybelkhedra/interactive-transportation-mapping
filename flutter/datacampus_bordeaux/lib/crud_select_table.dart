@@ -1,6 +1,7 @@
 import 'package:datacampus_bordeaux/CRUD/parkings.dart';
 import 'package:datacampus_bordeaux/CRUD/points_de_charge.dart';
 import 'package:datacampus_bordeaux/CRUD/freefloating.dart';
+import 'package:datacampus_bordeaux/CRUD/points_de_covoiturage.dart';
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
 // import 'dart:convert';
@@ -28,7 +29,8 @@ class _CrudSelectTableState extends State<CrudSelectTable> {
         "Recharges elec",
         "Freefloating",
         "Pistes cyclabes",
-        "Emplacement parking"
+        "Emplacement parking",
+        "Coivoiturage",
       ];
       return tables; //sense appeler le script php sources/requetes/all_tables.php
     }
@@ -63,6 +65,9 @@ class _CrudSelectTableState extends State<CrudSelectTable> {
                       } else if (snapshot.data![_controller.selectedIndex] ==
                           "Freefloating") {
                         return const Freefloating();
+                      } else if (snapshot.data![_controller.selectedIndex] ==
+                          "Coivoiturage") {
+                        return const PointDeCovoiturage();
                       } else {
                         return Center(
                             child: Text(

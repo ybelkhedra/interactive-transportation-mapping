@@ -39,7 +39,7 @@ dependencies:
   http: ^0.13.5
   loading_animation_widget: ^1.2.0+4
   latlong: ^0.6.1
-  # latlong2: ^0.8
+  latlong2: ^0.8.1
   sidebarx: ^0.14.0
 
 dev_dependencies:
