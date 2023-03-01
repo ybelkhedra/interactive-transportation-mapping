@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:fl_chart/fl_chart.dart';
 import 'dart:convert';
 import 'WIDGETS/jauge_frequentation.dart';
+import 'WIDGETS/messageTbm.dart';
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
@@ -100,41 +101,46 @@ class _homeState extends State<home> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        Container(
-          height: 600,
-          width: 600,
-          child: FutureBuilder<List<List<FlSpot>>>(
-            future: getSpotsInfoApi(),
-            builder: (BuildContext context,
-                AsyncSnapshot<List<List<FlSpot>>> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
-              } else {
-                return LineChartSample2(Data: snapshot.data!);
-              }
-            },
-          ),
-        ),
-        Container(
-          height: 400,
-          width: 400,
-          child: FutureBuilder<List<List<FlSpot>>>(
-            future: getSpotsInfoApi(),
-            builder: (BuildContext context,
-                AsyncSnapshot<List<List<FlSpot>>> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
-              } else {
-                return JaugeFrequentation(Data: snapshot.data!);
-              }
-            },
-          ),
+        Row(
+          children: [
+            Container(
+              height: 600,
+              width: 600,
+              child: FutureBuilder<List<List<FlSpot>>>(
+                future: getSpotsInfoApi(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<List<FlSpot>>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else {
+                    return LineChartSample2(Data: snapshot.data!);
+                  }
+                },
+              ),
+            ),
+            Container(
+              height: 400,
+              width: 400,
+              child: FutureBuilder<List<List<FlSpot>>>(
+                future: getSpotsInfoApi(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<List<FlSpot>>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else {
+                    return JaugeFrequentation(Data: snapshot.data!);
+                  }
+                },
+              ),
+            ),
+            MessageTbm(),
+          ],
         ),
       ],
     );

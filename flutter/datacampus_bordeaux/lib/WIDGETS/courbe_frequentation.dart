@@ -47,7 +47,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
     return Column(
       children: [
         //Titre de la courbe : courbe du trafic routier de la journée
-        Text(
+        const Text(
           "Courbe du trafic routier de la journée",
           style: TextStyle(
             color: Color.fromARGB(255, 19, 0, 0),
@@ -134,8 +134,8 @@ class _LineChartSample2State extends State<LineChartSample2> {
               reservedSize: 22,
               getTitlesWidget: (double value, TitleMeta meta) {
                 cpt_appel_legende++;
-                print(spotsData.length);
-                print("value : $value");
+                //print(spotsData.length);
+                //print("value : $value");
                 if (cpt_appel_legende % 4 == 0) {
                   return Text(
                       //avec la taille de spotsData, on sait que une data correspond à 5 min et que l'on a les dernière data jusqu'à maintenant. Afficher la legende avec : il y a 5 min, il y a 10 min, il y a 15 min, il y a 20 min, il y a 25 min, il y a 30 min ... en fonction de la taille de la liste
