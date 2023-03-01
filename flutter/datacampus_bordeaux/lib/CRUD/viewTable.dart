@@ -2,19 +2,23 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'presentation_card.dart';
+import 'package:http/http.dart' as http;
 
-class PointDeCovoiturage extends StatefulWidget {
-  const PointDeCovoiturage({Key? key}) : super(key: key);
+class ViewTable extends StatefulWidget {
+  final String tableName;
+
+  const ViewTable({Key? key, required this.tableName}) : super(key: key);
 
   @override
-  State<PointDeCovoiturage> createState() => _PointDeCovoiturageState();
+  State<ViewTable> createState() => _ViewTableState();
 }
 
-class _PointDeCovoiturageState extends State<PointDeCovoiturage> {
-  //fonction qui retourne une liste de card à partir d'une liste de PointDeCovoituragess (json) obtenu par une requete http sur "145.239.198.30", "/sources/requetes/PointDeCovoituragess.php"
-  Future<List<Widget>> getPointDeCovoiturages() async {
-    var url = Uri.https("datacampus-bordeaux.fr",
-        "/sources/requetes/points_de_covoiturage.php");
+class _ViewTableState extends State<ViewTable> {
+  //fonction qui retourne une liste de card à partir d'une liste de ViewTabless (json) obtenu par une requete http sur "145.239.198.30", "/sources/requetes/ViewTabless.php"
+  Future<List<Widget>> getViewTables() async {
+    String fileName = widget.tableName;
+    var url =
+        Uri.https("datacampus-bordeaux.fr", "/sources/requetes/$fileName.php");
     var response = await http.get(url);
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
@@ -24,15 +28,27 @@ class _PointDeCovoiturageState extends State<PointDeCovoiturage> {
     print("Salut");
     print("" + data[0]["nom"]);
 
-    //Iterable<Widget> cards = data.map((e) => makeCard(e));
+    //Iterable<Widget> cards = data.map((e) => makeCard(e))
 
     List<Widget> cards = [];
+
     for (int i = 0; i < data.length; i++) {
-      cards.add(PresentationCard(e: data[i]));
+      cards.add(PresentationCard(e: data[i], deleteVoid: deleteVoid));
     }
 
     print("Salut LIBERATEUR");
     return cards;
+  }
+
+  void deleteVoid(Widget e, int id) async {
+    /* Popup pour supprimer le parking */
+    var url = Uri.https("datacampus-bordeaux.fr",
+        "/sources/requetes/API_flutter/parking_delete.php", {"id": id});
+    print(url);
+    await http.post(url);
+    //supprimer la card correspondante
+
+    //TODO setState(cards.remove(e));
   }
 
   @override
@@ -40,7 +56,7 @@ class _PointDeCovoiturageState extends State<PointDeCovoiturage> {
     return Scaffold(
       body: Center(
         child: FutureBuilder(
-          future: getPointDeCovoiturages(),
+          future: getViewTables(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               return ListView.builder(

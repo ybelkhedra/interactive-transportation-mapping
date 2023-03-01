@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_map/plugin_api.dart';
+import 'package:http/http.dart' as http;
 
 class PresentationCard extends StatelessWidget {
   final e;
-  const PresentationCard({Key? key, required this.e}) : super(key: key);
+  final void Function(Widget, int) deleteVoid;
+  const PresentationCard({Key? key, required this.e, required this.deleteVoid})
+      : super(key: key);
 
   Widget getInformation(Map e, String key) {
     print("key : $key");
@@ -146,7 +149,29 @@ class PresentationCard extends StatelessWidget {
         title: Text(e['nom']),
         subtitle: const Text('Points de quelquechose'),
       ),
-      Column(children: [for (String key in e.keys) getInformation(e, key)])
+      Column(
+          children: [for (String key in e.keys) getInformation(e, key)] +
+              [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    TextButton(
+                      child: const Text('Modifier'),
+                      onPressed: () {
+                        /* Formulaire pour modifier les informations */
+                      },
+                    ),
+                    const SizedBox(width: 8),
+                    TextButton(
+                        child: const Text('Supprimer',
+                            style: TextStyle(color: Colors.red)),
+                        onPressed: () async {
+                          deleteVoid(this, e['id']);
+                        }),
+                    const SizedBox(width: 8),
+                  ],
+                )
+              ])
     ]));
   }
 }
