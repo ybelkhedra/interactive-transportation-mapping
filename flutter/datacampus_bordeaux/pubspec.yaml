@@ -41,6 +41,8 @@ dependencies:
   latlong: ^0.6.1
   latlong2: ^0.8.1
   sidebarx: ^0.14.0
+  fl_chart: ^0.61.0
+  syncfusion_flutter_gauges: ^20.4.52
 
 dev_dependencies:
   flutter_test:

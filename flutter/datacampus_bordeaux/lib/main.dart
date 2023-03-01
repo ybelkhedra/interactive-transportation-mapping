@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'login.dart';
 import 'CRUD/parkings.dart';
 import 'MapView.dart';
+import 'home.dart';
 
 void main() async {
   runApp(MaterialApp(
@@ -109,7 +110,7 @@ class _menuState extends State<menu> {
             index: currentPageIndex,
             children: const [
               Center(
-                child: Text('Home'),
+                child: home(),
               ),
               Parkings(),
               CrudSelectTable(),
