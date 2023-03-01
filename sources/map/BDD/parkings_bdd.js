@@ -33,19 +33,13 @@ function afficherPopupParkings(parking)
 
 
 function updateBddParkings(){
-    // suppression des marqueurs existants de la carte
-    feature_group_parkings.eachLayer(function (layer) {
-        if (layer instanceof L.Marker) {
-            feature_group_parkings.removeLayer(layer);
-        }
-        });
     //récupération des données de la bdd
     fetch('./sources/requetes/parkings.php')
     .then(response => response.json())
     .then(data => {
         data.forEach(function(parking) { // pour chaque parking
             if (parking.coordonnees.length == 1) {// si le parking n'a qu'une seule coordonnée
-            var marker = L.marker([parking.coordonnees[0].latitude, parking.coordonnees[0].longitude]).addTo(feature_group_parkings); // création du marqueur
+            var marker = L.marker([parking.coordonnees[0].latitude, parking.coordonnees[0].longitude], {icon : parkingIcon}).addTo(feature_group_parkings); // création du marqueur
             marker.bindPopup(afficherPopupParkings(parking)); // ajout du popup
             }
             else if (parking.coordonnees.length > 1) { // si le parking a plusieurs coordonnées

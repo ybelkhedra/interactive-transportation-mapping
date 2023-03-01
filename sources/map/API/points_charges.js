@@ -4,6 +4,11 @@ var feature_group_pdc = L.featureGroup(
 
 );//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
+var pdcIcon = L.icon({
+    iconUrl: './sources/icons/pdc.png',
+
+    iconSize:     [17, 17], // size of the icon
+});
 
 function afficherInfospdc() {
     pdc = pdc_GLOBAL_COURANT;
@@ -121,7 +126,7 @@ $.ajax({
                         return;
                     }
                     // Ajout d'un marker sur la carte
-                    L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'green'})}).bindPopup(addPopuppdc(val,data_2)).addTo(feature_group_pdc);
+                    L.marker([latitude, longitude], {icon: pdcIcon}).bindPopup(addPopuppdc(val,data_2)).addTo(feature_group_pdc);
                 });
 
             }

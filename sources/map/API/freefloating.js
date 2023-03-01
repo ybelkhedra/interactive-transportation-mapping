@@ -2,7 +2,11 @@ var feature_group_freefloating = L.featureGroup(
     {}
 );//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
+var freefloatingIcon = L.icon({
+    iconUrl: './sources/icons/freefloating.png',
 
+    iconSize:     [17, 17], // size of the icon
+});
 
 try {
     // récupération des données de position de bus et de tram en utilisant l'URL du WebService GeoJSON
@@ -29,7 +33,7 @@ try {
                 return;
             }
             // Ajout d'un marker sur la carte
-            L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'pink'})}).addTo(feature_group_freefloating);
+            L.marker([latitude, longitude], {icon: freefloatingIcon}).addTo(feature_group_freefloating);
             });
         }
     }
@@ -67,9 +71,8 @@ function updateBddStationsFreeFloating() { //a renommer en updateBddPointsCharge
         data.forEach(function(freefloating) {
             if (freefloating.coordonnees.length == 1)
             {
-                var marker = L.marker([freefloating.coordonnees[0].latitude, freefloating.coordonnees[0].longitude]).addTo(feature_group_freefloating);
+                var marker = L.marker([freefloating.coordonnees[0].latitude, freefloating.coordonnees[0].longitude], {icon : freefloatingIcon}).addTo(feature_group_freefloating);
                 marker.bindPopup(afficherPopupFreeFloating(freefloating));
-                marker.setStyle({color: 'pink'});
 
             }
             else if (freefloating.coordonnees.length > 1)
@@ -80,7 +83,6 @@ function updateBddStationsFreeFloating() { //a renommer en updateBddPointsCharge
                 }
                 );
                 var polygon = L.polygon(latlngs).addTo(feature_group_freefloating);
-                polygon.setStyle({color: 'blue'});
                 polygon.bindPopup(afficherPopupFreeFloating(freefloating));
             }
         });

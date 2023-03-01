@@ -14,6 +14,7 @@ import 'package:http/http.dart' as http;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'addParkings.dart';
+// import 'parkings_edit.dart';
 
 class Parkings extends StatefulWidget {
   const Parkings({Key? key}) : super(key: key);
@@ -24,12 +25,12 @@ class Parkings extends StatefulWidget {
 
 class _ParkingsState extends State<Parkings> {
   //fonction qui retourne une liste de card à partir d'une liste de parkings (json) obtenu par une requete http sur "145.239.198.30", "/sources/requetes/parkings.php"
-  Future<List<Widget>> getparkings() async {
+  Future<List<Widget>> getparkings(BuildContext context) async {
     var url =
         Uri.https("datacampus-bordeaux.fr", "/sources/requetes/parkings.php");
     var response = await http.get(url);
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
+    // print('Response status: ${response.statusCode}');
+    // print('Response body: ${response.body}');
 
     //print('Response body: ${response.body}');
     final data = jsonDecode(response.body);
@@ -176,7 +177,7 @@ class _ParkingsState extends State<Parkings> {
                     TextButton(
                       child: const Text('Modifier'),
                       onPressed: () {
-                        /* Formulaire pour modifier les informations */
+                        /* Passe à la page parkings_edit.dart avec toutes les infos de la carte */
                       },
                     ),
                     const SizedBox(width: 8),
@@ -229,7 +230,7 @@ class _ParkingsState extends State<Parkings> {
       ),
       body: Center(
         child: FutureBuilder(
-          future: getparkings(),
+          future: getparkings(context),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               return ListView.builder(

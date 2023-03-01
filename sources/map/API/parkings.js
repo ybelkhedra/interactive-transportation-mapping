@@ -4,6 +4,12 @@ var feature_group_parkings = L.featureGroup(
 
 );//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
+var parkingIcon = L.icon({
+    iconUrl: './sources/icons/parking.png',
+
+    iconSize:     [17, 17], // size of the icon
+});
+
 function afficherInfosParking() {
     parking = PARKING_GLOBAL_COURANT;
     console.log(parking);
@@ -76,7 +82,7 @@ $.ajax({
             if (isNaN(latitude) || isNaN(longitude) || !filtreCordonnees(latitude, longitude)) {
                 return;
             }
-            L.marker([latitude, longitude]).bindPopup(addPopupParkings(val)).addTo(feature_group_parkings);
+            L.marker([latitude, longitude], {icon: parkingIcon}).bindPopup(addPopupParkings(val)).addTo(feature_group_parkings);
         });
     }
 });

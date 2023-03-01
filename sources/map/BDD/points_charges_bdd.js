@@ -37,7 +37,7 @@ function updateBddStationsPointsDeCharges() { //a renommer en updateBddPointsCha
         data.forEach(function(pointsDeCharge) {//pour chaque point de charge
             if (pointsDeCharge.coordonnees.length == 1) // si le point de charge n'a qu'une seule coordonnée
             { // on ajoute un marker
-                var marker = L.marker([pointsDeCharge.coordonnees[0].latitude, pointsDeCharge.coordonnees[0].longitude]).addTo(feature_group_pdc);
+                var marker = L.marker([pointsDeCharge.coordonnees[0].latitude, pointsDeCharge.coordonnees[0].longitude], {icon : pdcIcon}).addTo(feature_group_pdc);
                 marker.bindPopup(afficherPopupPointsDeCharge(pointsDeCharge)); // on ajoute une popup
                 marker.setStyle({color: 'grey'}); // on definie la couleur du marker
             }

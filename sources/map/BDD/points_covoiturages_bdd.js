@@ -16,7 +16,7 @@ function updateBddCovoiturage() {
     .then(response => response.json())
     .then(data => {
     data.forEach(function(covoiturage) {
-            var marker = L.marker([covoiturage.latitude, covoiturage.longitude]).addTo(feature_group_covoiturages);
+            var marker = L.marker([covoiturage.latitude, covoiturage.longitude], {icon : covoiturageIcon}).addTo(feature_group_covoiturages);
             marker.bindPopup(covoiturage.nom + "<br> Informations complémentaires : " + covoiturage.informations_complementaires);
     });
 

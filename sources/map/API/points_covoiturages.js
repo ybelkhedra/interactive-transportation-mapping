@@ -6,6 +6,12 @@ var feature_group_covoiturages = L.featureGroup(
 );//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
 
+var covoiturageIcon = L.icon({
+    iconUrl: './sources/icons/covoiturage.png',
+
+    iconSize:     [17, 17], // size of the icon
+});
+
 function afficherInfoscovoit() {
     covoit = covoit_GLOBAL_COURANT;
     //recuperer l'elemetn class btn btn-primary
@@ -75,7 +81,7 @@ $.ajax({
                 return;
             }
             // Ajout d'un marker sur la carte
-            L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'blue'})}).bindPopup(addPopupcovoit(val)).addTo(feature_group_covoiturages);
+            L.marker([latitude, longitude], {icon: covoiturageIcon}).bindPopup(addPopupcovoit(val)).addTo(feature_group_covoiturages);
         });
     }
 });
