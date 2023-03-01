@@ -1,7 +1,7 @@
 import 'package:datacampus_bordeaux/CRUD/parkings.dart';
 import 'package:datacampus_bordeaux/CRUD/points_de_charge.dart';
 import 'package:datacampus_bordeaux/CRUD/freefloating.dart';
-import 'package:datacampus_bordeaux/CRUD/points_de_covoiturage.dart';
+import 'package:datacampus_bordeaux/CRUD/viewTable.dart';
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
 // import 'dart:convert';
@@ -67,7 +67,8 @@ class _CrudSelectTableState extends State<CrudSelectTable> {
                         return const Freefloating();
                       } else if (snapshot.data![_controller.selectedIndex] ==
                           "Coivoiturage") {
-                        return const PointDeCovoiturage();
+                        return const ViewTable(
+                            tableName: 'points_de_covoiturage');
                       } else {
                         return Center(
                             child: Text(
