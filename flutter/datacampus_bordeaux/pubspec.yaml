@@ -43,6 +43,7 @@ dependencies:
   sidebarx: ^0.14.0
   fl_chart: ^0.61.0
   syncfusion_flutter_gauges: ^20.4.52
+  accordion: ^2.5.1
 
 dev_dependencies:
   flutter_test:

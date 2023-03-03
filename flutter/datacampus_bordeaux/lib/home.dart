@@ -103,17 +103,17 @@ class _homeState extends State<home> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
+        Column(
           children: [
-            Container(
-              height: 600,
-              width: 600,
+            SizedBox(
+              height: 250,
+              width: 500,
               child: FutureBuilder<List<List<FlSpot>>>(
                 future: getSpotsInfoApi(),
                 builder: (BuildContext context,
                     AsyncSnapshot<List<List<FlSpot>>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else {
@@ -122,22 +122,18 @@ class _homeState extends State<home> {
                 },
               ),
             ),
-            Container(
-              height: 400,
-              width: 400,
-              child: FutureBuilder<List<List<FlSpot>>>(
-                future: getSpotsInfoApi(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<List<FlSpot>>> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else {
-                    return JaugeFrequentation(Data: snapshot.data!);
-                  }
-                },
-              ),
+            FutureBuilder<List<List<FlSpot>>>(
+              future: getSpotsInfoApi(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<List<FlSpot>>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else {
+                  return JaugeFrequentation(Data: snapshot.data!);
+                }
+              },
             ),
             MessageTbm(),
           ],

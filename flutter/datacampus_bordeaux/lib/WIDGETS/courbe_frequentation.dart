@@ -1,8 +1,3 @@
-import 'dart:convert';
-
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -38,9 +33,17 @@ class LineChartSample2 extends StatefulWidget {
 }
 
 class _LineChartSample2State extends State<LineChartSample2> {
-  List<Color> gradientColors = [
-    Color.fromARGB(255, 86, 228, 253),
-    Color.fromARGB(255, 16, 120, 205),
+  List<Color> gradientColorsBleu = [
+    const Color.fromARGB(255, 86, 228, 253),
+    const Color.fromARGB(255, 16, 120, 205),
+  ];
+  List<Color> gradientColorsVert = [
+    const Color.fromARGB(255, 64, 227, 205),
+    const Color.fromARGB(255, 5, 165, 125),
+  ];
+  List<Color> gradientColorsRouge = [
+    Color.fromARGB(255, 232, 126, 126),
+    Color.fromARGB(255, 180, 39, 75),
   ];
   @override
   Widget build(BuildContext context) {
@@ -55,25 +58,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        Stack(
-          children: <Widget>[
-            AspectRatio(
-              aspectRatio: 1.70,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  right: 18,
-                  left: 12,
-                  top: 24,
-                  bottom: 12,
-                ),
-                child: LineChart(
-                  mainData(),
-                ),
-              ),
-            ),
-          ],
-        ),
-        //ajouter un bouton qui permet de zoomer sur la courve en ne gardand que les 12 dernières données
+        AspectRatio(aspectRatio: 2.5, child: LineChart(mainData())),
       ],
     );
   }
@@ -94,16 +79,96 @@ class _LineChartSample2State extends State<LineChartSample2> {
       if (spotsData[i].y > maxY) {
         maxY = spotsData[i].y;
       }
+      if (spotsReffluid[i].y > maxY) {
+        maxY = spotsReffluid[i].y;
+      }
+      if (spotsRefdense[i].y > maxY) {
+        maxY = spotsRefdense[i].y;
+      }
       if (spotsData[i].y < minY) {
         minY = spotsData[i].y;
       }
+      if (spotsReffluid[i].y < minY) {
+        minY = spotsReffluid[i].y;
+      }
+      if (spotsRefdense[i].y < minY) {
+        minY = spotsRefdense[i].y;
+      }
     }
+
+    LineChartBarData lineDense = LineChartBarData(
+      // on appelle la fonction qui recupere les valeurs de la courbe getSpots() async
+      spots: spotsRefdense,
+      isCurved: true,
+      curveSmoothness: 0.6,
+      gradient: LinearGradient(
+        colors: gradientColorsRouge,
+      ),
+      barWidth: 5,
+      isStrokeCapRound: true,
+      dotData: FlDotData(
+        show: false,
+      ),
+      belowBarData: BarAreaData(
+        show: true,
+        gradient: LinearGradient(
+          colors: gradientColorsRouge
+              .map((color) => color.withOpacity(0.3))
+              .toList(),
+        ),
+      ),
+    );
+
+    LineChartBarData lineReffluid = LineChartBarData(
+      // on appelle la fonction qui recupere les valeurs de la courbe getSpots() async
+      spots: spotsReffluid,
+      isCurved: true,
+      curveSmoothness: 0.6,
+      gradient: LinearGradient(
+        colors: gradientColorsVert,
+      ),
+      barWidth: 5,
+      isStrokeCapRound: true,
+      dotData: FlDotData(
+        show: false,
+      ),
+      belowBarData: BarAreaData(
+        show: true,
+        gradient: LinearGradient(
+          colors: gradientColorsVert
+              .map((color) => color.withOpacity(0.3))
+              .toList(),
+        ),
+      ),
+    );
+
+    LineChartBarData lineActuel = LineChartBarData(
+      // on appelle la fonction qui recupere les valeurs de la courbe getSpots() async
+      spots: spotsData,
+      isCurved: true,
+      curveSmoothness: 0.6,
+      gradient: LinearGradient(
+        colors: gradientColorsBleu,
+      ),
+      barWidth: 5,
+      isStrokeCapRound: true,
+      dotData: FlDotData(
+        show: false,
+      ),
+      belowBarData: BarAreaData(
+        show: true,
+        gradient: LinearGradient(
+          colors: gradientColorsBleu
+              .map((color) => color.withOpacity(0.3))
+              .toList(),
+        ),
+      ),
+    );
+
     return LineChartData(
       gridData: FlGridData(
         show: true,
         drawVerticalLine: true,
-        horizontalInterval: 1,
-        verticalInterval: 1,
         getDrawingHorizontalLine: (value) {
           return FlLine(
             color: AppColors.mainGridLineColor,
@@ -134,8 +199,6 @@ class _LineChartSample2State extends State<LineChartSample2> {
               reservedSize: 22,
               getTitlesWidget: (double value, TitleMeta meta) {
                 cpt_appel_legende++;
-                //print(spotsData.length);
-                //print("value : $value");
                 if (cpt_appel_legende % 4 == 0) {
                   return Text(
                       //avec la taille de spotsData, on sait que une data correspond à 5 min et que l'on a les dernière data jusqu'à maintenant. Afficher la legende avec : il y a 5 min, il y a 10 min, il y a 15 min, il y a 20 min, il y a 25 min, il y a 30 min ... en fonction de la taille de la liste
@@ -161,28 +224,9 @@ class _LineChartSample2State extends State<LineChartSample2> {
       minY: minY,
       maxY: maxY,
       lineBarsData: [
-        LineChartBarData(
-          // on appelle la fonction qui recupere les valeurs de la courbe getSpots() async
-          spots: spotsData,
-          isCurved: true,
-          curveSmoothness: 0.6,
-          gradient: LinearGradient(
-            colors: gradientColors,
-          ),
-          barWidth: 5,
-          isStrokeCapRound: true,
-          dotData: FlDotData(
-            show: false,
-          ),
-          belowBarData: BarAreaData(
-            show: true,
-            gradient: LinearGradient(
-              colors: gradientColors
-                  .map((color) => color.withOpacity(0.3))
-                  .toList(),
-            ),
-          ),
-        ),
+        lineDense,
+        lineReffluid,
+        lineActuel,
       ],
       //enlever l'affiche du curseur
       lineTouchData: LineTouchData(
@@ -192,15 +236,24 @@ class _LineChartSample2State extends State<LineChartSample2> {
           getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
             return touchedBarSpots.map((barSpot) {
               final flSpot = barSpot;
-              if (flSpot.x == spotsData[0].x) {
+              // spotsReferenceY est un tableau contenant tout les y des spots de la courbe de reference. le faire avec une map
+              final spotsRefDenseY = spotsRefdense.map((e) => e.y).toList();
+              final spotsRefFluidY = spotsReffluid.map((e) => e.y).toList();
+              final spotsDataY = spotsData.map((e) => e.y).toList();
+              if (spotsRefDenseY.contains(flSpot.y)) {
                 return LineTooltipItem(
-                  "il y a ${spotsData.length * 5} min : ${flSpot.y.toStringAsFixed(2)}",
-                  const TextStyle(color: Colors.white),
+                  "Trafic dense : ${flSpot.y.toStringAsFixed(2)}",
+                  const TextStyle(color: Color.fromARGB(255, 241, 187, 187)),
+                );
+              } else if (spotsRefFluidY.contains(flSpot.y)) {
+                return LineTooltipItem(
+                  "Trafic fluide : ${flSpot.y.toStringAsFixed(2)}",
+                  const TextStyle(color: Color.fromARGB(255, 176, 242, 205)),
                 );
               } else {
                 return LineTooltipItem(
-                  "il y a ${spotsData.length * 5 - flSpot.x.toInt() * 5} min : ${flSpot.y.toStringAsFixed(2)}",
-                  const TextStyle(color: Colors.white),
+                  "Trafic actuel : ${flSpot.y.toStringAsFixed(2)}",
+                  const TextStyle(color: Color.fromARGB(255, 173, 209, 246)),
                 );
               }
             }).toList();

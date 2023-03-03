@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -36,10 +34,12 @@ class _JaugeFrequentationState extends State<JaugeFrequentation> {
     return Column(
       children: [
         //Titre de la gauge : "Etat du trafic actuel :"
-        Text("Etat du trafic actuel :",
+        const Text("Etat du trafic actuel :",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
 
-        Container(
+        SizedBox(
+          width: 500,
+          height: 150,
           child: SfRadialGauge(
             axes: <RadialAxis>[
               RadialAxis(minimum: 0, maximum: maxY, ranges: <GaugeRange>[
@@ -48,7 +48,7 @@ class _JaugeFrequentationState extends State<JaugeFrequentation> {
                 GaugeRange(
                     startValue: fluid.y,
                     endValue: dense.y,
-                    color: Color.fromARGB(255, 25, 143, 198)),
+                    color: const Color.fromARGB(255, 25, 143, 198)),
                 GaugeRange(
                     startValue: dense.y,
                     endValue: dense.y * 1.4,
@@ -68,10 +68,9 @@ class _JaugeFrequentationState extends State<JaugeFrequentation> {
                 )
               ], annotations: <GaugeAnnotation>[
                 GaugeAnnotation(
-                    widget: Container(
-                        child: Text(trafic.y.toString(),
-                            style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.bold))),
+                    widget: Text(trafic.y.toString(),
+                        style: const TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold)),
                     angle: 90,
                     positionFactor: 0.5)
               ])
