@@ -66,45 +66,74 @@ class _MessageTbmState extends State<MessageTbm> {
       }
     }
     //retourner une listview horizontale de card avec les messages
-    return SizedBox(
-      height: 200,
-      width: MediaQuery.of(context).size.width * 0.9,
-      child: //faire un menu accordeon representant chaque ligne et quand on clique on affiche tous les messages correspondant,
-          //pour cela on utilise le package accordion
-          ListView(children: [
-        for (var i = 0; i < listMessages.length; i++)
-          Accordion(
-            maxOpenSections: 2,
-            headerBackgroundColorOpened: Colors.black54,
-            scaleWhenAnimating: true,
-            openAndCloseAnimation: true,
-            headerPadding:
-                const EdgeInsets.symmetric(vertical: 7, horizontal: 5),
-            sectionOpeningHapticFeedback: SectionHapticFeedback.heavy,
-            sectionClosingHapticFeedback: SectionHapticFeedback.light,
-            children: [
-              AccordionSection(
-                leftIcon: listMessages[i][2],
-                headerBackgroundColor: Colors.black,
-                headerBackgroundColorOpened: Colors.red,
-                header: Text(
-                  listMessages[i][0],
-                  style: const TextStyle(
-                      color: Color(0xffffffff),
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold),
-                ),
-                content: Text("${listMessages[i][1]}\n\n",
-                    style: const TextStyle(
-                        color: Color(0xff999999),
-                        fontSize: 14,
-                        fontWeight: FontWeight.normal)),
-                contentHorizontalPadding: 2,
-                contentBorderWidth: 1,
-              ),
-            ],
+    return Column(
+      children: [
+        //titre : Messages TBM
+        const Padding(
+          padding: EdgeInsets.only(top: 10, bottom: 10),
+          child: SelectableText(
+            "Messages TBM",
+            style: TextStyle(
+                color: Color.fromARGB(255, 0, 0, 0),
+                fontSize: 20,
+                fontWeight: FontWeight.bold),
           ),
-      ]),
+        ),
+        SizedBox(
+          height: 250,
+          width: MediaQuery.of(context).size.width * 0.9,
+          child: //faire un menu accordeon representant chaque ligne et quand on clique on affiche tous les messages correspondant,
+              //pour cela on utilise le package accordion
+              ListView(children: [
+            for (var i = 0; i < listMessages.length; i++)
+              Accordion(
+                paddingListTop: 2,
+                paddingListBottom: 2,
+                maxOpenSections: 1,
+                headerBackgroundColorOpened: Colors.black54,
+                scaleWhenAnimating: true,
+                openAndCloseAnimation: true,
+                headerPadding:
+                    const EdgeInsets.symmetric(vertical: 7, horizontal: 5),
+                sectionOpeningHapticFeedback: SectionHapticFeedback.heavy,
+                sectionClosingHapticFeedback: SectionHapticFeedback.light,
+                children: [
+                  AccordionSection(
+                    leftIcon: listMessages[i][2],
+                    headerBackgroundColor: Colors.black,
+                    headerBackgroundColorOpened: Colors.red,
+                    header: Text(
+                      listMessages[i][0],
+                      style: const TextStyle(
+                          color: Color(0xffffffff),
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    content: //parcourir tout les messages de la ligne et les afficher avec un retour a la ligne,
+                        //pour cela on utilise le package flutter_html
+                        ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: listMessages[i][1].length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Center(
+                          child: Text(
+                            listMessages[i][1][index],
+                            style: const TextStyle(
+                                color: Color(0xff999999),
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal),
+                          ),
+                        );
+                      },
+                    ),
+                    contentHorizontalPadding: 2,
+                    contentBorderWidth: 1,
+                  ),
+                ],
+              ),
+          ]),
+        ),
+      ],
     );
   }
 
