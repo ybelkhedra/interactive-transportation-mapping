@@ -26,11 +26,6 @@ class _JaugeFrequentationState extends State<JaugeFrequentation> {
         maxY = list[i];
       }
     }
-    //print("fluid.y = ${fluid.y}"
-    // "dense.y = ${dense.y}"
-    // "exce.y = ${exce.y}"
-    // "prev.y = ${prev.y}"
-    // "actual = ${trafic.y}");
     return Column(
       children: [
         //Titre de la gauge : "Etat du trafic actuel :"

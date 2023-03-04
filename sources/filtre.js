@@ -1,5 +1,5 @@
 function filtreCordonnees(lat, lon) {
-    if (lat < 44.81 && lat > 44.76 && lon < -0.579 && lon > -0.65) {
+    if (lat < 44.829622 && lat > 44.776781 && lon < -0.5535 && lon > -0.644965) {
         return true;
     }
     return false;

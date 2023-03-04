@@ -6,6 +6,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'dart:convert';
 import 'WIDGETS/jauge_frequentation.dart';
 import 'WIDGETS/messageTbm.dart';
+import 'WIDGETS/jauge_vcub.dart';
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
@@ -101,13 +102,13 @@ class _homeState extends State<home> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
       children: [
         Column(
           children: [
             SizedBox(
-              height: 250,
-              width: 500,
+              // height: 250,
+              // width: 500,
               child: FutureBuilder<List<List<FlSpot>>>(
                 future: getSpotsInfoApi(),
                 builder: (BuildContext context,
@@ -138,6 +139,8 @@ class _homeState extends State<home> {
             MessageTbm(),
           ],
         ),
+        const Center(child: Text("Vcub", style: TextStyle(fontSize: 50))),
+        const JaugeVcub(),
       ],
     );
   }
