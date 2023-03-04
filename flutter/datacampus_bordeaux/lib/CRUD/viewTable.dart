@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'presentation_card.dart';
-import 'package:http/http.dart' as http;
+import 'add/addToTables.dart';
 
 class ViewTable extends StatefulWidget {
   final String tableName;
@@ -20,13 +20,10 @@ class _ViewTableState extends State<ViewTable> {
     var url =
         Uri.https("datacampus-bordeaux.fr", "/sources/requetes/$fileName.php");
     var response = await http.get(url);
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
+    //print('Response status: ${response.statusCode}');
+    //print('Response body: ${response.body}');
 
     final List data = jsonDecode(response.body);
-
-    print("Salut");
-    print("" + data[0]["nom"]);
 
     //Iterable<Widget> cards = data.map((e) => makeCard(e))
 
@@ -36,7 +33,6 @@ class _ViewTableState extends State<ViewTable> {
       cards.add(PresentationCard(e: data[i], deleteVoid: deleteVoid));
     }
 
-    print("Salut LIBERATEUR");
     return cards;
   }
 
@@ -44,7 +40,7 @@ class _ViewTableState extends State<ViewTable> {
     /* Popup pour supprimer le parking */
     var url = Uri.https("datacampus-bordeaux.fr",
         "/sources/requetes/API_flutter/parking_delete.php", {"id": id});
-    print(url);
+    //print(url);
     await http.post(url);
     //supprimer la card correspondante
 
@@ -54,6 +50,23 @@ class _ViewTableState extends State<ViewTable> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.tableName),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              // aller à la page d'ajout de parking
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        addToTables(tableName: widget.tableName)),
+              );
+            },
+          ),
+        ],
+      ),
       body: Center(
         child: FutureBuilder(
           future: getViewTables(),

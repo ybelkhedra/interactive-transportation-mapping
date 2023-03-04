@@ -13,7 +13,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import 'addParkings.dart';
+import 'add/addParkings.dart';
 // import 'parkings_edit.dart';
 
 class Parkings extends StatefulWidget {

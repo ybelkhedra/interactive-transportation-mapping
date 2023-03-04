@@ -11,7 +11,7 @@ class PresentationCard extends StatelessWidget {
       : super(key: key);
 
   Widget getInformation(Map e, String key) {
-    print("key : $key");
+    //print("key : $key");
     if (e[key] is List && key != 'coordonnees') {
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -140,7 +140,7 @@ class PresentationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("e : $e");
+    //print("e : $e");
     return Card(
         child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
       ListTile(

@@ -31,9 +31,9 @@ class _homeState extends State<home> {
         "data.bordeaux-metropole.fr", //"key=177BEEMTWZ&typename=ci_courb_a"
         "/geojson",
         {"key": "177BEEMTWZ", "typename": "ci_courb_a"});
-    print("URL : " + url.toString());
+    //print("URL : " + url.toString());
     var response = await http.get(url);
-    print(response.statusCode);
+    //print(response.statusCode);
     //print(response.body);
     var jsonData = jsonDecode(response.body); //
     //on parcourt le json pour recuperer les valeurs de la courbe : ident et actuel

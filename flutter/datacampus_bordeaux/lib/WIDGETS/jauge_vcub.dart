@@ -16,7 +16,7 @@ class _JaugeVcubState extends State<JaugeVcub> {
         "datacampus-bordeaux.fr", "/sources/requetes/API_flutter/nb_vcub.php");
     final response = await http.get(url);
     final jsonData = jsonDecode(response.body);
-    print(jsonData);
+    //print(jsonData);
     double nbPlacesTotales =
         jsonData['nb_places_libres'] + jsonData['nb_velos_disponibles'];
     double nbPlacesDispo = jsonData['nb_velos_disponibles'];

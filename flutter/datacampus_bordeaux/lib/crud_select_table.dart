@@ -25,12 +25,24 @@ class _CrudSelectTableState extends State<CrudSelectTable> {
       // var data = jsonDecode(response.body);
       // List<String> tables = data["name"];
       List<String> tables = [
-        "Parkings",
-        "Recharges elec",
-        "Freefloating",
-        "Pistes cyclabes",
-        "Emplacement parking",
-        "Coivoiturage",
+        "parkings", //ok
+        "arrets_perso", //ok
+        "arrets_cars", //ok
+        "gares_ter", //ok
+        "horaires",
+        "lignes", //ok
+        "lignes_cars", //ok
+        "pistes_cyclables", //ok
+        "stations_freefloating", //ok
+        "points_de_charges", //ok
+        "puissances",
+        "points_stationnement_velo", //ok
+        "types_accroches_velo",
+        "types_de_prises",
+        "types_de_lignes",
+        "types_pistes_velo",
+        "vehicules_freefloating",
+        "points_de_covoiturage", //ok
       ];
       return tables; //sense appeler le script php sources/requetes/all_tables.php
     }
@@ -41,6 +53,8 @@ class _CrudSelectTableState extends State<CrudSelectTable> {
       future: getTables(),
       builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
         if (snapshot.hasData) {
+          //list of tables = getTables()
+          final tableNames = snapshot.data!;
           return Scaffold(
             appBar: AppBar(
               title: const Text('Tables'),
@@ -56,24 +70,26 @@ class _CrudSelectTableState extends State<CrudSelectTable> {
                     animation: _controller,
                     builder: (context, child) {
                       //sense contenir le crud pour la table selectionnee
-                      if (snapshot.data![_controller.selectedIndex] ==
-                          "Parkings") {
-                        return const Parkings();
-                      } else if (snapshot.data![_controller.selectedIndex] ==
-                          "Recharges elec") {
-                        return const PointsDeCharge();
-                      } else if (snapshot.data![_controller.selectedIndex] ==
-                          "Freefloating") {
-                        return const Freefloating();
-                      } else if (snapshot.data![_controller.selectedIndex] ==
-                          "Coivoiturage") {
-                        return const ViewTable(
-                            tableName: 'points_de_covoiturage');
-                      } else {
-                        return Center(
-                            child: Text(
-                                snapshot.data![_controller.selectedIndex]));
-                      }
+                      // if (snapshot.data![_controller.selectedIndex] ==
+                      //     "Parkings") {
+                      //   return const Parkings();
+                      // } else if (snapshot.data![_controller.selectedIndex] ==
+                      //     "Recharges elec") {
+                      //   return const PointsDeCharge();
+                      // } else if (snapshot.data![_controller.selectedIndex] ==
+                      //     "Freefloating") {
+                      //   return const Freefloating();
+                      // } else if (snapshot.data![_controller.selectedIndex] ==
+                      //     "Coivoiturage") {
+                      //   return const ViewTable(
+                      //       tableName: 'points_de_covoiturage');
+                      // } else {
+                      //return Center(
+                      //    child:
+                      //        Text(snapshot.data![_controller.selectedIndex]));
+                      //}
+                      return ViewTable(
+                          tableName: tableNames[_controller.selectedIndex]);
                     },
                   ),
                 ))
