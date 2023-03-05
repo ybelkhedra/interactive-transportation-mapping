@@ -188,7 +188,7 @@ class _ParkingsState extends State<Parkings> {
                         /* Popup pour supprimer le parking */
                         var url = Uri.https(
                             "datacampus-bordeaux.fr",
-                            "/sources/requetes/API_flutter/parking_delete.php",
+                            "/sources/requetes/API_flutter/parkings_delete.php",
                             {"id": data[i]['id']});
                         print(url);
                         await http.post(url);

@@ -39,13 +39,13 @@ class _addFreefloatingState extends State<addFreefloating> {
     var url = Uri.https("datacampus-bordeaux.fr",
         "/sources/requetes/API_flutter/vehicules_freefloating.php");
     var response = await http.get(url);
-    print("response status: ${response.statusCode}");
-    print("response body: ${response.body}");
+    // print("response status: ${response.statusCode}");
+    // print("response body: ${response.body}");
     final responseJson = json.decode(response.body);
-    print("vehicules: $responseJson");
     List<List<String>> vehicules = [];
     for (var vehicule in responseJson) {
-      vehicules.add([vehicule['nom'], vehicule['id']]);
+      //print("vehicule: $vehicule");
+      vehicules.add([vehicule['vehicule'], vehicule['id']]);
     }
     return vehicules;
   }
@@ -72,7 +72,7 @@ class _addFreefloatingState extends State<addFreefloating> {
                 return null;
               },
             ),
-            // selection d'un ou plusieurs vehicules autorisés
+            //selection d'un ou plusieurs vehicules autorisés
             FutureBuilder<List<List<String>>>(
               future: getVehicules(),
               builder: (context, snapshot) {
@@ -193,18 +193,21 @@ class _addFreefloatingState extends State<addFreefloating> {
       'infoComplementaires': infoComplementaires,
       'latitude': latitude,
       'longitude': longitude,
+      'vehiculesAutorise': _vehiculesAutorise,
     };
     // //on encode l'objet parking en json
     final body = jsonEncode(parking);
 
     //on envoie la requête https get pour récupérer les données vers le fichier php : datacampus-bordeaux.fr/sources/requetes/API_flutter/parking_add.php
     final url = Uri.https('datacampus-bordeaux.fr',
-        '/sources/requetes/API_flutter/parking_add.php', {
+        '/sources/requetes/API_flutter/freefloating_add.php', {
       'nom': nom,
       'infoComplementaires': infoComplementaires,
       'latitude': latitude,
       'longitude': longitude,
+      'vehiculesAutorise': _vehiculesAutorise.toString(),
     });
+    print(url);
     final response = await http.get(url);
     //faire une animation qui dit que le produit est ajouter et revenir a la page précédente
     Navigator.pop(context);

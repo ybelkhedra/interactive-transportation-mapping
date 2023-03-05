@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'presentation_card.dart';
 import 'add/addToTables.dart';
+//import 'add/addParkings.dart';
 
 class ViewTable extends StatefulWidget {
   final String tableName;
@@ -30,16 +31,20 @@ class _ViewTableState extends State<ViewTable> {
     List<Widget> cards = [];
 
     for (int i = 0; i < data.length; i++) {
-      cards.add(PresentationCard(e: data[i], deleteVoid: deleteVoid));
+      cards.add(PresentationCard(
+          e: data[i], deleteVoid: deleteVoid, tableName: widget.tableName));
     }
 
     return cards;
   }
 
-  void deleteVoid(Widget e, int id) async {
+  void deleteVoid(Widget e, int id, String tableName) async {
     /* Popup pour supprimer le parking */
-    var url = Uri.https("datacampus-bordeaux.fr",
-        "/sources/requetes/API_flutter/parking_delete.php", {"id": id});
+    var url = Uri.https(
+        "datacampus-bordeaux.fr",
+        "/sources/requetes/API_flutter/${tableName}_delete.php",
+        {"id": id.toString()});
+    print(url);
     //print(url);
     await http.post(url);
     //supprimer la card correspondante
@@ -62,6 +67,7 @@ class _ViewTableState extends State<ViewTable> {
                 MaterialPageRoute(
                     builder: (context) =>
                         addToTables(tableName: widget.tableName)),
+                //addParkings()),
               );
             },
           ),

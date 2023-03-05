@@ -6,12 +6,16 @@ import 'package:http/http.dart' as http;
 
 class PresentationCard extends StatelessWidget {
   final e;
-  final void Function(Widget, int) deleteVoid;
-  const PresentationCard({Key? key, required this.e, required this.deleteVoid})
+  final void Function(Widget, int, String) deleteVoid;
+  final String tableName;
+  const PresentationCard(
+      {Key? key,
+      required this.e,
+      required this.deleteVoid,
+      required this.tableName})
       : super(key: key);
 
   Widget getInformation(Map e, String key) {
-    //print("key : $key");
     if (e[key] is List && key != 'coordonnees') {
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -140,7 +144,6 @@ class PresentationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //print("e : $e");
     return Card(
         child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
       ListTile(
@@ -166,7 +169,7 @@ class PresentationCard extends StatelessWidget {
                         child: const Text('Supprimer',
                             style: TextStyle(color: Colors.red)),
                         onPressed: () async {
-                          deleteVoid(this, e['id']);
+                          deleteVoid(this, e['id'], tableName);
                         }),
                     const SizedBox(width: 8),
                   ],
