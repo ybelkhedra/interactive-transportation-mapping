@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'presentation_card.dart';
+import 'table_helper.dart';
 import 'add/addToTables.dart';
 //import 'add/addParkings.dart';
 
@@ -17,7 +18,7 @@ class ViewTable extends StatefulWidget {
 class _ViewTableState extends State<ViewTable> {
   //fonction qui retourne une liste de card à partir d'une liste de ViewTabless (json) obtenu par une requete http sur "145.239.198.30", "/sources/requetes/ViewTabless.php"
   Future<List<Widget>> getViewTables() async {
-    String fileName = widget.tableName;
+    String fileName = tableHelper[widget.tableName]!['script'];
     var url =
         Uri.https("datacampus-bordeaux.fr", "/sources/requetes/$fileName.php");
     var response = await http.get(url);
@@ -42,7 +43,7 @@ class _ViewTableState extends State<ViewTable> {
     /* Popup pour supprimer le parking */
     var url = Uri.https(
         "datacampus-bordeaux.fr",
-        "/sources/requetes/API_flutter/${tableName}_delete.php",
+        "/sources/requetes/API_flutter/${widget.tableName}_delete.php",
         {"id": id.toString()});
     print(url);
     //print(url);
@@ -56,7 +57,7 @@ class _ViewTableState extends State<ViewTable> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.tableName),
+        title: Text(tableHelper[widget.tableName]!['nom_jolie']),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
