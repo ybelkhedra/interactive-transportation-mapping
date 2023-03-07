@@ -20,7 +20,7 @@ height: 100%;
 left: 0;
 }
 
-.bar-icon{
+.bar-icon-connect{
   margin-left: auto;
   margin-right: auto;
   font-size: 45px !important;
@@ -36,18 +36,18 @@ left: 0;
   -o-transition: opacity .5s ease-out;
 }
 
-.bar-icon:link,
-.bar-icon:visited,
-.bar-icon:active{
+.bar-icon-connect:link,
+.bar-icon-connect:visited,
+.bar-icon-connect:active{
   color: white;
   text-decoration: none;
 }
 
-.bar-icon:hover{
+.bar-icon-connect:hover{
   opacity: 0.5;
 }
 
-.bar-icon:focus{
+.bar-icon-connect:focus{
   outline:none;
 }
 
