@@ -23,11 +23,10 @@ class _ViewTableState extends State<ViewTable> {
         Uri.https("datacampus-bordeaux.fr", "/sources/requetes/$fileName.php");
     var response = await http.get(url);
     //print('Response status: ${response.statusCode}');
-    //print('Response body: ${response.body}');
+    print('Response body: ${response.body}');
 
     final List data = jsonDecode(response.body);
-
-    //Iterable<Widget> cards = data.map((e) => makeCard(e))
+    // Iterable<Widget> cards = data.map((e) => makeCard(e))
 
     List<Widget> cards = [];
 
@@ -68,7 +67,6 @@ class _ViewTableState extends State<ViewTable> {
                 MaterialPageRoute(
                     builder: (context) =>
                         addToTables(tableName: widget.tableName)),
-                //addParkings()),
               );
             },
           ),
