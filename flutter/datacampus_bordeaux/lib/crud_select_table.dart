@@ -1,12 +1,7 @@
-import 'package:datacampus_bordeaux/CRUD/parkings.dart';
-import 'package:datacampus_bordeaux/CRUD/points_de_charge.dart';
-import 'package:datacampus_bordeaux/CRUD/freefloating.dart';
 import 'package:datacampus_bordeaux/CRUD/viewTable.dart';
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
-// import 'dart:convert';
-// import 'package:flutter_map/plugin_api.dart';
-// import 'package:http/http.dart' as http;
+import 'CRUD/table_helper.dart';
 
 class CrudSelectTable extends StatefulWidget {
   const CrudSelectTable({Key? key}) : super(key: key);
@@ -18,88 +13,29 @@ class CrudSelectTable extends StatefulWidget {
 class _CrudSelectTableState extends State<CrudSelectTable> {
   @override
   Widget build(BuildContext context) {
-    Future<List<String>> getTables() async {
-      // var url = Uri.http("145.239.198.30", "/sources/requetes/all_tables.php");
-      // var response = await http.get(url);
-
-      // var data = jsonDecode(response.body);
-      // List<String> tables = data["name"];
-      List<String> tables = [
-        "parkings", //ok
-        "arrets_perso", //ok
-        "arrets_cars", //ok
-        "gares_ter", //ok
-        "horaires",
-        "lignes", //ok
-        "lignes_cars", //ok
-        "pistes_cyclables", //ok
-        "stations_freefloating", //ok
-        "points_de_charges", //ok
-        "puissances",
-        "points_stationnement_velo", //ok
-        "types_accroches_velo",
-        "types_de_prises",
-        "types_de_lignes",
-        "types_pistes_velo",
-        "vehicules_freefloating",
-        "points_de_covoiturage", //ok
-      ];
-      return tables; //sense appeler le script php sources/requetes/all_tables.php
-    }
-
     final _controller = SidebarXController(selectedIndex: 0, extended: true);
-
-    return FutureBuilder<List<String>>(
-      future: getTables(),
-      builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
-        if (snapshot.hasData) {
-          //list of tables = getTables()
-          final tableNames = snapshot.data!;
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Tables'),
+    List<String> tableNames = getTablesNames();
+    List<String> tablePrettyName = getPrettyTablesNames();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Tables'),
+      ),
+      body: Row(
+        children: [
+          SideBarXExample(controller: _controller, tableNames: tablePrettyName),
+          // Your app screen body
+          Expanded(
+              child: Center(
+            child: AnimatedBuilder(
+              animation: _controller,
+              builder: (context, child) {
+                return ViewTable(
+                    tableName: tableNames[_controller.selectedIndex]);
+              },
             ),
-            body: Row(
-              children: [
-                SideBarXExample(
-                    controller: _controller, tableNames: snapshot.data!),
-                // Your app screen body
-                Expanded(
-                    child: Center(
-                  child: AnimatedBuilder(
-                    animation: _controller,
-                    builder: (context, child) {
-                      //sense contenir le crud pour la table selectionnee
-                      // if (snapshot.data![_controller.selectedIndex] ==
-                      //     "Parkings") {
-                      //   return const Parkings();
-                      // } else if (snapshot.data![_controller.selectedIndex] ==
-                      //     "Recharges elec") {
-                      //   return const PointsDeCharge();
-                      // } else if (snapshot.data![_controller.selectedIndex] ==
-                      //     "Freefloating") {
-                      //   return const Freefloating();
-                      // } else if (snapshot.data![_controller.selectedIndex] ==
-                      //     "Coivoiturage") {
-                      //   return const ViewTable(
-                      //       tableName: 'points_de_covoiturage');
-                      // } else {
-                      //return Center(
-                      //    child:
-                      //        Text(snapshot.data![_controller.selectedIndex]));
-                      //}
-                      return ViewTable(
-                          tableName: tableNames[_controller.selectedIndex]);
-                    },
-                  ),
-                ))
-              ],
-            ),
-          );
-        } else {
-          return const Center(child: CircularProgressIndicator());
-        }
-      },
+          ))
+        ],
+      ),
     );
   }
 }

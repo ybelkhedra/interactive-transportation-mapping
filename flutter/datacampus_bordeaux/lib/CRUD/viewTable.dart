@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'presentation_card.dart';
+import 'table_helper.dart';
 import 'add/addToTables.dart';
 //import 'add/addParkings.dart';
 
@@ -17,16 +18,15 @@ class ViewTable extends StatefulWidget {
 class _ViewTableState extends State<ViewTable> {
   //fonction qui retourne une liste de card à partir d'une liste de ViewTabless (json) obtenu par une requete http sur "145.239.198.30", "/sources/requetes/ViewTabless.php"
   Future<List<Widget>> getViewTables() async {
-    String fileName = widget.tableName;
+    String fileName = tableHelper[widget.tableName]!['script'];
     var url =
         Uri.https("datacampus-bordeaux.fr", "/sources/requetes/$fileName.php");
     var response = await http.get(url);
     //print('Response status: ${response.statusCode}');
-    //print('Response body: ${response.body}');
+    print('Response body: ${response.body}');
 
     final List data = jsonDecode(response.body);
-
-    //Iterable<Widget> cards = data.map((e) => makeCard(e))
+    // Iterable<Widget> cards = data.map((e) => makeCard(e))
 
     List<Widget> cards = [];
 
@@ -37,6 +37,7 @@ class _ViewTableState extends State<ViewTable> {
     return cards;
   }
 
+<<<<<<< HEAD
   // void deleteVoid(int id) async {
   //   /* Popup pour supprimer le parking */
   //   String s = widget.tableName;
@@ -46,6 +47,18 @@ class _ViewTableState extends State<ViewTable> {
   //   //print(url);
   //   await http.post(url);
   //   //supprimer la card correspondante
+=======
+  void deleteVoid(Widget e, int id, String tableName) async {
+    /* Popup pour supprimer le parking */
+    var url = Uri.https(
+        "datacampus-bordeaux.fr",
+        "/sources/requetes/API_flutter/${widget.tableName}_delete.php",
+        {"id": id.toString()});
+    print(url);
+    //print(url);
+    await http.post(url);
+    //supprimer la card correspondante
+>>>>>>> 90b9228284874dff0f9c48250ed0e3ae8b5e8201
 
   //   //TODO setState(cards.remove(e));
   // }
@@ -54,7 +67,7 @@ class _ViewTableState extends State<ViewTable> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.tableName),
+        title: Text(tableHelper[widget.tableName]!['nom_jolie']),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
@@ -65,7 +78,6 @@ class _ViewTableState extends State<ViewTable> {
                 MaterialPageRoute(
                     builder: (context) =>
                         addToTables(tableName: widget.tableName)),
-                //addParkings()),
               );
             },
           ),

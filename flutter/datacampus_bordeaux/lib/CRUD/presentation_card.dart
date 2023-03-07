@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:http/http.dart' as http;
+import 'table_helper.dart';
 
 class PresentationCard extends StatelessWidget {
   final e;
@@ -16,7 +17,7 @@ class PresentationCard extends StatelessWidget {
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text('$key : '),
+          Text('${tableHelper[tableName]![key]!["nom"]} : '),
           for (int i = 0; i < e[key].length; i++) Text(e[key][i]),
         ],
       );
@@ -26,7 +27,7 @@ class PresentationCard extends StatelessWidget {
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text('$key : '),
+          Text('${tableHelper[tableName]![key]!["nom"]} : '),
           Text(e[key]),
         ],
       );
@@ -146,7 +147,6 @@ class PresentationCard extends StatelessWidget {
         leading: const Icon(Icons.directions_car),
         //title : nom de la table
         title: Text(e['nom']),
-        subtitle: const Text('Points de quelquechose'),
       ),
       Column(
           children: [for (String key in e.keys) getInformation(e, key)] +
