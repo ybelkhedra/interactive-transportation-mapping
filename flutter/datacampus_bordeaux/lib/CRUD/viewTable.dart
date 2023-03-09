@@ -61,14 +61,17 @@ class _ViewTableState extends State<ViewTable> {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () {
+            onPressed: () async {
               // aller à la page d'ajout de parking
-              Navigator.push(
+              await Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
                         addToTables(tableName: widget.tableName)),
               );
+              print(
+                  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+              setState(() {});
             },
           ),
         ],
