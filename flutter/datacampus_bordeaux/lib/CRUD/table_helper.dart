@@ -218,7 +218,7 @@ List<SidebarXItem> getIcons() {
   List<SidebarXItem> icons = [];
   for (var i = 0; i < nomsTables.length; i++) {
     icons.add(SidebarXItem(
-        icon: tableHelper[nomsTables[i]]['icon'], label: nomsTables[i]));
+        icon: tableHelper[nomsTables[i]]['icon'], label: nomsJolies[i]));
   }
   return icons;
 }
