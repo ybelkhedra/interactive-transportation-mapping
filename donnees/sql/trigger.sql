@@ -78,7 +78,7 @@ FOR EACH ROW
 BEGIN
 DELETE FROM situer_stations_velo WHERE pt_velo = OLD.id;
 DELETE FROM coordonnees_stations_velo WHERE id = OLD.id;
-DELETE FROM installer WHERE pt_velo = OLD.id;
+DELETE FROM installer WHERE station_velo = OLD.id;
 END$$
 DELIMITER ;
 

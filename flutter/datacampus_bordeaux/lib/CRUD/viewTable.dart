@@ -37,17 +37,6 @@ class _ViewTableState extends State<ViewTable> {
     return cards;
   }
 
-<<<<<<< HEAD
-  // void deleteVoid(int id) async {
-  //   /* Popup pour supprimer le parking */
-  //   String s = widget.tableName;
-  //   var url = Uri.https("datacampus-bordeaux.fr",
-  //       "/sources/requetes/API_flutter/${s}_delete.php", {"id": id.toString()});
-  //   print(url);
-  //   //print(url);
-  //   await http.post(url);
-  //   //supprimer la card correspondante
-=======
   void deleteVoid(Widget e, int id, String tableName) async {
     /* Popup pour supprimer le parking */
     var url = Uri.https(
@@ -58,10 +47,10 @@ class _ViewTableState extends State<ViewTable> {
     //print(url);
     await http.post(url);
     //supprimer la card correspondante
->>>>>>> 90b9228284874dff0f9c48250ed0e3ae8b5e8201
 
-  //   //TODO setState(cards.remove(e));
-  // }
+    //   //TODO setState(cards.remove(e));
+    // }
+  }
 
   @override
   Widget build(BuildContext context) {
