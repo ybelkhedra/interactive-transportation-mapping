@@ -31,25 +31,26 @@ class _ViewTableState extends State<ViewTable> {
     List<Widget> cards = [];
 
     for (int i = 0; i < data.length; i++) {
-      cards.add(PresentationCard(e: data[i], tableName: widget.tableName));
+      cards.add(PresentationCard(
+          e: data[i],
+          tableName: widget.tableName,
+          deleteElement: deleteElement));
     }
 
     return cards;
   }
 
-  void deleteVoid(Widget e, int id, String tableName) async {
+  void deleteElement(String id) {
     /* Popup pour supprimer le parking */
     var url = Uri.https(
         "datacampus-bordeaux.fr",
         "/sources/requetes/API_flutter/${widget.tableName}_delete.php",
-        {"id": id.toString()});
+        {"id": id});
+    print("ALLONS Y");
     print(url);
-    //print(url);
-    await http.post(url);
-    //supprimer la card correspondante
-
-    //   //TODO setState(cards.remove(e));
-    // }
+    http.post(url);
+    print("delete");
+    setState(() {});
   }
 
   @override

@@ -8,8 +8,12 @@ import 'table_helper.dart';
 class PresentationCard extends StatelessWidget {
   final e;
   final String tableName;
-  // final void Function(int) deleteVoid;
-  const PresentationCard({Key? key, required this.e, required this.tableName})
+  final void Function(String) deleteElement;
+  const PresentationCard(
+      {Key? key,
+      required this.e,
+      required this.tableName,
+      required this.deleteElement})
       : super(key: key);
 
   Widget getInformation(Map e, String key) {
@@ -164,17 +168,8 @@ class PresentationCard extends StatelessWidget {
                     TextButton(
                       child: const Text('Supprimer',
                           style: TextStyle(color: Colors.red)),
-                      onPressed: () async {
-                        var url = Uri.https(
-                            "datacampus-bordeaux.fr",
-                            "/sources/requetes/API_flutter/${tableName}_delete.php",
-                            {"id": e['id'].toString()});
-                        print(url);
-                        //print(url);
-                        await http.post(url);
-                        //supprimer la card correspondante
-
-                        //TODO setState(cards.remove(e));
+                      onPressed: () {
+                        deleteElement(e['id']);
                       },
                     ),
                     const SizedBox(width: 8),
