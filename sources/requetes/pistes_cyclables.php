@@ -21,51 +21,49 @@ if ($result = $db->query("
   $temp = array();
   $prev_id = null;
   while ($row = $result->fetch_assoc()) {
-    if ($row['id'] != $prev_id) {
-      if (!empty($temp)) {
-        $piste = array(
-            "id" => $prev_id,
-            "type_piste" => isset($temp[0]["type_piste"]) ? $temp[0]["type_piste"] : null,
-            "info_complementaires" => isset($temp[0]["info_complementaires"]) ? $temp[0]["info_complementaires"] : null,
-        );
-        foreach ($temp as &$info) {
-          unset($info["type_piste"]);
-          unset($info["info_complementaires"]);
+    if (isset($row)) {
+      if ($row['id'] != $prev_id) {
+        if (!empty($temp)) {
+          $piste = array(
+              "id" => $prev_id,
+              "type_piste" => isset($temp[0]["type_piste"]) ? $temp[0]["type_piste"] : null,
+              "info_complementaires" => isset($temp[0]["info_complementaires"]) ? $temp[0]["info_complementaires"] : null,
+          );
+          foreach ($temp as &$info) {
+            unset($info["type_piste"]);
+            unset($info["info_complementaires"]);
+          }
+          $piste["coordonnees"]=$temp;
+          $pistes_velo[] = $piste;
+          $temp = array();
         }
-        $piste["coordonnees"]=$temp;
-        $pistes_velo[] = $piste;
-        $temp = array();
+        $prev_id = $row['id'];
       }
-      $prev_id = $row['id'];
-    }
-    $temp[] = array(
-      "type_piste" => $row["type_piste"],
-      "info_complementaires" => $row["info_complementaires"],
-      "latitude" => $row["latitude"],
-      "longitude" => $row["longitude"]
-    );
-  }
-  //Il doit y avoir un moyen plus efficace d'obtenir le dernier dictionnaire mais pour l'instant je ne le vois pas//
-  if ($row['id'] != $prev_id) {
-    if (!empty($temp)) {
-      $piste = array(
-          "id" => $prev_id,
-          "type_piste" => isset($temp[0]["type_piste"]) ? $temp[0]["type_piste"] : null,
-          "info_complementaires" => isset($temp[0]["info_complementaires"]) ? $temp[0]["info_complementaires"] : null,
+      $temp[] = array(
+        "type_piste" => $row["type_piste"],
+        "info_complementaires" => $row["info_complementaires"],
+        "latitude" => $row["latitude"],
+        "longitude" => $row["longitude"]
       );
-      foreach ($temp as &$info) {
-        unset($info["type_piste"]);
-        unset($info["info_complementaires"]);
-      }
-      $piste["coordonnees"]=$temp;
-      $pistes_velo[] = $piste;
-      $temp = array();
     }
-    $prev_id = $row['id'];
   }
-    echo json_encode($pistes_velo);
+  if (!empty($temp)) {
+    $piste = array(
+      "id" => $prev_id,
+      "type_piste" => isset($temp[0]["type_piste"]) ? $temp[0]["type_piste"] : null,
+      "info_complementaires" => isset($temp[0]["info_complementaires"]) ? $temp[0]["info_complementaires"] : null,
+    );
+  foreach ($temp as &$info) {
+      unset($info["type_piste"]);
+      unset($info["info_complementaires"]);
+    }
+    $piste["coordonnees"]=$temp;
+    $pistes_velo[] = $piste;
+  }
+  echo json_encode($pistes_velo);
+} else {
+  echo "Error executing query: " . $db->error;
 }
 
-  $db->close();
-
-    ?>
+$db->close();
+?> 
