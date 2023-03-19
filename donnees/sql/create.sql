@@ -22,8 +22,8 @@ ALTER TABLE situer_arrets_cars DROP FOREIGN KEY situer_arrets_cars_arret_car_arr
 ALTER TABLE situer_arrets_cars DROP FOREIGN KEY situer_arrets_cars_coordonnee_coordonnees_arrets_cars_id;
 ALTER TABLE desservir_car DROP FOREIGN KEY desservir_car_ligne_car_lignes_cars_id;
 ALTER TABLE desservir_car DROP FOREIGN KEY desservir_car_arret_car_arrets_cars_id;
-ALTER TABLE siter_gares_ter DROP FOREIGN KEY siter_gares_ter_gare_ter_gares_ter_id;
-ALTER TABLE siter_gares_ter DROP FOREIGN KEY siter_gares_ter_coordonnee_coordonnees_gares_ter_id;
+ALTER TABLE situer_gares_ter DROP FOREIGN KEY situer_gares_ter_gare_ter_gares_ter_id;
+ALTER TABLE situer_gares_ter DROP FOREIGN KEY situer_gares_ter_coordonnee_coordonnees_gares_ter_id;
 ALTER TABLE situer_pt_freefloat DROP FOREIGN KEY situer_pt_freefloat_pt_freefloat_pt_freefloat_id;
 ALTER TABLE situer_pt_freefloat DROP FOREIGN KEY situer_pt_freefloat_coordonnee_coordonnees_pt_freefloat_id;
 ALTER TABLE autoriser DROP FOREIGN KEY autoriser_pt_freefloat_pt_freefloat_id;
