@@ -15,7 +15,7 @@ var layer_control_643cdab5b83b581cb10d63d05a5a00f0 = {
 
         "Pistes cyclables" : feature_group_pistes_cyclables_bdd,//ok
 
-        "Lignes de car" : feature_group_lignes_cars_bdd,//ok
+        "Lignes de car" : feature_group_lignes_car_bdd,//ok
 
         "Gare TER" : feature_group_gares_ter_bdd,//ok
 
@@ -42,6 +42,7 @@ var layer_control_643cdab5b83b581cb10d63d05a5a00f0 = {
         "Arrets de tram" : feature_group_arrets_tram,//ok
 
         "Etat du traffic" : feature_group_traffic,//ok
+
     },
 
 };
