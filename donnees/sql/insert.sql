@@ -97,4 +97,4 @@ VALUES (1, 1, CURRENT_TIME, CURRENT_TIME, CURRENT_TIME, CURRENT_TIME, 1, 0);
 
 INSERT INTO gares_ter (nom, info_complementaires) VALUES ('Gare de Pessac', 'nil');
 INSERT INTO coordonnees_gares_ter (latitude, longitude) VALUES (48.624, 2.394222);
-INSERT INTO siter_gares_ter (gare_ter, coordonnee) VALUES (1,1);
+INSERT INTO situer_gares_ter (gare_ter, coordonnee) VALUES (1,1);
