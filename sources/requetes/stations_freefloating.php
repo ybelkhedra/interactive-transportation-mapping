@@ -1,5 +1,7 @@
 <?php
+header('Content-Type: text/html; charset=utf-8');
 $db = new mysqli("localhost", "root", "@Password0", "campus");
+mysqli_set_charset($db, "utf8");
 
 if ($result = $db->query("
 SELECT DISTINCT pt_freefloat.*
@@ -34,6 +36,8 @@ FROM pt_freefloat INNER JOIN situer_pt_freefloat on pt_freefloat.id = situer_pt_
     }
     // on libere la memoire
     $result->free();
+} else  {
+    echo "Erreur: " . $db->error;
 }
 // on encode la liste des stations au format json, et on l'affiche
 echo json_encode($parkings);

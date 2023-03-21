@@ -126,3 +126,11 @@ INNER JOIN arrets
 
 SELECT id
 FROM stations_vcube;
+
+SELECT DISTINCT pt_freefloat.*, latitude, longitude
+FROM pt_freefloat 
+INNER JOIN situer_pt_freefloat 
+    ON pt_freefloat.id = situer_pt_freefloat.pt_freefloat 
+INNER JOIN coordonnees_pt_freefloat 
+    ON situer_pt_freefloat.coordonnee = coordonnees_pt_freefloat.id
+;

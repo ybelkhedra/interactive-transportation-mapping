@@ -105,3 +105,13 @@ VALUES (1, 1, CURRENT_TIME, CURRENT_TIME, CURRENT_TIME, CURRENT_TIME, 1, 0);
 INSERT INTO gares_ter (nom, info_complementaires) VALUES ('Gare de Pessac', 'nil');
 INSERT INTO coordonnees_gares_ter (latitude, longitude) VALUES (48.624, 2.394222);
 INSERT INTO situer_gares_ter (gare_ter, coordonnee) VALUES (1,1);
+
+INSERT INTO pt_freefloat(nom, info_complementaires) VALUES ("Victoire", 'nil');
+INSERT INTO coordonnees_pt_freefloat(latitude, longitude) VALUES (8.634, 2.395222);
+INSERT INTO situer_pt_freefloat(pt_freefloat, coordonnee) VALUES (1,1);
+
+INSERT INTO vehicules_freefloating(vehicule) VALUES ("trot");
+INSERT INTO vehicules_freefloating(vehicule) VALUES ("bécane");
+
+INSERT INTO autoriser(pt_freefloat, vehicule) VALUES (1,1);
+INSERT INTO autoriser(pt_freefloat, vehicule) VALUES (1,2);
