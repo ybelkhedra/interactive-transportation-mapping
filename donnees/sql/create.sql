@@ -22,8 +22,8 @@ ALTER TABLE situer_arrets_cars DROP FOREIGN KEY situer_arrets_cars_arret_car_arr
 ALTER TABLE situer_arrets_cars DROP FOREIGN KEY situer_arrets_cars_coordonnee_coordonnees_arrets_cars_id;
 ALTER TABLE desservir_car DROP FOREIGN KEY desservir_car_ligne_car_lignes_cars_id;
 ALTER TABLE desservir_car DROP FOREIGN KEY desservir_car_arret_car_arrets_cars_id;
-ALTER TABLE siter_gares_ter DROP FOREIGN KEY siter_gares_ter_gare_ter_gares_ter_id;
-ALTER TABLE siter_gares_ter DROP FOREIGN KEY siter_gares_ter_coordonnee_coordonnees_gares_ter_id;
+ALTER TABLE situer_gares_ter DROP FOREIGN KEY situer_gares_ter_gare_ter_gares_ter_id;
+ALTER TABLE situer_gares_ter DROP FOREIGN KEY situer_gares_ter_coordonnee_coordonnees_gares_ter_id;
 ALTER TABLE situer_pt_freefloat DROP FOREIGN KEY situer_pt_freefloat_pt_freefloat_pt_freefloat_id;
 ALTER TABLE situer_pt_freefloat DROP FOREIGN KEY situer_pt_freefloat_coordonnee_coordonnees_pt_freefloat_id;
 ALTER TABLE autoriser DROP FOREIGN KEY autoriser_pt_freefloat_pt_freefloat_id;
@@ -91,7 +91,7 @@ DROP TABLE IF EXISTS coordonnees_arrets_cars;
 DROP TABLE IF EXISTS situer_arrets_cars;
 DROP TABLE IF EXISTS desservir_car;
 DROP TABLE IF EXISTS gares_ter;
-DROP TABLE IF EXISTS siter_gares_ter;
+DROP TABLE IF EXISTS situer_gares_ter;
 DROP TABLE IF EXISTS coordonnees_gares_ter;
 DROP TABLE IF EXISTS pt_freefloat;
 DROP TABLE IF EXISTS coordonnees_pt_freefloat;
@@ -375,7 +375,7 @@ id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 nom TEXT NOT NULL,
 info_complementaires TEXT);
 
-CREATE TABLE siter_gares_ter (
+CREATE TABLE situer_gares_ter (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 gare_ter INT NOT NULL,
 coordonnee INT NOT NULL);
@@ -505,8 +505,8 @@ ALTER TABLE situer_arrets_cars ADD CONSTRAINT situer_arrets_cars_arret_car_arret
 ALTER TABLE situer_arrets_cars ADD CONSTRAINT situer_arrets_cars_coordonnee_coordonnees_arrets_cars_id FOREIGN KEY (coordonnee) REFERENCES coordonnees_arrets_cars(id);
 ALTER TABLE desservir_car ADD CONSTRAINT desservir_car_ligne_car_lignes_cars_id FOREIGN KEY (ligne_car) REFERENCES lignes_cars(id);
 ALTER TABLE desservir_car ADD CONSTRAINT desservir_car_arret_car_arrets_cars_id FOREIGN KEY (arret_car) REFERENCES arrets_cars(id);
-ALTER TABLE siter_gares_ter ADD CONSTRAINT siter_gares_ter_gare_ter_gares_ter_id FOREIGN KEY (gare_ter) REFERENCES gares_ter(id);
-ALTER TABLE siter_gares_ter ADD CONSTRAINT siter_gares_ter_coordonnee_coordonnees_gares_ter_id FOREIGN KEY (coordonnee) REFERENCES coordonnees_gares_ter(id);
+ALTER TABLE situer_gares_ter ADD CONSTRAINT situer_gares_ter_gare_ter_gares_ter_id FOREIGN KEY (gare_ter) REFERENCES gares_ter(id);
+ALTER TABLE situer_gares_ter ADD CONSTRAINT situer_gares_ter_coordonnee_coordonnees_gares_ter_id FOREIGN KEY (coordonnee) REFERENCES coordonnees_gares_ter(id);
 ALTER TABLE situer_pt_freefloat ADD CONSTRAINT situer_pt_freefloat_pt_freefloat_pt_freefloat_id FOREIGN KEY (pt_freefloat) REFERENCES pt_freefloat(id);
 ALTER TABLE situer_pt_freefloat ADD CONSTRAINT situer_pt_freefloat_coordonnee_coordonnees_pt_freefloat_id FOREIGN KEY (coordonnee) REFERENCES coordonnees_pt_freefloat(id);
 ALTER TABLE autoriser ADD CONSTRAINT autoriser_pt_freefloat_pt_freefloat_id FOREIGN KEY (pt_freefloat) REFERENCES pt_freefloat(id);

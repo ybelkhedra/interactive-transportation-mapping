@@ -1,10 +1,4 @@
 <?php
-// <!-- 
-// On fait la liste des lignes, avec pour chacun toutes ses informations statiques mais aussi : 
-// - la position GPS sous forme de liste de points qui lui sont associés
-// - le type de ligne qui lui sont associés
-// - la direction (arret) qui lui sont associés
-// -->
 $db = new mysqli("localhost", "root", "@Password0", "campus");
 
 if ($result = $db->query("
@@ -27,13 +21,13 @@ if ($result = $db->query("
             "id" => $prev_id,
             "nom" => isset($temp[0]["nom"]) ? $temp[0]["nom"] : null,
             "direction" => isset($temp[0]["direction"]) ? $temp[0]["direction"] : null,
-            "type" => isset($temp[0]["type"]) ? $temp[0]["type"] : null,
+            "type" => isset($temp[0]["type_ligne"]) ? $temp[0]["type_ligne"] : null,
             "info_complementaires" => isset($temp[0]["info_complementaires"]) ? $temp[0]["info_complementaires"] : null,
         );
         foreach ($temp as &$info) {
           unset($info["nom"]);
           unset($info["direction"]);
-          unset($info["type"]);
+          unset($info["type_ligne"]);
         }
         $ligne["coordonnees"]=$temp;
         $lignes[] = $ligne;
@@ -44,24 +38,23 @@ if ($result = $db->query("
     $temp[] = array(
       "nom" => $row["nom"],
       "direction" => $row["direction"],
-      "type" => $row["type_ligne"],
+      "type_ligne" => $row["type_ligne"],
       "latitude" => $row["latitude"],
       "longitude" => $row["longitude"]
     );
   }
-  //Il doit y avoir un moyen plus efficace d'obtenir le dernier dictionnaire mais pour l'instant je ne le vois pas//
   if (!empty($temp)) {
     $ligne = array(
         "id" => $prev_id,
         "nom" => isset($temp[0]["nom"]) ? $temp[0]["nom"] : null,
         "direction" => isset($temp[0]["direction"]) ? $temp[0]["direction"] : null,
-        "type" => isset($temp[0]["type"]) ? $temp[0]["type"] : null,
+        "type" => isset($temp[0]["type_ligne"]) ? $temp[0]["type_ligne"] : null,
         "info_complementaires" => isset($temp[0]["info_complementaires"]) ? $temp[0]["info_complementaires"] : null,
     );
     foreach ($temp as &$info) {
       unset($info["nom"]);
       unset($info["direction"]);
-      unset($info["type"]);
+      unset($info["type_ligne"]);
     }
     $ligne["coordonnees"]=$temp;
     $lignes[] = $ligne;
@@ -72,9 +65,4 @@ if ($result = $db->query("
 
 }
   $db->close();
-  
-
-
-
-
-    ?>
+  ?> 

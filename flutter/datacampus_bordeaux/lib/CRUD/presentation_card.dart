@@ -7,13 +7,13 @@ import 'table_helper.dart';
 
 class PresentationCard extends StatelessWidget {
   final e;
-  final void Function(Widget, int, String) deleteVoid;
   final String tableName;
+  final void Function(String) deleteElement;
   const PresentationCard(
       {Key? key,
       required this.e,
-      required this.deleteVoid,
-      required this.tableName})
+      required this.tableName,
+      required this.deleteElement})
       : super(key: key);
 
   Widget getInformation(Map e, String key) {
@@ -166,11 +166,12 @@ class PresentationCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 8),
                     TextButton(
-                        child: const Text('Supprimer',
-                            style: TextStyle(color: Colors.red)),
-                        onPressed: () async {
-                          deleteVoid(this, e['id'], tableName);
-                        }),
+                      child: const Text('Supprimer',
+                          style: TextStyle(color: Colors.red)),
+                      onPressed: () {
+                        deleteElement(e['id']);
+                      },
+                    ),
                     const SizedBox(width: 8),
                   ],
                 )

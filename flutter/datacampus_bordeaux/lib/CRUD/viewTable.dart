@@ -23,34 +23,34 @@ class _ViewTableState extends State<ViewTable> {
         Uri.https("datacampus-bordeaux.fr", "/sources/requetes/$fileName.php");
     var response = await http.get(url);
     //print('Response status: ${response.statusCode}');
-    //print('Response body: ${response.body}');
+    print('Response body: ${response.body}');
 
     final List data = jsonDecode(response.body);
-
-    //Iterable<Widget> cards = data.map((e) => makeCard(e))
+    // Iterable<Widget> cards = data.map((e) => makeCard(e))
 
     List<Widget> cards = [];
 
     for (int i = 0; i < data.length; i++) {
       cards.add(PresentationCard(
-          e: data[i], deleteVoid: deleteVoid, tableName: widget.tableName));
+          e: data[i],
+          tableName: widget.tableName,
+          deleteElement: deleteElement));
     }
 
     return cards;
   }
 
-  void deleteVoid(Widget e, int id, String tableName) async {
+  void deleteElement(String id) {
     /* Popup pour supprimer le parking */
     var url = Uri.https(
         "datacampus-bordeaux.fr",
         "/sources/requetes/API_flutter/${widget.tableName}_delete.php",
-        {"id": id.toString()});
+        {"id": id});
+    print("ALLONS Y");
     print(url);
-    //print(url);
-    await http.post(url);
-    //supprimer la card correspondante
-
-    //TODO setState(cards.remove(e));
+    http.post(url);
+    print("delete");
+    setState(() {});
   }
 
   @override
@@ -61,15 +61,17 @@ class _ViewTableState extends State<ViewTable> {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () {
+            onPressed: () async {
               // aller à la page d'ajout de parking
-              Navigator.push(
+              await Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
                         addToTables(tableName: widget.tableName)),
-                //addParkings()),
               );
+              print(
+                  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+              setState(() {});
             },
           ),
         ],

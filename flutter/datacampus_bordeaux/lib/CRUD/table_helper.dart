@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:sidebarx/sidebarx.dart';
+
 final Map tableHelper = {
   'parkings': {
     'nom_jolie': 'Parkings',
@@ -15,6 +18,7 @@ final Map tableHelper = {
     'informations_complementaires':
         createMap('Informations complémentaires', 'String'),
     'coordonnees': createMap('Coordonnées', 'List'),
+    'icon': Icons.local_parking,
   },
   'pts_recharge': {
     'nom_jolie': 'Points de recharge',
@@ -28,18 +32,21 @@ final Map tableHelper = {
     'info_complementaires': createMap('Informations complémentaires', 'String'),
     'latitude': createMap('Latitude', 'float'),
     'longitude': createMap('Longitude', 'float'),
+    'icon': Icons.ev_station_rounded, //ou Icons.electric_car
   },
   'types_de_prises': {
     'nom_jolie': 'Types de prises' ' A FINIR',
     'script': 'types_de_prises', //not made yet
     'id': createMap('id', 'int'),
     'nom': createMap('Type de prise', 'String'),
+    'icon': Icons.electrical_services,
   },
   'puissances': {
     'nom_jolie': 'Puissances' ' A FINIR',
     'script': 'puissances', //not made yet
     'id': createMap('id', 'int'),
     'puissance': createMap('Puissance', 'float'),
+    'icon': Icons.power,
   },
   'pts_covoit': {
     'nom_jolie': 'Points de covoiturage',
@@ -52,6 +59,7 @@ final Map tableHelper = {
     'info_complementaires': createMap('Informations complémentaires', 'String'),
     'latitude': createMap('Latitude', 'float'),
     'longitude': createMap('Longitude', 'float'),
+    'icon': Icons.directions_car,
   },
   'stations_velo': {
     'nom_jolie': 'Stations de vélo',
@@ -66,12 +74,14 @@ final Map tableHelper = {
         createMap('Informations complémentaires', 'String'),
     'latitude': createMap('Latitude', 'float'),
     'longitude': createMap('Longitude', 'float'),
+    'icon': Icons.directions_bike,
   },
   'types_accroches_velo': {
     'nom_jolie': 'Types d\'accroches de vélo' ' A FINIR',
     'script': 'types_d_accroches_de_velo', //not made yet
     'id': createMap('id', 'int'),
-    'nom': createMap('Type d\'accroche', 'String')
+    'nom': createMap('Type d\'accroche', 'String'),
+    'icon': Icons.directions_bike,
   },
   'pistes_velo': {
     'nom_jolie': 'Pistes de vélo' ' A FINIR',
@@ -80,12 +90,14 @@ final Map tableHelper = {
     'type_piste': createMap('Type de piste', 'int', isForeignKey: true),
     'informations_complementaires':
         createMap('Informations complémentaires', 'String'),
+    'icon': Icons.directions_bike,
   },
   'types_pistes_velo': {
     'nom_jolie': 'Types de pistes de vélo' ' A FINIR',
     'script': 'types_de_pistes_cyclables', //not made yet
     'id': createMap('id', 'int'),
-    'nom': createMap('Type de pistes de vélo', 'String')
+    'nom': createMap('Type de pistes de vélo', 'String'),
+    'icon': Icons.directions_bike,
   },
   'lignes_cars': {
     'nom_jolie': 'Lignes de cars',
@@ -102,6 +114,7 @@ final Map tableHelper = {
     'latitude': createMap('Latitude', 'float'),
     'longitude': createMap(
         'Longitude', 'float'), //PROBLEME CA DEVRAIT ETRE DES COORDONNES NON ?
+    'icon': Icons.directions_bus_filled_outlined,
   },
   'arrets_cars': {
     'nom_jolie': 'Arrêts de cars' ' A FINIR',
@@ -110,6 +123,7 @@ final Map tableHelper = {
     'nom': createMap('Nom', 'String'),
     'informations_complementaires':
         createMap('Informations complémentaires', 'String'),
+    'icon': Icons.directions_bus_filled_outlined,
   },
   'gares_ter': {
     'nom_jolie': 'Gares TER' ' A FINIR',
@@ -118,6 +132,7 @@ final Map tableHelper = {
     'nom': createMap('Nom', 'String'),
     'informations_complementaires':
         createMap('Informations complémentaires', 'String'),
+    'icon': Icons.train,
   },
   'pt_freefloat': {
     'nom_jolie': 'Points de Freefloat',
@@ -127,12 +142,14 @@ final Map tableHelper = {
     'vehicules_freefloating': createMap('Véhicules Freefloating', 'List'),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
     'coordonnees': createMap('Coordonnées', 'List'),
+    'icon': Icons.electric_scooter,
   },
   'vehicules_freefloating': {
     'nom_jolie': 'Véhicules Freefloating' ' A FINIR',
     'script': 'vehicules_freefloating', //pas fait
     'id': createMap('id', 'int'),
-    'nom': createMap('Nom', 'String')
+    'nom': createMap('Nom', 'String'),
+    'icon': Icons.electric_scooter,
   },
   'stations_vcube': {
     'nom_jolie': 'Stations Vcube' ' A FINIR',
@@ -145,6 +162,7 @@ final Map tableHelper = {
     'vcube_plus': createMap('Vcube plus', 'bool'),
     'informations_complementaires':
         createMap('Informations complémentaires', 'String'),
+    'icon': Icons.electric_bike_outlined,
   },
   'arrets': {
     'nom_jolie': 'Arrêts',
@@ -158,6 +176,7 @@ final Map tableHelper = {
     'info_complementaires': createMap('Informations complémentaires', 'String'),
     'latitude': createMap('Latitude', 'float'),
     'longitude': createMap('Longitude', 'float'),
+    'icon': Icons.directions_bus,
   },
   'lignes': {
     'nom_jolie': 'Lignes',
@@ -167,12 +186,14 @@ final Map tableHelper = {
     'direction': createMap('Direction', 'int', isForeignKey: true),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
     'coordonnees': createMap('Coordonnées', 'List'),
+    'icon': Icons.directions_bus,
   },
   'types_lignes': {
     'nom_jolie': 'Types de lignes' ' A FINIR',
     'script': 'types_de_lignes', // pas fait
     'id': createMap('id', 'int'),
     'nom': createMap('Nom', 'String'),
+    'icon': Icons.directions_bus,
   },
 };
 
@@ -191,6 +212,15 @@ List<String> getPrettyTablesNames() {
 
 List<String> getTablesNames() {
   return nomsTables;
+}
+
+List<SidebarXItem> getIcons() {
+  List<SidebarXItem> icons = [];
+  for (var i = 0; i < nomsTables.length; i++) {
+    icons.add(SidebarXItem(
+        icon: tableHelper[nomsTables[i]]['icon'], label: nomsJolies[i]));
+  }
+  return icons;
 }
 
 final List<String> nomsJolies = [

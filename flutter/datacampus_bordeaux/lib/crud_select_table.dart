@@ -115,17 +115,7 @@ class SideBarXExample extends StatelessWidget {
           ),
         );
       },
-      items: tableNames
-          .map((e) => SidebarXItem(
-              icon: e == "Parkings"
-                  ? Icons.local_parking_outlined
-                  : e == "Recharges elec"
-                      ? Icons.electric_car
-                      : e == "Freefloating"
-                          ? Icons.electric_scooter
-                          : Icons.table_chart,
-              label: e))
-          .toList(),
+      items: getIcons(),
     );
   }
 }

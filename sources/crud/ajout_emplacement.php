@@ -176,9 +176,12 @@ if (isset($_POST['ajout'])) {
 
             //recuperer le nom des champs de la table_corespondance dans l'ordre de la table et dire que point est le premier champ
             $sql3 = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '$database' AND TABLE_NAME = '$table_corespondance' ORDER BY ORDINAL_POSITION";
+            // echo $sql3;
             $result = mysqli_query($conn, $sql3);
             $row = mysqli_fetch_array($result);
+            // echo "1 : ".$row[0];
             $row = mysqli_fetch_array($result);
+            // echo "2 : ".$row[0];
             $point = $row[0];
             $reference = "coordonnee";
 

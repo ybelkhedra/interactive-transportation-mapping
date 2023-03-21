@@ -100,3 +100,37 @@ INNER JOIN recharger
 INNER JOIN puissances
     ON recharger.puissance = puissances.id
 ;
+
+
+
+SELECT stations_vcube.*, latitude, longitude
+FROM stations_vcube
+INNER JOIN situer_stations_vcube
+    ON stations_vcube.id = situer_stations_vcube.station_vcube
+INNER JOIN coordonnees_stations_vcube
+    ON situer_stations_vcube.coordonnee = coordonnees_stations_vcube.id
+;
+
+
+
+
+SELECT stations_vcube.*, latitude, longitude, arrets.nom
+FROM stations_vcube
+INNER JOIN situer_stations_vcube
+    ON stations_vcube.id = situer_stations_vcube.station_vcube
+INNER JOIN coordonnees_stations_vcube
+    ON situer_stations_vcube.coordonnee = coordonnees_stations_vcube.id
+INNER JOIN arrets
+    ON stations_vcube.id = arrets.station_vcube_proximite
+;
+
+SELECT id
+FROM stations_vcube;
+
+SELECT DISTINCT pt_freefloat.*, latitude, longitude
+FROM pt_freefloat 
+INNER JOIN situer_pt_freefloat 
+    ON pt_freefloat.id = situer_pt_freefloat.pt_freefloat 
+INNER JOIN coordonnees_pt_freefloat 
+    ON situer_pt_freefloat.coordonnee = coordonnees_pt_freefloat.id
+;

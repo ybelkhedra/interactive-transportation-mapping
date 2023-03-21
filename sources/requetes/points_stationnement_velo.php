@@ -1,6 +1,5 @@
 <?php
 // <!-- FICHIER DE REQUETE POUR LES POINTS DE STATIONNEMENT VÉLO -->
-
 // <!-- on commence notre script php -->
 
 // on se connecte à la base de données (ne pas changer les paramètres, 
@@ -47,12 +46,3 @@ $db->close();
 
 // on termine notre script php
 ?>
-
-<!-- Voici un exemple de sortie :
-
-[{"id":"1","nb_places":"10","securise":"1","abrite":"1","info_complementaires":"test","type_accroche":["V\u00e9lo classique","V\u00e9lo autre"]}]
-
-on remaque que l'on a bien une liste de stations (ici il y a qu'une seule station dans la liste), 
-et que chaque station a un dictionnaire avec toutes les infos statiques à propos de la station,
-une des clés de ce dictionnaire est "type_accroche" qui contient une liste des types d'accroches de la station
--->

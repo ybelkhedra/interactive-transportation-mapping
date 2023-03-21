@@ -67,11 +67,18 @@ INSERT INTO stations_vcube (nom, nb_velos_max, nb_velos_dispo, vcube_plus, velos
 INSERT INTO coordonnees_stations_vcube (latitude, longitude) VALUES (44.81815, -0.6154321);
 INSERT INTO situer_stations_vcube (station_vcube, coordonnee) VALUES (1, 1);
 
- 
+INSERT INTO stations_vcube (nom, nb_velos_max, nb_velos_dispo, vcube_plus, velos_electriques, info_complementaires) VALUES ('vcube bethanie', 31, 13, 1, 0, 'nil');
+INSERT INTO coordonnees_stations_vcube (latitude, longitude) VALUES (44.91815, -0.6254321);
+INSERT INTO situer_stations_vcube (station_vcube, coordonnee) VALUES (2, 2);
 
-INSERT INTO arrets (nom, station_vcube_proximite, info_complementaires) VALUES ('Arts et Metiers', 1, 'nil');
+
+INSERT INTO arrets (nom, info_complementaires, station_vcube_proximite) VALUES ('Arts et Metiers', 'nil', 1);
 INSERT INTO coordonnees_arrets (latitude, longitude) VALUES (44.81814, -0.615221);
 INSERT INTO situer_arrets (arret, coordonnee) VALUES (1, 1);
+
+INSERT INTO arrets (nom, info_complementaires, station_vcube_proximite) VALUES ('Bethanie', 'nil', 1);
+INSERT INTO coordonnees_arrets (latitude, longitude) VALUES (45.81814, -0.625221);
+INSERT INTO situer_arrets (arret, coordonnee) VALUES (2, 2);
 
 
 INSERT INTO types_lignes (nom) VALUES ('Tramway');
@@ -97,4 +104,14 @@ VALUES (1, 1, CURRENT_TIME, CURRENT_TIME, CURRENT_TIME, CURRENT_TIME, 1, 0);
 
 INSERT INTO gares_ter (nom, info_complementaires) VALUES ('Gare de Pessac', 'nil');
 INSERT INTO coordonnees_gares_ter (latitude, longitude) VALUES (48.624, 2.394222);
-INSERT INTO siter_gares_ter (gare_ter, coordonnee) VALUES (1,1);
+INSERT INTO situer_gares_ter (gare_ter, coordonnee) VALUES (1,1);
+
+INSERT INTO pt_freefloat(nom, info_complementaires) VALUES ("Victoire", 'nil');
+INSERT INTO coordonnees_pt_freefloat(latitude, longitude) VALUES (8.634, 2.395222);
+INSERT INTO situer_pt_freefloat(pt_freefloat, coordonnee) VALUES (1,1);
+
+INSERT INTO vehicules_freefloating(vehicule) VALUES ("trot");
+INSERT INTO vehicules_freefloating(vehicule) VALUES ("bécane");
+
+INSERT INTO autoriser(pt_freefloat, vehicule) VALUES (1,1);
+INSERT INTO autoriser(pt_freefloat, vehicule) VALUES (1,2);

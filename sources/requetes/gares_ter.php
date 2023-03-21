@@ -10,12 +10,13 @@ $db = new mysqli("localhost", "root", "@Password0", "campus");
 if ($result = $db->query("
 SELECT gares_ter.*, latitude, longitude
 FROM gares_ter
-INNER JOIN siter_gares_ter
-    ON gares_ter.id = siter_gares_ter.gare_ter
+INNER JOIN situer_gares_ter
+    ON gares_ter.id = situer_gares_ter.gare_ter
 INNER JOIN coordonnees_gares_ter
-    ON siter_gares_ter.coordonnee = coordonnees_gares_ter.id
+    ON situer_gares_ter.coordonnee = coordonnees_gares_ter.id
 ;
 ")) {
+    $parkings;
     while ($row = $result->fetch_assoc()) {
         $parkings[] = $row;
     }
