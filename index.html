@@ -72,9 +72,12 @@
                     <a href="sources/crud/connection.php" class="material-icons bar-icon-connect">person</a>
                 </div>
 
-                <div class="main_deroulant">
+                <div class="all-collapsible">
 
-                    <button type="button" class="collapsible">Modes actifs</button>
+                    <button type="button" class="collapsible">
+                        <span class="material-icons collapsible-icon">bolt</span>
+                        <span class="collapsible-text">Modes actifs</span>
+                    </button>
                     <div class="content">
                         <div>
                             <input type="checkbox" class="voiesCyclablesCheckbox" unchecked> <!--Génère une checkbox-->
@@ -176,11 +179,14 @@
                         
                     </div><!-- fin modes actifs -->
 
-                    <button type="button" class="collapsible">Transports en commun</button>
-                    <div class="content">
+                    <button type="button" class="collapsible">
+                        <span class="material-icons collapsible-icon">tram</span>
+                        <span class="collapsible-text">Transports en commun</span>
+                    </button>
+                    <div class="subcollapsibles">
 
                         <button type="button" class="collapsible">URBAINS</button>
-                        <div class="content">
+                        <div class="subcollapsibles">
 
                             <button type="button" class="collapsible">BUS</button>
                             <div class="content">
@@ -331,7 +337,7 @@
                     </div><!-- fin urbains -->
 
                     <button type="button" class="collapsible">INTERURBAINS</button>
-                    <div class="content">
+                    <div class="subcollapsibles">
 
                         <button type="button" class="collapsible">CAR</button>
                         <div class="content">
