@@ -9,7 +9,7 @@ $db = new mysqli("localhost", "root", "@Password0", "campus");
 
 // On execute notre requete SQL
 if ($result = $db->query("
-SELECT stations_velo.id, nb_places, securise, abrite, info_complementaires FROM stations_velo INNER JOIN 
+SELECT stations_velo.id, nb_places, securise, abrite, info_complementaires, latitude, longitude FROM stations_velo INNER JOIN 
 situer_stations_velo ON stations_velo.id = situer_stations_velo.pt_velo INNER JOIN
 coordonnees_stations_velo ON situer_stations_velo.coordonnee = coordonnees_stations_velo.id
 ;
@@ -17,6 +17,7 @@ coordonnees_stations_velo ON situer_stations_velo.coordonnee = coordonnees_stati
     // si la requete a réussi, on va parcourir les résultats
     // chaque ligne de la reponse est stockée dans $row (un tableau associatif)
     while ($row = $result->fetch_assoc()) {
+
         // une particularité de cet exemple : chaque station de velo peut avoir plusieur types d'accroches
         // cette exemple peut donc servir de base pour les autres requetes qui ont des relations 1-n ou n-n (plusieurs types d'accroches, plusieurs types de vehicules autorisés, plusieurs points gps (cf lignes), etc.)
         
