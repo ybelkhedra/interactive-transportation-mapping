@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_map/plugin_api.dart';
-import 'package:http/http.dart' as http;
 import 'table_helper.dart';
 
 class PresentationCard extends StatelessWidget {
-  final Map e;
+  final e;
   final String tableName;
   final void Function(String) deleteElement;
   const PresentationCard(
@@ -17,7 +16,7 @@ class PresentationCard extends StatelessWidget {
       : super(key: key);
 
   Widget getInformation(Map e, String key) {
-    if (tableHelper[tableName][key]['type'] == 'List' && key != 'coordonnees') {
+    if (e[key] is List && key != 'coordonnees') {
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -35,7 +34,7 @@ class PresentationCard extends StatelessWidget {
           SelectableText(e[key]),
         ],
       );
-    } else if (key == 'coordonnees') {
+    } else if (key == 'coordonnnes') {
       return Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -153,19 +152,7 @@ class PresentationCard extends StatelessWidget {
         title: SelectableText(e['nom']),
       ),
       Column(
-          children: [
-                for (String key in e.keys)
-                  if (key != 'coordonnees' &&
-                      key != 'latitude' &&
-                      key != 'longitude')
-                    getInformation(e, key)
-              ] +
-              [
-                if (e['coordonnees'] != null)
-                  getInformation(e, 'coordonnees')
-                else if (e['latitude'] != null)
-                  getInformation(e, 'latitude')
-              ] +
+          children: [for (String key in e.keys) getInformation(e, key)] +
               [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,

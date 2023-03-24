@@ -69,16 +69,16 @@ class _menuState extends State<menu> {
                       },
                     ),
                     //espace entre les icones de 10px
-                    const SizedBox(height: 20),
-                    IconButton(
-                      icon: const Icon(Icons.local_parking_outlined,
-                          color: Colors.white),
-                      onPressed: () {
-                        setState(() {
-                          currentPageIndex = 1;
-                        });
-                      },
-                    ),
+                    // const SizedBox(height: 20),
+                    // IconButton(
+                    //   icon: const Icon(Icons.local_parking_outlined,
+                    //       color: Colors.white),
+                    //   onPressed: () {
+                    //     setState(() {
+                    //       currentPageIndex = 1;
+                    //     });
+                    //   },
+                    // ),
                     //espace entre les icones de 10px
                     const SizedBox(height: 20),
                     IconButton(

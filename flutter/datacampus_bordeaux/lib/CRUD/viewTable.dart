@@ -57,7 +57,7 @@ class _ViewTableState extends State<ViewTable> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(tableHelper[widget.tableName]!['nom_jolie']),
+        title: SelectableText(tableHelper[widget.tableName]!['nom_jolie']),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
