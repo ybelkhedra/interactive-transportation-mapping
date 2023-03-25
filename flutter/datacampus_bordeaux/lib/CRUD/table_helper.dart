@@ -35,14 +35,14 @@ final Map tableHelper = {
     'icon': Icons.ev_station_rounded, //ou Icons.electric_car
   },
   'types_de_prises': {
-    'nom_jolie': 'Types de prises' ' A FINIR',
-    'script': 'types_de_prises', //not made yet
+    'nom_jolie': 'Types de prises',
+    'script': 'types_de_prises',
     'id': createMap('id', 'int'),
     'nom': createMap('Type de prise', 'String'),
     'icon': Icons.electrical_services,
   },
   'puissances': {
-    'nom_jolie': 'Puissances' ' A FINIR',
+    'nom_jolie': 'Puissances',
     'script': 'puissances',
     'id': createMap('id', 'int'),
     'puissance': createMap('Puissance', 'float'),
@@ -75,15 +75,15 @@ final Map tableHelper = {
     'icon': Icons.directions_bike,
   },
   'types_accroches_velo': {
-    'nom_jolie': 'Types d\'accroches de vélo' ' A FINIR',
-    'script': 'types_d_accroches_de_velo', //not made yet
+    'nom_jolie': 'Types d\'accroches de vélo',
+    'script': 'types_d_accroches_de_velo',
     'id': createMap('id', 'int'),
     'nom': createMap('Type d\'accroche', 'String'),
     'icon': Icons.directions_bike,
   },
   'pistes_velo': {
-    'nom_jolie': 'Pistes de vélo' ' A FINIR',
-    'script': 'pistes_cyclables', //ne fonctionne pas
+    'nom_jolie': 'Pistes de vélo',
+    'script': 'pistes_cyclables',
     'id': createMap('id', 'int'),
     'type_piste': createMap('Type de piste', 'int', isForeignKey: true),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
@@ -91,8 +91,8 @@ final Map tableHelper = {
     'icon': Icons.directions_bike,
   },
   'types_pistes_velo': {
-    'nom_jolie': 'Types de pistes de vélo' ' A FINIR',
-    'script': 'types_de_pistes_cyclables', //not made yet
+    'nom_jolie': 'Types de pistes de vélo',
+    'script': 'types_de_pistes_cyclables',
     'id': createMap('id', 'int'),
     'nom': createMap('Type de pistes de vélo', 'String'),
     'icon': Icons.directions_bike,
@@ -115,8 +115,8 @@ final Map tableHelper = {
     'icon': Icons.directions_bus_filled_outlined,
   },
   'arrets_cars': {
-    'nom_jolie': 'Arrêts de cars' ' A FINIR',
-    'script': 'arrets_cars', //bug
+    'nom_jolie': 'Arrêts de cars',
+    'script': 'arrets_cars',
     'id': createMap('id', 'int'),
     'nom': createMap('Nom', 'String'),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
@@ -126,7 +126,7 @@ final Map tableHelper = {
     'icon': Icons.directions_bus_filled_outlined,
   },
   'gares_ter': {
-    'nom_jolie': 'Gares TER' ' A FINIR',
+    'nom_jolie': 'Gares TER',
     'script': 'gares_ter', //probleme de requetes sql ??? + script marche pas
     'id': createMap('id', 'int'),
     'nom': createMap('Nom', 'String'),
@@ -146,14 +146,14 @@ final Map tableHelper = {
     'icon': Icons.electric_scooter,
   },
   'vehicules_freefloating': {
-    'nom_jolie': 'Véhicules Freefloating' ' A FINIR',
-    'script': 'vehicules_freefloating', //pas fait
+    'nom_jolie': 'Véhicules Freefloating',
+    'script': 'vehicules_freefloating',
     'id': createMap('id', 'int'),
     'vehicule': createMap('Nom du véhicule', 'String'),
     'icon': Icons.electric_scooter,
   },
   'stations_vcube': {
-    'nom_jolie': 'Stations Vcube' ' A FINIR',
+    'nom_jolie': 'Stations Vcube',
     'script': 'stations_vcube', //pas fait
     'id': createMap('id', 'int'),
     'nom': createMap('Nom de la station vcube', 'String'),
@@ -193,8 +193,8 @@ final Map tableHelper = {
     'icon': Icons.directions_bus,
   },
   'types_lignes': {
-    'nom_jolie': 'Types de lignes' ' A FINIR',
-    'script': 'types_de_lignes', // pas fait
+    'nom_jolie': 'Types de lignes',
+    'script': 'types_de_lignes',
     'id': createMap('id', 'int'),
     'nom': createMap('Nom', 'String'),
     'icon': Icons.directions_bus,
