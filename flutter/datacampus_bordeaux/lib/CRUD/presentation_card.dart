@@ -17,9 +17,6 @@ class PresentationCard extends StatelessWidget {
 
   Widget getInformation(Map e, String key) {
     if (e[key] is List && key != 'coordonnees' && key != 'arrets_proximite') {
-      print("aaaa");
-      print('${tableHelper[tableName][key]["nom"]} : ');
-      print('${tableHelper[tableName][key]} : ');
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -40,9 +37,6 @@ class PresentationCard extends StatelessWidget {
     } else if (key != 'latitude' &&
         key != 'longitude' &&
         (e[key] is String || e[key] is int || e[key] is double)) {
-      print("aaaa");
-      print('${tableHelper[tableName][key]!["nom"]} : ');
-      print('${tableHelper[tableName][key]} : ');
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -160,6 +154,31 @@ class PresentationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void askIfDelete() {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Supprimer une donnée"),
+              content: const Text(
+                  "Êtes-vous sûr de vouloir supprimer cette donnée ?"),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text("No"),
+                ),
+                TextButton(
+                  onPressed: () => {
+                    deleteElement(e['id']),
+                    Navigator.pop(context),
+                  },
+                  child: const Text("Yes"),
+                ),
+              ],
+            );
+          });
+    }
+
     return Card(
         child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
       ListTile(
@@ -196,7 +215,7 @@ class PresentationCard extends StatelessWidget {
                       child: const Text('Supprimer',
                           style: TextStyle(color: Colors.red)),
                       onPressed: () {
-                        deleteElement(e['id']);
+                        askIfDelete();
                       },
                     ),
                     const SizedBox(width: 8),
