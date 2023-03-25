@@ -46,10 +46,7 @@ class _ViewTableState extends State<ViewTable> {
         "datacampus-bordeaux.fr",
         "/sources/requetes/API_flutter/${widget.tableName}_delete.php",
         {"id": id});
-    print("ALLONS Y");
-    print(url);
     http.post(url);
-    print("delete");
     setState(() {});
   }
 

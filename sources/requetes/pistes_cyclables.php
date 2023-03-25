@@ -8,7 +8,7 @@
 $db = new mysqli("localhost", "root", "@Password0", "campus");
 
 if ($result = $db->query("
-  SELECT pistes_velo.*, types_pistes_velo.nom as type_piste, situer_pistes_velo.coordonnee, latitude, longitude
+  SELECT DISTINCT pistes_velo.*, types_pistes_velo.nom as type_piste
   FROM pistes_velo
   INNER JOIN types_pistes_velo
     ON types_pistes_velo.id = pistes_velo.type_piste
@@ -17,49 +17,22 @@ if ($result = $db->query("
   INNER JOIN coordonnees_pistes_velo
     ON coordonnees_pistes_velo.id = situer_pistes_velo.coordonnee
 ")) {
-  $pistes_velo = array();
-  $temp = array();
-  $prev_id = null;
-  while ($row = $result->fetch_assoc()) {
-    if (isset($row)) {
-      if ($row['id'] != $prev_id) {
-        if (!empty($temp)) {
-          $piste = array(
-              "id" => $prev_id,
-              "type_piste" => isset($temp[0]["type_piste"]) ? $temp[0]["type_piste"] : null,
-              "info_complementaires" => isset($temp[0]["info_complementaires"]) ? $temp[0]["info_complementaires"] : null,
-          );
-          foreach ($temp as &$info) {
-            unset($info["type_piste"]);
-            unset($info["info_complementaires"]);
-          }
-          $piste["coordonnees"]=$temp;
-          $pistes_velo[] = $piste;
-          $temp = array();
-        }
-        $prev_id = $row['id'];
+    // si la requete a réussi, on va parcourir les résultats
+    // chaque ligne de la reponse est stockée dans $row (un tableau associatif)
+    while ($row = $result->fetch_assoc()) {
+      // on recupere les coordonnees de la piste
+      $result2 = $db->query("SELECT coordonnees_pistes_velo.latitude AS latitude, coordonnees_pistes_velo.longitude AS longitude FROM coordonnees_pistes_velo INNER JOIN situer_pistes_velo ON situer_pistes_velo.coordonnee = coordonnees_pistes_velo.id WHERE piste_velo = ".$row['id'].";");
+      $row = array_merge($row, array("coordonnees" => array()));
+      while ($row2 = $result2->fetch_assoc()) {
+          $row['coordonnees'][] = array("latitude" => $row2['latitude'], "longitude" => $row2['longitude']);
       }
-      $temp[] = array(
-        "type_piste" => $row["type_piste"],
-        "info_complementaires" => $row["info_complementaires"],
-        "latitude" => $row["latitude"],
-        "longitude" => $row["longitude"]
-      );
-    }
+
+      $result2->free();
+      // on ajoute la station courante à la liste des stations
+      $pistes_velo[] = $row;
   }
-  if (!empty($temp)) {
-    $piste = array(
-      "id" => $prev_id,
-      "type_piste" => isset($temp[0]["type_piste"]) ? $temp[0]["type_piste"] : null,
-      "info_complementaires" => isset($temp[0]["info_complementaires"]) ? $temp[0]["info_complementaires"] : null,
-    );
-  foreach ($temp as &$info) {
-      unset($info["type_piste"]);
-      unset($info["info_complementaires"]);
-    }
-    $piste["coordonnees"]=$temp;
-    $pistes_velo[] = $piste;
-  }
+  // on libere la memoire
+  $result->free();
   echo json_encode($pistes_velo);
 } else {
   echo "Error executing query: " . $db->error;

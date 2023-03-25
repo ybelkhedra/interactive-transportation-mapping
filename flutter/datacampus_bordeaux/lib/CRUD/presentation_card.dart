@@ -16,7 +16,10 @@ class PresentationCard extends StatelessWidget {
       : super(key: key);
 
   Widget getInformation(Map e, String key) {
-    if (tableHelper[tableName][key]['type'] == 'List' && key != 'coordonnees') {
+    if (e[key] is List && key != 'coordonnees' && key != 'arrets_proximite') {
+      print("aaaa");
+      print('${tableHelper[tableName][key]["nom"]} : ');
+      print('${tableHelper[tableName][key]} : ');
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -24,9 +27,22 @@ class PresentationCard extends StatelessWidget {
           for (int i = 0; i < e[key].length; i++) SelectableText(e[key][i]),
         ],
       );
+    } else if (key == 'arrets_proximite') {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SelectableText('${tableHelper[tableName]![key]!["nom"]} : '),
+          for (int i = 0; i < e[key].length - 1; i++)
+            SelectableText(e[key][i]['nom'] + ','),
+          SelectableText(e[key][e[key].length - 1]['nom']),
+        ],
+      );
     } else if (key != 'latitude' &&
         key != 'longitude' &&
         (e[key] is String || e[key] is int || e[key] is double)) {
+      print("aaaa");
+      print('${tableHelper[tableName][key]!["nom"]} : ');
+      print('${tableHelper[tableName][key]} : ');
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -149,7 +165,7 @@ class PresentationCard extends StatelessWidget {
       ListTile(
         leading: const Icon(Icons.directions_car),
         //title : nom de la table
-        title: SelectableText(e['nom']),
+        title: SelectableText(e['nom'] != null ? e['nom'] : ''),
       ),
       Column(
           children: [

@@ -43,7 +43,7 @@ final Map tableHelper = {
   },
   'puissances': {
     'nom_jolie': 'Puissances' ' A FINIR',
-    'script': 'puissances', //not made yet
+    'script': 'puissances',
     'id': createMap('id', 'int'),
     'puissance': createMap('Puissance', 'float'),
     'icon': Icons.power,
@@ -149,20 +149,19 @@ final Map tableHelper = {
     'nom_jolie': 'Véhicules Freefloating' ' A FINIR',
     'script': 'vehicules_freefloating', //pas fait
     'id': createMap('id', 'int'),
-    'nom': createMap('Nom', 'String'),
+    'vehicule': createMap('Nom du véhicule', 'String'),
     'icon': Icons.electric_scooter,
   },
   'stations_vcube': {
     'nom_jolie': 'Stations Vcube' ' A FINIR',
     'script': 'stations_vcube', //pas fait
     'id': createMap('id', 'int'),
-    'nom': createMap('Nom', 'String'),
+    'nom': createMap('Nom de la station vcube', 'String'),
     'nb_velos_max': createMap('Nombre de vélos max', 'int'),
     'nb_velos_dispo': createMap('Nombre de vélos disponibles', 'int'),
     'velos_electriques': createMap('Vélos électriques', 'bool'),
     'vcube_plus': createMap('Vcube plus', 'bool'),
-    'informations_complementaires':
-        createMap('Informations complémentaires', 'String'),
+    'info_complementaires': createMap('Informations complémentaires', 'String'),
     'arrets_proximite': createMap('Arrêts à proximité', 'List'),
     'latitude': createMap('Latitude', 'float'),
     'longitude': createMap('Longitude', 'float'),
