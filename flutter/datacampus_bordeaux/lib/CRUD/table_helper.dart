@@ -120,6 +120,7 @@ final Map tableHelper = {
     'id': createMap('id', 'int'),
     'nom': createMap('Nom', 'String'),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
+    'ligne_car': createMap('Lignes de car', 'List'),
     'latitude': createMap('Latitude', 'float'),
     'longitude': createMap('Longitude', 'float'),
     'icon': Icons.directions_bus_filled_outlined,
