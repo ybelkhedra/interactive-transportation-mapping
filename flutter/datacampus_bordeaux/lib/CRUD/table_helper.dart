@@ -86,8 +86,8 @@ final Map tableHelper = {
     'script': 'pistes_cyclables', //ne fonctionne pas
     'id': createMap('id', 'int'),
     'type_piste': createMap('Type de piste', 'int', isForeignKey: true),
-    'informations_complementaires':
-        createMap('Informations complémentaires', 'String'),
+    'info_complementaires': createMap('Informations complémentaires', 'String'),
+    'coordonnees': createMap('Coordonnées', 'List'),
     'icon': Icons.directions_bike,
   },
   'types_pistes_velo': {
@@ -119,8 +119,9 @@ final Map tableHelper = {
     'script': 'arrets_cars', //bug
     'id': createMap('id', 'int'),
     'nom': createMap('Nom', 'String'),
-    'informations_complementaires':
-        createMap('Informations complémentaires', 'String'),
+    'info_complementaires': createMap('Informations complémentaires', 'String'),
+    'latitude': createMap('Latitude', 'float'),
+    'longitude': createMap('Longitude', 'float'),
     'icon': Icons.directions_bus_filled_outlined,
   },
   'gares_ter': {
@@ -128,8 +129,9 @@ final Map tableHelper = {
     'script': 'gares_ter', //probleme de requetes sql ??? + script marche pas
     'id': createMap('id', 'int'),
     'nom': createMap('Nom', 'String'),
-    'informations_complementaires':
-        createMap('Informations complémentaires', 'String'),
+    'info_complementaires': createMap('Informations complémentaires', 'String'),
+    'latitude': createMap('Latitude', 'float'),
+    'longitude': createMap('Longitude', 'float'),
     'icon': Icons.train,
   },
   'pt_freefloat': {
@@ -160,6 +162,9 @@ final Map tableHelper = {
     'vcube_plus': createMap('Vcube plus', 'bool'),
     'informations_complementaires':
         createMap('Informations complémentaires', 'String'),
+    'arrets_proximite': createMap('Arrêts à proximité', 'List'),
+    'latitude': createMap('Latitude', 'float'),
+    'longitude': createMap('Longitude', 'float'),
     'icon': Icons.electric_bike_outlined,
   },
   'arrets': {
@@ -184,6 +189,7 @@ final Map tableHelper = {
     'direction': createMap('Direction', 'int', isForeignKey: true),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
     'coordonnees': createMap('Coordonnées', 'List'),
+    'type': createMap('Type', 'String'),
     'icon': Icons.directions_bus,
   },
   'types_lignes': {
