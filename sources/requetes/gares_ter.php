@@ -14,7 +14,7 @@ INNER JOIN coordonnees_gares_ter
     ON situer_gares_ter.coordonnee = coordonnees_gares_ter.id
 ;
 ")) {
-    $parkings;
+    $parkings = array();
     while ($row = $result->fetch_assoc()) {
         $parkings[] = $row;
     }
