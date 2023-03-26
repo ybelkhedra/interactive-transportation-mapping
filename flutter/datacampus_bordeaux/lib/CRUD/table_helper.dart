@@ -33,7 +33,7 @@ final Map tableHelper = {
     'type_prise': createMap('Types de prise disponibles', 'List',
         isForeignKey: true, table: "types_de_prises"),
     'puissance': createMap('Puissances', 'List',
-        isForeignKey: true, table: "puissances"),
+        isForeignKey: true, table: "puissances", champs: 'puissance'),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
     'latitude': createMap('Latitude', 'float'),
     'longitude': createMap('Longitude', 'float'),
@@ -129,7 +129,7 @@ final Map tableHelper = {
     'nom': createMap('Nom', 'String'),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
     'ligne_car': createMap('Lignes de car', 'List',
-        isForeignKey: true, table: "lignes_cars"),
+        isForeignKey: true, table: "lignes_cars", champs: 'numero'),
     'latitude': createMap('Latitude', 'float'),
     'longitude': createMap('Longitude', 'float'),
     'icon': Icons.directions_bus_filled_outlined,
@@ -150,7 +150,9 @@ final Map tableHelper = {
     'id': createMap('id', 'int'),
     'nom': createMap('Nom', 'String'),
     'vehicules_freefloating': createMap('Véhicules Freefloating', 'List',
-        isForeignKey: true, table: "vehicules_freefloating"),
+        isForeignKey: true,
+        table: "vehicules_freefloating",
+        champs: 'vehicule'),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
     'coordonnees': createMap('Coordonnées', 'List'),
     'icon': Icons.electric_scooter,
@@ -215,12 +217,16 @@ final Map tableHelper = {
 };
 
 Map createMap(String nom, String type,
-    {bool isForeignKey = false, String table = '', bool isSetable = true}) {
+    {bool isForeignKey = false,
+    String table = '',
+    String champs = 'nom',
+    bool isSetable = true}) {
   return {
     'nom': nom,
     'type': type,
     'isForeignKey': isForeignKey,
     'table': table,
+    'champs': champs,
     'isSetable': isSetable,
   };
 }

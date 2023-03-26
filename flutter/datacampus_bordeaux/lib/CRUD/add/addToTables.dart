@@ -16,12 +16,15 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../table_helper.dart';
 import '../parkings.dart';
 import 'addParkings.dart';
+import 'selectData.dart';
 
 class AddToTable extends StatefulWidget {
   final String tableName;
   final Map<String, TextEditingController> _controllers = {};
   final Map<String, bool> _boolControllers = {};
+  final Map<String, List<List<String>>> _listControllers = {};
   bool isCoordonnees = false;
+  bool isForeignKey = false;
   AddToTable({Key? key, required this.tableName}) : super(key: key) {
     for (String key in tableHelper[tableName].keys) {
       if (isValidKey(key)) {
@@ -29,11 +32,20 @@ class AddToTable extends StatefulWidget {
           _boolControllers[key] = false;
         } else if (tableHelper[tableName][key]["type"] == 'int' ||
             tableHelper[tableName][key]["type"] == 'String') {
-          _controllers[key] = TextEditingController();
+          if (!tableHelper[tableName][key]["isForeignKey"]) {
+            _controllers[key] = TextEditingController();
+          } else {
+            _listControllers[key] = [];
+            isForeignKey = true;
+          }
         } else if (key == 'coordonnees' || key == 'latitude') {
           _controllers['latitude'] = TextEditingController();
           _controllers['longitude'] = TextEditingController();
           isCoordonnees = true;
+        } else if (tableHelper[tableName][key]["type"] == 'List' &&
+            tableHelper[tableName][key]["isForeignKey"]) {
+          isForeignKey = true;
+          _listControllers[key] = [];
         }
       }
     }
@@ -60,6 +72,19 @@ class _AddToTableState extends State<AddToTable> {
   double lat = 44.79517;
   double long = -0.603537;
 
+  Future<List<List<String>>> getElementFromTable(
+      String nameTable, String value) async {
+    var url = Uri.https("datacampus-bordeaux.fr",
+        "/sources/requetes/${tableHelper[nameTable]["script"]}.php");
+    var response = await http.get(url);
+    final responseJson = json.decode(response.body);
+    List<List<String>> names = [];
+    for (var data in responseJson) {
+      names.add([data[value], data['id']]);
+    }
+    return names;
+  }
+
   Widget makeForm(String key) {
     String type = '';
     if (widget.isValidKey(key)) {
@@ -68,6 +93,9 @@ class _AddToTableState extends State<AddToTable> {
     if (type == 'int' ||
         type == 'String' ||
         (type == 'float' && key != 'latitude' && key != 'longitude')) {
+      if (tableHelper[widget.tableName][key]["isForeignKey"]) {
+        return SelectData(tableName: widget.tableName, champs: key);
+      }
       return TextFormField(
         controller: widget._controllers[key],
         decoration: InputDecoration(
@@ -89,6 +117,12 @@ class _AddToTableState extends State<AddToTable> {
             widget._boolControllers[key] = value!;
           });
         },
+      );
+    } else if (type == 'List' &&
+        tableHelper[widget.tableName][key]["isForeignKey"]) {
+      return SelectData(
+        tableName: widget.tableName,
+        champs: key,
       );
     } else {
       return Container();
