@@ -106,35 +106,64 @@ class _homeState extends State<home> {
       children: [
         Column(
           children: [
-            SizedBox(
-              // height: 250,
-              // width: 500,
-              child: FutureBuilder<List<List<FlSpot>>>(
-                future: getSpotsInfoApi(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<List<FlSpot>>> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else {
-                    return LineChartSample2(Data: snapshot.data!);
-                  }
-                },
-              ),
-            ),
-            FutureBuilder<List<List<FlSpot>>>(
-              future: getSpotsInfoApi(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<List<FlSpot>>> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                } else {
-                  return JaugeFrequentation(Data: snapshot.data!);
-                }
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Card(
+                  color: Color.fromARGB(168, 247, 250, 255),
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: SizedBox(
+                    height: 250,
+                    width: 500,
+                    child: FutureBuilder<List<List<FlSpot>>>(
+                      future: getSpotsInfoApi(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<List<FlSpot>>> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return Center(
+                              child: Text('Error: ${snapshot.error}'));
+                        } else {
+                          return LineChartSample2(Data: snapshot.data!);
+                        }
+                      },
+                    ),
+                  ),
+                ),
+                Card(
+                  color: Color.fromARGB(168, 247, 250, 255),
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: SizedBox(
+                    height: 250,
+                    width: 500,
+                    child: FutureBuilder<List<List<FlSpot>>>(
+                      future: getSpotsInfoApi(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<List<FlSpot>>> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return Center(
+                              child: Text('Error: ${snapshot.error}'));
+                        } else {
+                          return JaugeFrequentation(Data: snapshot.data!);
+                        }
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
             MessageTbm(),
           ],

@@ -8,6 +8,18 @@ var freefloatingIcon = L.icon({
     iconSize:     [17, 17], // size of the icon
 });
 
+function afficherPopupFreeFloatingAPI(e) {
+    var vehicules_autorises = "";
+    if (e.properties.typologie == "VT") {
+        vehicules_autorises = "Vélo Trottinette";
+    }
+    else if (e.properties.typologie == "VTS") {
+        vehicules_autorises = "Vélo Trottinette Scooter";
+    }
+    var popup = "Vehicle autorisé : " + vehicules_autorises;
+    return popup;
+}
+
 try {
     // récupération des données de position de bus et de tram en utilisant l'URL du WebService GeoJSON
     
@@ -33,7 +45,7 @@ try {
                 return;
             }
             // Ajout d'un marker sur la carte
-            L.marker([latitude, longitude], {icon: freefloatingIcon}).addTo(feature_group_freefloating);
+            L.marker([latitude, longitude], {icon: freefloatingIcon}).bindPopup(afficherPopupFreeFloatingAPI(val)).addTo(feature_group_freefloating);
             });
         }
     }
