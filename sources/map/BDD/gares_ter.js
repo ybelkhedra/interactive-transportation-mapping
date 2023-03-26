@@ -21,29 +21,36 @@ function updateBddGares(){
         }
         });
     //récupération des données de la bdd
-    fetch('./sources/requetes/gares.php')
+    fetch('http://localhost/sources/requetes/gares_ter.php')
     .then(response => response.json())
     .then(data => {
+        console.log(data);
         data.forEach(function(gare) { // pour chaque gare
-            if (gare.coordonnees.length == 1) {// si le gare n'a qu'une seule coordonnée
-            var marker = L.marker([gare.coordonnees[0].latitude, gare.coordonnees[0].longitude]).addTo(feature_group_gares_ter_bdd); // création du marqueur
+            // if (gare.coordonnees.length == 1) {// si le gare n'a qu'une seule coordonnée
+            // var marker = L.marker([gare.coordonnees[0].latitude, gare.coordonnees[0].longitude]).addTo(feature_group_gares_ter_bdd); // création du marqueur
+            // marker.bindPopup(afficherPopupGares(gare)); // ajout du popup
+            // marker.setStyle({color: 'yellow'}); // on definie la couleur du marker
+            // }
+            // else if (gare.coordonnees.length > 1) { // si le gare a plusieurs coordonnées
+            //     var latlngs = []; // création d'un tableau vide 
+            //     gare.coordonnees.forEach(function(coordonnee) { // pour chaque coordonnée
+            //         latlngs.push([coordonnee.latitude,coordonnee.longitude]); // ajout des coordonnées au tableau latlngs
+            //     }
+            //     );
+            //     var polygon = L.polygon(latlngs).addTo(feature_group_gares_ter_bdd); // création du polygone
+            //     polygon.setStyle({color: 'yellow'}); // changement de la couleur du polygone
+            //     polygon.bindPopup(afficherPopupGares(gare)); // ajout du popup
+            // }
+            
+            var marker = L.marker([gare.latitude, gare.longitude]).addTo(feature_group_gares_ter_bdd); // création du marqueur
             marker.bindPopup(afficherPopupGares(gare)); // ajout du popup
-            marker.setStyle({color: 'yellow'}); // on definie la couleur du marker
-            }
-            else if (gare.coordonnees.length > 1) { // si le gare a plusieurs coordonnées
-                var latlngs = []; // création d'un tableau vide 
-                gare.coordonnees.forEach(function(coordonnee) { // pour chaque coordonnée
-                    latlngs.push([coordonnee.latitude,coordonnee.longitude]); // ajout des coordonnées au tableau latlngs
-                }
-                );
-                var polygon = L.polygon(latlngs).addTo(feature_group_gares_ter_bdd); // création du polygone
-                polygon.setStyle({color: 'yellow'}); // changement de la couleur du polygone
-                polygon.bindPopup(afficherPopupGares(gare)); // ajout du popup
-            }
+            //marker.setStyle({color: 'yellow'}); // on definie la couleur du marker
+
+
         });
         
     })
     .catch(error => console.error(error)); 
 }
 
-// updateBddGares(); // affichage des gares de la bdd
+updateBddGares(); // affichage des gares de la bdd
