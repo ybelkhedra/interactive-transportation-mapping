@@ -64,7 +64,7 @@ class _ViewTableState extends State<ViewTable> {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        addToTables(tableName: widget.tableName)),
+                        AddToTable(tableName: widget.tableName)),
               );
               print(
                   "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");

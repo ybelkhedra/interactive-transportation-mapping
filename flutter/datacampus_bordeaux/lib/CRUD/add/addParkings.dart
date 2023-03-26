@@ -37,6 +37,8 @@ class _addParkingsState extends State<addParkings> {
   //tableau qui contient les coordonnées de la position du parking (latitude, longitude)
   final _latitude = TextEditingController();
   final _longitude = TextEditingController();
+  double lat = 44.79517;
+  double long = -0.603537;
   int _nbClics = 0;
 
   LatLng? _currentPosition;
@@ -178,8 +180,8 @@ class _addParkingsState extends State<addParkings> {
               child: FlutterMap(
                 options: MapOptions(
                   center: LatLng(
-                    double.parse(48.8534.toString()),
-                    double.parse(2.3488.toString()),
+                    double.parse(lat.toString()),
+                    double.parse(long.toString()),
                   ),
                   zoom: 15.0,
                   onTap: _handleTap,
@@ -197,8 +199,8 @@ class _addParkingsState extends State<addParkings> {
                         height: 80.0,
                         point: _currentPosition ??
                             LatLng(
-                              double.parse(48.8534.toString()),
-                              double.parse(2.3488.toString()),
+                              double.parse(lat.toString()),
+                              double.parse(long.toString()),
                             ),
                         builder: (ctx) => Container(
                           child: const Icon(Icons.local_parking_outlined,

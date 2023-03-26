@@ -9,12 +9,15 @@ final Map tableHelper = {
     'nom': createMap('Parkings', 'String'),
     'nb_places_max': createMap('Nombre de places max', 'int'),
     'payant': createMap('Payant', 'bool'),
-    'nb_places_disponibles': createMap('Nombre de places disponibles', 'int'),
+    'nb_places_disponibles':
+        createMap('Nombre de places disponibles', 'int', isSetable: false),
     'nb_places_handicapes': createMap('Nombre de places handicapés', 'int'),
     'hors_voirie': createMap('Hors voirie', 'bool'),
     'prive': createMap('Privé', 'bool'),
-    'nb_pts_recharge': createMap('Nombre de points de recharge', 'int'),
-    'nb_pts_covoit': createMap('Nombre de points de covoiturage', 'int'),
+    'nb_pts_recharge':
+        createMap('Nombre de points de recharge', 'int', isSetable: false),
+    'nb_pts_covoit':
+        createMap('Nombre de points de covoiturage', 'int', isSetable: false),
     'informations_complementaires':
         createMap('Informations complémentaires', 'String'),
     'coordonnees': createMap('Coordonnées', 'List'),
@@ -25,10 +28,12 @@ final Map tableHelper = {
     'script': 'points_de_charges',
     'id': createMap('id', 'int'),
     'nom': createMap('Point de recharge', 'String'),
-    'parking_correspondant':
-        createMap('Parking correspondant', 'int', isForeignKey: true),
-    'type_prise': createMap('Types de prise disponibles', 'List'),
-    'puissance': createMap('Puissances', 'List'),
+    'parking_correspondant': createMap('Parking correspondant', 'int',
+        isForeignKey: true, table: "parkings"),
+    'type_prise': createMap('Types de prise disponibles', 'List',
+        isForeignKey: true, table: "types_de_prises"),
+    'puissance': createMap('Puissances', 'List',
+        isForeignKey: true, table: "puissances"),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
     'latitude': createMap('Latitude', 'float'),
     'longitude': createMap('Longitude', 'float'),
@@ -54,8 +59,8 @@ final Map tableHelper = {
     'id': createMap('id', 'int'),
     'nom': createMap('Point de covoiturage', 'String'),
     'nombre_de_places': createMap('Nombre de places', 'int'),
-    'parking_correspondant':
-        createMap('Parking correspondant', 'int', isForeignKey: true),
+    'parking_correspondant': createMap('Parking correspondant', 'int',
+        isForeignKey: true, table: "parkings"),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
     'latitude': createMap('Latitude', 'float'),
     'longitude': createMap('Longitude', 'float'),
@@ -68,7 +73,8 @@ final Map tableHelper = {
     'nb_places': createMap('Nombre de places', 'int'),
     'securise': createMap('Sécurisée', 'bool'),
     'abrite': createMap('Abritée', 'bool'),
-    'type_accroche': createMap('Type d\'accroche', 'List'),
+    'type_accroche': createMap('Type d\'accroche', 'List',
+        isForeignKey: true, table: "types_accroches_velo"),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
     'latitude': createMap('Latitude', 'float'),
     'longitude': createMap('Longitude', 'float'),
@@ -85,7 +91,8 @@ final Map tableHelper = {
     'nom_jolie': 'Pistes de vélo',
     'script': 'pistes_cyclables',
     'id': createMap('id', 'int'),
-    'type_piste': createMap('Type de piste', 'int', isForeignKey: true),
+    'type_piste': createMap('Type de piste', 'int',
+        isForeignKey: true, table: "types_pistes_velo"),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
     'coordonnees': createMap('Coordonnées', 'List'),
     'icon': Icons.directions_bike,
@@ -102,16 +109,17 @@ final Map tableHelper = {
     'script': 'lignes_cars',
     'id': createMap('id', 'int'),
     'numero': createMap('Nom', 'int'),
-    'depart': createMap('Départ', 'int', isForeignKey: true),
-    'arret_cars_depart': createMap('Arrêts de départ', 'List'),
-    'destination': createMap('Déstination', 'int', isForeignKey: true),
-    'arret_cars_destination': createMap('Arrêts de destination', 'List'),
+    'depart':
+        createMap('Départ', 'int', isForeignKey: true, table: "arrets_cars"),
+    'arret_cars_depart': createMap('Arrêts de départ', 'List',
+        isForeignKey: true, table: "arrets_cars"),
+    'destination': createMap('Déstination', 'int',
+        isForeignKey: true, table: "arrets_cars"),
+    'arret_cars_destination': createMap('Arrêts de destination', 'List',
+        isForeignKey: true, table: "arrets_cars"),
     'car_express': createMap('Car express', 'bool'),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
     'coordonnees': createMap('Coordonnées', 'List'),
-    'latitude': createMap('Latitude', 'float'),
-    'longitude': createMap(
-        'Longitude', 'float'), //PROBLEME CA DEVRAIT ETRE DES COORDONNES NON ?
     'icon': Icons.directions_bus_filled_outlined,
   },
   'arrets_cars': {
@@ -120,7 +128,8 @@ final Map tableHelper = {
     'id': createMap('id', 'int'),
     'nom': createMap('Nom', 'String'),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
-    'ligne_car': createMap('Lignes de car', 'List'),
+    'ligne_car': createMap('Lignes de car', 'List',
+        isForeignKey: true, table: "lignes_cars"),
     'latitude': createMap('Latitude', 'float'),
     'longitude': createMap('Longitude', 'float'),
     'icon': Icons.directions_bus_filled_outlined,
@@ -140,7 +149,8 @@ final Map tableHelper = {
     'script': 'stations_freefloating',
     'id': createMap('id', 'int'),
     'nom': createMap('Nom', 'String'),
-    'vehicules_freefloating': createMap('Véhicules Freefloating', 'List'),
+    'vehicules_freefloating': createMap('Véhicules Freefloating', 'List',
+        isForeignKey: true, table: "vehicules_freefloating"),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
     'coordonnees': createMap('Coordonnées', 'List'),
     'icon': Icons.electric_scooter,
@@ -158,11 +168,13 @@ final Map tableHelper = {
     'id': createMap('id', 'int'),
     'nom': createMap('Nom de la station vcube', 'String'),
     'nb_velos_max': createMap('Nombre de vélos max', 'int'),
-    'nb_velos_dispo': createMap('Nombre de vélos disponibles', 'int'),
+    'nb_velos_dispo':
+        createMap('Nombre de vélos disponibles', 'int', isSetable: false),
     'velos_electriques': createMap('Vélos électriques', 'bool'),
     'vcube_plus': createMap('Vcube plus', 'bool'),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
-    'arrets_proximite': createMap('Arrêts à proximité', 'List'),
+    'arrets_proximite': createMap('Arrêts à proximité', 'List',
+        isForeignKey: true, table: "arrets"),
     'latitude': createMap('Latitude', 'float'),
     'longitude': createMap('Longitude', 'float'),
     'icon': Icons.electric_bike_outlined,
@@ -172,10 +184,10 @@ final Map tableHelper = {
     'script': 'arrets_perso',
     'id': createMap('id', 'int'),
     'nom': createMap('Nom', 'String'),
-    'vehicule': createMap('Véhicule', 'String'),
-    'station_vcube_proximite':
-        createMap('Station Vcube à proximité', 'int', isForeignKey: true),
-    'ligne': createMap('Ligne', 'List'),
+    'vehicule': createMap('Véhicule', 'String'), //foreign key ?
+    'station_vcube_proximite': createMap('Station Vcube à proximité', 'int',
+        isForeignKey: true, table: "stations_vcube"),
+    'ligne': createMap('Ligne', 'List', isForeignKey: true, table: "lignes"),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
     'latitude': createMap('Latitude', 'float'),
     'longitude': createMap('Longitude', 'float'),
@@ -186,7 +198,8 @@ final Map tableHelper = {
     'script': 'lignes', //info complémentaires renvoie null ???
     'id': createMap('id', 'int'),
     'nom': createMap('Nom', 'String'),
-    'direction': createMap('Direction', 'int', isForeignKey: true),
+    'direction':
+        createMap('Direction', 'int', isForeignKey: true, table: "arrets"),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
     'coordonnees': createMap('Coordonnées', 'List'),
     'type': createMap('Type', 'String'),
@@ -202,11 +215,13 @@ final Map tableHelper = {
 };
 
 Map createMap(String nom, String type,
-    {bool isForeignKey = false, Map otherTables = const {}}) {
+    {bool isForeignKey = false, String table = '', bool isSetable = true}) {
   return {
     'nom': nom,
     'type': type,
     'isForeignKey': isForeignKey,
+    'table': table,
+    'isSetable': isSetable,
   };
 }
 
