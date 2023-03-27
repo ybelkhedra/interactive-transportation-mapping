@@ -40,13 +40,15 @@ class _ViewTableState extends State<ViewTable> {
     return cards;
   }
 
-  void deleteElement(String id) {
+  Future<void> deleteElement(String id) async {
     /* Popup pour supprimer le parking */
     var url = Uri.https(
         "datacampus-bordeaux.fr",
-        "/sources/requetes/API_flutter/${widget.tableName}_delete.php",
-        {"id": id});
-    http.post(url);
+        "/sources/requetes/API_flutter/delete.php",
+        {"nom": widget.tableName, "id": id});
+    final response = await http.get(url);
+    print(response.statusCode);
+    print(response.body);
     setState(() {});
   }
 

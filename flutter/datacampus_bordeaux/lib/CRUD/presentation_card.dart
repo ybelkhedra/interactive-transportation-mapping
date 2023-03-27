@@ -7,7 +7,7 @@ import 'table_helper.dart';
 class PresentationCard extends StatelessWidget {
   final Map e;
   final String tableName;
-  final void Function(String) deleteElement;
+  final Future<void> Function(String) deleteElement;
   const PresentationCard(
       {Key? key,
       required this.e,
@@ -168,8 +168,8 @@ class PresentationCard extends StatelessWidget {
                   child: const Text("No"),
                 ),
                 TextButton(
-                  onPressed: () => {
-                    deleteElement(e['id']),
+                  onPressed: () async => {
+                    await deleteElement(e['id']),
                     Navigator.pop(context),
                   },
                   child: const Text("Yes"),
