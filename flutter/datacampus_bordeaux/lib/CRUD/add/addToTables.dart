@@ -180,6 +180,7 @@ class _AddToTableState extends State<AddToTable> {
                     print(widget._selected);
                     print("Selected shown above");
                     await addDataToTable();
+                    Navigator.pop(context);
                   },
                   child: const Text('Ajouter'),
                 )
@@ -250,10 +251,8 @@ class _AddToTableState extends State<AddToTable> {
     print(body);
 
     //on envoie la requête https get pour récupérer les données vers le fichier php : datacampus-bordeaux.fr/sources/requetes/API_flutter/parking_add.php
-    final url = Uri.https(
-        'datacampus-bordeaux.fr',
-        '/sources/requetes/API_flutter/${tableHelper[widget.tableName]["script"]}_add .php',
-        elm);
+    final url = Uri.https('datacampus-bordeaux.fr',
+        '/sources/requetes/API_flutter/${widget.tableName}_add.php', elm);
     // print(url);
     final response = await http.get(url);
     print(response.statusCode);
