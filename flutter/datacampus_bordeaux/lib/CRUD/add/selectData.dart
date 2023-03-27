@@ -20,7 +20,14 @@ class SelectData extends StatefulWidget {
   final String tableName;
   final String champs;
   final List<Item> _data = [];
-  SelectData({super.key, required this.tableName, required this.champs}) {
+  final List<String>? selected;
+  final bool multiple;
+  SelectData(
+      {super.key,
+      required this.tableName,
+      required this.champs,
+      required this.multiple,
+      required this.selected}) {
     _data.add(Item(
         expandedValue: "hello",
         headerValue: tableHelper[tableName][champs]["nom"]));
@@ -38,7 +45,6 @@ class _SelectDataState extends State<SelectData> {
     final responseJson = json.decode(response.body);
     List<List<String>> names = [];
     for (var data in responseJson) {
-      //print("DEBUG: ${data["id"]}-${data[value]} ${value}");
       names.add([
         data["id"],
         data[tableHelper[widget.tableName][widget.champs]["champs"]]
@@ -59,7 +65,7 @@ class _SelectDataState extends State<SelectData> {
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");
               }
-              return CircularProgressIndicator();
+              return const Text("Chargement...");
             }));
   }
 
@@ -82,11 +88,21 @@ class _SelectDataState extends State<SelectData> {
               for (int i = 0; i < idNames!.length; i++)
                 CheckboxListTile(
                   title: Text("${idNames[i][0]}-${idNames[i][1]}"),
-                  value: false,
+                  value: widget.selected?.contains(idNames[i][0]),
                   onChanged: (bool? value) {
                     setState(() {
-                      if (value == true) {
-                      } else {}
+                      if (widget.multiple) {
+                        if (value == true) {
+                          widget.selected?.add(idNames[i][0]);
+                        } else {
+                          widget.selected?.remove(idNames[i][0]);
+                        }
+                      } else {
+                        if (value == true) {
+                          widget.selected?.clear();
+                          widget.selected?.add(idNames[i][0]);
+                        }
+                      }
                     });
                   },
                 ),

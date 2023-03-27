@@ -3,7 +3,6 @@ import 'dart:js';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -23,6 +22,7 @@ class AddToTable extends StatefulWidget {
   final Map<String, TextEditingController> _controllers = {};
   final Map<String, bool> _boolControllers = {};
   final Map<String, List<List<String>>> _listControllers = {};
+  Map<String, List<String>> _selected = {};
   bool isCoordonnees = false;
   bool isForeignKey = false;
   AddToTable({Key? key, required this.tableName}) : super(key: key) {
@@ -72,19 +72,6 @@ class _AddToTableState extends State<AddToTable> {
   double lat = 44.79517;
   double long = -0.603537;
 
-  Future<List<List<String>>> getElementFromTable(
-      String nameTable, String value) async {
-    var url = Uri.https("datacampus-bordeaux.fr",
-        "/sources/requetes/${tableHelper[nameTable]["script"]}.php");
-    var response = await http.get(url);
-    final responseJson = json.decode(response.body);
-    List<List<String>> names = [];
-    for (var data in responseJson) {
-      names.add([data[value], data['id']]);
-    }
-    return names;
-  }
-
   Widget makeForm(String key) {
     String type = '';
     if (widget.isValidKey(key)) {
@@ -94,7 +81,13 @@ class _AddToTableState extends State<AddToTable> {
         type == 'String' ||
         (type == 'float' && key != 'latitude' && key != 'longitude')) {
       if (tableHelper[widget.tableName][key]["isForeignKey"]) {
-        return SelectData(tableName: widget.tableName, champs: key);
+        widget._selected[key] = [];
+        return SelectData(
+          tableName: widget.tableName,
+          champs: key,
+          multiple: false,
+          selected: widget._selected[key],
+        );
       }
       return TextFormField(
         controller: widget._controllers[key],
@@ -120,9 +113,12 @@ class _AddToTableState extends State<AddToTable> {
       );
     } else if (type == 'List' &&
         tableHelper[widget.tableName][key]["isForeignKey"]) {
+      widget._selected[key] = [];
       return SelectData(
         tableName: widget.tableName,
         champs: key,
+        multiple: true,
+        selected: widget._selected[key],
       );
     } else {
       return Container();
@@ -180,8 +176,10 @@ class _AddToTableState extends State<AddToTable> {
               ] +
               [
                 ElevatedButton(
-                  onPressed: () {
-                    addData(context);
+                  onPressed: () async {
+                    print(widget._selected);
+                    print("Selected shown above");
+                    await addDataToTable();
                   },
                   child: const Text('Ajouter'),
                 )
@@ -231,59 +229,37 @@ class _AddToTableState extends State<AddToTable> {
     );
   }
 
-  Future<void> addData(BuildContext context) async {}
+  //fonction qui ajoute l'élément à la base de données
+  Future<void> addDataToTable() async {
+    final Map<String, dynamic> elm = {};
+    for (String key in tableHelper[widget.tableName].keys) {
+      if (widget.isValidKey(key)) {
+        if (tableHelper[widget.tableName][key]["type"] == 'bool') {
+          elm[key] = widget._boolControllers[key].toString();
+        } else if (tableHelper[widget.tableName][key]["type"] == 'List') {
+          elm[key] = widget._selected[key];
+        } else if (tableHelper[widget.tableName][key]["isForeignKey"]) {
+          elm[key] = widget._selected[key]![0];
+        } else {
+          elm[key] = widget._controllers[key]?.text;
+        }
+      }
+    }
+    print(elm);
+    final body = jsonEncode(elm);
+    print(body);
 
-  // //fonction qui ajoute le parking à la base de données
-  // Future<void> addParking(BuildContext context) async {
-  //   //on récupère les données du formulaire
-  //   final nom = _nomController.text;
-  //   final nbPlacesMax = _nbPlacesMaxController.text;
-  //   final infoComplementaires = _infoComplementaireController.text;
-  //   final nbPlacesDisponibles = _nbPlacesDisponiblesController.text;
-  //   final nbPlacesHandicapes = _nbPlacesHandicapesController.text;
-  //   final latitude = _latitude.text;
-  //   final longitude = _longitude.text;
-  //   final payant = _boolPayant == true ? 1 : 0;
-  //   final horsVoirie = _boolHorsVoirie == true ? 1 : 0;
-  //   final prive = _boolPrive == true ? 1 : 0;
-  //   //on crée un objet parking
-  //   final parking = {
-  //     'nom': nom,
-  //     'nbPlacesMax': nbPlacesMax,
-  //     'infoComplementaires': infoComplementaires,
-  //     'nbPlacesHandicapes': nbPlacesHandicapes,
-  //     'nbPlacesDisponibles': nbPlacesDisponibles,
-  //     'boolPayant': payant.toString(),
-  //     'boolHorsVoirie': horsVoirie.toString(),
-  //     'boolPrive': prive.toString(),
-  //     'latitude': latitude,
-  //     'longitude': longitude,
-  //   };
-  //   // //on encode l'objet parking en json
-  //   final body = jsonEncode(parking);
-  //   // print(body);
-
-  //   //on envoie la requête https get pour récupérer les données vers le fichier php : datacampus-bordeaux.fr/sources/requetes/API_flutter/parking_add.php
-  //   final url = Uri.https('datacampus-bordeaux.fr',
-  //       '/sources/requetes/API_flutter/parking_add.php', {
-  //     'nom': nom,
-  //     'nbPlacesMax': nbPlacesMax,
-  //     'infoComplementaires': infoComplementaires,
-  //     'nbPlacesHandicapes': nbPlacesHandicapes,
-  //     'nbPlacesDisponibles': nbPlacesDisponibles,
-  //     'boolPayant': payant.toString(),
-  //     'boolHorsVoirie': horsVoirie.toString(),
-  //     'boolPrive': prive.toString(),
-  //     'latitude': latitude,
-  //     'longitude': longitude,
-  //   });
-  //   // print(url);
-  //   final response = await http.get(url);
-  //   //print(response.statusCode);
-  //   //print(response.body);
-  //   //faire une animation qui dit que le produit est ajouter et revenir a la page précédente
-  //   Navigator.pop(context);
-  // }
+    //on envoie la requête https get pour récupérer les données vers le fichier php : datacampus-bordeaux.fr/sources/requetes/API_flutter/parking_add.php
+    final url = Uri.https(
+        'datacampus-bordeaux.fr',
+        '/sources/requetes/API_flutter/${tableHelper[widget.tableName]["script"]}_add .php',
+        elm);
+    // print(url);
+    final response = await http.get(url);
+    print(response.statusCode);
+    print(response.body);
+    //faire une animation qui dit que le produit est ajouter et revenir a la page précédente
+  }
 
   void _handleTap(TapPosition tapPosition, LatLng latlng) {
     setState(() {

@@ -66,8 +66,6 @@ class _ViewTableState extends State<ViewTable> {
                     builder: (context) =>
                         AddToTable(tableName: widget.tableName)),
               );
-              print(
-                  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
               setState(() {});
             },
           ),
