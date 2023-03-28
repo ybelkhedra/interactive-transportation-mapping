@@ -21,7 +21,7 @@ function updateBddGares(){
         }
         });
     //récupération des données de la bdd
-    fetch('http://localhost/sources/requetes/gares_ter.php')
+    fetch('./sources/requetes/gares_ter.php')
     .then(response => response.json())
     .then(data => {
         console.log(data);
