@@ -23,8 +23,10 @@ class AddToTable extends StatefulWidget {
   final Map<String, TextEditingController> _controllers = {};
   final Map<String, bool> _boolControllers = {};
   final Map<String, List<List<String>>> _listControllers = {};
+  final List<Map<String, TextEditingController>> _listCoordinates = [];
   Map<String, List<String>> _selected = {};
-  bool isCoordonnees = false;
+  bool isThereLatLong = false;
+  bool isThereCoordinates = false;
   bool isForeignKey = false;
   AddToTable({Key? key, required this.tableName}) : super(key: key) {
     for (String key in tableHelper[tableName].keys) {
@@ -42,10 +44,15 @@ class AddToTable extends StatefulWidget {
             _listControllers[key] = [];
             isForeignKey = true;
           }
-        } else if (key == 'coordonnees' || key == 'latitude') {
+        } else if (key == 'latitude') {
           _controllers['latitude'] = TextEditingController();
           _controllers['longitude'] = TextEditingController();
-          isCoordonnees = true;
+          isThereLatLong = true;
+        } else if (key == 'coordonnees') {
+          _listCoordinates.add({});
+          _listCoordinates[0]["latitude"] = TextEditingController();
+          _listCoordinates[0]["longitude"] = TextEditingController();
+          isThereCoordinates = true;
         } else if (tableHelper[tableName][key]["type"] == 'List' &&
             tableHelper[tableName][key]["isForeignKey"]) {
           isForeignKey = true;
@@ -129,6 +136,68 @@ class _AddToTableState extends State<AddToTable> {
     }
   }
 
+  Widget latLongLine(TextEditingController lat, TextEditingController long,
+      {bool plus = false, bool moins = false, int indexToDel = -1}) {
+    return Row(
+        children: [
+              Flexible(
+                  child: TextFormField(
+                controller: lat,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  hintText: 'Latitude',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Veuillez entrer une latitude';
+                  }
+                  return null;
+                },
+              )),
+              Flexible(
+                child: TextFormField(
+                  controller: long,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    hintText: 'Longitude',
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Veuillez entrer une longitude';
+                    }
+                    return null;
+                  },
+                ),
+              )
+            ] +
+            [
+              if (moins)
+                Flexible(
+                    child: ElevatedButton(
+                        onPressed: () => {
+                              setState(() => {
+                                    widget._listCoordinates.remove(
+                                        widget._listCoordinates[indexToDel]),
+                                  })
+                            },
+                        child: const Icon(Icons.remove)))
+            ] +
+            [
+              if (plus)
+                Flexible(
+                    child: ElevatedButton(
+                        onPressed: () => {
+                              setState(() => {
+                                    widget._listCoordinates.add({
+                                      "latitude": TextEditingController(),
+                                      "longitude": TextEditingController()
+                                    })
+                                  })
+                            },
+                        child: const Icon(Icons.add)))
+            ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     String nomJolie = tableHelper[widget.tableName]!['nom_jolie'];
@@ -147,36 +216,16 @@ class _AddToTableState extends State<AddToTable> {
                   makeForm(key),
               ] +
               [
-                if (widget.isCoordonnees)
-                  TextFormField(
-                    controller: widget._controllers['latitude'],
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      hintText: 'Latitude',
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Veuillez entrer une latitude';
-                      }
-                      return null;
-                    },
-                  ),
-              ] +
-              [
-                if (widget.isCoordonnees)
-                  TextFormField(
-                    controller: widget._controllers['longitude'],
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      hintText: 'Longitude',
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Veuillez entrer une longitude';
-                      }
-                      return null;
-                    },
-                  )
+                if (widget.isThereLatLong)
+                  latLongLine(widget._controllers["latitude"]!,
+                      widget._controllers["longitude"]!)
+                else if (widget.isThereCoordinates)
+                  for (int i = 0; i < widget._listCoordinates.length; ++i)
+                    latLongLine(widget._listCoordinates[i]["latitude"]!,
+                        widget._listCoordinates[i]["longitude"]!,
+                        plus: i == widget._listCoordinates.length - 1,
+                        moins: widget._listCoordinates.length > 1,
+                        indexToDel: i)
               ] +
               [
                 ElevatedButton(
@@ -191,10 +240,14 @@ class _AddToTableState extends State<AddToTable> {
                 )
               ] +
               [
-                if (widget.isCoordonnees)
+                if (widget.isThereLatLong || widget.isThereCoordinates)
                   SizedBox(
-                    height: 200,
-                    child: AddCoordinatesMap(controllers: widget._controllers),
+                    height: 300,
+                    child: AddCoordinatesMap(
+                        controllers: widget._controllers,
+                        listCoordinates: widget._listCoordinates,
+                        controllerOrlistCoordinates:
+                            widget.isThereCoordinates ? 1 : 0),
                   )
               ],
         ),
@@ -208,7 +261,13 @@ class _AddToTableState extends State<AddToTable> {
     for (String key in tableHelper[widget.tableName].keys) {
       if (widget.isValidKey(key)) {
         if (tableHelper[widget.tableName][key]["type"] == 'bool') {
-          elm[key] = widget._boolControllers[key].toString();
+          if (widget._boolControllers[key] == true) {
+            elm[key] = "1";
+          } else {
+            elm[key] = "0";
+          }
+        } else if (key == "coordonees") {
+          elm[key] = jsonEncode(widget._listCoordinates);
         } else if (tableHelper[widget.tableName][key]["type"] == 'List') {
           elm[key] = widget._selected[key];
         } else if (tableHelper[widget.tableName][key]["isForeignKey"]) {
@@ -219,8 +278,6 @@ class _AddToTableState extends State<AddToTable> {
       }
     }
     print(elm);
-    final body = jsonEncode(elm);
-    print(body);
 
     //on envoie la requête https get pour récupérer les données vers le fichier php : datacampus-bordeaux.fr/sources/requetes/API_flutter/parking_add.php
     final url = Uri.https('datacampus-bordeaux.fr',

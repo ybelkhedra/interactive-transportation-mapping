@@ -5,7 +5,13 @@ import 'package:positioned_tap_detector_2/positioned_tap_detector_2.dart';
 
 class AddCoordinatesMap extends StatefulWidget {
   final Map<String, TextEditingController> controllers;
-  const AddCoordinatesMap({super.key, required this.controllers});
+  final List<Map<String, TextEditingController>> listCoordinates;
+  final int controllerOrlistCoordinates; // 0 = controller, 1 = listCoordinates
+  const AddCoordinatesMap(
+      {super.key,
+      required this.controllers,
+      required this.listCoordinates,
+      required this.controllerOrlistCoordinates});
 
   @override
   State<AddCoordinatesMap> createState() => _AddCoordinatesMapState();
@@ -15,11 +21,14 @@ class _AddCoordinatesMapState extends State<AddCoordinatesMap> {
   int _nbClics = 0;
   LatLng? _currentPosition;
 
+  LatLng createCoordinate(String lat, String long) {
+    return LatLng(double.parse(lat), double.parse(long));
+  }
+
   double lat = 44.79517;
   double long = -0.603537;
   @override
   Widget build(BuildContext context) {
-    print('build');
     return FlutterMap(
       options: MapOptions(
         center: LatLng(
@@ -36,19 +45,38 @@ class _AddCoordinatesMapState extends State<AddCoordinatesMap> {
         ),
         MarkerLayer(
           markers: [
-            Marker(
-              width: 80.0,
-              height: 80.0,
-              point: _currentPosition ??
-                  LatLng(
-                    double.parse(lat.toString()),
-                    double.parse(long.toString()),
+                Marker(
+                  width: 80.0,
+                  height: 80.0,
+                  point: _currentPosition ??
+                      LatLng(
+                        double.parse(lat.toString()),
+                        double.parse(long.toString()),
+                      ),
+                  builder: (ctx) => Container(
+                    child: const Icon(Icons.location_on_rounded, size: 40),
                   ),
-              builder: (ctx) => Container(
-                child: const Icon(Icons.local_parking_outlined, size: 50),
-              ),
-            ),
-          ],
+                )
+              ] +
+              [
+                if (widget.controllerOrlistCoordinates == 1)
+                  for (var i = 0; i < widget.listCoordinates.length - 1; i++)
+                    Marker(
+                      width: 80.0,
+                      height: 80.0,
+                      point: LatLng(
+                        double.parse(
+                            widget.listCoordinates[i]['latitude']?.text ??
+                                lat.toString()),
+                        double.parse(
+                            widget.listCoordinates[i]['longitude']?.text ??
+                                long.toString()),
+                      ),
+                      builder: (ctx) => Container(
+                        child: const Icon(Icons.location_on_rounded, size: 40),
+                      ),
+                    ),
+              ],
         ),
       ],
     );
@@ -57,11 +85,18 @@ class _AddCoordinatesMapState extends State<AddCoordinatesMap> {
   void _handleTap(TapPosition tapPosition, LatLng latlng) {
     setState(() {
       _currentPosition = latlng;
-      widget.controllers['latitude']?.text =
-          _currentPosition!.latitude.toString();
-      widget.controllers['longitude']?.text =
-          _currentPosition!.longitude.toString();
-      //print(_currentPosition);
+      if (widget.controllerOrlistCoordinates == 0) {
+        widget.controllers['latitude']?.text =
+            _currentPosition!.latitude.toString();
+        widget.controllers['longitude']?.text =
+            _currentPosition!.longitude.toString();
+      } else {
+        // print(widget.listCoordinates);
+        widget.listCoordinates[widget.listCoordinates.length - 1]['latitude']
+            ?.text = _currentPosition!.latitude.toString();
+        widget.listCoordinates[widget.listCoordinates.length - 1]['longitude']
+            ?.text = _currentPosition!.longitude.toString();
+      }
       _nbClics++;
     });
   }
