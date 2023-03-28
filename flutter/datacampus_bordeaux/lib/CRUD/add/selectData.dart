@@ -83,6 +83,7 @@ class _SelectDataState extends State<SelectData> {
               title: Text(item.headerValue),
             );
           },
+          canTapOnHeader: true,
           body: Column(
             children: [
               for (int i = 0; i < idNames!.length; i++)
