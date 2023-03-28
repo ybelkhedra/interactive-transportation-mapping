@@ -16,6 +16,7 @@ import '../table_helper.dart';
 import '../parkings.dart';
 import 'addParkings.dart';
 import 'selectData.dart';
+import 'add_coordinates_map.dart';
 
 class AddToTable extends StatefulWidget {
   final String tableName;
@@ -32,7 +33,9 @@ class AddToTable extends StatefulWidget {
           _boolControllers[key] = false;
         } else if (tableHelper[tableName][key]["type"] == 'int' ||
             tableHelper[tableName][key]["type"] == 'String' ||
-            tableHelper[tableName][key]["type"] == 'float') {
+            (tableHelper[tableName][key]["type"] == 'float') &&
+                key != 'latitude' &&
+                key != 'longitude') {
           if (!tableHelper[tableName][key]["isForeignKey"]) {
             _controllers[key] = TextEditingController();
           } else {
@@ -191,40 +194,7 @@ class _AddToTableState extends State<AddToTable> {
                 if (widget.isCoordonnees)
                   SizedBox(
                     height: 200,
-                    child: FlutterMap(
-                      options: MapOptions(
-                        center: LatLng(
-                          double.parse(lat.toString()),
-                          double.parse(long.toString()),
-                        ),
-                        zoom: 15.0,
-                        onTap: _handleTap,
-                      ),
-                      children: [
-                        TileLayer(
-                          urlTemplate:
-                              "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-                          subdomains: const ['a', 'b', 'c'],
-                        ),
-                        MarkerLayer(
-                          markers: [
-                            Marker(
-                              width: 80.0,
-                              height: 80.0,
-                              point: _currentPosition ??
-                                  LatLng(
-                                    double.parse(lat.toString()),
-                                    double.parse(long.toString()),
-                                  ),
-                              builder: (ctx) => Container(
-                                child: const Icon(Icons.local_parking_outlined,
-                                    size: 50),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                    child: AddCoordinatesMap(controllers: widget._controllers),
                   )
               ],
         ),
@@ -260,17 +230,5 @@ class _AddToTableState extends State<AddToTable> {
     print(response.statusCode);
     print(response.body);
     //faire une animation qui dit que le produit est ajouter et revenir a la page précédente
-  }
-
-  void _handleTap(TapPosition tapPosition, LatLng latlng) {
-    setState(() {
-      _currentPosition = latlng;
-      widget._controllers['latitude']?.text =
-          _currentPosition!.latitude.toString();
-      widget._controllers['longitude']?.text =
-          _currentPosition!.longitude.toString();
-      //print(_currentPosition);
-      _nbClics++;
-    });
   }
 }

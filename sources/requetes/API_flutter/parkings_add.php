@@ -2,11 +2,11 @@
 
 // on recupere le gid du parking à supprimer par get
 $nom = $_GET['nom'];
-$nbPlacesMax = $_GET['nbPlacesMax'];
-$boolPayant = $_GET['boolPayant'];
-$nbPlacesHandicapes = $_GET['nbPlacesHandicapes'];
-$boolHorsVoirie = $_GET['boolHorsVoirie'];
-$boolPrive = $_GET['boolPrive'];
+$nbPlacesMax = $_GET['nb_places_max'];
+$boolPayant = $_GET['payant'];
+$nbPlacesHandicapes = $_GET['nb_places_handicapes'];
+$boolHorsVoirie = $_GET['hors_voirie'];
+$boolPrive = $_GET['prive'];
 $infoComplementaires = $_GET['infoComplementaires'];
 $latitude = $_GET['latitude'];
 $longitude = $_GET['longitude'];
