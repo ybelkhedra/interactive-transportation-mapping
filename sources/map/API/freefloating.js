@@ -82,22 +82,7 @@ function updateBddStationsFreeFloating() { //a renommer en updateBddPointsCharge
     .then(data => {
         data.forEach(function(freefloat) {
             console.log(freefloat.coordonnees[0].latitude)
-             // pour chaque freefloat
-            // if (freefloat.coordonnees.length == 1) {// si le freefloat n'a qu'une seule coordonnée
-            // var marker = L.marker([freefloat.coordonnees[0].latitude, freefloat.coordonnees[0].longitude]).addTo(feature_group_freefloating); // création du marqueur
-            // marker.bindPopup(afficherPopupFreeFloating(freefloat)); // ajout du popup
-            // marker.setStyle({color: 'yellow'}); // on definie la couleur du marker
-            // }
-            // else if (freefloat.coordonnees.length > 1) { // si le freefloat a plusieurs coordonnées
-            //     var latlngs = []; // création d'un tableau vide 
-            //     freefloat.coordonnees.forEach(function(coordonnee) { // pour chaque coordonnée
-            //         latlngs.push([coordonnee.latitude,coordonnee.longitude]); // ajout des coordonnées au tableau latlngs
-            //     }
-            //     );
-            //     var polygon = L.polygon(latlngs).addTo(feature_group_freefloating); // création du polygone
-            //     polygon.setStyle({color: 'yellow'}); // changement de la couleur du polygone
-            //     polygon.bindPopup(afficherPopupFreeFloating(freefloat)); // ajout du popup
-            // }
+ 
             
             var marker = L.marker([freefloat.coordonnees[0].latitude, freefloat.coordonnees[0].longitude]).addTo(feature_group_freefloating); // création du marqueur
             marker.bindPopup(afficherPopupFreeFloating(freefloat)); // ajout du popup

@@ -16,7 +16,7 @@ INSERT INTO coordonnees_pts_covoit (latitude, longitude) VALUES (44.8181, -0.615
 INSERT INTO situer_pts_covoit (point_de_covoiturage, coordonnee) VALUES (1, 1);
 
 INSERT INTO stations_velo (nb_places, securise, abrite, info_complementaires) VALUES (10, 1, 1, "test");
-INSERT INTO coordonnees_stations_velo (latitude, longitude) VALUES (44.8181, -0.6152219000000177);
+INSERT INTO coordonnees_stations_velo (latitude, longitude) VALUES (44.788326, -0.596485);
 INSERT INTO situer_stations_velo (pt_velo, coordonnee) VALUES (1, 1);
 
 INSERT INTO types_accroches_velo (nom) VALUES ('Vélo classique');
@@ -30,18 +30,29 @@ INSERT INTO types_pistes_velo (nom) VALUES ('piste cyclable');
 INSERT INTO pistes_velo (type_piste, info_complementaires) VALUES (1, 'piste cyclable1');
 INSERT INTO pistes_velo (type_piste, info_complementaires) VALUES (1, 'piste cyclable2');
 INSERT INTO pistes_velo (type_piste, info_complementaires) VALUES (1, 'piste cyclable3');
-INSERT INTO coordonnees_pistes_velo (id, latitude, longitude) VALUES (1, 44.8181111, -0.6152222);
-INSERT INTO coordonnees_pistes_velo (id, latitude, longitude) VALUES (2, 36, 64);
-INSERT INTO coordonnees_pistes_velo (id, latitude, longitude) VALUES (3, 42, 58);
-INSERT INTO coordonnees_pistes_velo (id, latitude, longitude) VALUES (4, 13, 10);
-INSERT INTO coordonnees_pistes_velo (id, latitude, longitude) VALUES (5, 28, 16);
-INSERT INTO coordonnees_pistes_velo (id, latitude, longitude) VALUES (6, 14, 11);
+INSERT INTO pistes_velo (type_piste, info_complementaires) VALUES (1, 'piste cyclable4');
+
+INSERT INTO coordonnees_pistes_velo (latitude, longitude) VALUES (44.817156, -0.617791);
+INSERT INTO coordonnees_pistes_velo (latitude, longitude) VALUES (44.813771, -0.622004);
+INSERT INTO coordonnees_pistes_velo (latitude, longitude) VALUES (44.815886, -0.623101);
+INSERT INTO coordonnees_pistes_velo (latitude, longitude) VALUES (13, 10);
+INSERT INTO coordonnees_pistes_velo (latitude, longitude) VALUES (28, 16);
+INSERT INTO coordonnees_pistes_velo (latitude, longitude) VALUES (14, 11);
+
+INSERT INTO coordonnees_pistes_velo (latitude, longitude) VALUES (44.843340, -0.599602);
+INSERT INTO coordonnees_pistes_velo (latitude, longitude) VALUES (44.831474, -0.598435);
+INSERT INTO coordonnees_pistes_velo (latitude, longitude) VALUES (44.821408, -0.582957);
+
 INSERT INTO situer_pistes_velo (piste_velo, coordonnee) VALUES (1, 1);
 INSERT INTO situer_pistes_velo (piste_velo, coordonnee) VALUES (1, 2);
 INSERT INTO situer_pistes_velo (piste_velo, coordonnee) VALUES (1, 3);
 INSERT INTO situer_pistes_velo (piste_velo, coordonnee) VALUES (2, 4);
 INSERT INTO situer_pistes_velo (piste_velo, coordonnee) VALUES (2, 5);
 INSERT INTO situer_pistes_velo (piste_velo, coordonnee) VALUES (3, 6);
+
+INSERT INTO situer_pistes_velo (piste_velo, coordonnee) VALUES (4, 7);
+INSERT INTO situer_pistes_velo (piste_velo, coordonnee) VALUES (4, 8);
+INSERT INTO situer_pistes_velo (piste_velo, coordonnee) VALUES (4, 9);
 
 INSERT INTO arrets_cars (nom, info_complementaires) VALUES ('Gare de Pessax', 'nil');
 INSERT INTO coordonnees_arrets_cars (latitude, longitude) VALUES (44.81814, -0.61522221);
@@ -85,9 +96,9 @@ INSERT INTO types_lignes (nom) VALUES ('Tramway');
 INSERT INTO lignes (nom, direction, type, info_complementaires) VALUES ('Ligne A', 1, 1, 'nil');
 INSERT INTO lignes (nom, direction, type, info_complementaires) VALUES ('Ligne B', 1, 1, 'nil');
 INSERT INTO lignes (nom, direction, type, info_complementaires) VALUES ('Ligne C', 1, 1, 'nil');
-INSERT INTO coordonnees_lignes (latitude, longitude) VALUES (44.818124, -0.615221);
-INSERT INTO coordonnees_lignes (latitude, longitude) VALUES (13, 56);
-INSERT INTO coordonnees_lignes (latitude, longitude) VALUES (4, 2);
+INSERT INTO coordonnees_lignes (latitude, longitude) VALUES (44.806806, -0.591735);
+INSERT INTO coordonnees_lignes (latitude, longitude) VALUES (44.801792, -0.593816);
+INSERT INTO coordonnees_lignes (latitude, longitude) VALUES (44.799328, -0.598099);
 INSERT INTO coordonnees_lignes (latitude, longitude) VALUES (43, 125);
 INSERT INTO coordonnees_lignes (latitude, longitude) VALUES (128, 256);
 INSERT INTO coordonnees_lignes (latitude, longitude) VALUES (90, 11);

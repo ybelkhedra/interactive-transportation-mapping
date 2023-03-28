@@ -28,15 +28,18 @@ function updateBddPisteCyclables(){
             if (piste_cyclable.coordonnees.length == 1) {// si le piste cyclable n'a qu'une seule coordonnée
                 var marker = L.marker([piste_cyclable.coordonnees[0].latitude, piste_cyclable.coordonnees[0].longitude]).addTo(feature_group_pistes_cyclables_bdd); // création du marqueur
                 marker.bindPopup(afficherPopupPistesCyclables(piste_cyclable)); // ajout du popup
-                marker.setStyle({color: 'red'}); // on definie la couleur du marker
+                //marker.setStyle({color: 'red'}); // on definie la couleur du marker
+                console.log("hola solo");
             }
             else if (piste_cyclable.coordonnees.length > 1) { // si la piste cyclable a plusieurs coordonnées
+
+
                 var latlngs = []; // création d'un tableau vide 
                 piste_cyclable.coordonnees.forEach(function(coordonnee) { // pour chaque coordonnée
                     latlngs.push([coordonnee.latitude, coordonnee.longitude]); // ajout des coordonnées au tableau latlngs
                 });
                 var polyline = L.polyline(latlngs).addTo(feature_group_pistes_cyclables_bdd); // création de la polyline
-                polyline.setStyle({color: 'blue', weight: 5}); // changement de la couleur de la polyline
+                polyline.setStyle({color: 'purple', weight: 5}); // changement de la couleur de la polyline
                 polyline.bindPopup(afficherPopupPistesCyclables(piste_cyclable)); // ajout du popup
             }
         });

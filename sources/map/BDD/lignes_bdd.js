@@ -14,7 +14,7 @@ function updateBddLignes(){
                 var marker = L.marker([ligne.coordonnees[0].latitude, ligne.coordonnees[0].longitude]); // création du marqueur
                 var popupContent = "Nom : " + ligne.nom + "<br>Type : " + ligne.type + "<br>Direction : " + ligne.direction + "<br>Informations complémentaires : " + ligne.info_complementaires; // ajout des informations à afficher dans le popup
                 marker.bindPopup(popupContent); // ajout du popup
-                marker.setStyle({color: 'green'}); // on definie la couleur du marker
+                //marker.setStyle({color: 'green'}); // on definie la couleur du marker
                 feature_group_ligne_bus.addLayer(marker); // ajout du marqueur au groupe de marqueurs
             }
             else if (ligne.coordonnees.length > 1) { // si le ligne a plusieurs coordonnées
@@ -25,7 +25,7 @@ function updateBddLignes(){
                 var polyline = L.polyline(latlngs); // création de la polyline
                 var popupContent = "Nom : " + ligne.nom + "<br>Type : " + ligne.type + "<br>Direction : " + ligne.direction + "<br>Informations complémentaires : " + ligne.info_complementaires; // ajout des informations à afficher dans le popup
                 polyline.bindPopup(popupContent); // ajout du popup
-                polyline.setStyle({color: 'red',weight:5}); // changement de la couleur de la polyline
+                polyline.setStyle({color: 'orange',weight:5}); // changement de la couleur de la polyline
                 feature_group_ligne_bus.addLayer(polyline); // ajout de la polyline au groupe de marqueurs
             }
         });

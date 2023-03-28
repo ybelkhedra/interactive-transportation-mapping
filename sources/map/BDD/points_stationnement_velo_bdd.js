@@ -35,26 +35,16 @@ function updateBddStatsVelos(){
     fetch('./sources/requetes/points_stationnement_velo.php')
     .then(response => response.json())
     .then(data => {
-        data.forEach(function(stat_velo) { // pour chaque point de stationnement vélo
-            if (stat_velo.coordonnees.length == 1) {// si le point de stationnement vélo n'a qu'une seule coordonnée
-            var marker = L.marker([stat_velo.coordonnees[0].latitude, stat_velo.coordonnees[0].longitude]).addTo(feature_group_pts_stationnement_velo_bdd); // création du marqueur
-            marker.bindPopup(afficherPopupStatsVelos(stat_velo)); // ajout du popup
-            marker.setStyle({color: 'green'}); // on definie la couleur du marker
-            }
-            else if (stat_velo.coordonnees.length > 1) { // si le point de stationnement vélo a plusieurs coordonnées
-                var latlngs = []; // création d'un tableau vide 
-                stat_velo.coordonnees.forEach(function(coordonnee) { // pour chaque coordonnée
-                    latlngs.push([coordonnee.latitude,coordonnee.longitude]); // ajout des coordonnées au tableau latlngs
-                }
-                );
-                var polygon = L.polygon(latlngs).addTo(feature_group_pts_stationnement_velo_bdd); // création du polygone
-                polygon.setStyle({color: 'green'}); // changement de la couleur du polygone
-                polygon.bindPopup(afficherPopupStatsVelos(stat_velo)); // ajout du popup
-            }
+        data.forEach(function(station) { // pour chaque station
+
+            var marker = L.marker([station.latitude, station.longitude]).addTo(feature_group_pts_stationnement_velo_bdd); // création du marqueur
+            marker.bindPopup(afficherPopupStatsVelos(station)); // ajout du popup
+
+
         });
         
     })
     .catch(error => console.error(error)); 
 }
 
-// updateBddStatsVelos(); // affichage des stationnements vélos de la bdd
+updateBddStatsVelos(); // affichage des stationnements vélos de la bdd

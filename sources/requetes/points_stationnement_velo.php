@@ -39,6 +39,9 @@ coordonnees_stations_velo ON situer_stations_velo.coordonnee = coordonnees_stati
     // on libere la memoire
     $result->free();
 }
+else {
+    echo "Erreur : " . $db->error;
+}
 // on encode la liste des stations au format json, et on l'affiche
 echo json_encode($parkings);
 
