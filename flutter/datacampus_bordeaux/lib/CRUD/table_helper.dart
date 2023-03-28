@@ -70,6 +70,7 @@ final Map tableHelper = {
     'nom_jolie': 'Stations de vélo',
     'script': 'points_stationnement_velo',
     'id': createMap('id', 'int'),
+    'nom': createMap('Station de vélo', 'String'),
     'nb_places': createMap('Nombre de places', 'int'),
     'securise': createMap('Sécurisée', 'bool'),
     'abrite': createMap('Abritée', 'bool'),

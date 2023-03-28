@@ -12,7 +12,7 @@ $longitude = $_GET['longitude'];
 $db = new mysqli("localhost", "root", "@Password0", "campus");
 
 //ajouter les données dans la table parking
-$sql = "INSERT INTO pts_recharge (nom, info_complementaires) VALUES ('$nom', '$info_complementaires')";
+$sql = "INSERT INTO pts_recharge (nom, parking_correspondant, info_complementaires) VALUES ('$nom', '$parking_correspondant', '$info_complementaires')";
 echo $sql;
 //exécution de la requête
 if ($db->query($sql)) {

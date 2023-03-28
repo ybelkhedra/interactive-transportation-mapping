@@ -31,7 +31,8 @@ class AddToTable extends StatefulWidget {
         if (tableHelper[tableName][key]["type"] == 'bool') {
           _boolControllers[key] = false;
         } else if (tableHelper[tableName][key]["type"] == 'int' ||
-            tableHelper[tableName][key]["type"] == 'String') {
+            tableHelper[tableName][key]["type"] == 'String' ||
+            tableHelper[tableName][key]["type"] == 'float') {
           if (!tableHelper[tableName][key]["isForeignKey"]) {
             _controllers[key] = TextEditingController();
           } else {
@@ -178,6 +179,7 @@ class _AddToTableState extends State<AddToTable> {
                 ElevatedButton(
                   onPressed: () async {
                     print(widget._selected);
+                    print(widget._controllers);
                     print("Selected shown above");
                     await addDataToTable();
                     Navigator.pop(context);
