@@ -107,11 +107,18 @@ INSERT INTO coordonnees_gares_ter (latitude, longitude) VALUES (44.805251, -0.60
 INSERT INTO situer_gares_ter (gare_ter, coordonnee) VALUES (1,1);
 
 INSERT INTO pt_freefloat(nom, info_complementaires) VALUES ("Victoire", 'nil');
-INSERT INTO coordonnees_pt_freefloat(latitude, longitude) VALUES (8.634, 2.395222);
+INSERT INTO coordonnees_pt_freefloat(latitude, longitude) VALUES (44.789602, -0.605252);
 INSERT INTO situer_pt_freefloat(pt_freefloat, coordonnee) VALUES (1,1);
 
-INSERT INTO vehicules_freefloating(vehicule) VALUES ("trot");
-INSERT INTO vehicules_freefloating(vehicule) VALUES ("bécane");
+INSERT INTO pt_freefloat(nom, info_complementaires) VALUES ("Stade thouars", 'nil');
+INSERT INTO coordonnees_pt_freefloat(latitude, longitude) VALUES (44.792168, -0.597060);
+INSERT INTO situer_pt_freefloat(pt_freefloat, coordonnee) VALUES (2,2);
+
+INSERT INTO vehicules_freefloating(vehicule) VALUES ("trotinette");
+INSERT INTO vehicules_freefloating(vehicule) VALUES ("scooter");
 
 INSERT INTO autoriser(pt_freefloat, vehicule) VALUES (1,1);
 INSERT INTO autoriser(pt_freefloat, vehicule) VALUES (1,2);
+
+INSERT INTO autoriser(pt_freefloat, vehicule) VALUES (2,1);
+INSERT INTO autoriser(pt_freefloat, vehicule) VALUES (2,2);
