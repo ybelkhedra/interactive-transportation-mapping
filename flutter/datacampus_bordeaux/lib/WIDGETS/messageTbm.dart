@@ -80,7 +80,7 @@ class _MessageTbmState extends State<MessageTbm> {
           ),
         ),
         SizedBox(
-          height: 250,
+          height: 200,
           width: MediaQuery.of(context).size.width * 0.9,
           child: //faire un menu accordeon representant chaque ligne et quand on clique on affiche tous les messages correspondant,
               //pour cela on utilise le package accordion

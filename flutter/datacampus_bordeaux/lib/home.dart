@@ -102,78 +102,133 @@ class _homeState extends State<home> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Column(
-          children: [
-            Stack(
-              // Sur la meme ligne et sur fond bleu mettre à gauche le titre : "Bordeaux Métropole" et à droite le logo dans un demi rond de couleur blanche
-              children: [
-                Container(
-                  height: 150,
-                  width: double.infinity,
-                  color: const Color.fromARGB(255, 28, 103, 215),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(left: 20.0),
-                          child: Text(
-                            "Chaire MTI : Innover pour la mobilité intelligente",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 35,
-                                fontWeight: FontWeight.bold),
+    return Container(
+      //gradient horizontal de const Color.fromARGB(224, 239, 255, 255), à const Color.fromARGB(205, 233, 255, 255),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [
+            Color.fromARGB(255, 28, 103, 215),
+            Color.fromARGB(134, 28, 103, 215),
+          ],
+        ),
+      ),
+      child: ListView(
+        children: [
+          Column(
+            children: [
+              Stack(
+                // Sur la meme ligne et sur fond bleu mettre à gauche le titre : "Bordeaux Métropole" et à droite le logo dans un demi rond de couleur blanche
+                children: [
+                  Container(
+                    height: 150,
+                    width: double.infinity,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(left: 20.0),
+                            child: Text(
+                              "Chaire MTI : Innover pour la mobilité intelligente",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 35,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 10.0),
-                          child: Text(
-                            "Fédérons l'écosystème néo-aquitain pour anticiper les transports de demain",
-                            style: TextStyle(
+                          const Padding(
+                            padding: EdgeInsets.only(left: 10.0),
+                            child: Text(
+                              "Fédérons l'écosystème néo-aquitain pour anticiper les transports de demain",
+                              style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
-                                fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20.0, top: 20.0),
+                        child: Container(
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Image.asset(
+                            "assets/images/logo-chair.png",
+                            fit: BoxFit.contain,
                           ),
                         ),
-                      ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              //ajouter l'image /assets/images/chaire-mobilite.png
+              // Container(
+              //   height: 600,
+              //   width: double.infinity,
+              //   // ignore: prefer_const_constructors
+              //   decoration: BoxDecoration(
+              //     // ignore: prefer_const_constructors
+              //     image: DecorationImage(
+              //         image: AssetImage("assets/images/chaire-mobilite.png"),
+              //         fit: BoxFit.cover,
+              //         alignment: Alignment.bottomCenter),
+              //     //assombrir l'image un peu
+              //   ),
+              //   child: Text("test"),
+              // ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Card(
+                    color: Color.fromARGB(160, 247, 250, 255),
+                    shadowColor: Colors.black,
+                    elevation: 20,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20.0, top: 20.0),
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Image.asset(
-                          "assets/images/logo-chair.png",
-                          fit: BoxFit.contain,
+                    child: SizedBox(
+                      height: 250,
+                      width: 500,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: FutureBuilder<List<List<FlSpot>>>(
+                          future: getSpotsInfoApi(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<List<FlSpot>>> snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            } else if (snapshot.hasError) {
+                              return Center(
+                                  child: Text('Error: ${snapshot.error}'));
+                            } else {
+                              return LineChartSample2(Data: snapshot.data!);
+                            }
+                          },
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Card(
-                  color: Color.fromARGB(168, 247, 250, 255),
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
                   ),
-                  child: SizedBox(
-                    height: 250,
-                    width: 500,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
+                  Card(
+                    color: Color.fromARGB(160, 247, 250, 255),
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: SizedBox(
+                      height: 250,
+                      width: 500,
                       child: FutureBuilder<List<List<FlSpot>>>(
                         future: getSpotsInfoApi(),
                         builder: (BuildContext context,
@@ -186,48 +241,50 @@ class _homeState extends State<home> {
                             return Center(
                                 child: Text('Error: ${snapshot.error}'));
                           } else {
-                            return LineChartSample2(Data: snapshot.data!);
+                            return JaugeFrequentation(Data: snapshot.data!);
                           }
                         },
                       ),
                     ),
                   ),
-                ),
-                Card(
-                  color: Color.fromARGB(168, 247, 250, 255),
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: SizedBox(
-                    height: 250,
-                    width: 500,
-                    child: FutureBuilder<List<List<FlSpot>>>(
-                      future: getSpotsInfoApi(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<List<List<FlSpot>>> snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        } else if (snapshot.hasError) {
-                          return Center(
-                              child: Text('Error: ${snapshot.error}'));
-                        } else {
-                          return JaugeFrequentation(Data: snapshot.data!);
-                        }
-                      },
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Card(
+                    color: Color.fromARGB(160, 247, 250, 255),
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
                     ),
+                    child:
+                        SizedBox(height: 250, width: 1140, child: MessageTbm()),
                   ),
-                ),
-              ],
-            ),
-            MessageTbm(),
-          ],
-        ),
-        const Center(child: Text("Vcub", style: TextStyle(fontSize: 50))),
-        const JaugeVcub(),
-      ],
+                  // Card(
+                  //     color: Color.fromARGB(168, 247, 250, 255),
+                  //     elevation: 10,
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(15.0),
+                  //     ),
+                  //     child: SizedBox(
+                  //       height: 250,
+                  //       width: 500,
+                  //       child: Column(
+                  //         children: [
+                  //           const Center(
+                  //               child: Text("Vcub",
+                  //                   style: TextStyle(fontSize: 50))),
+                  //           const JaugeVcub(),
+                  //         ],
+                  //       ),
+                  //     )),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

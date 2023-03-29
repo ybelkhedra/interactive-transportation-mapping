@@ -201,7 +201,7 @@ class _AddToTableState extends State<AddToTable> {
   @override
   Widget build(BuildContext context) {
     String nomJolie = tableHelper[widget.tableName]!['nom_jolie'];
-    if (widget.tableName == "parkings") {
+    if (widget.tableName == "parkings" && false) {
       return const addParkings();
     }
     return Scaffold(
@@ -266,8 +266,15 @@ class _AddToTableState extends State<AddToTable> {
           } else {
             elm[key] = "0";
           }
-        } else if (key == "coordonees") {
-          elm[key] = jsonEncode(widget._listCoordinates);
+        } else if (key == "coordonnees") {
+          elm[key] = [];
+          for (int i = 0; i < widget._listCoordinates.length; ++i) {
+            elm[key].add({
+              "latitude": widget._listCoordinates[i]["latitude"]!.text,
+              "longitude": widget._listCoordinates[i]["longitude"]!.text
+            });
+          }
+          elm[key] = jsonEncode(elm[key]);
         } else if (tableHelper[widget.tableName][key]["type"] == 'List') {
           elm[key] = widget._selected[key];
         } else if (tableHelper[widget.tableName][key]["isForeignKey"]) {
@@ -277,7 +284,7 @@ class _AddToTableState extends State<AddToTable> {
         }
       }
     }
-    print(elm);
+    print("elm = $elm");
 
     //on envoie la requête https get pour récupérer les données vers le fichier php : datacampus-bordeaux.fr/sources/requetes/API_flutter/parking_add.php
     final url = Uri.https('datacampus-bordeaux.fr',
