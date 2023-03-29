@@ -30,38 +30,38 @@ class _JaugeVcubState extends State<JaugeVcub> {
     return Container(
       child: Row(
         children: [
-          Column(
-            children: [
-              Text(
-                "Nombre de stations suivies : $nbStationsSuivies",
-                style: const TextStyle(fontSize: 20),
-              ),
-              Text(
-                "Nombre de places totales : $nbPlacesTotales",
-                style: const TextStyle(fontSize: 20),
-              ),
-              Text(
-                "Nombre de places occupées : $nbPlacesOccupees",
-                style: const TextStyle(fontSize: 20),
-              ),
-              Text(
-                "Nombre de places disponibles : $nbPlacesDispo",
-                style: const TextStyle(fontSize: 20),
-              ),
-              Text(
-                "Nombre de vélos disponibles : $nbVelosDispo",
-                style: const TextStyle(fontSize: 20),
-              ),
-              Text(
-                "Nombre de vélos disponibles électriques : $nbVelosDispoElectriques",
-                style: const TextStyle(fontSize: 20),
-              ),
-              Text(
-                "Nombre de vélos disponibles classiques : $nbVelosDispoClassique",
-                style: const TextStyle(fontSize: 20),
-              ),
-            ],
-          ),
+          // Column(
+          //   children: [
+          //     Text(
+          //       "Nombre de stations suivies : $nbStationsSuivies",
+          //       style: const TextStyle(fontSize: 20),
+          //     ),
+          //     Text(
+          //       "Nombre de places totales : $nbPlacesTotales",
+          //       style: const TextStyle(fontSize: 20),
+          //     ),
+          //     Text(
+          //       "Nombre de places occupées : $nbPlacesOccupees",
+          //       style: const TextStyle(fontSize: 20),
+          //     ),
+          //     Text(
+          //       "Nombre de places disponibles : $nbPlacesDispo",
+          //       style: const TextStyle(fontSize: 20),
+          //     ),
+          //     Text(
+          //       "Nombre de vélos disponibles : $nbVelosDispo",
+          //       style: const TextStyle(fontSize: 20),
+          //     ),
+          //     Text(
+          //       "Nombre de vélos disponibles électriques : $nbVelosDispoElectriques",
+          //       style: const TextStyle(fontSize: 20),
+          //     ),
+          //     Text(
+          //       "Nombre de vélos disponibles classiques : $nbVelosDispoClassique",
+          //       style: const TextStyle(fontSize: 20),
+          //     ),
+          //   ],
+          // ),
           Row(
             children: [
               //multiple linear pointers horizontal
