@@ -41,7 +41,6 @@ class _ViewTableState extends State<ViewTable> {
   }
 
   Future<void> deleteElement(String id) async {
-    /* Popup pour supprimer le parking */
     var url = Uri.https(
         "datacampus-bordeaux.fr",
         "/sources/requetes/API_flutter/delete.php",
@@ -61,7 +60,6 @@ class _ViewTableState extends State<ViewTable> {
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () async {
-              // aller à la page d'ajout de parking
               await Navigator.push(
                 context,
                 MaterialPageRoute(
