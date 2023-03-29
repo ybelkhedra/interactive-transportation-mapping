@@ -64,8 +64,8 @@ ALTER TABLE CoursesData DROP FOREIGN KEY CoursesData_rg_sv_arret_p_na_arretsData
 ALTER TABLE stop_times DROP FOREIGN KEY stop_times_stop_id_stop_stop_id;
 ALTER TABLE trips DROP FOREIGN KEY trips_route_id_routes_route_id;
 ALTER TABLE trips DROP FOREIGN KEY trips_service_id_calendar_service_id;
-ALTER TABLE trips DROP FOREIGN KEY trips_trip_id_stop_times_trip_id;
-ALTER TABLE trips DROP FOREIGN KEY trips_shape_id_shapes_shape_id;
+-- ALTER TABLE trips DROP FOREIGN KEY stop_times_trip_id_trips_trip_id;
+-- ALTER TABLE trips DROP FOREIGN KEY trips_shape_id_shapes_shape_id;
 ALTER TABLE routes DROP FOREIGN KEY routes_agency_id_agency_agency_id;
 ALTER TABLE calendar_dates DROP FOREIGN KEY calendar_dates_service_id_calendar_service_id;
 
@@ -159,7 +159,7 @@ stop_lon FLOAT NOT NULL);
 
 CREATE TABLE stop_times (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-trip_id TEXT NOT NULL UNIQUE,
+trip_id BIGINT NOT NULL,
 arrival_time TEXT NOT NULL,
 departure_time TEXT NOT NULL,
 stop_id INT NOT NULL,
@@ -169,16 +169,17 @@ CREATE TABLE trips (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 route_id INT NOT NULL,
 service_id INT NOT NULL,
-trip_id TEXT NOT NULL,
+trip_id BIGINT NOT NULL UNIQUE,
 trip_headsign TEXT NOT NULL,
+trip_short_name TEXT NOT NULL,
 direction_id INT NOT NULL,
-shape_id INT NOT NULL,
+shape_id TEXT NOT NULL,
 wheelchair_accessible INT NOT NULL,
 bikes_allowed INT NOT NULL);
 
 CREATE TABLE shapes (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-shape_id INT NOT NULL,
+shape_id TEXT NOT NULL,
 shape_pt_lat FLOAT NOT NULL,
 shape_pt_lon FLOAT NOT NULL,
 shape_pt_sequence INT NOT NULL);
@@ -636,8 +637,8 @@ ALTER TABLE CoursesData ADD CONSTRAINT CoursesData_rg_sv_arret_p_na_arretsData_g
 ALTER TABLE stop_times ADD CONSTRAINT stop_times_stop_id_stop_stop_id FOREIGN KEY (stop_id) REFERENCES stop(stop_id);
 ALTER TABLE trips ADD CONSTRAINT trips_route_id_routes_route_id FOREIGN KEY (route_id) REFERENCES routes(route_id);
 ALTER TABLE trips ADD CONSTRAINT trips_service_id_calendar_service_id FOREIGN KEY (service_id) REFERENCES calendar(service_id);
-ALTER TABLE trips ADD CONSTRAINT trips_trip_id_stop_times_trip_id FOREIGN KEY (trip_id) REFERENCES stop_times(trip_id);
-ALTER TABLE trips ADD CONSTRAINT trips_shape_id_shapes_shape_id FOREIGN KEY (shape_id) REFERENCES shapes(shape_id);
+-- ALTER TABLE trips ADD CONSTRAINT stop_times_trip_id_trips_trip_id FOREIGN KEY (trip_id) REFERENCES trips(trip_id);
+-- ALTER TABLE trips ADD CONSTRAINT trips_shape_id_shapes_shape_id FOREIGN KEY (shape_id) REFERENCES shapes(shape_id);
 ALTER TABLE routes ADD CONSTRAINT routes_agency_id_agency_agency_id FOREIGN KEY (agency_id) REFERENCES agency(agency_id);
 ALTER TABLE calendar_dates ADD CONSTRAINT calendar_dates_service_id_calendar_service_id FOREIGN KEY (service_id) REFERENCES calendar(service_id);
 
