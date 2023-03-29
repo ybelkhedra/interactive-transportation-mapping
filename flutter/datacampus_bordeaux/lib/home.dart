@@ -106,6 +106,60 @@ class _homeState extends State<home> {
       children: [
         Column(
           children: [
+            Stack(
+              // Sur la meme ligne et sur fond bleu mettre à gauche le titre : "Bordeaux Métropole" et à droite le logo dans un demi rond de couleur blanche
+              children: [
+                Container(
+                  height: 150,
+                  width: double.infinity,
+                  color: const Color.fromARGB(255, 28, 103, 215),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(left: 20.0),
+                          child: Text(
+                            "Chaire MTI : Innover pour la mobilité intelligente",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 35,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 10.0),
+                          child: Text(
+                            "Fédérons l'écosystème néo-aquitain pour anticiper les transports de demain",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 20.0, top: 20.0),
+                      child: Container(
+                        height: 100,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Image.asset(
+                          "assets/images/logo-chair.png",
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -118,21 +172,24 @@ class _homeState extends State<home> {
                   child: SizedBox(
                     height: 250,
                     width: 500,
-                    child: FutureBuilder<List<List<FlSpot>>>(
-                      future: getSpotsInfoApi(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<List<List<FlSpot>>> snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        } else if (snapshot.hasError) {
-                          return Center(
-                              child: Text('Error: ${snapshot.error}'));
-                        } else {
-                          return LineChartSample2(Data: snapshot.data!);
-                        }
-                      },
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: FutureBuilder<List<List<FlSpot>>>(
+                        future: getSpotsInfoApi(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<List<List<FlSpot>>> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else if (snapshot.hasError) {
+                            return Center(
+                                child: Text('Error: ${snapshot.error}'));
+                          } else {
+                            return LineChartSample2(Data: snapshot.data!);
+                          }
+                        },
+                      ),
                     ),
                   ),
                 ),

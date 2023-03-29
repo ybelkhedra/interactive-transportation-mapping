@@ -29,8 +29,11 @@ class _JaugeFrequentationState extends State<JaugeFrequentation> {
     return Column(
       children: [
         //Titre de la gauge : "Etat du trafic actuel :"
-        const Text("Etat du trafic actuel :",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        Padding(
+          padding: const EdgeInsets.all(20),
+          child: const Text("Etat du trafic actuel :",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        ),
 
         SizedBox(
           width: 500,

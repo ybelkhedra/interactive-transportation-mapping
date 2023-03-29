@@ -168,10 +168,10 @@ class _LineChartSample2State extends State<LineChartSample2> {
     return LineChartData(
       gridData: FlGridData(
         show: true,
-        drawVerticalLine: true,
+        drawVerticalLine: false,
         getDrawingHorizontalLine: (value) {
           return FlLine(
-            color: AppColors.mainGridLineColor,
+            color: Color.fromARGB(9, 255, 255, 255),
             strokeWidth: 1,
           );
         },
@@ -228,38 +228,39 @@ class _LineChartSample2State extends State<LineChartSample2> {
         lineReffluid,
         lineActuel,
       ],
+      lineTouchData: LineTouchData(enabled: false),
       //enlever l'affiche du curseur
-      lineTouchData: LineTouchData(
-        enabled: true,
-        touchTooltipData: LineTouchTooltipData(
-          tooltipBgColor: Colors.grey,
-          getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
-            return touchedBarSpots.map((barSpot) {
-              final flSpot = barSpot;
-              // spotsReferenceY est un tableau contenant tout les y des spots de la courbe de reference. le faire avec une map
-              final spotsRefDenseY = spotsRefdense.map((e) => e.y).toList();
-              final spotsRefFluidY = spotsReffluid.map((e) => e.y).toList();
-              final spotsDataY = spotsData.map((e) => e.y).toList();
-              if (spotsRefDenseY.contains(flSpot.y)) {
-                return LineTooltipItem(
-                  "Trafic dense : ${flSpot.y.toStringAsFixed(2)}",
-                  const TextStyle(color: Color.fromARGB(255, 241, 187, 187)),
-                );
-              } else if (spotsRefFluidY.contains(flSpot.y)) {
-                return LineTooltipItem(
-                  "Trafic fluide : ${flSpot.y.toStringAsFixed(2)}",
-                  const TextStyle(color: Color.fromARGB(255, 176, 242, 205)),
-                );
-              } else {
-                return LineTooltipItem(
-                  "Trafic actuel : ${flSpot.y.toStringAsFixed(2)}",
-                  const TextStyle(color: Color.fromARGB(255, 173, 209, 246)),
-                );
-              }
-            }).toList();
-          },
-        ),
-      ),
+      // lineTouchData: LineTouchData(
+      //   enabled: true,
+      //   touchTooltipData: LineTouchTooltipData(
+      //     tooltipBgColor: Colors.grey,
+      //     getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
+      //       return touchedBarSpots.map((barSpot) {
+      //         final flSpot = barSpot;
+      //         // spotsReferenceY est un tableau contenant tout les y des spots de la courbe de reference. le faire avec une map
+      //         final spotsRefDenseY = spotsRefdense.map((e) => e.y).toList();
+      //         final spotsRefFluidY = spotsReffluid.map((e) => e.y).toList();
+      //         final spotsDataY = spotsData.map((e) => e.y).toList();
+      //         if (spotsRefDenseY.contains(flSpot.y)) {
+      //           return LineTooltipItem(
+      //             "Trafic dense : ${flSpot.y.toStringAsFixed(2)}",
+      //             const TextStyle(color: Color.fromARGB(255, 241, 187, 187)),
+      //           );
+      //         } else if (spotsRefFluidY.contains(flSpot.y)) {
+      //           return LineTooltipItem(
+      //             "Trafic fluide : ${flSpot.y.toStringAsFixed(2)}",
+      //             const TextStyle(color: Color.fromARGB(255, 176, 242, 205)),
+      //           );
+      //         } else {
+      //           return LineTooltipItem(
+      //             "Trafic actuel : ${flSpot.y.toStringAsFixed(2)}",
+      //             const TextStyle(color: Color.fromARGB(255, 173, 209, 246)),
+      //           );
+      //         }
+      //       }).toList();
+      //     },
+      //   ),
+      // ),
     );
   }
 }

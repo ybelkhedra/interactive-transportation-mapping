@@ -27,6 +27,7 @@ class _AddCoordinatesMapState extends State<AddCoordinatesMap> {
 
   double lat = 44.79517;
   double long = -0.603537;
+
   @override
   Widget build(BuildContext context) {
     return FlutterMap(
@@ -43,41 +44,68 @@ class _AddCoordinatesMapState extends State<AddCoordinatesMap> {
           urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
           subdomains: const ['a', 'b', 'c'],
         ),
-        MarkerLayer(
-          markers: [
-                Marker(
-                  width: 80.0,
-                  height: 80.0,
-                  point: _currentPosition ??
-                      LatLng(
-                        double.parse(lat.toString()),
-                        double.parse(long.toString()),
+        if (widget.listCoordinates.length >= 1)
+          MarkerLayer(
+            markers: [
+                  Marker(
+                    width: 80.0,
+                    height: 80.0,
+                    point: _currentPosition ??
+                        LatLng(
+                          double.parse(lat.toString()),
+                          double.parse(long.toString()),
+                        ),
+                    builder: (ctx) => Container(
+                      child: const Icon(Icons.location_on_rounded, size: 40),
+                    ),
+                  )
+                ] +
+                [
+                  if (widget.controllerOrlistCoordinates >= 1)
+                    for (var i = 0; i < widget.listCoordinates.length - 1; i++)
+                      Marker(
+                        width: 80.0,
+                        height: 80.0,
+                        point: LatLng(
+                          double.parse(
+                              widget.listCoordinates[i]['latitude']?.text ??
+                                  lat.toString()),
+                          double.parse(
+                              widget.listCoordinates[i]['longitude']?.text ??
+                                  long.toString()),
+                        ),
+                        builder: (ctx) => Container(
+                          child:
+                              const Icon(Icons.location_on_rounded, size: 40),
+                        ),
                       ),
-                  builder: (ctx) => Container(
-                    child: const Icon(Icons.location_on_rounded, size: 40),
-                  ),
-                )
-              ] +
-              [
-                if (widget.controllerOrlistCoordinates == 1)
-                  for (var i = 0; i < widget.listCoordinates.length - 1; i++)
-                    Marker(
-                      width: 80.0,
-                      height: 80.0,
-                      point: LatLng(
-                        double.parse(
-                            widget.listCoordinates[i]['latitude']?.text ??
-                                lat.toString()),
-                        double.parse(
-                            widget.listCoordinates[i]['longitude']?.text ??
-                                long.toString()),
-                      ),
-                      builder: (ctx) => Container(
-                        child: const Icon(Icons.location_on_rounded, size: 40),
-                      ),
+                ],
+          ),
+        if (widget.listCoordinates.length > 1)
+          PolylineLayer(polylineCulling: false, polylines: [
+            Polyline(
+              points: [
+                for (var i = 0; i < widget.listCoordinates.length - 1; i++)
+                  if ((widget.listCoordinates[i]['latitude']?.text != null &&
+                          widget.listCoordinates[i]['longitude']?.text !=
+                              null) ||
+                      !(widget.listCoordinates[i]['latitude']?.text == "" ||
+                          widget.listCoordinates[i]['longitude']?.text == ""))
+                    LatLng(
+                      double.parse(
+                          widget.listCoordinates[i]['latitude']?.text ??
+                              lat.toString()),
+                      double.parse(
+                          widget.listCoordinates[i]['longitude']?.text ??
+                              long.toString()),
                     ),
               ],
-        ),
+              color: Colors.red,
+              strokeWidth: 4.0,
+              borderColor: Colors.black,
+              borderStrokeWidth: 1.0,
+            ),
+          ]),
       ],
     );
   }
