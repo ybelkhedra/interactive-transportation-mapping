@@ -17,7 +17,7 @@ function afficherPopupFreeFloating(e) {
     }
     var vehicules_autorises = "Vehicules autorisés : " + vehicules.join(" - ");
     var popup = nom + "<br>" + infos + "<br>" + vehicules_autorises;
-    return popup;afficherPopupFreeFloating
+    return popup;
 }
 
 function updateBddStationsFreeFloating() { //a renommer en updateBddPointsCharges
