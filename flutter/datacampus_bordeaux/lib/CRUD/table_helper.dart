@@ -9,8 +9,7 @@ final Map tableHelper = {
     'nom': createMap('Parkings', 'String'),
     'nb_places_max': createMap('Nombre de places max', 'int'),
     'payant': createMap('Payant', 'bool'),
-    'nb_places_disponibles':
-        createMap('Nombre de places disponibles', 'int', isSetable: false),
+    'nb_places_disponibles': createMap('Nombre de places disponibles', 'int'),
     'nb_places_handicapes': createMap('Nombre de places handicapés', 'int'),
     'hors_voirie': createMap('Hors voirie', 'bool'),
     'prive': createMap('Privé', 'bool'),

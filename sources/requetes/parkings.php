@@ -9,7 +9,7 @@ $db = new mysqli("localhost", "root", "@Password0", "campus");
 
 if ($result = $db->query("
 SELECT DISTINCT parkings.id, parkings.nom, parkings.nb_places_max, parkings.payant, parkings.nb_places_handicapes, parkings.hors_voirie, parkings.prive, parkings.informations_complementaires
-FROM parkings INNER JOIN situer_parkings ON parkings.id = situer_parkings.parking INNER JOIN coordonnees_parkings ON situer_parkings.coordonnee = coordonnees_parkings.id
+FROM parkings 
 ;
 ")) {
     // si la requete a réussi, on va parcourir les résultats
