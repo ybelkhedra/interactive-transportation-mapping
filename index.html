@@ -60,6 +60,7 @@
             <script src="sources/map/BDD/lignes_cars_bdd.js"></script>
             <script src="sources/map/BDD/pistes_cyclables_bdd.js"></script>
             <script src="sources/map/BDD/points_stationnement_velo_bdd.js"></script>
+            <script src="sources/map/BDD/station_freefloating_bdd.js"></script>
             <script src="sources/map/BDD/arrets_cars.js"></script>
             <script src="sources/map.js"></script>
             <script src="sources/mapHelper.js"></script>
@@ -162,9 +163,12 @@
                                 chargement(1).then(function() {
                                     if (freefloatingCheckbox===true) { 
                                         layerControlNumber.overlays["Points de freefloating"].remove();
+                                        layerControlNumber.overlays["Points de freefloating bdd"].remove();
+
                                         freefloatingCheckbox=false;}
                                     else if (freefloatingCheckbox===false) {
                                         layerControlNumber.overlays["Points de freefloating"].addTo(mapNumber);
+                                        layerControlNumber.overlays["Points de freefloating bdd"].addTo(mapNumber);
                                         freefloatingCheckbox=true;
                                     }
                                     return chargement(0);

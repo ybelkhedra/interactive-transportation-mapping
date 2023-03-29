@@ -20,16 +20,18 @@ function afficherPopupFreeFloatingAPI(e) {
     return popup;
 }
 
-try {
+
+
+//try {
     // récupération des données de position de bus et de tram en utilisant l'URL du WebService GeoJSON
     
-    $.ajax({
-        url: "https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=st_freefloating_p",
-        dataType: "json",
-        cache: false,
-        success: function(data) 
+$.ajax({
+    url: "https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=st_freefloating_p",
+    dataType: "json",
+    cache: false,
+    success: function(data) 
+    {
         {
-            {
                 // suppression des marqueurs existants de la carte
                 feature_group_freefloating.eachLayer(function (layer) {
                 if (layer instanceof L.Marker) {
@@ -38,60 +40,20 @@ try {
             });
             // ajout de ligne de traffic chargé ou fluide
             $.each(data.features, function(key, val) {
-            // Récupération des valeurs de latitude et longitude
-            var latitude = parseFloat(val.geometry.coordinates[1]);
-            var longitude = parseFloat(val.geometry.coordinates[0]);
-            if (isNaN(latitude) || isNaN(longitude) || !filtreCordonnees(latitude, longitude)) {
-                return;
-            }
-            // Ajout d'un marker sur la carte
-            L.marker([latitude, longitude], {icon: freefloatingIcon}).bindPopup(afficherPopupFreeFloatingAPI(val)).addTo(feature_group_freefloating);
+                // Récupération des valeurs de latitude et longitude
+                var latitude = parseFloat(val.geometry.coordinates[1]);
+                var longitude = parseFloat(val.geometry.coordinates[0]);
+                if (isNaN(latitude) || isNaN(longitude) || !filtreCordonnees(latitude, longitude)) {
+                    return;
+                }
+                // Ajout d'un marker sur la carte
+                L.marker([latitude, longitude], {icon: freefloatingIcon}).bindPopup(afficherPopupFreeFloatingAPI(val)).addTo(feature_group_freefloating);
             });
         }
     }
-    });
-}   
-catch (e) {
-    console.log(e);
-}
+});
+//}   
+//catch (e) {
+//    console.log(e);
+//}
 
-
-function afficherPopupFreeFloating(e) {
-    var nom = "Nom : " + e.nom;
-    var infos = "Informations : "+ e.info_complementaires;
-    var vehicules = [];
-    for (var i = 0; i < e.vehicules_freefloating.length; i++) {
-        vehicules.push(e.vehicules_freefloating[i]);
-    }
-    var vehicules = "Vehicules autorisés : " + vehicules.join(" - ");
-    var popup = nom + "<br>" + infos + "<br>" + vehicules;
-    return popup;
-}
-
-function updateBddStationsFreeFloating() { //a renommer en updateBddPointsCharges
-    // suppression des marqueurs existants de la carte
-    feature_group_freefloating.eachLayer(function (layer) {
-        if (layer instanceof L.Marker) {
-            feature_group_freefloating.removeLayer(layer);
-        }
-        });
-
-    //récupération des données de la bdd
-    fetch('./sources/requetes/stations_freefloating.php')
-    .then(response => response.json())
-    .then(data => {
-        data.forEach(function(freefloat) {
-            console.log(freefloat.coordonnees[0].latitude)
- 
-            
-            var marker = L.marker([freefloat.coordonnees[0].latitude, freefloat.coordonnees[0].longitude]).addTo(feature_group_freefloating); // création du marqueur
-            marker.bindPopup(afficherPopupFreeFloating(freefloat)); // ajout du popup
-            //marker.setStyle({color: 'yellow'}); // on definie la couleur du marker
-
-        });
-        
-    })
-    .catch(error => console.error(error));
-}
-
-updateBddStationsFreeFloating();
