@@ -2,6 +2,7 @@ import 'package:datacampus_bordeaux/CRUD/viewTable.dart';
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
 import 'CRUD/table_helper.dart';
+import 'main.dart';
 
 class CrudSelectTable extends StatefulWidget {
   const CrudSelectTable({Key? key}) : super(key: key);
