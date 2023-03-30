@@ -49,7 +49,7 @@ function updateBddParkings(){
                 }
                 );
                 var polygon = L.polygon(latlngs).addTo(feature_group_parkings); // création du polygone
-                polygon.setStyle({color: 'pink'}); // changement de la couleur du polygone
+                polygon.setStyle({color: 'blue'}); // changement de la couleur du polygone
                 polygon.bindPopup(afficherPopupParkings(parking)); // ajout du popup
             }
         });

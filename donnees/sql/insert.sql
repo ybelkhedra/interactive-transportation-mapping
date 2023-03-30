@@ -1,6 +1,16 @@
 INSERT INTO parkings (nom, nb_places_max, nb_places_disponibles, payant, nb_places_handicapes, hors_voirie, prive, informations_complementaires) VALUES ('Parking 1', 100, 50, 0, 10, 0, 0, 'Parking 1');
+INSERT INTO coordonnees_parkings (latitude, longitude) VALUES (44.8171, -0.6152219);
+INSERT INTO situer_parkings (parking, coordonnee) VALUES (1, 1);
+
+INSERT INTO parkings (nom, nb_places_max, nb_places_disponibles, payant, nb_places_handicapes, hors_voirie, prive, informations_complementaires) VALUES ('Parking 2', 100, 50, 0, 10, 0, 0, 'Parking 1');
 INSERT INTO coordonnees_parkings (latitude, longitude) VALUES (44.8181, -0.6152219);
-INSERT INTO situer_parkings (id, parking, coordonnee) VALUES (1, 1, 1);
+INSERT INTO coordonnees_parkings (latitude, longitude) VALUES (44.8191, -0.6152219);
+INSERT INTO coordonnees_parkings (latitude, longitude) VALUES (44.8191, -0.6162219);
+
+INSERT INTO situer_parkings (parking, coordonnee) VALUES (2, 2);
+INSERT INTO situer_parkings (parking, coordonnee) VALUES (2, 3);
+INSERT INTO situer_parkings (parking, coordonnee) VALUES (2, 4);
+
 
 INSERT INTO pts_recharge (nom, parking_correspondant, info_complementaires) VALUES ('Point de recharge 1', 1, 'Info complémentaire 1');
 INSERT INTO coordonnees_pts_recharge (id, latitude, longitude) VALUES (1, 44.8181, -0.6152219);
@@ -93,6 +103,7 @@ INSERT INTO situer_arrets (arret, coordonnee) VALUES (2, 2);
 
 
 INSERT INTO types_lignes (nom) VALUES ('Tramway');
+
 INSERT INTO lignes (nom, direction, type, info_complementaires) VALUES ('Ligne A', 1, 1, 'nil');
 INSERT INTO lignes (nom, direction, type, info_complementaires) VALUES ('Ligne B', 1, 1, 'nil');
 INSERT INTO lignes (nom, direction, type, info_complementaires) VALUES ('Ligne C', 1, 1, 'nil');
@@ -110,8 +121,23 @@ INSERT INTO situer_lignes (ligne, coordonnee) VALUES (2, 4);
 INSERT INTO situer_lignes (ligne, coordonnee) VALUES (2, 5);
 INSERT INTO situer_lignes (ligne, coordonnee) VALUES (3, 6);
 
+
 INSERT INTO desservir (arret, ligne, heure_premier_passage, heure_dernier_passage, heure_prochain_passage, frequence, diurne, nocturne)
 VALUES (1, 1, CURRENT_TIME, CURRENT_TIME, CURRENT_TIME, CURRENT_TIME, 1, 0);
+
+INSERT INTO types_lignes (nom) VALUES ('Liane');
+INSERT INTO lignes (nom, direction, type, info_complementaires) VALUES ('Liane 9', 1, 2, 'nil');
+INSERT INTO coordonnees_lignes (latitude, longitude) VALUES (44.808806, -0.593735);
+INSERT INTO coordonnees_lignes (latitude, longitude) VALUES (44.80992, -0.595816);
+INSERT INTO coordonnees_lignes (latitude, longitude) VALUES (44.801328, -0.600099);
+INSERT INTO situer_lignes (ligne, coordonnee) VALUES (4, 8);
+INSERT INTO situer_lignes (ligne, coordonnee) VALUES (4, 9);
+INSERT INTO situer_lignes (ligne, coordonnee) VALUES (4, 10);
+
+INSERT INTO desservir (arret, ligne, heure_premier_passage, heure_dernier_passage, heure_prochain_passage, frequence, diurne, nocturne)
+VALUES (1, 4, CURRENT_TIME, CURRENT_TIME, CURRENT_TIME, CURRENT_TIME, 1, 0);
+
+
 
 INSERT INTO gares_ter (nom, info_complementaires) VALUES ('Gare de Pessac', 'nil');
 INSERT INTO coordonnees_gares_ter (latitude, longitude) VALUES (44.805251, -0.6075868);
