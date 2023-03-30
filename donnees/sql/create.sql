@@ -523,7 +523,7 @@ coordonnee INT NOT NULL);
 CREATE TABLE arrets (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 nom TEXT NOT NULL,
-vehicule TEXT,
+vehicule TEXT NOT NULL,
 station_vcube_proximite INT,
 info_complementaires TEXT);
 

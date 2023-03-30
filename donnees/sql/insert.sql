@@ -93,12 +93,12 @@ INSERT INTO coordonnees_stations_vcube (latitude, longitude) VALUES (44.91815, -
 INSERT INTO situer_stations_vcube (station_vcube, coordonnee) VALUES (2, 2);
 
 
-INSERT INTO arrets (nom, info_complementaires, station_vcube_proximite) VALUES ('Arts et Metiers', 'nil', 1);
+INSERT INTO arrets (nom, vehicule, info_complementaires, station_vcube_proximite) VALUES ('Arts et Metiers', 'Tramway', 'nil', 1);
 INSERT INTO coordonnees_arrets (latitude, longitude) VALUES (44.81814, -0.615221);
 INSERT INTO situer_arrets (arret, coordonnee) VALUES (1, 1);
 
-INSERT INTO arrets (nom, info_complementaires, station_vcube_proximite) VALUES ('Bethanie', 'nil', 1);
-INSERT INTO coordonnees_arrets (latitude, longitude) VALUES (45.81814, -0.625221);
+INSERT INTO arrets (nom, vehicule, info_complementaires, station_vcube_proximite) VALUES ('Bethanie', 'Bus', 'nil', 1);
+INSERT INTO coordonnees_arrets (latitude, longitude) VALUES (44.81814, -0.613221);
 INSERT INTO situer_arrets (arret, coordonnee) VALUES (2, 2);
 
 
