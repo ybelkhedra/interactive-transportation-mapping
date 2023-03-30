@@ -1,11 +1,17 @@
+import 'package:datacampus_bordeaux/warning.dart';
 import 'package:datacampus_bordeaux/crud_select_table.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
 import 'CRUD/parkings.dart';
 import 'home.dart';
 import 'CRUD/table_helper.dart';
+import 'login_admin.dart';
+import 'warning.dart';
+
+import 'global.dart' as globals;
 
 void main() async {
+  globals.isLoggedIn = false;
   runApp(MaterialApp(
     routes: {
       '/': (context) => const menu(),
@@ -30,6 +36,9 @@ class MyApp extends StatelessWidget {
 
 class menu extends StatefulWidget {
   const menu({Key? key}) : super(key: key);
+
+  //variable globale pour toute la session qui dit si l'utilisateur est connecté ou pas
+  static bool connected = false;
 
   @override
   _menuState createState() => _menuState();
@@ -85,10 +94,24 @@ class _menuState extends State<menu> {
                       icon: const Icon(Icons.table_chart, color: Colors.white),
                       onPressed: () {
                         setState(() {
-                          currentPageIndex = 2;
+                          if (globals.isLoggedIn == true) {
+                            currentPageIndex = 2;
+                          } else {
+                            currentPageIndex = 4;
+                          }
+                          // currentPageIndex = 2;
                         });
                       },
                     ),
+                    // const SizedBox(height: 20),
+                    // IconButton(
+                    //   icon: const Icon(Icons.login, color: Colors.white),
+                    //   onPressed: () {
+                    //     setState(() {
+                    //       currentPageIndex = 3;
+                    //     });
+                    //   },
+                    // ),
                     const SizedBox(height: 20),
                     IconButton(
                       icon: const Icon(Icons.login, color: Colors.white),
@@ -107,13 +130,15 @@ class _menuState extends State<menu> {
         Expanded(
           child: IndexedStack(
             index: currentPageIndex,
-            children: const [
+            children: [
               Center(
                 child: home(),
               ),
               Parkings(),
               CrudSelectTable(),
-              LoginView(),
+              //LoginView(),
+              LoginPage(),
+              warning()
             ],
           ),
         ),
