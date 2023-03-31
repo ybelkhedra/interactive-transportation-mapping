@@ -15,6 +15,22 @@ var feature_group_arrets_tram = L.featureGroup(
 
 );//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
+
+var bus_station_Icon = L.icon({
+    iconUrl: './sources/icons/bus_station.png',
+
+    iconSize:     [17, 17], // size of the icon
+});
+
+var tram_station_Icon = L.icon({
+    iconUrl: './sources/icons/tram_station.png',
+
+    iconSize:     [17, 17], // size of the icon
+
+});
+
+
+
 function afficherHorairesArret(id)
 {
     var e;
@@ -83,11 +99,11 @@ fetch('./sources/requetes/arrets_api.php')
             }
             if (arret.vehicule == "BUS")
             {
-                L.marker([latitude,longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'grey'})}).bindPopup(afficherPopupArret(arret)).addTo(feature_group_arrets_bus);
+                L.marker([latitude,longitude],{icon: bus_station_Icon}, {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'grey'})}).bindPopup(afficherPopupArret(arret)).addTo(feature_group_arrets_bus);
             }
             else if (arret.vehicule == "TRAM")
             {
-                L.marker([latitude,longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'black'})}).bindPopup(afficherPopupArret(arret)).addTo(feature_group_arrets_tram);
+                L.marker([latitude,longitude],{icon: tram_station_Icon}, {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'black'})}).bindPopup(afficherPopupArret(arret)).addTo(feature_group_arrets_tram);
             }
         }
     )}

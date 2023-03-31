@@ -24,7 +24,7 @@ function updateBddArretsBus() {
         data.forEach(function(arret) { // pour chaque arret
     
             if (arret.vehicule != "Tramway") {
-                var marker = L.marker([arret.latitude, arret.longitude]).addTo(feature_group_arrets_bus); // création du marqueur
+                var marker = L.marker([arret.latitude, arret.longitude], {icon : bus_station_Icon}).addTo(feature_group_arrets_bus); // création du marqueur
                 marker.bindPopup(afficherPopupArretsBus(arret)); // ajout du popup
             }
         });

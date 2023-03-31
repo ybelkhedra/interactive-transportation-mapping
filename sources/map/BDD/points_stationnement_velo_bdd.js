@@ -37,7 +37,7 @@ function updateBddStatsVelos(){
     .then(data => {
         data.forEach(function(station) { // pour chaque station
 
-            var marker = L.marker([station.latitude, station.longitude]).addTo(feature_group_pts_stationnement_velo_bdd); // création du marqueur
+            var marker = L.marker([station.latitude, station.longitude], {icon: vcub_Icon}).addTo(feature_group_pts_stationnement_velo_bdd); // création du marqueur
             marker.bindPopup(afficherPopupStatsVelos(station)); // ajout du popup
 
 

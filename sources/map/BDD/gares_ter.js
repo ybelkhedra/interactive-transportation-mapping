@@ -12,6 +12,12 @@ function afficherPopupGares(gare)
     return popup;
 }
 
+var gare_Icon = L.icon({
+    iconUrl: './sources/icons/train_station.png',
+
+    iconSize:     [17, 17], // size of the icon
+});
+
 
 function updateBddGares(){
     // suppression des marqueurs existants de la carte
@@ -42,7 +48,7 @@ function updateBddGares(){
             //     polygon.bindPopup(afficherPopupGares(gare)); // ajout du popup
             // }
             
-            var marker = L.marker([gare.latitude, gare.longitude]).addTo(feature_group_gares_ter_bdd); // création du marqueur
+            var marker = L.marker([gare.latitude, gare.longitude], {icon: gare_Icon}).addTo(feature_group_gares_ter_bdd); // création du marqueur
             marker.bindPopup(afficherPopupGares(gare)); // ajout du popup
             //marker.setStyle({color: 'yellow'}); // on definie la couleur du marker
 

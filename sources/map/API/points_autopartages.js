@@ -5,6 +5,14 @@ var feature_group_autopartages = L.featureGroup(
 );//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
 
+var autopartage_Icon = L.icon({
+    iconUrl: './sources/icons/autopartage.png',
+
+    iconSize:     [17, 17], // size of the icon
+});
+
+
+
 function afficherInfosautoPartage() {
     autoPartage = autoPartage_GLOBAL_COURANT;
     console.log(autoPartage);
@@ -75,7 +83,7 @@ $.ajax({
                     return;
                 }
                 // Ajout d'un marker sur la carte
-                L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'orange'})}).bindPopup(addPopupautoPartage(val)).addTo(feature_group_autopartages);
+                L.marker([latitude, longitude], {icon: autopartage_Icon}).bindPopup(addPopupautoPartage(val)).addTo(feature_group_autopartages);
             });
         }
     });

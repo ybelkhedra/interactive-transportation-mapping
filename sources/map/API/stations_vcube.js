@@ -4,6 +4,11 @@ var feature_group_vcube = L.featureGroup(
 
 );//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
+var vcub_Icon = L.icon({
+    iconUrl: './sources/icons/velo_parking.png',
+
+    iconSize:     [17, 17], // size of the icon
+});
 
 
 
@@ -40,7 +45,7 @@ function updatevcube() {
                     return;
                 }
                 // Ajout d'un marker sur la carte
-                L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'blue'})}).bindPopup(addPopupvcube(val)).addTo(feature_group_vcube);
+                L.marker([latitude, longitude], {icon: vcub_Icon}).bindPopup(addPopupvcube(val)).addTo(feature_group_vcube);
             });
         }
     });

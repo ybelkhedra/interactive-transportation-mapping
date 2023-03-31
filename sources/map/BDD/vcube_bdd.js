@@ -52,7 +52,7 @@ function updateBddVcub() {
     .then(data => {
         data.forEach(function(station) { // pour chaque station
             console.log("une station vcub");
-            var marker = L.marker([station.latitude, station.longitude]).addTo(feature_group_vcube); // création du marqueur
+            var marker = L.marker([station.latitude, station.longitude], {icon: vcub_Icon}).addTo(feature_group_vcube); // création du marqueur
             marker.bindPopup(afficherPopupVcub(station)); // ajout du popup
 
         });
