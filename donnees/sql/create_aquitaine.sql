@@ -93,5 +93,3 @@ ALTER TABLE trips ADD CONSTRAINT trips_service_id_calendar_service_id FOREIGN KE
 -- ALTER TABLE trips ADD CONSTRAINT trips_shape_id_shapes_shape_id FOREIGN KEY (shape_id) REFERENCES shapes(shape_id);
 ALTER TABLE routes ADD CONSTRAINT routes_agency_id_agency_agency_id FOREIGN KEY (agency_id) REFERENCES agency(agency_id);
 ALTER TABLE calendar_dates ADD CONSTRAINT calendar_dates_service_id_calendar_service_id FOREIGN KEY (service_id) REFERENCES calendar(service_id);
-
-
