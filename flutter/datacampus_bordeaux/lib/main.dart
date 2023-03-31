@@ -7,6 +7,7 @@ import 'home.dart';
 import 'CRUD/table_helper.dart';
 import 'login_admin.dart';
 import 'warning.dart';
+import 'add_tables.dart';
 
 import 'global.dart' as globals;
 
@@ -121,6 +122,20 @@ class _menuState extends State<menu> {
                         });
                       },
                     ),
+
+                    const SizedBox(height: 20),
+                    IconButton(
+                      icon: const Icon(Icons.plus_one, color: Colors.white),
+                      onPressed: () {
+                        setState(() {
+                          if (globals.isLoggedIn == true) {
+                            currentPageIndex = 5;
+                          } else {
+                            currentPageIndex = 4;
+                          }
+                        });
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -138,7 +153,8 @@ class _menuState extends State<menu> {
               CrudSelectTable(),
               //LoginView(),
               LoginPage(),
-              warning()
+              warning(),
+              AddTables(),
             ],
           ),
         ),
