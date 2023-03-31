@@ -73,7 +73,7 @@ final Map tableHelper = {
     'nb_places': createMap('Nombre de places', 'int'),
     'securise': createMap('Sécurisée', 'bool'),
     'abrite': createMap('Abritée', 'bool'),
-    'type_accroche': createMap('Type d\'accroche', 'List',
+    'type_accroche': createMap('Types d\'accroche', 'List',
         isForeignKey: true, table: "types_accroches_velo"),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
     'latitude': createMap('Latitude', 'float'),
@@ -108,7 +108,7 @@ final Map tableHelper = {
     'nom_jolie': 'Lignes de cars',
     'script': 'lignes_cars',
     'id': createMap('id', 'int'),
-    'numero': createMap('Nom', 'int'),
+    'numero': createMap('Numéro', 'int'),
     'depart':
         createMap('Départ', 'int', isForeignKey: true, table: "arrets_cars"),
     'arret_cars_depart': createMap('Arrêts de départ', 'List',
@@ -170,8 +170,7 @@ final Map tableHelper = {
     'id': createMap('id', 'int'),
     'nom': createMap('Nom de la station vcube', 'String'),
     'nb_velos_max': createMap('Nombre de vélos max', 'int'),
-    'nb_velos_dispo':
-        createMap('Nombre de vélos disponibles', 'int', isSetable: false),
+    'nb_velos_dispo': createMap('Nombre de vélos disponibles', 'int'),
     'velos_electriques': createMap('Vélos électriques', 'bool'),
     'vcube_plus': createMap('Vcube plus', 'bool'),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
@@ -204,7 +203,8 @@ final Map tableHelper = {
         createMap('Direction', 'int', isForeignKey: true, table: "arrets"),
     'info_complementaires': createMap('Informations complémentaires', 'String'),
     'coordonnees': createMap('Coordonnées', 'List'),
-    'type': createMap('Type', 'String'),
+    'type':
+        createMap('Type', 'String', isForeignKey: true, table: "types_lignes"),
     'icon': Icons.directions_bus,
   },
   'types_lignes': {
