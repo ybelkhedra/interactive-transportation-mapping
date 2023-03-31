@@ -7,7 +7,7 @@ import 'home.dart';
 import 'CRUD/table_helper.dart';
 import 'login_admin.dart';
 import 'warning.dart';
-import 'add_tables.dart';
+import 'export_tables.dart';
 
 import 'global.dart' as globals;
 
@@ -154,7 +154,7 @@ class _menuState extends State<menu> {
               //LoginView(),
               LoginPage(),
               warning(),
-              AddTables(),
+              ExportTable(),
             ],
           ),
         ),

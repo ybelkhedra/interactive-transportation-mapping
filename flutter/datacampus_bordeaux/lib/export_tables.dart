@@ -1,23 +1,29 @@
 // Page qui permet à l'utilisateur d'ajouter des tables à la base de données du site web
 
 import 'package:flutter/material.dart';
+import 'CRUD/table_helper.dart';
 
-class AddTables extends StatefulWidget {
-  const AddTables({Key? key}) : super(key: key);
+import 'dart:js';
+
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+
+class ExportTable extends StatefulWidget {
+  const ExportTable({Key? key}) : super(key: key);
 
   @override
-  _AddTablesState createState() => _AddTablesState();
+  _ExportTableState createState() => _ExportTableState();
 }
 
-class _AddTablesState extends State<AddTables> {
+class _ExportTableState extends State<ExportTable> {
   int _currentStep = 0;
-  int _nbAttributs = 0;
-  late String nomTable, nomLegende;
-  late List<String> attributs;
+  late String nomTable = "";
+  late String format = "";
 
-  var _nomTable = TextEditingController();
-  var _nomLegend = TextEditingController();
-  var _attributs = TextEditingController();
+  // TODO : fonction qui appelle le script php datacampus-bordeaux.fr/sources/requetes/API_flutter/export_table.php avec les paramètres suivants : nom de la table, format, et qui permet de telecharger les donnees en format CSV ou Json
 
   @override
   Widget build(BuildContext context) {
@@ -25,42 +31,38 @@ class _AddTablesState extends State<AddTables> {
       steps: [
         Step(
           isActive: _currentStep == 0,
-          title: const Text('Nom de la table'),
-          content: const TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Nom de la table',
-            ),
-          ),
+          title: const Text('Choisir une table'),
+          content: // menu déroulant pour selectionner la table. La liste des tables est dans table_helper le tableau tableHelper avec le champ nom_jolie
+              Text("Choisir une table"),
         ),
         Step(
           isActive: _currentStep == 1,
-          title: const Text('Ajout des attributs'),
-          content: // un textentry pour entrer un nom d'attribut mais avec un bouton + et - pour ajouter ou supprimer des attributs
+          title: const Text("Selection du format d'exportation"),
+          content: // liste déroulante avec les 2 champs : GeoJson ou CSV
               Column(
             children: [
               Row(
                 children: [
-                  const TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Nom de l\'attribut',
-                    ),
+                  const Text('Format d\'exportation'),
+                  const SizedBox(
+                    width: 10,
                   ),
                 ],
               ),
             ],
           ),
-          // ajouter un bouton + pour ajouter un attribut et un bouton - pour supprimer un attribut (si il y en a plus d'un)
         ),
         Step(
           isActive: _currentStep == 2,
-          title: const Text('Nom de la legende sur la carte'),
-          content: const TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Nom de la legende sur la carte',
-            ),
+          title: const Text('Telecharment du fichier'),
+          content: // bouton qui permet de télécharger le fichier
+              Column(
+            children: [
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text('Télécharger le fichier'),
+              ),
+            ],
           ),
         ),
       ],
