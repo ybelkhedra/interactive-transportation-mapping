@@ -1,8 +1,8 @@
 <?php 
-  $db = "campus"; //database name
-  $dbuser = "root"; //database username
-  $dbpassword = "@Password0"; //database password
-  $dbhost = "localhost"; //database host
+  $db = "campus"; 
+  $dbuser = "root";
+  $dbpassword = "@Password0";
+  $dbhost = "localhost";
 
   $return["error"] = false;
   $return["message"] = "";
@@ -13,7 +13,6 @@
   if(isset($_GET["username"]) && isset($_GET["password"])){
 
     if ($_GET["register"] == "false"){
-       //checking if there is POST data
 
        $username = $_GET["username"];
        $password = $_GET["password"];
@@ -22,17 +21,13 @@
 
 
        $username = mysqli_real_escape_string($link, $username);
-       //escape inverted comma query conflict from string
+       //évidement du conflit de requête entre virgules inversées dans la chaîne de caractères
 
        $sql = "SELECT * FROM user_list WHERE username = '$username'";
-       //building SQL query
        $res = mysqli_query($link, $sql);
        $numrows = mysqli_num_rows($res);
-       //check if there is any row
        if($numrows > 0){
-           //is there is any data with that username
            $obj = mysqli_fetch_object($res);
-           //get row as object
            if(md5($password) == $obj->password){
                $return["success"] = true;
                $return["uid"] = $obj->user_id;
@@ -40,11 +35,11 @@
                $return["address"] = $obj->address;
            }else{
                $return["error"] = true;
-               $return["message"] = "Your Password is Incorrect.";
+               $return["message"] = "Mot de passe incorrect.";
            }
        }else{
            $return["error"] = true;
-           $return["message"] = 'No username found.';
+           $return["message"] = 'Login incorrect.';
        }
     }else{
         $username = $_GET["username"];
@@ -52,28 +47,25 @@
         $return["proposed_username"] = $username;
         $return["proposed_password"] = $password;
 
-        // insert new user with md5($password)
         $password = md5($password);
         $sql = "INSERT INTO user_list (username, password, fullname, email) VALUES ('$username', '$password', 'admin', 'admin@test.com')";
         $res = mysqli_query($link, $sql);
         if($res){
             $return["success"] = true;
-            $return["message"] = "User created successfully.";
+            $return["message"] = "Utilisateur créé avec succes.";
         }else{
             $erreur = mysqli_error($link);
             $return["error"] = true;
-            $return["message"] = "Error creating user.". $erreur;
+            $return["message"] = "Erreur creation de l'utilisateur.". $erreur;
         }
     }
   }else{
       $return["error"] = true;
-      $return["message"] = 'Send all parameters.';
+      $return["message"] = 'Parametre(s) manquant(s).';
   }
 
   mysqli_close($link);
 
-  header('Content-Type: application/json');
-  // tell browser that its a json data
+  header('Content-Type: application/json'); // On indique que le contenu est du JSON au navigateur
   echo json_encode($return);
-  //converting array to JSON string
 ?>
