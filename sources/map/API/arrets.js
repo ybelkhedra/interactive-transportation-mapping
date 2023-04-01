@@ -30,41 +30,66 @@ var tram_station_Icon = L.icon({
 });
 
 
+function difference_entre_deux_horaires(horaire1, horaire2)
+{
+    // horaire1 et horaire2 sont des strings de la forme "2023-04-05T11:00:00"
+    // renvoie la difference en minutes entre les deux horaires
+    var date1 = new Date(horaire1);
+    var date2 = new Date(horaire2);
+    var diff = Math.abs(date1 - date2);
+    return Math.ceil(diff / (1000 * 60));
+}
+
+
 
 function afficherHorairesArret(id)
 {
-    var e;
-    DATA_global.forEach(function(arret) {
-        if (arret.id == id) {
-            e = arret;
-        }
-    });
+    var ident = "";
+    fetch('./sources/requetes/convert_id_ident_arret.php?gid='+id)
+        .then(response => response.json())
+        .then(data => {
+            ident = data;
+            console.log("ident : "+ident);
+
+        console.log("ident2 : "+ident);
+        texte = "<h3>Prochains passages</h3>";
+        url_prochains_passages = "https://data.bordeaux-metropole.fr/geojson/process/saeiv_arret_passages?key=177BEEMTWZ&datainputs={%22arret_id%22:\""+ident+"\"}&attributes=[%22libelle%22,%22hor_app%22,%22hor_estime%22,%22terminus%22,%22vehicule%22]"
+        console.log("url_prochains_passages : "+url_prochains_passages);
+        $.ajax({
+            url: url_prochains_passages,
+            dataType: "json",
+            cache: false,
+            success: function(data) {
+
+                // type de retour : {"type":"FeatureCollection","features":[{"type":"Feature","geometry":null,"properties":{"libelle":"Lianes 10","hor_app":"2023-04-05T11:00:00","hor_estime":"2023-04-05T11:00:00","terminus":"Beausoleil","vehicule":"BUS"}},{"type":"Feature","geometry":null,"properties":{"libelle":"Lianes 16","hor_app":"2023-04-05T11:02:00","hor_estime":"2023-04-05T11:03:26","terminus":"Les Pins","vehicule":"BUS"}},{"type":"Feature","geometry":null,"properties":{"libelle":"Lianes 10","hor_app":"2023-04-05T11:11:00","hor_estime":"2023-04-05T11:11:00","terminus":"Beausoleil","vehicule":"BUS"}},{"type":"Feature","geometry":null,"properties":{"libelle":"Lianes 16","hor_app":"2023-04-05T11:12:00","hor_estime":"2023-04-05T11:14:40","terminus":"Les Pins","vehicule":"BUS"}},{"type":"Feature","geometry":null,"properties":{"libelle":"Lianes 16","hor_app":"2023-04-05T11:22:00","hor_estime":"2023-04-05T11:21:28","terminus":"Les Pins","vehicule":"BUS"}},{"type":"Feature","geometry":null,"properties":{"libelle":"Lianes 10","hor_app":"2023-04-05T11:22:00","hor_estime":"2023-04-05T11:22:00","terminus":"Beausoleil","vehicule":"BUS"}}]}
+                //horaire_actuel et horaire_hor_estime sont des strings de la forme "2023-04-05T11:00:00"
+                
+                //recuperer l'horaire actuel fuseau de paris
+                var horaire_actuel = new Date().toLocaleString("fr-FR", {timeZone: "Europe/Paris"});
+                var horaire_hor_estime = new Date(data.features[0].properties.hor_estime);
+                console.log("horaire_actuel : "+horaire_actuel);
+                console.log("horaire_hor_estime : "+horaire_hor_estime);
+                var diff = difference_entre_deux_horaires(horaire_actuel, horaire_hor_estime);
+
+                texte += "<table>";
+                for (var i = 0; i < data.features.length; i++) {
+                    texte += "<tr><td>"+data.features[i].properties.libelle+"</td><td>"+data.features[i].properties.hor_estime+"</td><td> Estimé dans : "+diff+" Min</td><td>"+data.features[i].properties.terminus+"</td><td>"+data.features[i].properties.vehicule+"</td></tr>";
+                }
+
+            }
+        });
 
 
 
-    console.log("e : "+e);
-    arret_gid = e.id;
-    for (var i = 0; i < e.lignes.length; i++) {
-        var ligne = e.lignes[i].nomCommercial;
-        var destination = e.lignes[i].destination;
-        var texte = "Horaires de passage de la ligne " + ligne + " en direction de " + destination + " : <br>";
-        for (var j = 0; j < e.lignes[i].liste_id_lignes.length; j++) {
-            console.log('./sources/requetes/horaires_api.php?arret_gid='+arret_gid+'&ligne_id='+e.lignes[i].liste_id_lignes[j]);
-            fetch('./sources/requetes/horaires.php?arret_gid='+arret_gid+'&ligne_id='+e.lignes[i].liste_id_lignes[j])
-                .then(response => response.json())
-                .then(data => {
-                    data.forEach(function(horaire) {
-                        texte += horaire.horaire_apparent + "<br>";
-                    }
-                )}
-            );
+
+
+        //modfier le popup de l'arret et ajouter texte à la fin var elements = document.getElementsByClassName(names);
+        var elements = document.getElementsByClassName("popup_arret");
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].innerHTML += texte;
         }
     }
-    //modfier le popup de l'arret et ajouter texte à la fin var elements = document.getElementsByClassName(names);
-    var elements = document.getElementsByClassName("popup_arret");
-    for (var i = 0; i < elements.length; i++) {
-        elements[i].innerHTML += texte;
-    }
+    );
 
 }
 

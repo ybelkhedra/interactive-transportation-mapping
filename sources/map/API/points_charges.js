@@ -12,7 +12,6 @@ var pdcIcon = L.icon({
 
 function afficherInfospdc() {
     pdc = pdc_GLOBAL_COURANT;
-    console.log(pdc);
     //recuperer l'elemetn class btn btn-primary
     var btn = document.getElementsByClassName('btn btn-primary');
     var popup = "<div class=popupInfoDetaillee>";

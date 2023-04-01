@@ -30,7 +30,6 @@ function convertion_int_to_color(id)
 }
 
 function updateBddLignesCar(){
-    console.log("updateBddLignesCar");
     // suppression des marqueurs existants de la carte
     feature_group_lignes_car_bdd.eachLayer(function (layer) {
         if (layer instanceof L.Marker) {
@@ -42,7 +41,6 @@ function updateBddLignesCar(){
     .then(response => response.json())
     .then(data => {
         data.forEach(function(ligne) { // pour chaque ligne
-            console.log(ligne.id);
             if (ligne.ligne_car.length > 1) { // si le ligne a plusieurs coordonnées
                 var latlngs = []; // création d'un tableau vide 
                 ligne.ligne_car.forEach(function(coordonnee) { // pour chaque coordonnée

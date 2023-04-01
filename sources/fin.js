@@ -3,7 +3,6 @@
 function affichage()
 {
 var nbTram = document.getElementsByClassName("nbTram");
-    console.log(nbTram);
     nbTram[0].innerHTML = "Nombre de Tram en temps reel sur le campus : " + nb_trams;
 
 var nbBus = document.getElementsByClassName("nbBus");

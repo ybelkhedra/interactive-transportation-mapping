@@ -81,11 +81,11 @@ function chemin_lignes_online()
                     }
                     if (val.properties.gid != NaN)
                     {
-                        console.log("gid : "+val.properties.gid)
+                        //console.log("gid : "+val.properties.gid)
                         fetch("./sources/requetes/convert_tronc_chemin.php?gid="+val.properties.gid)
                         .then(response => response.json())
                         .then(data => {
-                            console.log(data);
+                            //console.log(data);
                         });
                     }
 

@@ -12,7 +12,6 @@ var parkingIcon = L.icon({
 
 function afficherInfosParking() {
     parking = PARKING_GLOBAL_COURANT;
-    console.log(parking);
     //recuperer l'elemetn class btn btn-primary
     var btn = document.getElementsByClassName('btn btn-primary');
     var popup = "<div class=popupInfoDetaillee>";

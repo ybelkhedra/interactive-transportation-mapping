@@ -15,7 +15,6 @@ var autopartage_Icon = L.icon({
 
 function afficherInfosautoPartage() {
     autoPartage = autoPartage_GLOBAL_COURANT;
-    console.log(autoPartage);
     //recuperer l'elemetn class btn btn-primary
     var btn = document.getElementsByClassName('btn btn-primary');
     var popup = "<div class=popupInfoDetaillee>";
