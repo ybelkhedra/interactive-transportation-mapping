@@ -44,10 +44,15 @@ function chemin_lignes(){
                     //console.log(r+" ,"+g+","+ b);
                     val.geo_shape.geometry.coordinates = filtreCordonneesTab(val.geo_shape.geometry.coordinates);
                     if (val.vehicule == "BUS")
+                    {
+                        nb_lignes_bus++;
                         L.polyline( val.geo_shape.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.vehicule + "<br> nd : " + val.rg_sv_arret_p_nd + "<br> na : " + val.rg_sv_arret_p_na).addTo(feature_group_ligne_bus);
-                    else if (val.vehicule == "TRAM")
+                    }
+                        else if (val.vehicule == "TRAM")
+                    {
+                        nb_lignes_tram++;
                         L.polyline(val.geo_shape.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.vehicule + "<br> nd : " + val.rg_sv_arret_p_nd + "<br> na : " + val.rg_sv_arret_p_na).addTo(feature_group_ligne_tram);
-                        
+                    }
 
             });
             

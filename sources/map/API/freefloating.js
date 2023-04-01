@@ -5,7 +5,7 @@ var feature_group_freefloating = L.featureGroup(
 var freefloatingIcon = L.icon({
     iconUrl: './sources/icons/freefloating.png',
 
-    iconSize:     [17, 17], // size of the icon
+    iconSize:     [taille_icon, taille_icon], // size of the icon
 });
 
 function afficherPopupFreeFloatingAPI(e) {
@@ -47,6 +47,7 @@ $.ajax({
                     return;
                 }
                 // Ajout d'un marker sur la carte
+                pt_freefloating++;
                 L.marker([latitude, longitude], {icon: freefloatingIcon}).bindPopup(afficherPopupFreeFloatingAPI(val)).addTo(feature_group_freefloating);
             });
         }

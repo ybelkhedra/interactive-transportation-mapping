@@ -3,7 +3,7 @@
 var covoiturageIcon = L.icon({
     iconUrl: './sources/icons/covoiturage.png',
 
-    iconSize:     [17, 17], // size of the icon
+    iconSize:     [taille_icon, taille_icon], // size of the icon
 });
 
 function afficherPopupPointsDeCovoit(e) { 
@@ -29,7 +29,7 @@ function updateBddCovoiturage() {
     .then(response => response.json())
     .then(data => {
         data.forEach(function(pdcovoit) { // pour chaque pdcovoit
-    
+            pt_covoiturage++;
             var marker = L.marker([pdcovoit.latitude, pdcovoit.longitude],  {icon : covoiturageIcon}).addTo(feature_group_covoiturages); // création du marqueur
             marker.bindPopup(afficherPopupPointsDeCovoit(pdcovoit)); // ajout du popup
 

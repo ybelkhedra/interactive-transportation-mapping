@@ -5,7 +5,7 @@ var feature_group_freefloating_bdd = L.featureGroup( // création d'un groupe de
 var freefloatingIcon = L.icon({
     iconUrl: './sources/icons/freefloating.png',
 
-    iconSize:     [17, 17], // size of the icon
+    iconSize:     [taille_icon, taille_icon], // size of the icon
 });
 
 function afficherPopupFreeFloating(e) {
@@ -35,7 +35,7 @@ function updateBddStationsFreeFloating() { //a renommer en updateBddPointsCharge
         data.forEach(function(freefloat) {
             console.log(freefloat.coordonnees[0].latitude)
  
-            
+            pt_freefloating++;
             var marker = L.marker([freefloat.coordonnees[0].latitude, freefloat.coordonnees[0].longitude], {icon: freefloatingIcon}).addTo(feature_group_freefloating_bdd); // création du marqueur
             marker.bindPopup(afficherPopupFreeFloating(freefloat)); // ajout du popup
             //marker.setStyle({color: 'yellow'}); // on definie la couleur du marker

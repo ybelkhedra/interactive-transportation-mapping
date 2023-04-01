@@ -48,6 +48,7 @@ function updateBddLignesCar(){
                 ligne.ligne_car.forEach(function(coordonnee) { // pour chaque coordonnée
                     latlngs.push([coordonnee.latitude,coordonnee.longitude]); // ajout des coordonnées au tableau latlngs
                 });
+                nb_lignes_bus++;
                 var polyline = L.polyline(latlngs).addTo(feature_group_lignes_car_bdd); // création de la polyline
                 polyline.setStyle(convertion_int_to_color(ligne.id)); // changement de la couleur de la polyline
                 polyline.bindPopup(afficherPopupLignes(ligne)); // ajout du popup

@@ -145,7 +145,7 @@ img, svg {
 
 .navMenu {
 position: absolute;
-top: 50%;
+top: 5%;
 left: 50%;
 -webkit-transform: translate(-50%, -50%);
 transform: translate(-50%, -50%);
@@ -226,10 +226,10 @@ opacity: 1;
   /* height: 420px; */
   /* position à 50% du haut de l'ecran */
   position: absolute;
-  top: 56%;
-  left: 5.5%;
+  top: 9%;
+  left: 3.05%;
   width: 20%;
-  height: 77%;
+  height: 87%;
   background-color: #1E2B32;
   border-radius: 10px 10px;
   z-index: 100;
@@ -319,6 +319,8 @@ input[type="radio"] {
 position: absolute;
 left: 5%;
 overflow: auto;
+-webkit-transition: all 0.2s ease-in-out;
+transition: all 0.2s ease-in-out;
 
 }
 .accordion {
@@ -327,9 +329,13 @@ overflow: auto;
   overflow: hidden;
   margin-bottom: 16px;
 border-radius: 15px;
+-webkit-transition: all 0.2s ease-in-out;
+transition: all 0.2s ease-in-out;
 }
 .accordion:last-child{
   margin-bottom: 0;
+  -webkit-transition: all 0.2s ease-in-out;
+transition: all 0.2s ease-in-out;
 }
 .accordion-label {
   display: flex;
@@ -340,9 +346,13 @@ border-radius: 15px;
   font-weight: bold;
   cursor: pointer;
   font-size: 20px;
+  -webkit-transition: all 0.2s ease-in-out;
+transition: all 0.2s ease-in-out;
 }
 .accordion-label:hover {
   background: rgba(4,57,94,1);
+  -webkit-transition: all 0.2s ease-in-out;
+transition: all 0.2s ease-in-out;
 }
 .accordion-label::after {
   content: "\276F";
@@ -365,9 +375,13 @@ display: none;
   margin: 0;
   color: rgba(4,57,94,.7);
   font-size: 18px;
+  -webkit-transition: all 0.2s ease-in-out;
+transition: all 0.2s ease-in-out;
 }
 input:checked + .accordion-label {
   background: rgba(4,57,94,1);
+  -webkit-transition: all 0.2s ease-in-out;
+transition: all 0.2s ease-in-out;
 }
 input:checked + .accordion-label::after {
   -webkit-transform: rotate(90deg);
@@ -377,6 +391,8 @@ input:checked ~ .accordion-content {
   max-height: 100vh;
   padding: 16px;
 display: block;
+-webkit-transition: all 0.2s ease-in-out;
+transition: all 0.2s ease-in-out;
 }
 
 
@@ -451,7 +467,7 @@ opacity: 0;
 /* div class full_screen_background_map se prend toute la largeur de l'ecran et 60% de la hauteur et est noir*/
 .full_screen_background_map {
 position: absolute;
-top: 55%;
+top: 8%;
 width: 100%;
 height: 90%;
 z-index: 1;
@@ -459,8 +475,8 @@ z-index: 1;
 }
 
 #map_5c3862ba13c7e615013e758f79b1f9bb {
-width: 90%;
-height: 90%;
+width: 95%;
+height: 100%;
 /* radius corner */
 border-radius: 10px;
 /* centré */
@@ -696,179 +712,4 @@ background-color: #000;
       25% {transform: translate(100px, 0)} 
       50% {transform: translate(100px, -100px)} 
       75% {transform: translate(0, -100px)} 
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    .ag-format-container {
-      /* placer le top en bas de page, a la suite c'est à dire à 120% de la hauteur de la page */
-      top: 140%;
-      /* positionner le container en absolute */
-      position: absolute;
-      width: 80%;
-      left: 10%;
-      /* centré au centre de l'ecran*/
-    }
-    
-  
-    .ag-courses_box {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: start;
-      -ms-flex-align: start;
-      align-items: flex-start;
-      -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-    
-      padding: 50px 0;
-    }
-    .ag-courses_item {
-      -ms-flex-preferred-size: calc(33.33333% - 30px);
-      flex-basis: calc(33.33333% - 30px);
-    
-      margin: 0 15px 30px;
-    
-      overflow: hidden;
-    
-      border-radius: 28px;
-    }
-    .ag-courses-item_link {
-      display: block;
-      padding: 30px 20px;
-      background-color: #121212;
-    
-      overflow: hidden;
-    
-      position: relative;
-    }
-    .ag-courses-item_link:hover,
-    .ag-courses-item_link:hover .ag-courses-item_date {
-      text-decoration: none;
-      color: #FFF;
-    }
-    .ag-courses-item_link:hover .ag-courses-item_bg {
-      -webkit-transform: scale(10);
-      -ms-transform: scale(10);
-      transform: scale(10);
-    }
-    .ag-courses-item_title {
-      min-height: 87px;
-      margin: 0 0 25px;
-    
-      overflow: hidden;
-    
-      font-weight: bold;
-      font-size: 30px;
-      color: #FFF;
-    
-      z-index: 2;
-      position: relative;
-    }
-    .ag-courses-item_date-box {
-      font-size: 18px;
-      color: #FFF;
-    
-      z-index: 2;
-      position: relative;
-    }
-    .ag-courses-item_date {
-      font-weight: bold;
-      color: #f9b234;
-    
-      -webkit-transition: color .5s ease;
-      -o-transition: color .5s ease;
-      transition: color .5s ease
-    }
-    .ag-courses-item_bg {
-      height: 128px;
-      width: 128px;
-      background-color: #f9b234;
-    
-      z-index: 1;
-      position: absolute;
-      top: -75px;
-      right: -75px;
-    
-      border-radius: 50%;
-    
-      -webkit-transition: all .5s ease;
-      -o-transition: all .5s ease;
-      transition: all .5s ease;
-    }
-    .ag-courses_item:nth-child(2n) .ag-courses-item_bg {
-      background-color: #3ecd5e;
-    }
-    .ag-courses_item:nth-child(3n) .ag-courses-item_bg {
-      background-color: #e44002;
-    }
-    .ag-courses_item:nth-child(4n) .ag-courses-item_bg {
-      background-color: #952aff;
-    }
-    .ag-courses_item:nth-child(5n) .ag-courses-item_bg {
-      background-color: #cd3e94;
-    }
-    .ag-courses_item:nth-child(6n) .ag-courses-item_bg {
-      background-color: #4c49ea;
-    }
-    
-    
-    
-    @media only screen and (max-width: 979px) {
-      .ag-courses_item {
-        -ms-flex-preferred-size: calc(50% - 30px);
-        flex-basis: calc(50% - 30px);
-      }
-      .ag-courses-item_title {
-        font-size: 24px;
-      }
-    }
-    
-    @media only screen and (max-width: 767px) {
-      .ag-format-container {
-        width: 96%;
-      }
-    
-    }
-    @media only screen and (max-width: 639px) {
-      .ag-courses_item {
-        -ms-flex-preferred-size: 100%;
-        flex-basis: 100%;
-      }
-      .ag-courses-item_title {
-        min-height: 72px;
-        line-height: 1;
-    
-        font-size: 24px;
-      }
-      .ag-courses-item_link {
-        padding: 22px 40px;
-      }
-      .ag-courses-item_date-box {
-        font-size: 16px;
-      }
     }

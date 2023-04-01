@@ -40,3 +40,19 @@ var layer_control_643cdab5b83b581cb10d63d05a5a00f0 = L.featureGroup(
     {}
 
 ).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
+
+
+var taille_icon = 30;
+
+var nb_bus = 0;
+var nb_trams = 0;
+var nb_parkings = 0;
+var nb_velo = 0;
+var nb_lignes_bus = 0;
+var nb_lignes_tram = 0;
+var nb_arrets_bus = 0;
+var nb_arrets_tram = 0;
+var pt_electriques = 0;
+var pt_covoiturage = 0;
+var pt_autopartage = 0;
+var pt_freefloating = 0;

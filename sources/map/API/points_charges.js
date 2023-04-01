@@ -7,7 +7,7 @@ var feature_group_pdc = L.featureGroup(
 var pdcIcon = L.icon({
     iconUrl: './sources/icons/pdc.png',
 
-    iconSize:     [17, 17], // size of the icon
+    iconSize:     [taille_icon, taille_icon], // size of the icon
 });
 
 function afficherInfospdc() {
@@ -126,6 +126,7 @@ $.ajax({
                         return;
                     }
                     // Ajout d'un marker sur la carte
+                    pt_electriques++;
                     L.marker([latitude, longitude], {icon: pdcIcon}).bindPopup(addPopuppdc(val,data_2)).addTo(feature_group_pdc);
                 });
 

@@ -9,7 +9,7 @@ var feature_group_covoiturages = L.featureGroup(
 var covoiturageIcon = L.icon({
     iconUrl: './sources/icons/covoiturage.png',
 
-    iconSize:     [17, 17], // size of the icon
+    iconSize:     [taille_icon, taille_icon], // size of the icon
 });
 
 function afficherInfoscovoit() {
@@ -81,6 +81,7 @@ $.ajax({
                 return;
             }
             // Ajout d'un marker sur la carte
+            pt_covoiturage++;
             L.marker([latitude, longitude], {icon: covoiturageIcon}).bindPopup(addPopupcovoit(val)).addTo(feature_group_covoiturages);
         });
     }
