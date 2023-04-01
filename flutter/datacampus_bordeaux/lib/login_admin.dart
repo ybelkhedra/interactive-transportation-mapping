@@ -8,7 +8,6 @@ import 'home.dart';
 import 'main.dart';
 import 'crud_select_table.dart';
 import 'global.dart' as global;
-//import http package manually
 
 class LoginPage extends StatefulWidget {
   @override
@@ -30,15 +29,10 @@ class _LoginPage extends State<LoginPage> {
         "datacampus-bordeaux.fr",
         "/sources/requetes/API_flutter/login.php",
         {"username": username, "password": password, "register": "false"});
-    print(username);
-    print(password);
-    print(url);
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
-      print("response body: " + response.body);
       var jsondata = json.decode(response.body);
-      print(jsondata);
       if (jsondata["error"]) {
         setState(() {
           error = true;
@@ -46,20 +40,19 @@ class _LoginPage extends State<LoginPage> {
         });
       } else {
         if (jsondata["success"]) {
-          print("login success");
           global.isLoggedIn = true;
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return const menu();
           }));
         } else {
           error = true;
-          errormsg = "Something went wrong.";
+          errormsg = "Quelque chose c'est mal passé.";
         }
       }
     } else {
       setState(() {
         error = true;
-        errormsg = "Error during connecting to server.";
+        errormsg = "Erreur durant la connection au serveur.";
       });
     }
   }
@@ -79,11 +72,8 @@ class _LoginPage extends State<LoginPage> {
       body: SingleChildScrollView(
           child: Container(
         constraints:
-            BoxConstraints(minHeight: MediaQuery.of(context).size.height
-                //set minimum height equal to 100% of VH
-                ),
+            BoxConstraints(minHeight: MediaQuery.of(context).size.height),
         width: MediaQuery.of(context).size.width,
-        //make width of outer wrapper to 100%
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topRight,
@@ -93,8 +83,7 @@ class _LoginPage extends State<LoginPage> {
               Color.fromARGB(255, 28, 103, 215),
             ],
           ),
-        ), //show linear gradient background of page
-
+        ),
         padding: EdgeInsets.all(20),
         child: Column(children: <Widget>[
           Container(
@@ -105,35 +94,31 @@ class _LoginPage extends State<LoginPage> {
                   color: Colors.white,
                   fontSize: 40,
                   fontWeight: FontWeight.bold),
-            ), //title text
+            ),
           ),
           Container(
             margin: EdgeInsets.only(top: 10),
             child: Text(
               "Utilisez votre nom d'utilisateur et mot de passe pour vous connecter",
               style: TextStyle(color: Colors.white, fontSize: 15),
-            ), //subtitle text
+            ),
           ),
           Container(
-            //show error message here
             margin: EdgeInsets.only(top: 30),
             padding: EdgeInsets.all(10),
             child: error ? errmsg(errormsg) : Container(),
-            //if error == true then show error message
-            //else set empty container as child
           ),
           Container(
             padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
             margin: EdgeInsets.only(top: 10),
             child: TextField(
-              controller: _username, //set username controller
+              controller: _username,
               style: TextStyle(color: Colors.orange[100], fontSize: 20),
               decoration: myInputDecoration(
                 label: "Nom d'utilisateur",
                 icon: Icons.person,
               ),
               onChanged: (value) {
-                //set username  text on change
                 username = value;
               },
             ),
@@ -141,7 +126,7 @@ class _LoginPage extends State<LoginPage> {
           Container(
             padding: EdgeInsets.all(10),
             child: TextField(
-              controller: _password, //set password controller
+              controller: _password,
               style: TextStyle(color: Colors.orange[100], fontSize: 20),
               obscureText: true,
               decoration: myInputDecoration(
@@ -149,7 +134,6 @@ class _LoginPage extends State<LoginPage> {
                 icon: Icons.lock,
               ),
               onChanged: (value) {
-                // change password text
                 password = value;
               },
             ),
@@ -179,36 +163,27 @@ class _LoginPage extends State<LoginPage> {
   InputDecoration myInputDecoration(
       {required String label, required IconData icon}) {
     return InputDecoration(
-      hintText: label, //show label as placeholder
-      hintStyle:
-          TextStyle(color: Colors.orange[100], fontSize: 20), //hint text style
+      hintText: label,
+      hintStyle: TextStyle(color: Colors.orange[100], fontSize: 20),
       prefixIcon: Padding(
           padding: EdgeInsets.only(left: 20, right: 10),
           child: Icon(
             icon,
             color: Colors.orange[100],
-          )
-          //padding and icon for prefix
-          ),
-
+          )),
       contentPadding: EdgeInsets.fromLTRB(30, 20, 30, 20),
       enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
-          borderSide: BorderSide(
-              color: Colors.orange[100]!, width: 1)), //default border of input
-
+          borderSide: BorderSide(color: Colors.orange[100]!, width: 1)),
       focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
-          borderSide:
-              BorderSide(color: Colors.orange[200]!, width: 1)), //focus border
-
+          borderSide: BorderSide(color: Colors.orange[200]!, width: 1)),
       fillColor: Color.fromRGBO(0, 117, 251, 0.498),
-      filled: true, //set true if you want to show input background
+      filled: true,
     );
   }
 
   Widget errmsg(String text) {
-    //error message widget.
     return Container(
       padding: EdgeInsets.all(15.00),
       margin: EdgeInsets.only(bottom: 10.00),
@@ -220,10 +195,8 @@ class _LoginPage extends State<LoginPage> {
         Container(
           margin: EdgeInsets.only(right: 6.00),
           child: Icon(Icons.info, color: Colors.white),
-        ), // icon for error message
-
+        ),
         Text(text, style: TextStyle(color: Colors.white, fontSize: 18)),
-        //show error message text
       ]),
     );
   }

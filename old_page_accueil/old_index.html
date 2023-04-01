@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="index_style.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+        
+</head>
+<body>
+
+   
+            <div class="folium-map" id="map_5c3862ba13c7e615013e758f79b1f9bb" >
+                <div class="loader"></div> 
+                <div class="container">
+                    <div class="item item-1"></div>
+                    <div class="item item-2"></div>
+                    <div class="item item-3"></div>
+                    <div class="item item-4"></div>
+                  </div>
+            </div>
+
+            <script src="sources/init.js"></script>
+            <script src="sources/filtre.js"></script>
+            <script src="sources/map/API/stations_vcube.js"></script>
+            <script src="sources/map/API/arrets.js"></script>
+            <script src="sources/map/API/freefloating.js"></script>
+            <script src="sources/map/API/lignes_bus_trams.js"></script>
+            <script src="sources/map/API/live_positions.js"></script>
+            <script src="sources/map/API/live_traffic.js"></script>
+            <script src="sources/map/API/parkings.js"></script>
+            <script src="sources/map/API/points_charges.js"></script>
+            <script src="sources/map/API/points_covoiturages.js"></script>
+            <script src="sources/map/API/points_autopartages.js"></script>
+            <script src="sources/map/BDD/parkings_bdd.js"></script>
+            <script src="sources/map/BDD/points_charges_bdd.js"></script>
+            <script src="sources/map/BDD/points_covoiturages_bdd.js"></script>
+            <script src="sources/map/BDD/arrets_bus_bdd.js"></script>
+            <script src="sources/map/BDD/arrets_tram_bdd.js"></script>
+            <script src="sources/map/BDD/gares_ter.js"></script>
+            <script src="sources/map/BDD/lignes_bus_bdd.js"></script>
+            <script src="sources/map/BDD/lignes_tram_bdd.js"></script>
+            <script src="sources/map/BDD/lignes_cars_bdd.js"></script>
+            <script src="sources/map/BDD/pistes_cyclables_bdd.js"></script>
+            <script src="sources/map/BDD/points_stationnement_velo_bdd.js"></script>
+            <script src="sources/map/BDD/station_freefloating_bdd.js"></script>
+            <script src="sources/map/BDD/arrets_cars.js"></script>
+            <script src="sources/map/BDD/vcube_bdd.js"></script>
+            <script src="sources/map.js"></script>
+            <script src="sources/mapHelper.js"></script>
+            
+
+            
+            <div class="left-side">
+
+                <div class="red-bar">
+                    <a href="sources/crud/connection.php" class="material-icons bar-icon-connect">person</a>
+                </div>
+
+                <div class="all-collapsible">
+
+                    <button type="button" class="collapsible">
+                        <span class="material-icons collapsible-icon">bolt</span>
+                        <span class="collapsible-text">Modes actifs</span>
+                    </button>
+                    <div class="content">
+                        <div>
+                            <input type="checkbox" class="voiesCyclablesCheckbox" unchecked> <!--Génère une checkbox-->
+                            <label for="voiesCyclablesCheckbox">Voies cyclables</label>
+                            <script> 
+                            if ($(".voiesCyclablesCheckbox").is(':checked')) {var voiesCyclablesCheckbox = true;} else {var voiesCyclablesCheckbox = false;}
+                            </script>
+                            <script> 
+                                $(".voiesCyclablesCheckbox").click(function(){
+                                    chargement(1).then(function() {
+                                        if (voiesCyclablesCheckbox===true) { 
+                                            layerControlNumber.overlays["Pistes cyclables"].remove(); // Si au click, la checkbox est true, il faut alors enlever le contenu
+                                            voiesCyclablesCheckbox=false}
+                                        else if (voiesCyclablesCheckbox===false) {
+                                            layerControlNumber.overlays["Pistes cyclables"].addTo(mapNumber); // Sinon, on rajoute le contenu
+                                            voiesCyclablesCheckbox=true}
+                                    return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
+                                });
+                            </script>
+                        </div>
+                        
+
+                        <div>
+                            <input type="checkbox" class="stationnementVeloCheckbox" unchecked>
+                            <label for="stationnementVeloCheckbox">Stationnements vélo</label>
+                            <script> 
+                            if ($(".stationnementVeloCheckbox").is(':checked')) {var stationnementVeloCheckbox = true;} else {var stationnementVeloCheckbox = false;}
+                            </script>
+                            <script> $(".stationnementVeloCheckbox").click(function(){
+                                chargement(1).then(function() {
+                                    if (stationnementVeloCheckbox===true) { 
+                                        layerControlNumber.overlays["Points de stationnement velo"].remove();
+                                        stationnementVeloCheckbox=false;}
+                                    else if (stationnementVeloCheckbox===false) {
+                                        layerControlNumber.overlays["Points de stationnement velo"].addTo(mapNumber);
+                                        stationnementVeloCheckbox=true;}
+                                return chargement(0);
+                                })
+                                .catch(function() {
+                                    console.log("Loading element not found");
+                                });
+                            });
+                            </script>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" class="stationsVcubCheckbox" unchecked>
+                            <label for="stationsVcubCheckbox">Stations Vcub</label>
+                            <script>
+                            if ($(".stationsVcubCheckbox").is(':checked')) {var stationsVcubCheckbox = true;} else {var stationsVcubCheckbox = false;}
+                            </script>
+                            <script> $(".stationsVcubCheckbox").click(function(){
+                                chargement(1).then(function() {
+                                    if (stationsVcubCheckbox===true) { 
+                                        layerControlNumber.overlays["Stations Vcube"].remove();
+                                        stationsVcubCheckbox=false;}
+                                    else if (stationsVcubCheckbox===false) {
+                                        layerControlNumber.overlays["Stations Vcube"].addTo(mapNumber);
+                                        stationsVcubCheckbox=true;
+                                    }
+                                    return chargement(0);
+                                })
+                                .catch(function() {
+                                    console.log("Loading element not found");
+                                });
+                            });
+                            </script>
+                        </div>
+                    
+                        <div>
+                            <input type="checkbox" class="freefloatingCheckbox" unchecked>
+                            <label for="freefloatingCheckbox">Emplacements Freefloating</label>
+                            <script>
+                            if ($(".freefloatingCheckbox").is(':checked')) {var freefloatingCheckbox = true;} else {var freefloatingCheckbox = false;}
+                            </script>
+                            <script> 
+                                $(".freefloatingCheckbox").click(function(){
+                                chargement(1).then(function() {
+                                    if (freefloatingCheckbox===true) { 
+                                        layerControlNumber.overlays["Points de freefloating"].remove();
+                                        layerControlNumber.overlays["Points de freefloating bdd"].remove();
+
+                                        freefloatingCheckbox=false;}
+                                    else if (freefloatingCheckbox===false) {
+                                        layerControlNumber.overlays["Points de freefloating"].addTo(mapNumber);
+                                        layerControlNumber.overlays["Points de freefloating bdd"].addTo(mapNumber);
+                                        freefloatingCheckbox=true;
+                                    }
+                                    return chargement(0);
+                                })
+                                .catch(function() {
+                                    console.log("Loading element not found");
+                                });
+                            });
+                            </script>
+                        </div>
+
+                        
+                    </div><!-- fin modes actifs -->
+
+                    <button type="button" class="collapsible">
+                        <span class="material-icons collapsible-icon">tram</span>
+                        <span class="collapsible-text">Transports en commun</span>
+                    </button>
+                    <div class="subcollapsibles">
+
+                        <button type="button" class="collapsible">
+                            <span class="material-icons collapsible-icon">location_city</span>
+                            <span class="collapsible-text">Transports urbains</span>
+                        </button>
+                        <div class="subcollapsibles">
+
+                            <button type="button" class="collapsible">
+                                <span class="material-icons collapsible-icon">airport_shuttle</span>
+                                <span class="collapsible-text">Bus</span>
+                            </button>
+                            <div class="content">
+
+                                <div>
+                                    <input type="checkbox" class="arretsBusCheckbox" unchecked>
+                                    <label for="arretsBusCheckbox">Arrets de bus</label>
+                                    <script>
+                                    if ($(".arretsBusCheckbox").is(':checked')) {var arretsBusCheckbox = true;} else {var arretsBusCheckbox = false;}
+                                    </script>
+                                    <script> $(".arretsBusCheckbox").click(function(){
+                                        chargement(1).then(function() {
+                                            if (arretsBusCheckbox===true) { 
+                                                layerControlNumber.overlays["Arrets de bus"].remove();
+                                                arretsBusCheckbox=false;}
+                                            else if (arretsBusCheckbox===false) {
+                                                layerControlNumber.overlays["Arrets de bus"].addTo(mapNumber);
+                                                arretsBusCheckbox=true;}
+                                            return chargement(0);
+                                        })
+                                        .catch(function() {
+                                            console.log("Loading element not found");
+                                        });
+                                    });
+                                    </script>
+                                </div>
+
+                                <div>
+                                    <input type="checkbox" class="lignesBusCheckbox" unchecked>
+                                    <label for="lignesBusCheckbox">Lignes de bus</label>
+                                    <script>
+                                    if ($(".lignesBusCheckbox").is(':checked')) {var lignesBusCheckbox = true;} else {var lignesBusCheckbox = false;}
+                                    </script>
+                                    <script> $(".lignesBusCheckbox").click(function(){
+                                        chargement(1).then(function() {
+                                            if (lignesBusCheckbox===true) { 
+                                                layerControlNumber.overlays["Lignes de BUS"].remove();
+                                                lignesBusCheckbox=false;}
+                                            else if (lignesBusCheckbox===false) {
+                                                layerControlNumber.overlays["Lignes de BUS"].addTo(mapNumber);
+                                                lignesBusCheckbox=true;}
+                                            return chargement(0);
+                                        })
+                                        .catch(function() {
+                                            console.log("Loading element not found");
+                                        });
+                                    });
+                                    </script>
+                                </div>
+
+                                <div>
+                                    <input type="checkbox" class="tempsReelBusCheckbox" unchecked>
+                                    <label for="tempsReelBusCheckbox">Bus en temps reel</label>
+                                    <script>
+                                    if ($(".tempsReelBusCheckbox").is(':checked')) {var tempsReelBusCheckbox = true;} else {var tempsReelBusCheckbox = false;}
+                                    </script>
+                                    <script> $(".tempsReelBusCheckbox").click(function(){
+                                        chargement(1).then(function() {
+                                            if (tempsReelBusCheckbox===true) { 
+                                                layerControlNumber.overlays["Bus en temps reel"].remove();
+                                                tempsReelBusCheckbox=false;}
+                                            else if (tempsReelBusCheckbox===false) {
+                                                layerControlNumber.overlays["Bus en temps reel"].addTo(mapNumber);
+                                                tempsReelBusCheckbox=true;}
+                                            return chargement(0);
+                                        })
+                                        .catch(function() {
+                                            console.log("Loading element not found");
+                                        });
+                                    });
+                                    </script>
+                                </div>
+
+                            </div> <!-- fin bus -->
+
+                            <button type="button" class="collapsible">
+                                <span class="material-icons collapsible-icon">tram</span>
+                                <span class="collapsible-text">Tram</span>
+                            </button>
+                            <div class="content">
+
+                                <div>
+                                    <input type="checkbox" class="arretsTramCheckbox" unchecked>
+                                    <label for="arretsTramCheckbox">Arrets de Tram</label>
+                                    <script>
+                                    if ($(".arretsTramCheckbox").is(':checked')) {var arretsTramCheckbox = true;} else {var arretsTramCheckbox = false;}
+                                    </script>
+                                    <script> $(".arretsTramCheckbox").click(function(){
+                                        chargement(1).then(function() {
+                                            if (arretsTramCheckbox===true) { 
+                                                layerControlNumber.overlays["Arrets de tram"].remove();
+                                                arretsTramCheckbox=false;}
+                                            else if (arretsTramCheckbox===false) {
+                                                layerControlNumber.overlays["Arrets de tram"].addTo(mapNumber);
+                                                arretsTramCheckbox=true;}
+                                            return chargement(0);
+                                        })
+                                        .catch(function() {
+                                            console.log("Loading element not found");
+                                        });
+                                    });
+                                    </script>
+                                </div>
+
+                                <div>
+                                    <input type="checkbox" class="lignesTramCheckbox" unchecked>
+                                    <label for="lignesTramCheckbox">Lignes de Tram</label>
+                                    <script>
+                                    if ($(".lignesTramCheckbox").is(':checked')) {var lignesTramCheckbox = true;} else {var lignesTramCheckbox = false;}
+                                    </script>
+                                    <script> $(".lignesTramCheckbox").click(function(){
+                                        chargement(1).then(function() {
+                                            if (lignesTramCheckbox===true) { 
+                                                layerControlNumber.overlays["Lignes de TRAM"].remove();
+                                                lignesTramCheckbox=false;}
+                                            else if (lignesTramCheckbox===false) {
+                                                layerControlNumber.overlays["Lignes de TRAM"].addTo(mapNumber);
+                                                lignesTramCheckbox=true;}
+                                            return chargement(0);
+                                        })
+                                        .catch(function() {
+                                            console.log("Loading element not found");
+                                        });
+                                    });
+                                    </script>
+                                </div>
+
+                                <div>
+                                    <input type="checkbox" class="tempsReelTramCheckbox" unchecked>
+                                    <label for="tempsReelTramCheckbox">Tram en temps reel</label>
+                                    <script>
+                                    if ($(".tempsReelTramCheckbox").is(':checked')) {var tempsReelTramCheckbox = true;} else {var tempsReelTramCheckbox = false;}
+                                    </script>
+                                    <script> $(".tempsReelTramCheckbox").click(function(){
+                                        chargement(1).then(function() {
+                                            if (tempsReelTramCheckbox===true) { 
+                                                layerControlNumber.overlays["Tram en temps reel"].remove();
+                                                tempsReelTramCheckbox=false;}
+                                            else if (tempsReelTramCheckbox===false) {
+                                                layerControlNumber.overlays["Tram en temps reel"].addTo(mapNumber);
+                                                tempsReelTramCheckbox=true;}
+                                            return chargement(0);
+                                        })
+                                        .catch(function() {
+                                            console.log("Loading element not found");
+                                        });
+                                    });
+                                    </script>
+                                </div>
+                        </div><!-- fin tram -->
+                    </div><!-- fin urbains -->
+
+                    <button type="button" class="collapsible">
+                        <span class="material-icons collapsible-icon">multiple_stop</span>
+                        <span class="collapsible-text">Interurbains</span>
+                    </button>
+                    <div class="subcollapsibles">
+
+                        <button type="button" class="collapsible">
+                            <span class="material-icons collapsible-icon">directions_bus</span>
+                            <span class="collapsible-text">Car</span>
+                        </button>
+                        <div class="content">
+
+                            <div>
+                                <input type="checkbox" class="arretCarsCheckbox" unchecked>
+                                <label for="arretCarsCheckbox">Arrets de Car</label>
+                                <script>
+                                if ($(".arretCarsCheckbox").is(':checked')) {var arretCarsCheckbox = true;} else {var arretCarsCheckbox = false;}
+                                </script>
+                                <script> $(".arretCarsCheckbox").click(function(){
+                                    chargement(1).then(function() {
+                                        if (arretCarsCheckbox===true) { 
+                                            layerControlNumber.overlays["Arrets cars"].remove();
+                                            arretCarsCheckbox=false;}
+                                        else if (arretCarsCheckbox===false) {
+                                            layerControlNumber.overlays["Arrets cars"].addTo(mapNumber);
+                                            arretCarsCheckbox=true;}
+                                        return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
+                                });
+                                </script>
+                            </div>
+
+                            <div>
+                                <input type="checkbox" class="lignesCarsCheckbox" unchecked>
+                                <label for="lignesCarsCheckbox">Lignes de Car</label>
+                                <script>
+                                if ($(".lignesCarsCheckbox").is(':checked')) {var lignesCarsCheckbox = true;} else {var lignesCarsCheckbox = false;}
+                                </script>
+                                <script> $(".lignesCarsCheckbox").click(function(){
+                                    chargement(1).then(function() {
+                                        if (lignesCarsCheckbox===true) { 
+                                            layerControlNumber.overlays["Lignes de car"].remove();
+                                            lignesCarsCheckbox=false;}
+                                        else if (lignesCarsCheckbox===false) {
+                                            layerControlNumber.overlays["Lignes de car"].addTo(mapNumber);
+                                            lignesCarsCheckbox=true;}
+                                        return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
+                                });
+                                </script>
+                            </div>
+
+                        </div><!-- fin car -->
+
+                        <button type="button" class="collapsible">
+                            <span class="material-icons collapsible-icon">train</span>
+                            <span class="collapsible-text">Trains</span>
+                        </button>
+                        <div class="content">
+
+                            <div>
+                                <input type="checkbox" class="garesTerCheckbox" unchecked>
+                                <label for="garesTerCheckbox">Gares TER</label>
+                                <script>
+                                if ($(".garesTerCheckbox").is(':checked')) {var garesTerCheckbox = true;} else {var garesTerCheckbox = false;}
+                                </script>
+                                <script> $(".garesTerCheckbox").click(function(){
+                                    chargement(1).then(function() {
+                                        if (garesTerCheckbox===true) { 
+                                            layerControlNumber.overlays["Gare TER"].remove();
+                                            garesTerCheckbox=false;}
+                                        else if (garesTerCheckbox===false) {
+                                            layerControlNumber.overlays["Gare TER"].addTo(mapNumber);
+                                            garesTerCheckbox=true;}
+                                        return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
+                                });
+                                </script>
+                            </div>
+
+                        </div><!-- fin train -->
+                    </div><!-- fin interurbains -->
+
+
+                    </div><!-- fin transport en commun -->
+
+                <button type="button" class="collapsible">
+                    <span class="material-icons collapsible-icon">directions_car</span>
+                    <span class="collapsible-text">Voitures</span>
+                </button>
+                <div class="content">
+
+                    <div>
+                        <input type="checkbox" class="parkingsCheckbox" unchecked>
+                        <label for="parkingsCheckbox">Parkings</label>
+                        <script>
+                        if ($(".parkingsCheckbox").is(':checked')) {var parkingsCheckbox = true;} else {var parkingsCheckbox = false;}
+                        </script>
+                        <script> $(".parkingsCheckbox").click(function(){
+                            chargement(1).then(function() {
+                                if (parkingsCheckbox===true) { 
+                                    layerControlNumber.overlays["Parking"].remove();
+                                    parkingsCheckbox=false;}
+                                else if (parkingsCheckbox===false) {
+                                    layerControlNumber.overlays["Parking"].addTo(mapNumber);
+                                    parkingsCheckbox=true;}
+                                return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
+                        </script>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" class="covoiturageCheckbox" unchecked>
+                        <label for="covoiturageCheckbox">Points de covoiturage</label>
+                        <script>
+                        if ($(".covoiturageCheckbox").is(':checked')) {var covoiturageCheckbox = true;} else {var covoiturageCheckbox = false;}
+                        </script>
+                        <script> $(".covoiturageCheckbox").click(function(){
+                            chargement(1).then(function() {
+                                if (covoiturageCheckbox===true) { 
+                                    layerControlNumber.overlays["Covoiturage"].remove();
+                                    covoiturageCheckbox=false;}
+                                else if (covoiturageCheckbox===false) {
+                                    layerControlNumber.overlays["Covoiturage"].addTo(mapNumber);
+                                    covoiturageCheckbox=true;}
+                                return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
+                        </script>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" class="autopartagesCheckbox" unchecked>
+                        <label for="autopartagesCheckbox">Points d'autopartage</label>
+                        <script>
+                        if ($(".autopartagesCheckbox").is(':checked')) {var autopartagesCheckbox = true;} else {var autopartagesCheckbox = false;}
+                        </script>
+                        <script> $(".autopartagesCheckbox").click(function(){
+                            chargement(1).then(function() {
+                                if (autopartagesCheckbox===true) { 
+                                    layerControlNumber.overlays["Autopartage"].remove();
+                                    autopartagesCheckbox=false;}
+                                else if (autopartagesCheckbox===false) {
+                                    layerControlNumber.overlays["Autopartage"].addTo(mapNumber);
+                                    autopartagesCheckbox=true;}
+                                return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
+                        </script>
+                    </div>
+
+                </div><!-- fin voitures -->
+
+                <button type="button" class="collapsible">
+                    <span class="material-icons collapsible-icon">more_horiz</span>
+                    <span class="collapsible-text">Autres</span>
+                </button>
+                <div class="content">
+
+                    <div>
+                        <input type="checkbox" class="pdcCheckbox" unchecked>
+                        <label for="pdcCheckbox">Infrastructures de recharge de véhicules électriques</label>
+                        <script>
+                        if ($(".pdcCheckbox").is(':checked')) {var pdcCheckbox = true;} else {var pdcCheckbox = false;}
+                        </script>
+                        <script> $(".pdcCheckbox").click(function(){
+                            chargement(1).then(function() {
+                                if (pdcCheckbox===true) { 
+                                    layerControlNumber.overlays["Points de charge"].remove();
+                                    pdcCheckbox=false;}
+                                else if (pdcCheckbox===false) {
+                                    layerControlNumber.overlays["Points de charge"].addTo(mapNumber);
+                                    pdcCheckbox=true;}
+                                return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
+                        </script>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" class="etatTraficCheckbox" unchecked>
+                        <label for="etatTraficCheckbox">Etat du trafic</label>
+                        <script>
+                        if ($(".etatTraficCheckbox").is(':checked')) {var etatTraficCheckbox = true;} else {var etatTraficCheckbox = false;}
+                        </script>
+                        <script> $(".etatTraficCheckbox").click(function(){
+                            chargement(1).then(function() {
+                                if (etatTraficCheckbox===true) { 
+                                    layerControlNumber.overlays["Etat du traffic"].remove();
+                                    etatTraficCheckbox=false;}
+                                else if (etatTraficCheckbox===false) {
+                                    layerControlNumber.overlays["Etat du traffic"].addTo(mapNumber);
+                                    etatTraficCheckbox=true;}
+                                return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
+                        </script>
+                    </div>
+                </div>
+            </div><!-- fin menu déroulant -->
+
+            <script>
+                // Ajoute un gestionnaire d'événements à tous les boutons avec la classe "collapsible"
+                var coll = document.getElementsByClassName("collapsible");
+                for (var i = 0; i < coll.length; i++) {
+                    coll[i].addEventListener("click", function() {
+                        // Bascule la classe "active" sur le bouton qui a été cliqué pour ouvrir ou fermer le menu
+                        this.classList.toggle("active");
+                        // Cache ou affiche le contenu du menu déroulant correspondant et SUROUT ajuste la taille du menu déroulant parent IMPERATIVEMENT ! (sinon ont verrait pas tout le contenu du menu déroulant enfant)
+                        
+                        var numberOfThisElementSibling = this.childElementCount;
+
+                        var content = this.nextElementSibling;
+                        var parent = this.parentElement;
+                        if (content.style.maxHeight){
+                            content.style.maxHeight = null;
+                        } else {
+                            content.style.maxHeight = content.scrollHeight + parent.scrollHeight + "px";
+                        }
+                    });
+                }
+            </script>
+
+            </div><!-- fin left side -->
+
+            </body>
+            </html>
+            
