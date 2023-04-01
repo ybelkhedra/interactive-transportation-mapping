@@ -37,6 +37,7 @@ function updatevcube() {
         type: 'GET',
         dataType: 'json',
         success: function(data) {
+            nb_velo = 0;
             $.each(data.features, function(key, val) {
                 // Récupération des valeurs de latitude et longitude
                 var latitude = parseFloat(val.geometry.coordinates[1]);
@@ -45,12 +46,14 @@ function updatevcube() {
                     return;
                 }
                 // Ajout d'un marker sur la carte
-                nb_velo++;
+                console.log(val.properties.nbvelos, nb_velo);
+                nb_velo = nb_velo + val.properties.nbvelos;
                 L.marker([latitude, longitude], {icon: vcub_Icon}).bindPopup(addPopupvcube(val)).addTo(feature_group_vcube);
                 affichage();
             });
         }
     });
+    affichage();
 }
 
 updatevcube();

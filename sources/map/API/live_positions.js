@@ -88,8 +88,17 @@ async function updateMarkersVehicule() {
             feature_group_bus_temps_reel.removeLayer(layer);
         }
       });
+
+    // suppression des marqueurs existants de la carte
+    feature_group_tram_temps_reel.eachLayer(function (layer) {
+        if (layer instanceof L.Marker) {
+            feature_group_tram_temps_reel.removeLayer(layer);
+        }
+        });
         var success = 0;
         var error = 0;
+        nb_bus = 0;
+        nb_trams = 0;
       // ajout de nouveaux marqueurs pour chaque élément de données de position de bus et de tram
       $.each(data.features, async function(key, val) {
         if (val.properties.localise) {//(val.geometry && val.geometry.coordinates) {
@@ -98,11 +107,13 @@ async function updateMarkersVehicule() {
             {
                 if (val.properties.vehicule == "BUS")
                 {
+                    nb_bus++;
                     var marker = L.marker([val.geometry.coordinates[1], val.geometry.coordinates[0]], {icon : bus_Icon}).bindPopup(await addPopupVehicule(val.properties));
                     marker.addTo(feature_group_bus_temps_reel);
                 }
                 else if (val.properties.vehicule == "TRAM_LONG" || val.properties.vehicule == "TRAM_COURT")
                 {
+                    nb_trams++;
                     var marker = L.marker([val.geometry.coordinates[1], val.geometry.coordinates[0]], {icon : tram_Icon}).bindPopup(await addPopupVehicule(val.properties));
                     marker.addTo(feature_group_tram_temps_reel);
                 }
@@ -113,6 +124,7 @@ async function updateMarkersVehicule() {
                 }
                 success++;
             }
+            affichage();
         }
         else {
             error++;
@@ -126,4 +138,4 @@ async function updateMarkersVehicule() {
     }
 }
 updateMarkersVehicule();
-setInterval(updateMarkersVehicule, 10000);
+setInterval(updateMarkersVehicule, 30000);
