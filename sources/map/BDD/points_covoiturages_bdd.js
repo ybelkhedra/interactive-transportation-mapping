@@ -32,7 +32,7 @@ function updateBddCovoiturage() {
             pt_covoiturage++;
             var marker = L.marker([pdcovoit.latitude, pdcovoit.longitude],  {icon : covoiturageIcon}).addTo(feature_group_covoiturages); // création du marqueur
             marker.bindPopup(afficherPopupPointsDeCovoit(pdcovoit)); // ajout du popup
-
+            affichage();
         });
         
     })

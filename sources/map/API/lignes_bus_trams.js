@@ -53,6 +53,7 @@ function chemin_lignes(){
                         nb_lignes_tram++;
                         L.polyline(val.geo_shape.geometry.coordinates, {color: "rgb("+r+" ,"+g+","+ b+")"}).bindPopup(val.vehicule + "<br> nd : " + val.rg_sv_arret_p_nd + "<br> na : " + val.rg_sv_arret_p_na).addTo(feature_group_ligne_tram);
                     }
+                    affichage();
 
             });
             

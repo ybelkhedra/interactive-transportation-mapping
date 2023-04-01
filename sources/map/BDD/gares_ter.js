@@ -51,6 +51,7 @@ function updateBddGares(){
             var marker = L.marker([gare.latitude, gare.longitude], {icon: gare_Icon}).addTo(feature_group_gares_ter_bdd); // création du marqueur
             marker.bindPopup(afficherPopupGares(gare)); // ajout du popup
             //marker.setStyle({color: 'yellow'}); // on definie la couleur du marker
+            affichage();
 
 
         });

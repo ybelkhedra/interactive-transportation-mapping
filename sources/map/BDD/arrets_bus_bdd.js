@@ -26,6 +26,7 @@ function updateBddArretsBus() {
             if (arret.vehicule != "Tramway") {
                 var marker = L.marker([arret.latitude, arret.longitude], {icon : bus_station_Icon}).addTo(feature_group_arrets_bus); // création du marqueur
                 marker.bindPopup(afficherPopupArretsBus(arret)); // ajout du popup
+                affichage();
             }
         });
         

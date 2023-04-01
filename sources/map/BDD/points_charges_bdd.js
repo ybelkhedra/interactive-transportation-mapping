@@ -41,7 +41,7 @@ function updateBddStationsPointsDeCharges() { //a renommer en updateBddPointsCha
             var marker = L.marker([pdc.latitude, pdc.longitude],  {icon : pdcIcon}).addTo(feature_group_pdc); // création du marqueur
             marker.bindPopup(afficherPopupPointsDeCharges(pdc)); // ajout du popup
             //marker.setStyle({color: 'yellow'}); // on definie la couleur du marker
-
+            affichage();
         });
         
     })

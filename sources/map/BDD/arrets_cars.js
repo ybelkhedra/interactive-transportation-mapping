@@ -33,6 +33,7 @@ function updateBddArretsBus() {
                 nb_arrets_bus++;
                 var marker = L.marker([arret.stop_lat, arret.stop_lon], {icon : bus_station_Icon}).addTo(feature_group_arrets_cars_bdd); // création du marqueur
                 marker.bindPopup(afficherPopupArretsBus(arret)); // ajout du popup
+                affichage();
             }
         });
         

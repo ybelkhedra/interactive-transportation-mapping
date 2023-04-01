@@ -47,6 +47,7 @@ function updatevcube() {
                 // Ajout d'un marker sur la carte
                 nb_velo++;
                 L.marker([latitude, longitude], {icon: vcub_Icon}).bindPopup(addPopupvcube(val)).addTo(feature_group_vcube);
+                affichage();
             });
         }
     });

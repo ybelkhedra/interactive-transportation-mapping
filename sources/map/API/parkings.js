@@ -84,6 +84,7 @@ $.ajax({
             }
             nb_parkings++;
             L.marker([latitude, longitude], {icon: parkingIcon}).bindPopup(addPopupParkings(val)).addTo(feature_group_parkings);
+            affichage();
         });
     }
 });

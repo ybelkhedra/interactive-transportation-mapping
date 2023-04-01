@@ -83,6 +83,7 @@ $.ajax({
             // Ajout d'un marker sur la carte
             pt_covoiturage++;
             L.marker([latitude, longitude], {icon: covoiturageIcon}).bindPopup(addPopupcovoit(val)).addTo(feature_group_covoiturages);
+            affichage();
         });
     }
 });
