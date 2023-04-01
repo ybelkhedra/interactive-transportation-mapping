@@ -26,18 +26,22 @@ if ($db->query($sql)) {
         if($db->query($sql)) {
             for ($i = 0; $i < count($type_prise); $i++) {
                 $prise = $type_prise[$i];
-                $puiss = $puissance[$i];
                 $sql = "INSERT INTO compatible (point_de_recharge, type_de_prise) VALUES ('$id_pt_recharge_ajouter', '$prise')";
                 echo $sql;
                 if ($db->query($sql)) {
-                    $sql = "INSERT INTO recharger (puissance, point_de_recharge) VALUES ('$puiss', '$id_pt_recharge_ajouter')";
-                    echo $sql;
-                    if ($db->query($sql)) {
-                        $success = 1;
-                    } else {
-                        $success = 0;
-                        echo "Erreur : " . $db->error;
-                    }
+                    $success = 1;
+                } else {
+                    $success = 0;
+                    echo "Erreur : " . $db->error;
+                }
+            }
+            for ($i = 0; count($puissance); $i++)
+            {
+                $puiss = $puissance[$i];
+                $sql = "INSERT INTO recharger (puissance, point_de_recharge) VALUES ('$puiss', '$id_pt_recharge_ajouter')";
+                echo $sql;
+                if ($db->query($sql)) {
+                    $success = 1;
                 } else {
                     $success = 0;
                     echo "Erreur : " . $db->error;

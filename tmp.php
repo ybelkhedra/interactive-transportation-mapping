@@ -18,6 +18,8 @@ if ($db->query($sql)) {
     for ($i = 0; $i < count($coordonnees); $i++) {
         $latitude = $coordonnees[$i]['latitude'];
         $longitude = $coordonnees[$i]['longitude'];
+        $arret_depart = $arret_cars_depart[$i];
+        $arret_destination = $arret_cars_destination[$i];
         $sql = "INSERT INTO coordonnees_lignes_cars (latitude, longitude) VALUES ('$latitude', '$longitude')";
         echo $sql;
         if ($db->query($sql)) {
@@ -25,36 +27,30 @@ if ($db->query($sql)) {
             $sql = "INSERT INTO situer_lignes_cars (ligne_car, coordonnee) VALUES ('$id_lignes_cars_ajouter', '$id_coordonnees_lignes_cars_ajouter')";
             echo $sql;
             if($db->query($sql)) {
-                $success = 1;
+                $sql = "INSERT INTO desservir_car (arret_car, ligne_car) VALUES ('$arret_depart', '$id_lignes_cars_ajouter')";
+                echo $sql;
+                if ($db->query($sql))
+                {
+                    $sql = "INSERT INTO desservir_car (arret_car, ligne_car) VALUES ('$arret_destination', '$id_lignes_cars_ajouter')";
+                    echo $sql;
+                    if ($db->query($sql))
+                    {
+                        $success = 1;
+                    }
+                    else {
+                        $success = 0;
+                        echo "Erreur : " . $db->error;
+                    }
+                }
+                else {
+                    $success = 0;
+                    echo "Erreur : " . $db->error;
+                }
             } else {
                 $success = 0;
                 echo "Erreur : " . $db->error;
             }
         } else {
-            $success = 0;
-            echo "Erreur : " . $db->error;
-        }
-    }
-    for ($i = 0; $i < count($arret_cars_depart); $i++) {
-        $arret_depart = $arret_cars_depart[$i];
-        $sql = "INSERT INTO desservir_car (arret_car, ligne_car) VALUES ('$arret_depart', '$id_lignes_cars_ajouter')";
-        if ($db->query($sql))
-        {
-            $success = 1;
-        }
-        else {
-            $success = 0;
-            echo "Erreur : " . $db->error;
-        }
-    }
-    for ($i = 0; $i < count($arret_cars_destination); $i++) {
-        $arret_destination = $arret_cars_destination[$i];
-        $sql = "INSERT INTO desservir_car (arret_car, ligne_car) VALUES ('$arret_destination', '$id_lignes_cars_ajouter')";
-        if ($db->query($sql))
-        {
-            $success = 1;
-        }
-        else {
             $success = 0;
             echo "Erreur : " . $db->error;
         }
@@ -65,3 +61,9 @@ else {
     echo "Erreur : " . $db->error;
 }
 ?>
+
+for ($i = 0; $i < count($arret_cars_depart); $i++) {
+        $arret_depart = $arret_cars_depart[$i];
+        $sql = "INSERT INTO desservir_car (arret_car, ligne_car) VALUES ('$arret_depart', '$id_lignes_cars_ajouter')";
+        
+    }
