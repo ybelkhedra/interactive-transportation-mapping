@@ -73,7 +73,7 @@ class PresentationCard extends StatelessWidget {
                             double.parse(e['coordonnees'][0]["latitude"]),
                             double.parse(e['coordonnees'][0]["longitude"])),
                         builder: (ctx) => IconButton(
-                          icon: const Icon(Icons.local_parking_sharp,
+                          icon: Icon(tableHelper[tableName]!["icon"],
                               color: Colors.lightBlue, size: 25.0),
                           color: Colors.red,
                           iconSize: 45.0,
@@ -131,7 +131,7 @@ class PresentationCard extends StatelessWidget {
                       point: LatLng(double.parse(e["latitude"]),
                           double.parse(e["longitude"])),
                       builder: (ctx) => IconButton(
-                        icon: const Icon(Icons.electric_car,
+                        icon: Icon(tableHelper[tableName]!["icon"],
                             color: Colors.lightBlue, size: 25.0),
                         color: Colors.red,
                         iconSize: 45.0,
@@ -182,7 +182,7 @@ class PresentationCard extends StatelessWidget {
     return Card(
         child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
       ListTile(
-        leading: const Icon(Icons.directions_car),
+        leading: Icon(tableHelper[tableName]!["icon"]),
         //title : nom de la table
         title: SelectableText(e['nom'] != null ? e['nom'] : ''),
       ),
