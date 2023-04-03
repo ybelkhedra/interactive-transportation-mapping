@@ -22,6 +22,7 @@ final Map tableHelper = {
     'icon': Icons.local_parking,
   },
   'pts_recharge': {
+    //trigger ne marchent pas
     'nom_jolie': 'Points de recharge',
     'script': 'points_de_charges',
     'id': createMap('id', 'int'),
@@ -65,6 +66,7 @@ final Map tableHelper = {
     'icon': Icons.directions_car,
   },
   'stations_velo': {
+    //trigger non fonctionnels
     'nom_jolie': 'Stations de vélo',
     'script': 'points_stationnement_velo',
     'id': createMap('id', 'int'),
@@ -87,6 +89,7 @@ final Map tableHelper = {
     'icon': Icons.directions_bike,
   },
   'pistes_velo': {
+    //Trigger non fonctionnels
     'nom_jolie': 'Pistes de vélo',
     'script': 'pistes_cyclables',
     'id': createMap('id', 'int'),

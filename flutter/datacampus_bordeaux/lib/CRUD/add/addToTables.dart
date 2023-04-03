@@ -276,7 +276,7 @@ class _AddToTableState extends State<AddToTable> {
           }
           elm[key] = jsonEncode(elm[key]);
         } else if (tableHelper[widget.tableName][key]["type"] == 'List') {
-          elm[key] = widget._selected[key];
+          elm[key] = jsonEncode(widget._selected[key]);
         } else if (tableHelper[widget.tableName][key]["isForeignKey"]) {
           elm[key] = widget._selected[key]![0];
         } else {

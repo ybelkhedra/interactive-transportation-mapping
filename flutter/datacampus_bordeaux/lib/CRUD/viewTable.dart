@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'presentation_card.dart';
 import 'table_helper.dart';
 import 'add/addToTables.dart';
-//import 'add/addParkings.dart';
 
 class ViewTable extends StatefulWidget {
   final String tableName;
@@ -16,8 +15,10 @@ class ViewTable extends StatefulWidget {
 }
 
 class _ViewTableState extends State<ViewTable> {
+  bool isEmpty = false;
   //fonction qui retourne une liste de card à partir d'une liste de ViewTabless (json) obtenu par une requete http sur "145.239.198.30", "/sources/requetes/ViewTabless.php"
   Future<List<Widget>> getViewTables() async {
+    isEmpty = false;
     String fileName = tableHelper[widget.tableName]!['script'];
     var url =
         Uri.https("datacampus-bordeaux.fr", "/sources/requetes/$fileName.php");
@@ -25,8 +26,14 @@ class _ViewTableState extends State<ViewTable> {
     //print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
 
+    //si la requete ne retourne rien, on affiche un message
+    if (response.body == "null") {
+      isEmpty = true;
+      print("empty");
+      return [];
+    }
+
     final List data = jsonDecode(response.body);
-    // Iterable<Widget> cards = data.map((e) => makeCard(e))
 
     List<Widget> cards = [];
 
@@ -66,7 +73,9 @@ class _ViewTableState extends State<ViewTable> {
                     builder: (context) =>
                         AddToTable(tableName: widget.tableName)),
               );
-              setState(() {});
+              setState(() {
+                isEmpty = false;
+              });
             },
           ),
         ],
@@ -75,7 +84,9 @@ class _ViewTableState extends State<ViewTable> {
         child: FutureBuilder(
           future: getViewTables(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData) {
+            if (isEmpty) {
+              return const Text('Aucun élément dans cette table');
+            } else if (snapshot.hasData) {
               return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {

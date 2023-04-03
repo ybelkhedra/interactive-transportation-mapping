@@ -42,6 +42,9 @@ class _SelectDataState extends State<SelectData> {
     var url = Uri.https("datacampus-bordeaux.fr",
         "/sources/requetes/${tableHelper[nameTable]["script"]}.php");
     var response = await http.get(url);
+    if (response.body == "null") {
+      return [];
+    }
     final responseJson = json.decode(response.body);
     List<List<String>> names = [];
     for (var data in responseJson) {
