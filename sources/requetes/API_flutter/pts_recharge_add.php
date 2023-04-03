@@ -35,8 +35,7 @@ if ($db->query($sql)) {
                     echo "Erreur : " . $db->error;
                 }
             }
-            for ($i = 0; count($puissance); $i++)
-            {
+            for ($i = 0; $i < count($puissance); $i++) {
                 $puiss = $puissance[$i];
                 $sql = "INSERT INTO recharger (puissance, point_de_recharge) VALUES ('$puiss', '$id_pt_recharge_ajouter')";
                 echo $sql;
