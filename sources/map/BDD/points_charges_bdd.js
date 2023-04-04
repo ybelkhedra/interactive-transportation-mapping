@@ -7,7 +7,7 @@
 var pdcIcon = L.icon({
     iconUrl: './sources/icons/pdc.png',
 
-    iconSize:     [17, 17], // size of the icon
+    iconSize:     [taille_icon, taille_icon], // size of the icon
 });
 
 
@@ -37,7 +37,7 @@ function updateBddStationsPointsDeCharges() { //a renommer en updateBddPointsCha
     .then(response => response.json())
     .then(data => {
         data.forEach(function(pdc) { // pour chaque pdc
-    
+            pt_electriques++;
             var marker = L.marker([pdc.latitude, pdc.longitude],  {icon : pdcIcon}).addTo(feature_group_pdc); // création du marqueur
             marker.bindPopup(afficherPopupPointsDeCharges(pdc)); // ajout du popup
             //marker.setStyle({color: 'yellow'}); // on definie la couleur du marker

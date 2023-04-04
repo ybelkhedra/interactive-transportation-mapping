@@ -15,7 +15,7 @@ function afficherPopupGares(gare)
 var gare_Icon = L.icon({
     iconUrl: './sources/icons/train_station.png',
 
-    iconSize:     [17, 17], // size of the icon
+    iconSize:     [taille_icon, taille_icon], // size of the icon
 });
 
 

@@ -7,7 +7,7 @@ var feature_group_parkings = L.featureGroup(
 var parkingIcon = L.icon({
     iconUrl: './sources/icons/parking.png',
 
-    iconSize:     [17, 17], // size of the icon
+    iconSize:     [taille_icon, taille_icon], // size of the icon
 });
 
 function afficherInfosParking() {
@@ -82,6 +82,7 @@ $.ajax({
             if (isNaN(latitude) || isNaN(longitude) || !filtreCordonnees(latitude, longitude)) {
                 return;
             }
+            nb_parkings++;
             L.marker([latitude, longitude], {icon: parkingIcon}).bindPopup(addPopupParkings(val)).addTo(feature_group_parkings);
         });
     }

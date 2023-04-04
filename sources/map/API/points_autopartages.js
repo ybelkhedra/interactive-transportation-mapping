@@ -8,7 +8,7 @@ var feature_group_autopartages = L.featureGroup(
 var autopartage_Icon = L.icon({
     iconUrl: './sources/icons/autopartage.png',
 
-    iconSize:     [17, 17], // size of the icon
+    iconSize:     [taille_icon, taille_icon], // size of the icon
 });
 
 
@@ -83,6 +83,7 @@ $.ajax({
                     return;
                 }
                 // Ajout d'un marker sur la carte
+                pt_autopartage++;
                 L.marker([latitude, longitude], {icon: autopartage_Icon}).bindPopup(addPopupautoPartage(val)).addTo(feature_group_autopartages);
             });
         }

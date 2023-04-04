@@ -19,13 +19,13 @@ var feature_group_arrets_tram = L.featureGroup(
 var bus_station_Icon = L.icon({
     iconUrl: './sources/icons/bus_station.png',
 
-    iconSize:     [17, 17], // size of the icon
+    iconSize:     [taille_icon, taille_icon], // size of the icon
 });
 
 var tram_station_Icon = L.icon({
     iconUrl: './sources/icons/tram_station.png',
 
-    iconSize:     [17, 17], // size of the icon
+    iconSize:     [taille_icon, taille_icon], // size of the icon
 
 });
 
@@ -99,10 +99,12 @@ fetch('./sources/requetes/arrets_api.php')
             }
             if (arret.vehicule == "BUS")
             {
+                nb_arrets_bus++;
                 L.marker([latitude,longitude],{icon: bus_station_Icon}, {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'grey'})}).bindPopup(afficherPopupArret(arret)).addTo(feature_group_arrets_bus);
             }
             else if (arret.vehicule == "TRAM")
             {
+                nb_arrets_tram++;
                 L.marker([latitude,longitude],{icon: tram_station_Icon}, {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'black'})}).bindPopup(afficherPopupArret(arret)).addTo(feature_group_arrets_tram);
             }
         }
