@@ -22,7 +22,7 @@ if ($db->query($sql)) {
         echo $sql;
         if ($db->query($sql)) {
             $id_coordonnees_pt_freefloat_ajouter = $db->insert_id;
-            $sql = "INSERT INTO situer_pt_freefloat (arret_car, coordonnee) VALUES ('$id_pt_freefloat_ajouter', '$id_coordonnees_pt_freefloat_ajouter')";
+            $sql = "INSERT INTO situer_pt_freefloat (pt_freefloat, coordonnee) VALUES ('$id_pt_freefloat_ajouter', '$id_coordonnees_pt_freefloat_ajouter')";
             echo $sql;
             if($db->query($sql)) {
                 $success = 1;
