@@ -107,6 +107,7 @@ fetch('./sources/requetes/arrets_api.php')
                 nb_arrets_tram++;
                 L.marker([latitude,longitude],{icon: tram_station_Icon}, {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'black'})}).bindPopup(afficherPopupArret(arret)).addTo(feature_group_arrets_tram);
             }
+            affichage()
         }
     )}
 );

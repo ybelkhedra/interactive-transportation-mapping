@@ -29,6 +29,7 @@ function updateBddLignesBus(){
                     polyline.setStyle({color: 'green',weight:5}); // changement de la couleur de la polyline
                     feature_group_ligne_bus.addLayer(polyline); // ajout de la polyline au groupe de marqueurs
                 }
+                affichage();
             }
         });
     })

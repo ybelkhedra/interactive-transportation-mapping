@@ -128,6 +128,7 @@ $.ajax({
                     // Ajout d'un marker sur la carte
                     pt_electriques++;
                     L.marker([latitude, longitude], {icon: pdcIcon}).bindPopup(addPopuppdc(val,data_2)).addTo(feature_group_pdc);
+                    affichage();
                 });
 
             }

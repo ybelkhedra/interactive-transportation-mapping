@@ -49,6 +49,7 @@ $.ajax({
                 // Ajout d'un marker sur la carte
                 pt_freefloating++;
                 L.marker([latitude, longitude], {icon: freefloatingIcon}).bindPopup(afficherPopupFreeFloatingAPI(val)).addTo(feature_group_freefloating);
+                affichage();
             });
         }
     }

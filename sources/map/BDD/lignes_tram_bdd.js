@@ -28,6 +28,7 @@ function updateBddLignesTram(){
                     polyline.bindPopup(popupContent); // ajout du popup
                     polyline.setStyle({color: 'orange',weight:5}); // changement de la couleur de la polyline
                     feature_group_ligne_tram.addLayer(polyline); // ajout de la polyline au groupe de marqueurs
+                    affichage();
                 }
             }   
         });

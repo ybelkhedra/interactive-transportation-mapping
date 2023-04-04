@@ -85,6 +85,7 @@ $.ajax({
                 // Ajout d'un marker sur la carte
                 pt_autopartage++;
                 L.marker([latitude, longitude], {icon: autopartage_Icon}).bindPopup(addPopupautoPartage(val)).addTo(feature_group_autopartages);
+                affichage();
             });
         }
     });

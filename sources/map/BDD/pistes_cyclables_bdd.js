@@ -41,6 +41,7 @@ function updateBddPisteCyclables(){
                 var polyline = L.polyline(latlngs).addTo(feature_group_pistes_cyclables_bdd); // création de la polyline
                 polyline.setStyle({color: 'purple', weight: 5}); // changement de la couleur de la polyline
                 polyline.bindPopup(afficherPopupPistesCyclables(piste_cyclable)); // ajout du popup
+                affichage();
             }
         });
         
