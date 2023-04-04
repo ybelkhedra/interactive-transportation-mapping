@@ -204,12 +204,6 @@ class PresentationCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    TextButton(
-                      child: const Text('Modifier'),
-                      onPressed: () {
-                        /* Formulaire pour modifier les informations */
-                      },
-                    ),
                     const SizedBox(width: 8),
                     TextButton(
                       child: const Text('Supprimer',
