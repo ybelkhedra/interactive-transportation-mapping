@@ -28,6 +28,21 @@ var charge = document.getElementsByClassName("charge");
 
 var parking = document.getElementsByClassName("parking");
     parking[0].innerHTML = "Nombre de parking : " + nb_parkings;
+
+// loader_get_data.innerHTML = "Importation des données en cours : " + checkSumInitialLoaging/12*100 + "%";
+
+    
+    if (checkSumInitialLoaging >= 12) {
+        document.getElementsByClassName("chargementData")[0].innerHTML = '<div id="icon-container"></div><div class="chargementText">Chargement des données</div>';
+        document.getElementsByClassName("chargementData")[0].style.display = "none";
+    }
+    else {
+        document.getElementsByClassName("chargementData")[0].innerHTML = "Importation des données en cours : " +  Math.floor(checkSumInitialLoaging/12*100) + "%" ;
+        document.getElementsByClassName("chargementData")[0].style = "display: block; background-color: #f1f1f1; color: #000; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 27px;";
+
+    }
+
 }
 
 affichage();
+

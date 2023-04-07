@@ -46,6 +46,8 @@ function addPopupParkings(parking) {
     popup += '<p>Tarifs : <a href="'+parking.properties.url+'" target="_blank">Voir les tarifs</a></p>';
     //ajouter un bouton pour afficher les infos détaillées
     popup += '<button class="btn btn-primary" onclick="afficherInfosParking()">Voir les infos détaillées</button>';
+    popup += "<button id='parking' onclick='afficherIsochronePieton("+parking.geometry.coordinates[1]+","+parking.geometry.coordinates[0]+")'>Afficher l'isochrone pieton</button>";
+    popup += "<button id='parking' onclick='afficherIsochroneVelo("+parking.geometry.coordinates[1]+","+parking.geometry.coordinates[0]+")'>Afficher l'isochrone velo</button>";
     popup += '</div>';
     return popup;
 }
@@ -85,5 +87,7 @@ $.ajax({
             L.marker([latitude, longitude], {icon: parkingIcon}).bindPopup(addPopupParkings(val)).addTo(feature_group_parkings);
             affichage();
         });
+        checkSumInitialLoaging++;
+
     }
 });

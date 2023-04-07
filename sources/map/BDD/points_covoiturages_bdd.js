@@ -13,6 +13,9 @@ function afficherPopupPointsDeCovoit(e) {
     var places = "Places totales : " + e.nombre_de_places;
   
     var popup = nom +  "<br>" + places + "<br>" + infos ;
+    popup += "<button id='covoit' onclick='afficherIsochronePieton("+e.latitude+","+e.longitude+")'>Afficher l'isochrone pieton</button>";
+    popup += "<button id='covoit' onclick='afficherIsochroneVelo("+e.latitude+","+e.longitude+")'>Afficher l'isochrone velo</button>";
+
     return popup;
 }
 
@@ -34,6 +37,7 @@ function updateBddCovoiturage() {
             marker.bindPopup(afficherPopupPointsDeCovoit(pdcovoit)); // ajout du popup
             affichage();
         });
+        checkSumInitialLoaging++;
         
     })
     .catch(error => console.error(error));

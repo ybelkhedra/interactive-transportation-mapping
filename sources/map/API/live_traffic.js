@@ -38,7 +38,10 @@ function updateMarkersTraffic() {
         });
     }
 
-        }
+    checkSumInitialLoaging++;
+       
+
+}
     });
     }   
     catch (e) {

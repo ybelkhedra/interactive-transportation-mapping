@@ -44,6 +44,8 @@ function addPopupautoPartage(autoPartage) {
         popup += '<p>Etat : <span style="color:red;">Station inactive ou état inconnu</span></p>';
     }
     popup += '<button class="btn btn-primary" onclick="afficherInfosautoPartage()">Voir les infos détaillées</button>';
+    popup += "<button id='autopartage' onclick='afficherIsochronePieton("+autoPartage.geometry.coordinates[1]+","+autoPartage.geometry.coordinates[0]+")'>Afficher l'isochrone pieton</button>";
+    popup += "<button id='autopartage' onclick='afficherIsochroneVelo("+autoPartage.geometry.coordinates[1]+","+autoPartage.geometry.coordinates[0]+")'>Afficher l'isochrone velo</button>";
     popup += '</div>';
     return popup;
 }
@@ -86,5 +88,7 @@ $.ajax({
                 L.marker([latitude, longitude], {icon: autopartage_Icon}).bindPopup(addPopupautoPartage(val)).addTo(feature_group_autopartages);
                 affichage();
             });
+        checkSumInitialLoaging++;
+
         }
     });

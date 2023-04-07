@@ -9,6 +9,8 @@ function afficherPopupGares(gare)
     var info_complementaires = "Informations complémentaires : " + gare.info_complementaires;
     
     var popup = nom + "<br>" + info_complementaires;
+    popup += "<button id='gare' onclick='afficherIsochronePieton("+gare.latitude+","+gare.longitude+")'>Afficher l'isochrone pieton</button>";
+    popup += "<button id='gare' onclick='afficherIsochroneVelo("+gare.latitude+","+gare.longitude+")'>Afficher l'isochrone velo</button>";
     return popup;
 }
 
@@ -55,6 +57,7 @@ function updateBddGares(){
 
 
         });
+        checkSumInitialLoaging++;
         
     })
     .catch(error => console.error(error)); 

@@ -27,6 +27,8 @@ function addPopupvcube(vcube) {
     popup += '<p>Nombre total de vélos disponibles : ' + vcube.properties.nbvelos + '</p>';
     popup += '<p>Nombre de vélos électriques disponibles : ' + vcube.properties.nbelec + '</p>';
     popup += '<p>Nombre de vélos classiques disponibles : ' + vcube.properties.nbclassiq + '</p>';
+    popup += "<button id='vcub' onclick='afficherIsochronePieton("+vcube.geometry.coordinates[1]+","+vcube.geometry.coordinates[0]+")'>Afficher l'isochrone pieton</button>";
+    popup += "<button id='vcub' onclick='afficherIsochroneVelo("+vcube.geometry.coordinates[1]+","+vcube.geometry.coordinates[0]+")'>Afficher l'isochrone velo</button>";
     popup += '</div>';
     return popup;
 }
@@ -50,6 +52,8 @@ function updatevcube() {
                 L.marker([latitude, longitude], {icon: vcub_Icon}).bindPopup(addPopupvcube(val)).addTo(feature_group_vcube);
                 affichage();
             });
+        checkSumInitialLoaging++;
+
         }
     });
     affichage();

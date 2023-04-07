@@ -28,6 +28,8 @@ function afficherPopupParkings(parking)
         var prive = "Public";
     }
     var popup = nom + "<br>" + nb_places_max + "<br>" + nb_places_handicapes + "<br>" + informations_complementaires + "<br>" + payant + "<br>" + hors_voirie + "<br>" + prive;
+    popup += "<button id='parkings' onclick='afficherIsochronePieton("+parking.coordonnees[0].latitude+","+parking.coordonnees[0].longitude+")'>Afficher l'isochrone pieton</button>";
+    popup += "<button id='parkings' onclick='afficherIsochroneVelo("+parking.coordonnees[0].latitude+","+parking.coordonnees[0].longitude+")'>Afficher l'isochrone velo</button>";
     return popup;
 }
 
@@ -55,6 +57,7 @@ function updateBddParkings(){
                 affichage();
             }
         });
+        checkSumInitialLoaging++;
         
     })
     .catch(error => console.error(error)); 

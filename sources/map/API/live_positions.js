@@ -130,7 +130,10 @@ async function updateMarkersVehicule() {
             error++;
         }
         });
-        }}
+        }
+        checkSumInitialLoaging++;
+    
+    }
     });
     }
     catch (e) {

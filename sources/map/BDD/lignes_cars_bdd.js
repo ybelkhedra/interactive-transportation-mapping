@@ -53,6 +53,7 @@ function updateBddLignesCar(){
                 affichage();
             }
         });
+        checkSumInitialLoaging++;
         
     })
     .catch(error => console.error(error)); 

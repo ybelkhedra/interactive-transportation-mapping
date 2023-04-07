@@ -20,6 +20,8 @@ function afficherPopupStatsVelos(stat_velo)
         var abrite = "Non abrité";
     }
     var popup = nb_places + "<br>" + info_complementaires + "<br>" + securise + "<br>" + abrite;
+    popup += "<button id='velo' onclick='afficherIsochronePieton("+stat_velo.latitude+","+stat_velo.longitude+")'>Afficher l'isochrone pieton</button>";
+    popup += "<button id='velo' onclick='afficherIsochroneVelo("+stat_velo.latitude+","+stat_velo.longitude+")'>Afficher l'isochrone velo</button>";
     return popup;
 }
 
@@ -42,6 +44,7 @@ function updateBddStatsVelos(){
 
             affichage();
         });
+        checkSumInitialLoaging++;
         
     })
     .catch(error => console.error(error)); 

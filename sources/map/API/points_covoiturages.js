@@ -45,6 +45,9 @@ function addPopupcovoit(covoit) {
         popup += '<p>Etat : <span style="color:red;">Station inactive ou état inconnu</span></p>';
     }
     popup += '<button class="btn btn-primary" onclick="afficherInfoscovoit()">Voir les infos détaillées</button>';
+    popup += "<button id='covoit' onclick='afficherIsochronePieton("+covoit.geometry.coordinates[1]+","+covoit.geometry.coordinates[0]+")'>Afficher l'isochrone pieton</button>";
+    popup += "<button id='covoit' onclick='afficherIsochroneVelo("+covoit.geometry.coordinates[1]+","+covoit.geometry.coordinates[0]+")'>Afficher l'isochrone velo</button>";
+ 
     popup += '</div>';
     return popup;
 }
@@ -85,5 +88,7 @@ $.ajax({
             L.marker([latitude, longitude], {icon: covoiturageIcon}).bindPopup(addPopupcovoit(val)).addTo(feature_group_covoiturages);
             affichage();
         });
+        checkSumInitialLoaging++;
+
     }
 });

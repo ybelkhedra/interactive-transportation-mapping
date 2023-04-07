@@ -62,7 +62,9 @@ L.control.layers(
 
 function chargement(bool) {
     return new Promise(function(resolve, reject) {
-        var loader = document.getElementsByClassName("container")[0];
+        var loader = document.getElementsByClassName("chargementText")[0];
+        // dans loader ajouter : "Affichage des données en cours..."
+        loader.innerHTML = "<div class='affichage_loading'>Affichage des données en cours...</div>";
         if(!loader){
             console.log("Loading element not found");
             reject();

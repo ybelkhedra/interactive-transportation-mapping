@@ -2,6 +2,7 @@ L_NO_TOUCH = false;
 
 L_DISABLE_3D = false;
 
+var checkSumInitialLoaging = 0;
 
 var map_5c3862ba13c7e615013e758f79b1f9bb = L.map(
 
@@ -56,3 +57,75 @@ var pt_electriques = 0;
 var pt_covoiturage = 0;
 var pt_autopartage = 0;
 var pt_freefloating = 0;
+
+var feature_isochrone = L.featureGroup(
+    {}
+).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
+
+
+function supprimer_isochrone()
+{
+    feature_isochrone.eachLayer(function (layer) {
+            feature_isochrone.removeLayer(layer);
+        });
+}
+
+function afficherIsochronePieton(latitude, longitude)
+{
+
+    // api : https://api.mapbox.com/isochrone/v1/mapbox/walking/-118.22258,33.99038?contours_minutes=5,10,15&contours_colors=6706ce,04e813,4286f4&polygons=true&access_token=pk.eyJ1IjoiY2hhcmxpZWZveGFscGhhIiwiYSI6ImNsZzZxN24yMzBmejEzaHBkZmttdm9teWwifQ.MwpyFqHOmuvcblOTnmgxZw
+    var api_key = "pk.eyJ1IjoiY2hhcmxpZWZveGFscGhhIiwiYSI6ImNsZzZxN24yMzBmejEzaHBkZmttdm9teWwifQ.MwpyFqHOmuvcblOTnmgxZw";
+    var url = "https://api.mapbox.com/isochrone/v1/mapbox/"+"walking"+"/"+longitude+","+latitude+"?contours_minutes=5,10,15&contours_colors=6706ce,04e813,4286f4&polygons=true&access_token="+api_key;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: function(data) {
+            $.each(data.features, async function(key, val) {
+                var color = val.properties.color;
+                var contour = val.properties.contour;
+                var fill = val.properties.fill;
+                var fill_opacity = val.properties.fillOpacity;
+                var opacity = val.properties.opacity;
+                var coordinates = val.geometry.coordinates[0];
+                //inverser les coordonnées pour que le polygone soit bien affiché
+                coordinates.forEach(function (item, index) {
+                    coordinates[index] = item.reverse();
+                });
+                console.log(coordinates);
+                var popup
+                var polygon = L.polygon(coordinates, {color: color, opacity: opacity, fillOpacity: fill_opacity}).bindPopup("<br>Contour</br><br> Bleu foncé = 5 min</br><br> Vert = 10 min</br><br> Bleu clair = 15 min</br><br>Supprimer les isochrones : <button onclick='supprimer_isochrone()'>Supprimer</button>").addTo(feature_isochrone);
+                console.log(polygon);
+                
+            });
+        }
+    });
+}
+function afficherIsochroneVelo(latitude, longitude)
+{
+    // api : https://api.mapbox.com/isochrone/v1/mapbox/walking/-118.22258,33.99038?contours_minutes=5,10,15&contours_colors=6706ce,04e813,4286f4&polygons=true&access_token=pk.eyJ1IjoiY2hhcmxpZWZveGFscGhhIiwiYSI6ImNsZzZxN24yMzBmejEzaHBkZmttdm9teWwifQ.MwpyFqHOmuvcblOTnmgxZw
+    var api_key = "pk.eyJ1IjoiY2hhcmxpZWZveGFscGhhIiwiYSI6ImNsZzZxN24yMzBmejEzaHBkZmttdm9teWwifQ.MwpyFqHOmuvcblOTnmgxZw";
+    var url = "https://api.mapbox.com/isochrone/v1/mapbox/"+"cycling"+"/"+longitude+","+latitude+"?contours_minutes=5,10,15&contours_colors=6706ce,04e813,4286f4&polygons=true&access_token="+api_key;
+    console.log(url);
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: function(data) {
+            console.log(data);
+            $.each(data.features, async function(key, val) {
+                var color = val.properties.color;
+                var contour = val.properties.contour;
+                var fill = val.properties.fill;
+                var fill_opacity = val.properties.fillOpacity;
+                var opacity = val.properties.opacity;
+                var coordinates = val.geometry.coordinates[0];
+                //inverser les coordonnées pour que le polygone soit bien affiché
+                coordinates.forEach(function (item, index) {
+                    coordinates[index] = item.reverse();
+                });
+                console.log(coordinates);
+                var polygon = L.polygon(coordinates, {color: color, opacity: opacity, fillOpacity: fill_opacity}).bindPopup("<br>Contour</br><br> Bleu foncé = 5 min</br><br> Vert = 10 min</br><br> Bleu clair = 15 min</br><br>Supprimer les isochrones : <button onclick='supprimer_isochrone()'>Supprimer</button>").addTo(feature_isochrone);
+                console.log(polygon);
+            });
+        }
+    });
+}

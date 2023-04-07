@@ -16,7 +16,9 @@ function afficherPopupFreeFloatingAPI(e) {
     else if (e.properties.typologie == "VTS") {
         vehicules_autorises = "Vélo Trottinette Scooter";
     }
-    var popup = "Vehicle autorisé : " + vehicules_autorises;
+    var bouton_isochrone_pieton = "<button id='freefloating' onclick='afficherIsochronePieton("+e.geometry.coordinates[1]+","+e.geometry.coordinates[0]+")'>Afficher l'isochrone pieton</button>";
+    var bouton_isochrone_velo = "<button id='freefloating' onclick='afficherIsochroneVelo("+e.geometry.coordinates[1]+","+e.geometry.coordinates[0]+")'>Afficher l'isochrone velo</button>";
+    var popup = "<br>Vehicle autorisé : " + vehicules_autorises + "</br><br>" + bouton_isochrone_pieton + "</br><br>" + bouton_isochrone_velo+"</br>";
     return popup;
 }
 
@@ -52,6 +54,8 @@ $.ajax({
                 affichage();
             });
         }
+        checkSumInitialLoaging++;
+
     }
 });
 //}   

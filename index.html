@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" href="sources/icons/favicon/favicon-32x32.png"/>
 
 
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.4/lottie.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -525,14 +525,26 @@
 
       <section>
         <div class="full_screen_background_map">
+
             <div class="folium-map" id="map_5c3862ba13c7e615013e758f79b1f9bb" >
-                <div class="loader"></div> 
-                <div class="container">
-                    <div class="item item-1"></div>
-                    <div class="item item-2"></div>
-                    <div class="item item-3"></div>
-                    <div class="item item-4"></div>
-                  </div>
+                <div class="loader"></div>               
+
+                  <div class="chargementData">
+                    <div id="icon-container"></div>
+        
+                        <script>
+                          var animation = bodymovin.loadAnimation({
+                          // animationData: { /* ... */ },
+                          container: document.getElementById('icon-container'), // required
+                          path: 'sources/icons/reveal-loading.json', // required
+                          renderer: 'svg', // required
+                          loop: true, // optional
+                          autoplay: true, // optional
+                          name: "Demo Animation", // optional
+                        });
+                        </script>
+                        <div class="chargementText">Chargement des données</div>
+                </div>
             </div>
 
             <script src="sources/init.js"></script>
@@ -586,6 +598,7 @@
                     });
                 }
             </script>
+
         </div>
       </section>
 

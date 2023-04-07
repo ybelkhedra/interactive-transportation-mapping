@@ -29,7 +29,6 @@ function updateBddPisteCyclables(){
                 var marker = L.marker([piste_cyclable.coordonnees[0].latitude, piste_cyclable.coordonnees[0].longitude]).addTo(feature_group_pistes_cyclables_bdd); // création du marqueur
                 marker.bindPopup(afficherPopupPistesCyclables(piste_cyclable)); // ajout du popup
                 //marker.setStyle({color: 'red'}); // on definie la couleur du marker
-                console.log("hola solo");
             }
             else if (piste_cyclable.coordonnees.length > 1) { // si la piste cyclable a plusieurs coordonnées
 
@@ -44,6 +43,7 @@ function updateBddPisteCyclables(){
                 affichage();
             }
         });
+        checkSumInitialLoaging++;
         
     })
     .catch(error => console.error(error)); 

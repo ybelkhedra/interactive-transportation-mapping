@@ -17,6 +17,9 @@ function afficherPopupFreeFloating(e) {
     }
     var vehicules_autorises = "Vehicules autorisés : " + vehicules.join(" - ");
     var popup = nom + "<br>" + infos + "<br>" + vehicules_autorises;
+    popup += "<button id='freefloating' onclick='afficherIsochronePieton("+e.coordonnees[0].latitude+","+e.coordonnees[0].longitude+")'>Afficher l'isochrone pieton</button>";
+    popup += "<button id='freefloating' onclick='afficherIsochroneVelo("+e.coordonnees[0].latitude+","+e.coordonnees[0].longitude+")'>Afficher l'isochrone velo</button>";
+
     return popup;
 }
 
@@ -41,6 +44,7 @@ function updateBddStationsFreeFloating() { //a renommer en updateBddPointsCharge
             //marker.setStyle({color: 'yellow'}); // on definie la couleur du marker
             affichage();
         });
+        checkSumInitialLoaging++;
         
     })
     .catch(error => console.error(error));

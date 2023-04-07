@@ -100,6 +100,8 @@ function addPopuppdc(pdc, liste_pdc_type) {
         popup += '</ul>';
     }
     popup += '<button class="btn btn-primary" onclick="afficherInfospdc()">Voir les infos détaillées</button>';
+    popup += "<button id='pdc' onclick='afficherIsochronePieton("+pdc.geometry.coordinates[1]+","+pdc.geometry.coordinates[0]+")'>Afficher l'isochrone pieton</button>";
+    popup += "<button id='pdc' onclick='afficherIsochroneVelo("+pdc.geometry.coordinates[1]+","+pdc.geometry.coordinates[0]+")'>Afficher l'isochrone velo</button>";
     popup += '</div>';
     return popup;
 }
@@ -129,6 +131,7 @@ $.ajax({
                     L.marker([latitude, longitude], {icon: pdcIcon}).bindPopup(addPopuppdc(val,data_2)).addTo(feature_group_pdc);
                     affichage();
                 });
+        checkSumInitialLoaging++;
 
             }
         });

@@ -21,6 +21,8 @@ function afficherPopupPointsDeCharges(e) {
     }
   
     var popup = nom + "<br>" + infos + "<br>" + prises;
+    popup += "<button id='pdc' onclick='afficherIsochronePieton("+e.latitude+","+e.longitude+")'>Afficher l'isochrone pieton</button>";
+    popup += "<button id='pdc' onclick='afficherIsochroneVelo("+e.latitude+","+e.longitude+")'>Afficher l'isochrone velo</button>";
     return popup;
 }
 
@@ -43,6 +45,7 @@ function updateBddStationsPointsDeCharges() { //a renommer en updateBddPointsCha
             //marker.setStyle({color: 'yellow'}); // on definie la couleur du marker
             affichage();
         });
+        checkSumInitialLoaging++;
         
     })
     .catch(error => console.error(error));

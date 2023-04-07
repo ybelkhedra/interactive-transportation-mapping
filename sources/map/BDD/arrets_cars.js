@@ -12,6 +12,9 @@ function afficherPopupArretsBus(e) {
     }
   
     var popup = nom +  "<br>" + lignes_desservis + "<br>" ;
+    popup += "<button id='arret_car' onclick='afficherIsochronePieton("+e.stop_lat+","+e.stop_lon+")'>Afficher l'isochrone pieton</button>";
+    popup += "<button id='arret_car' onclick='afficherIsochroneVelo("+e.stop_lat+","+e.stop_lon+")'>Afficher l'isochrone velo</button>";
+ 
     return popup;
 }
 
@@ -36,6 +39,7 @@ function updateBddArretsBus() {
                 affichage();
             }
         });
+        checkSumInitialLoaging++;
         
     })
     .catch(error => console.error(error));

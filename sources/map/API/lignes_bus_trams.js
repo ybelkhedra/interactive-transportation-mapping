@@ -56,6 +56,7 @@ function chemin_lignes(){
                     affichage();
 
             });
+        checkSumInitialLoaging++;
             
         }
     });
