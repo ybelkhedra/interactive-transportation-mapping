@@ -145,10 +145,11 @@ img, svg {
 
 .navMenu {
 position: absolute;
-top: 50%;
+top: 5%;
 left: 50%;
 -webkit-transform: translate(-50%, -50%);
 transform: translate(-50%, -50%);
+z-index: 100;
 }
 
 .navMenu a {
@@ -212,699 +213,18 @@ opacity: 1;
 }
 
 
-
-@import url('https://fonts.googleapis.com/css?family=Roboto');
-
-.container{
-  padding: 50px;
-  display: block;
-}
-
-
-.card{
-  /* width: 300px; */
-  /* height: 420px; */
-  /* position à 50% du haut de l'ecran */
-  position: absolute;
-  top: 56%;
-  left: 5.5%;
-  width: 20%;
-  height: 77%;
-  background-color: #1E2B32;
-  border-radius: 10px 10px;
-  z-index: 100;
-  color: #FFFFFF;
-  overflow: auto;
-}
-
-.header{
-  border-radius: 10px 10px 0px 0px;
-  padding: 5px;
-  background-color: #2A3942;
-  color:rgba(255, 255, 255, .9);
-}
-
-h3{
-  color: #FFFFFF;
-  font-family: 'Roboto', sans-serif;
-  margin-left: 1rem;
-}
-
-.iconM{
-  font-size: 18px;
-  margin-left: 170px;
-  color: #2f89fc;
-}
-
-.icon{
-  margin-right: 8px;
-}
-
-.body li{
-  transition: 1s all;
-  font-family: 'Roboto', sans-serif;
-  font-size: 18px;
-  padding: 15px;
-  margin-left: -40px;
-  margin-top: 0px;
-  color: #fff;
-  list-style: none;
-  display: block;
-  border-top-right-radius: 10px 10px;
-  border-bottom-right-radius: 10px 10px;
-}
-
-li:hover{
-  transition: 1s all;
-  color: #2f89fc;
-  background-color: rgba(42, 56, 65, 0.82);
-  border-top-right-radius: 10px 10px;
-  border-bottom-right-radius: 10px 10px;
-  cursor: pointer;
-}
-
-.body > li{
-  float: left;
-}
-
-.body li ul{
-  background: #1E2B32;
-  margin-left: 280px;
-  margin-top: -38px;
-  /* display: none; */
-  position: absolute;
-  border-top-right-radius: 15px 15px;
-  border-bottom-right-radius: 15px 15px;
-}
-
-.body li:hover > ul{
-  display: block;
-  cursor: pointer;
-}
-
-
-
-input[type="radio"] {
-  position: absolute;
-  opacity: 0;
-  z-index: -1;
-}
-
-
-.accordion-wrapper {
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.5);
-  width: 90%;
-  margin:0 auto;
-position: absolute;
-left: 5%;
-overflow: auto;
-
-}
-.accordion {
-  width: 100%;
-  color: white;
-  overflow: hidden;
-  margin-bottom: 16px;
-border-radius: 15px;
-}
-.accordion:last-child{
-  margin-bottom: 0;
-}
-.accordion-label {
-  display: flex;
-  -webkit-box-pack: justify;
-  justify-content: space-between;
-  padding: 16px;
-  background: rgba(4,57,94,.8);
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 20px;
-}
-.accordion-label:hover {
-  background: rgba(4,57,94,1);
-}
-.accordion-label::after {
-  content: "\276F";
-  width: 16px;
-  height: 16px;
-  text-align: center;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-}
-.accordion-content {
-  max-height: 0;
-  padding: 0 16px;
-  color: rgba(4,57,94,1);
-  background: white;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-display: none;
-}
-.accordion-content p{
-  margin: 0;
-  color: rgba(4,57,94,.7);
-  font-size: 18px;
-}
-input:checked + .accordion-label {
-  background: rgba(4,57,94,1);
-}
-input:checked + .accordion-label::after {
-  -webkit-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-input:checked ~ .accordion-content {
-  max-height: 100vh;
-  padding: 16px;
-display: block;
-}
-
-
-
-
-
-
-
-
-
-
-
-ul.ks-cboxtags {
-  list-style: none;
-  padding: 20px;
-position: relative;
-left: 5%;
-}
-ul.ks-cboxtags li{
-display: inline;
-}
-ul.ks-cboxtags li label{
-  display: inline-block;
-  background-color: rgba(255, 255, 255, .9);
-  border: 2px solid rgba(139, 139, 139, .3);
-  color: #adadad;
-  border-radius: 25px;
-  white-space: nowrap;
-  margin: 3px 0px;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  transition: all .2s;
-}
-
-ul.ks-cboxtags li label {
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-ul.ks-cboxtags li label::before {
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  font-size: 12px;
-  padding: 2px 6px 2px 2px;
-  transition: transform .3s ease-in-out;
-}
-
-ul.ks-cboxtags li input[type="checkbox"]:checked + label {
-  border: 2px solid #1bdbf8;
-  background-color: #12bbd4;
-  color: #fff;
-  transition: all .2s;
-}
-
-ul.ks-cboxtags li input[type="checkbox"] {
-display: absolute;
-}
-ul.ks-cboxtags li input[type="checkbox"] {
-position: absolute;
-opacity: 0;
-}
-
-/* div class full_screen_background_map se prend toute la largeur de l'ecran et 60% de la hauteur et est noir*/
-.full_screen_background_map {
-position: absolute;
-top: 55%;
-width: 100%;
-height: 90%;
-z-index: 1;
-/* background-color: black; */
-}
-
-#map_5c3862ba13c7e615013e758f79b1f9bb {
-width: 90%;
-height: 90%;
-/* radius corner */
-border-radius: 10px;
-/* centré */
-margin: 0 auto;
-}
-
-.categorie
-{
-  background-color: rgba(4, 57, 94, 0.119);
-  border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 5px;
-}
-
-/* Style pour une checkbox */
-input[type="checkbox"] {
-position: relative;
-display: inline-block;
-width: 20px;
-height: 20px;
-background-color: #f1f1f1;
-border-radius: 4px;
-transition: all 0.3s ease-in-out;
-z-index: 2000;
-}
-
-/* Style pour la coche */
-input[type="checkbox"]:checked::before {
-content: "\2714";
-display: block;
-position: absolute;
-color: white;
-font-size: 14px;
-top: 3px;
-left: 4px;
-z-index: 2000;
-}
-
-
-input[type="checkbox"]:checked + label:before {
-background-color: #000;
-}
-
-/* width */
-::-webkit-scrollbar {
-  width: 2px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.loader {
-    position: relative;
-    left: 45.0%;
-    top: 40.0%;
-    border: 16px solid #f3f3f3;
-    border-top: 16px solid #ff0000;
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    animation: spin 2s linear infinite;
-    }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-    }
-  
-  .collapsible {
-    background-color: white;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 20px;
-    padding-left: 80px;
-    font-weight: 900;
-    color: #555;
-    position: relative;
-    }
-  
-  .collapsible-icon {
-    font-size: 40px !important;
-    position: absolute;
-    left: 6%;
-    float: left;
-    bottom: 20%;
-    }
-  
-  .collapsible-text{
-      font-size: 20px;
-      top: 3%;
-      position: relative;
-    }
-  
-  .subcollapsibles {
-    max-height: 0;
-    width: 100%;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-    background-color: #f1f1f1;
-    }
-  
-  .active, .collapsible:hover {
-    background-color: #555;
-    color:white;
-    }
-  
-  .content {
-    padding: 0 18px;
-    max-height: 0;
-    width: 100%;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-    background-color: #f1f1f1;
-    }
-    
-  .collapsible:after {
-    content: '\02795'; /* Unicode character for "plus" sign (+) */
-    font-size: 13px;
-    color: white;
-    float: right;
-    margin-left: 5px;
-    position: relative;
-    top: 18%;
-    }
-  
-  .active:after {
-    content: "\2796"; /* Unicode character for "minus" sign (-) */
-    }
-  
-  
-  
-  .container {
-        position: absolute;
-        width: 200px;
-        height: 200px;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-        /* mettre au premier plan */
-        z-index: 10000;
-        display: none;
-      }
-      
-      .item {
-        width: 100px;
-        height: 100px;
-        position: absolute;
-      }
-      
-      .item-1 {
-        background-color: #FA5667;
-        top: 0;
-        left: 0;
-        z-index: 1;
-        animation: item-1_move 1.8s cubic-bezier(.6,.01,.4,1) infinite;
-      }
-      
-      .item-2 {
-        background-color: #7A45E5;
-        top: 0;
-        right: 0;
-        animation: item-2_move 1.8s cubic-bezier(.6,.01,.4,1) infinite;
-      }
-      
-      .item-3 {
-        background-color: #1B91F7;
-        bottom: 0;
-        right: 0;
-        z-index: 1;
-        animation: item-3_move 1.8s cubic-bezier(.6,.01,.4,1) infinite;
-      }
-      
-      .item-4 {
-        background-color: #FAC24C;
-        bottom: 0;
-        left: 0;
-        animation: item-4_move 1.8s cubic-bezier(.6,.01,.4,1) infinite;
-      }
-      
-      @keyframes item-1_move {
-        0%, 100% {transform: translate(0, 0)} 
-        25% {transform: translate(0, 100px)} 
-        50% {transform: translate(100px, 100px)} 
-        75% {transform: translate(100px, 0)} 
-      }
-      
-      @keyframes item-2_move {
-        0%, 100% {transform: translate(0, 0)} 
-        25% {transform: translate(-100px, 0)} 
-        50% {transform: translate(-100px, 100px)} 
-        75% {transform: translate(0, 100px)} 
-      }
-      
-      @keyframes item-3_move {
-        0%, 100% {transform: translate(0, 0)} 
-        25% {transform: translate(0, -100px)} 
-        50% {transform: translate(-100px, -100px)} 
-        75% {transform: translate(-100px, 0)} 
-      }
-      
-      @keyframes item-4_move {
-        0%, 100% {transform: translate(0, 0)} 
-        25% {transform: translate(100px, 0)} 
-        50% {transform: translate(100px, -100px)} 
-        75% {transform: translate(0, -100px)} 
-      }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    .ag-format-container {
-      /* placer le top en bas de page, a la suite c'est à dire à 120% de la hauteur de la page */
-      top: 140%;
-      /* positionner le container en absolute */
-      position: absolute;
-      width: 80%;
-      left: 10%;
-      /* centré au centre de l'ecran*/
-    }
-    
-  
-    .ag-courses_box {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: start;
-      -ms-flex-align: start;
-      align-items: flex-start;
-      -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-    
-      padding: 50px 0;
-    }
-    .ag-courses_item {
-      -ms-flex-preferred-size: calc(33.33333% - 30px);
-      flex-basis: calc(33.33333% - 30px);
-    
-      margin: 0 15px 30px;
-    
-      overflow: hidden;
-    
-      border-radius: 28px;
-    }
-    .ag-courses-item_link {
-      display: block;
-      padding: 30px 20px;
-      background-color: #121212;
-    
-      overflow: hidden;
-    
-      position: relative;
-    }
-    .ag-courses-item_link:hover,
-    .ag-courses-item_link:hover .ag-courses-item_date {
-      text-decoration: none;
-      color: #FFF;
-    }
-    .ag-courses-item_link:hover .ag-courses-item_bg {
-      -webkit-transform: scale(10);
-      -ms-transform: scale(10);
-      transform: scale(10);
-    }
-    .ag-courses-item_title {
-      min-height: 87px;
-      margin: 0 0 25px;
-    
-      overflow: hidden;
-    
-      font-weight: bold;
-      font-size: 30px;
-      color: #FFF;
-    
-      z-index: 2;
-      position: relative;
-    }
-    .ag-courses-item_date-box {
-      font-size: 18px;
-      color: #FFF;
-    
-      z-index: 2;
-      position: relative;
-    }
-    .ag-courses-item_date {
-      font-weight: bold;
-      color: #f9b234;
-    
-      -webkit-transition: color .5s ease;
-      -o-transition: color .5s ease;
-      transition: color .5s ease
-    }
-    .ag-courses-item_bg {
-      height: 128px;
-      width: 128px;
-      background-color: #f9b234;
-    
-      z-index: 1;
-      position: absolute;
-      top: -75px;
-      right: -75px;
-    
-      border-radius: 50%;
-    
-      -webkit-transition: all .5s ease;
-      -o-transition: all .5s ease;
-      transition: all .5s ease;
-    }
-    .ag-courses_item:nth-child(2n) .ag-courses-item_bg {
-      background-color: #3ecd5e;
-    }
-    .ag-courses_item:nth-child(3n) .ag-courses-item_bg {
-      background-color: #e44002;
-    }
-    .ag-courses_item:nth-child(4n) .ag-courses-item_bg {
-      background-color: #952aff;
-    }
-    .ag-courses_item:nth-child(5n) .ag-courses-item_bg {
-      background-color: #cd3e94;
-    }
-    .ag-courses_item:nth-child(6n) .ag-courses-item_bg {
-      background-color: #4c49ea;
-    }
-    
-    
-    
-    @media only screen and (max-width: 979px) {
-      .ag-courses_item {
-        -ms-flex-preferred-size: calc(50% - 30px);
-        flex-basis: calc(50% - 30px);
-      }
-      .ag-courses-item_title {
-        font-size: 24px;
-      }
-    }
-    
-    @media only screen and (max-width: 767px) {
-      .ag-format-container {
-        width: 96%;
-      }
-    
-    }
-    @media only screen and (max-width: 639px) {
-      .ag-courses_item {
-        -ms-flex-preferred-size: 100%;
-        flex-basis: 100%;
-      }
-      .ag-courses-item_title {
-        min-height: 72px;
-        line-height: 1;
-    
-        font-size: 24px;
-      }
-      .ag-courses-item_link {
-        padding: 22px 40px;
-      }
-      .ag-courses-item_date-box {
-        font-size: 16px;
-      }
-    }
-
-.chargementData{
-    display: inline-block;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: 9990;
-    text-align: center;
-    /* centré en hauteur et largeur */
-    margin: auto;
-
-}
-
-#icon-container {
-  position: relative;
-  top : -60%;
-  left: 9%;
-  transform: scale(0.3); /* applique une échelle de 0.8 à l'animation */
-}
-
-.chargementText{
-    position: relative;
-    top: -90%;
-    z-index: 9999;
-    text-align: center;
-    /* centré en hauteur et largeur */
-    margin: auto;
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-}
-
 .box {
     background-color: white;
     border-radius: 10px;
     padding: 20px;
     width: 90%;
-    height:40%;
+    height:50%;
     margin: auto;
     margin-top: 420px;
     text-align: center;
     margin-bottom: 50px;
+    padding-right: 15px;
+    padding-left: 15px;
   }
 
 .box p {
@@ -922,3 +242,144 @@ background-color: #000;
 .box a:hover {
     text-decoration: underline;
 }
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+.carousel {
+    height: 500px;
+    margin-bottom: 60px;
+  }
+  .carousel-caption {
+    z-index: 10; /* Since positioning the image, we need to help out the caption */
+  }
+  
+  /* Declare heights because of positioning of img element */
+  .carousel .item {
+    height: 500px;
+    background: linear-gradient(90deg, #B4E6E3 0%, #5249BF 100%, #fff 100%);
+  }
+  .carousel-inner > .item > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    height: 500px;
+  }
+
+  .carousel-indicators {
+    text-align: center;
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(8.5%);
+  }
+
+  .carousel-control {
+    opacity: 0.4 !important;
+  }
+
+  
+
+  /* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.marketing h2 {
+  font-weight: 400;
+}
+.marketing .col-lg-4 p {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+  
+  
+  /* Featurettes
+  ------------------------- */
+  
+  .featurette-divider {
+    margin: 10px 0; /* Space out the Bootstrap <hr> more */
+    margin-top: 10px;
+  }
+  
+  /* Thin out the marketing headings */
+  .featurette-heading {
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -1px;
+    margin-top: 10px;
+  }
+
+  /* .featurette-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    height: auto;
+  } */
+  
+  .row.featurette {
+    margin-top: 0px;
+  }
+  
+  .featurette-image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 30px;
+  }
+
+  p.lead {
+    font-size: 17px;
+  }
+
+  .my-link-class {
+    color: rgb(1, 1, 41); /* Replace with the desired color */
+  }
+  
+  
+  /* RESPONSIVE CSS
+  -------------------------------------------------- */
+  
+  @media (min-width: 768px) {
+    /* Navbar positioning foo */
+    .navbar-wrapper {
+      margin-top: 20px;
+    }
+    .navbar-wrapper .container {
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+    .navbar-wrapper .navbar {
+      padding-right: 0;
+      padding-left: 0;
+      border-radius: 4px; /* The navbar becomes detached from the top, so we round the corners */
+    }
+  
+    /* Bump up size of carousel content */
+    .carousel-caption p {
+      margin-bottom: 20px;
+      font-size: 21px;
+      line-height: 1.4;
+    }
+  
+    .featurette-heading {
+      font-size: 50px;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .featurette-heading {
+      margin-top: 120px;
+    }
+  }
+
+  .container {
+    padding-top: 100px; /* Adjust the padding-top value according to the height of your navbar */
+  }
+  
