@@ -9,7 +9,7 @@ var nbBus = document.getElementsByClassName("nbBus");
     nbBus[0].innerHTML = "Nombre de Bus en temps reel sur le campus : " + nb_bus;
 
 var nbFreeFloating = document.getElementsByClassName("nbFreefloating");
-    nbFreeFloating[0].innerHTML = "Nombre de Vélos en temps reel sur le campus : " + nb_velo;
+    nbFreeFloating[0].innerHTML = "Nombre de V-Cub en temps reel sur le campus : " + nb_velo;
 
 var arretTrams = document.getElementsByClassName("arretTrams");
     arretTrams[0].innerHTML = "Nombre d'arrets de Tram : " + nb_arrets_tram;
@@ -27,7 +27,7 @@ var charge = document.getElementsByClassName("charge");
     charge[0].innerHTML = "Nombre de recharges éléctrique : " + pt_electriques;
 
 var parking = document.getElementsByClassName("parking");
-    parking[0].innerHTML = "Nombre de parking : " + nb_parkings;
+    parking[0].innerHTML = "Nombre de parkings : " + nb_parkings;
 
 // loader_get_data.innerHTML = "Importation des données en cours : " + checkSumInitialLoaging/12*100 + "%";
 

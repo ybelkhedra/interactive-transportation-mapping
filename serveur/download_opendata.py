@@ -5,6 +5,8 @@ import datetime
 import requests
 from tqdm import tqdm
 import mysql.connector
+# zipfile.ZipFile
+import zipfile
 
 
 
@@ -239,43 +241,7 @@ def ajout_relationsLignesTronconsData(data, gid = 0):
             print("Erreur Bdd : "+requete)
     else :
         print("La relation : "+str(rs_sv_chem_l)+" - "+str(rs_sv_tronc_l)+" est deja presente dans la base de donnees")
-
-
-def ajout_horairesData(data):
-    gid = str(data['properties']['gid'])
-    hor_theo = str(data['properties']['hor_theo'])
-    hor_app = str(data['properties']['hor_app'])
-    hor_real = str(data['properties']['hor_real'])
-    rs_sv_arret_p = str(data['properties']['rs_sv_arret_p'])
-    rs_sv_cours_a = str(data['properties']['rs_sv_cours_a'])
-    mdate = str(data['properties']['mdate'])
-    # verifier si l'horaire est deja present dans la base de donnees
-    requete = "SELECT * FROM horairesData WHERE gid = "+str(gid)+";"
-    cursor.execute(requete)
-    try : 
-        mdate_present = str(cursor.fetchall()[0][7])
-    except:
-        mdate_present=""
-    # si l'horaire n'est pas present dans la table horairesData alors l'ajouter
-    if len(mdate_present) == 0:
-        print("Ajout de l'horaire : "+str(gid))
-        #ajout de l'horaire dans la horairesData
-        requete = "INSERT INTO horairesData (gid, hor_theo, hor_app, hor_real, rs_sv_arret_p, rs_sv_cours_a, mdate) VALUES ("+str(gid)+",'"+hor_theo+"','"+hor_app+"','"+hor_real+"',"+str(rs_sv_arret_p)+","+str(rs_sv_cours_a)+",'"+mdate+"');"
-        try :
-            cursor.execute(requete)
-        except :
-            print("Erreur Bdd : "+requete)
-    else :
-        print("L'horaire : "+str(gid)+" est deja present dans la base de donnees")
-        # si l'horaire est deja present dans la table horairesData alors verifier que les donnees sont a jour avec la date mdate
-        if str(mdate_present) != convertorHoraire(str(mdate)):
-            print("Mise a jour de l'horaire : "+str(gid))
-            requete = "UPDATE horairesData SET hor_theo = '"+hor_theo+"', hor_app = '"+hor_app+"', hor_real = '"+hor_real+"', rs_sv_arret_p = "+str(rs_sv_arret_p)+", rs_sv_cours_a = "+str(rs_sv_cours_a)+", mdate = '"+mdate+"' WHERE gid = "+str(gid)+";"
-            try :
-                cursor.execute(requete)
-            except :
-                print("Erreur Bdd : "+requete)
-    
+            
 
 def ajout_donnee_dbb(data,bdd):
     if bdd == "arretsData":
@@ -286,8 +252,6 @@ def ajout_donnee_dbb(data,bdd):
         ajout_tronconsData(data)
     elif bdd == "relationsLignesTronconsData":
         ajout_relationsLignesTronconsData(data)
-    elif bdd == "horairesData":
-        ajout_horairesData(data)
     elif bdd == "coursesData":
         ajout_coursesData(data)
     elif bdd == "nomCommercial":
@@ -410,9 +374,269 @@ telechargerFichierJson("https://data.bordeaux-metropole.fr/geojson?key=177BEEMTW
 telechargerFichierJson("https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=sv_tronc_l","tronconsData",1024)
 telechargerFichierJson('https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=sv_cours_a', 'coursesData', 1024)
 telechargerFichierJson('https://data.bordeaux-metropole.fr/geojson/relations/SV_TRONC_L/SV_CHEM_L?key=177BEEMTWZ', 'relationsLignesTronconsData', 1024)
-telechargerFichierJsonSTREAM('https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=sv_horai_a', 'horairesData', 1024)
-
 
 
 cursor.close()
 cnx.close()
+
+
+
+
+
+
+
+
+
+
+
+def telechargement_data_region():
+    # telecherger le fichier zip : https://www.data.gouv.fr/fr/datasets/r/ba4be162-cc7f-4c7c-9d96-376a225e9045
+    # puis dezipper et mettre tout les fichiers contenue dans le dossier decompressé dans le dossier ../donnees/txt
+    print("Telechargement des données de transport en commun de la région Aquitaine")
+    # telecharger le fichier zip
+    url = "https://www.data.gouv.fr/fr/datasets/r/ba4be162-cc7f-4c7c-9d96-376a225e9045"
+    reponse = requests.get(url, timeout=90)
+    print("Telechargement du fichier zip terminé")
+    if reponse.status_code == 200:
+        # dezipper le fichier zip
+        with open("../donnees/txt/gironde-aggregated-gtfs.zip", "wb") as f:
+            f.write(reponse.content)
+        print("Dezippage du fichier zip terminé")
+        # ouvrir le fichier zip
+        with zipfile.ZipFile("../donnees/txt/gironde-aggregated-gtfs.zip", 'r') as zip_ref:
+            # extraire les fichiers
+            zip_ref.extractall("../donnees/txt/")
+            print("Extraction des fichiers terminé")
+        # supprimer le fichier zip
+        os.remove("../donnees/txt/gironde-aggregated-gtfs.zip")
+        print("Suppression du fichier zip terminé")
+    elif reponse.status_code == 404:
+        print("Fichier zip non trouvé")
+        return None
+    elif reponse.status_code == 500:
+        print("Erreur serveur")
+        return None
+    elif reponse.status_code == 503:
+        print("Service non disponible")
+        return None
+    elif reponse.status_code == 504:
+        print("Gateway Time-out")
+        return None
+    elif reponse.status_code == 400:
+        print("Mauvaise requête")
+        return None
+    else :
+        print("Erreur inconnue")
+        return None
+
+
+
+
+
+
+def ajout_data():
+    print("Ajout des données de transport en commun de la région Aquitaine")
+    # Connection a la base de donnees
+    cnx = mysql.connector.connect(user='root', password='@Password0', host='localhost', database='campus')
+
+    # Creation du curseur
+    cursor = cnx.cursor()
+    print("Connection a la base de donnees reussie")
+    
+    
+    print("Reinitialisation de la base de donnees nouvelle aquitaine ...")
+    #suppresion des donnees dans les tables agency, routes, stops, trips, stop_times
+    cursor.execute("DELETE FROM agency")
+    cursor.execute("DELETE FROM routes")
+    cursor.execute("DELETE FROM stop")
+    cursor.execute("DELETE FROM trips")
+    cursor.execute("DELETE FROM stop_times")
+    cursor.execute("DELETE FROM shapes")
+    cursor.execute("DELETE FROM calendar")
+    cursor.execute("DELETE FROM calendar_dates")
+    print("Reinitialisation de la base de donnees nouvelle aquitaine reussie")
+    
+    # ouvrir le fichier txt ../donnees/txt/agency.txt
+    print("Ajout des données de agency.txt")
+    with open('../donnees/txt/agency.txt', 'r') as f:
+        # lire le fichier, pour chaque ligne, les colonnes sont séparées par des virgules
+        i=0
+        for line in f:
+            if (i>0):
+                # on sépare les colonnes
+                line = line.split(',')
+                # on enlève le retour à la ligne
+                line[-1] = line[-1].replace('\n', '')
+                # on ajoute les données dans la base de données
+                agency_id = line[0].split(':')[2]
+                #enlever les guillemets
+                agency_id = agency_id.replace('"', '')
+                print("agency_id: " + agency_id + "   ...")
+                cursor.execute("INSERT INTO agency (agency_id, agency_name, agency_url) VALUES (%s, %s, %s)", (agency_id, line[1], line[2]))
+            i+=1
+    # on commit les données
+    cnx.commit()
+    print("Ajout des données de agency.txt reussi")
+    
+    # ouvrir le fichier txt ../donnees/txt/calendar.txt
+    print("Ajout des données de calendar.txt")
+    with open('../donnees/txt/calendar.txt', 'r') as f:
+        # lire le fichier, pour chaque ligne, les colonnes sont séparées par des virgules
+        i=0
+        for line in f:
+            if (i>0):
+                # on sépare les colonnes
+                line = line.split(',')
+                # on enlève le retour à la ligne
+                line[-1] = line[-1].replace('\n', '')
+                # on ajoute les données dans la base de données
+                service_id = line[0].split(':')[2]
+                service_id = service_id.replace('"', '')
+                
+                cursor.execute("INSERT INTO calendar (service_id, monday, tuesday, wednesday, thursday, friday, saturday, sunday, start_date, end_date) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (service_id, line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9]))
+            i+=1
+    # on commit les données
+    cnx.commit()
+    print("Ajout des données de calendar.txt reussi")
+    
+    
+    print("Ajout des données de calendar_dates.txt")
+    with open('../donnees/txt/calendar_dates.txt', 'r') as f:
+        # lire le fichier, pour chaque ligne, les colonnes sont séparées par des virgules
+        i=0
+        for line in f:
+            if (i>0):
+                # on sépare les colonnes
+                line = line.split(',')
+                # on enlève le retour à la ligne
+                line[-1] = line[-1].replace('\n', '')
+                # on ajoute les données dans la base de données
+                service_id = line[0].split(':')[2]
+                service_id = service_id.replace('"', '')
+                
+                cursor.execute("INSERT INTO calendar_dates (service_id, date) VALUES (%s, %s)", (service_id, line[1]))
+            i+=1
+    # on commit les données
+    cnx.commit()
+    print("Ajout des données de calendar_dates.txt reussi")
+    
+    print("Ajout des données de routes.txt")   
+    with open('../donnees/txt/routes.txt', 'r') as f:
+        # lire le fichier, pour chaque ligne, les colonnes sont séparées par des virgules
+        i=0
+        for line in f:
+            if (i>0):
+                # on sépare les colonnes
+                line = line.split(',')
+                # on enlève le retour à la ligne
+                line[-1] = line[-1].replace('\n', '')
+                # on ajoute les données dans la base de données
+                route_id = line[0].split(':')[2]
+                route_id = route_id.replace('"', '')
+                agency_id = line[1].split(':')[2]
+                agency_id = agency_id.replace('"', '')
+                route_short_name = line[2].replace('"', '')
+                
+                cursor.execute("INSERT INTO routes (route_id, agency_id, route_short_name, route_long_name) VALUES (%s, %s, %s, %s)", (route_id, agency_id, route_short_name, line[3]))
+            i+=1        
+    # on commit les données
+    cnx.commit()
+    print("Ajout des données de routes.txt reussi")
+    
+    print("Ajout des données de stops.txt")
+    with open('../donnees/txt/stops.txt', 'r') as f:
+        # lire le fichier, pour chaque ligne, les colonnes sont séparées par des virgules
+        i=0
+        for line in f:
+            if (i>0):
+                # on sépare les colonnes
+                line = line.split(',')
+                # on enlève le retour à la ligne
+                line[-1] = line[-1].replace('\n', '')
+                # on ajoute les données dans la base de données
+                stop_id = line[0].split(':')[2]
+                stop_id = stop_id.replace('"', '')
+                cursor.execute("INSERT INTO stop (stop_id, stop_name, stop_lat, stop_lon) VALUES (%s, %s, %s, %s)", (stop_id, line[2], line[4], line[5]))
+            i+=1
+    # on commit les données
+    cnx.commit()
+    print("Ajout des données de stops.txt reussi")
+    
+    
+    print("Ajout des données de shapes.txt")
+    with open('../donnees/txt/shapes.txt', 'r') as f:
+        # lire le fichier, pour chaque ligne, les colonnes sont séparées par des virgules
+        i=0
+        for line in f:
+
+            if (i>0):
+                # on sépare les colonnes
+                line = line.split(',')
+                # on enlève le retour à la ligne
+                line[-1] = line[-1].replace('\n', '')
+                # on ajoute les données dans la base de données
+                shape_id = line[0].split(':')[2]
+                shape_id = shape_id.replace('"', '')
+                cursor.execute("INSERT INTO shapes (shape_id, shape_pt_lat, shape_pt_lon, shape_pt_sequence) VALUES (%s, %s, %s, %s)", (shape_id, line[1], line[2], line[3]))
+            i+=1
+    # on commit les données
+    cnx.commit()
+    print("Ajout des données de shapes.txt reussi")
+
+    print("Ajout des données de trips.txt")
+    with open('../donnees/txt/trips.txt', 'r') as f:
+        # lire le fichier, pour chaque ligne, les colonnes sont séparées par des virgules
+        i=0
+        for line in f:
+            if (i>0):
+                # on sépare les colonnes
+                line = line.split(',')
+                # on enlève le retour à la ligne
+                line[-1] = line[-1].replace('\n', '')
+                # on ajoute les données dans la base de données
+                route_id = line[0].split(':')[2]
+                route_id = route_id.replace('"', '')
+                service_id = line[1].split(':')[2]
+                service_id = service_id.replace('"', '')
+                trip_id = line[2].split(':')[2]
+                #enlever le "-" dans le trip_id
+                trip_id = trip_id.replace('-', '')
+                trip_id = trip_id.replace('"', '')
+                shape_id = line[7].split(':')[2]
+                shape_id = shape_id.replace('"', '')
+                cursor.execute("INSERT INTO trips (route_id, service_id, trip_id, trip_headsign, trip_short_name ,direction_id, shape_id, wheelchair_accessible, bikes_allowed) VALUES (%s, %s, %s, %s, %s,%s, %s, %s, %s)", (route_id, service_id, trip_id, line[3], line[4],line[5], shape_id, line[8], line[9]))
+            i+=1
+    # on commit les données
+    cnx.commit()   
+    print("Ajout des données de trips.txt reussi")    
+    
+    print("Ajout des données de stop_times.txt")
+    with open('../donnees/txt/stop_times.txt', 'r') as f:
+        # lire le fichier, pour chaque ligne, les colonnes sont séparées par des virgules
+        i=0
+        for line in f:
+            if (i>0):
+                # on sépare les colonnes
+                line = line.split(',')
+                # on enlève le retour à la ligne
+                line[-1] = line[-1].replace('\n', '')
+                # on ajoute les données dans la base de données
+                trip_id = line[0].split(':')[2]
+                # enlever le "-" dans le trip_id
+                trip_id = trip_id.replace('-', '')
+                trip_id = trip_id.replace('"', '')
+                stop_id = line[3].split(':')[2]
+                stop_id = stop_id.replace('"', '')
+                cursor.execute("INSERT INTO stop_times (trip_id, arrival_time, departure_time, stop_id, stop_sequence) VALUES (%s, %s, %s, %s, %s)", (trip_id, line[1], line[2], stop_id, line[4]))
+            i+=1
+    # on commit les données
+    cnx.commit() 
+    print("Ajout des données de stop_times.txt reussi")
+    
+    print("Fermeture de la connexion")
+    # fermer la connexion
+    cnx.close()
+    print("Connexion fermée")
+    
+telechargement_data_region()
+ajout_data()

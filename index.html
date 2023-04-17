@@ -420,6 +420,29 @@
                     </div>
 
                     <div>
+                        <input type="checkbox" class="parkingsRelaisCheckbox" unchecked>
+                        <label for="parkingsRelaisCheckbox">Parkings relais</label>
+                        <script>
+                        if ($(".parkingsRelaisCheckbox").is(':checked')) {var parkingsRelaisCheckbox = true;} else {var parkingsRelaisCheckbox = false;}
+                        </script>
+                        <script> $(".parkingsRelaisCheckbox").click(function(){
+                            chargement(1).then(function() {
+                                if (parkingsRelaisCheckbox===true) { 
+                                    layerControlNumber.overlays["Parking relais"].remove();
+                                    parkingsRelaisCheckbox=false;}
+                                else if (parkingsRelaisCheckbox===false) {
+                                    layerControlNumber.overlays["Parking relais"].addTo(mapNumber);
+                                    parkingsRelaisCheckbox=true;}
+                                return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
+                        </script>
+                    </div>
+
+                    <div>
                         <input type="checkbox" class="covoiturageCheckbox" unchecked>
                         <label for="covoiturageCheckbox">Points de covoiturage</label>
                         <script>

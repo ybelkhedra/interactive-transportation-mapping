@@ -7,6 +7,9 @@ var layer_control_643cdab5b83b581cb10d63d05a5a00f0 = {
     },
 
     overlays :  {
+
+        "Parking relais" : feature_group_parkings_relais,//ok
+
         "Stations Vcube" : feature_group_vcube,//ok
 
         "Points de stationnement velo" : feature_group_pts_stationnement_velo_bdd,//ok

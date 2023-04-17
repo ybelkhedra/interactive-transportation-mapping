@@ -2,7 +2,12 @@ var feature_group_arrets_cars_bdd = L.featureGroup( // création d'un groupe de 
     {}
 );//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb); // ajout du groupe de marqueurs à la carte
 
-
+var car_station_Icon = L.icon({
+    iconUrl: './sources/icons/car_station.png',
+    iconSize:     [taille_icon, taille_icon], // size of the icon
+    iconAnchor: [taille_icon/2, taille_icon],
+    popupAnchor: [0, -taille_icon/2],
+});
 
 function afficherPopupArretsBus(e) { 
     var nom = "Nom : " + e.stop_name;
@@ -34,7 +39,7 @@ function updateBddArretsBus() {
             if (arret.ligne_car.length > 0)
             { 
                 nb_arrets_bus++;
-                var marker = L.marker([arret.stop_lat, arret.stop_lon], {icon : bus_station_Icon}).addTo(feature_group_arrets_cars_bdd); // création du marqueur
+                var marker = L.marker([arret.stop_lat, arret.stop_lon], {icon : car_station_Icon}).addTo(feature_group_arrets_cars_bdd); // création du marqueur
                 marker.bindPopup(afficherPopupArretsBus(arret)); // ajout du popup
                 affichage();
             }
