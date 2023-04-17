@@ -904,18 +904,8 @@ background-color: #000;
     font-weight: bold;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.box {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+}

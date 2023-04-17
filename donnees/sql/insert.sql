@@ -159,3 +159,46 @@ INSERT INTO autoriser(pt_freefloat, vehicule) VALUES (1,2);
 
 INSERT INTO autoriser(pt_freefloat, vehicule) VALUES (2,1);
 INSERT INTO autoriser(pt_freefloat, vehicule) VALUES (2,2);
+
+
+-- Insertion des vrais parkings repérés sur le campus
+
+INSERT INTO parkings (id, nom, nb_places_max, nb_places_disponibles, payant, nb_places_handicapes, hors_voirie, prive, informations_complementaires) VALUES (1, 'Parking Université', 250, 250, 0, 0, 1, 0, '351 Cr de la Libération, 33400 Talence');
+INSERT INTO coordonnees_parkings (id, latitude, longitude) VALUES (1, 44.807919, -0.599133);
+INSERT INTO situer_parkings (parking, coordonnee) VALUES (1, 1);
+
+INSERT INTO parkings (id, nom, nb_places_max, nb_places_disponibles, payant, nb_places_handicapes, hors_voirie, prive, informations_complementaires) VALUES (2, 'Parking IMB', 110, 110, 0, 0, 1, 0, 'A39, 33400 Talence');
+INSERT INTO coordonnees_parkings (id, latitude, longitude) VALUES (2, 44.809612, -0.592534);
+INSERT INTO situer_parkings (parking, coordonnee) VALUES (2, 2);
+
+INSERT INTO parkings (id, nom, nb_places_max, nb_places_disponibles, payant, nb_places_handicapes, hors_voirie, prive, informations_complementaires) VALUES (3, 'Parking bâtiment A4', 110, 110, 0, 0, 1, 0, '29 Av. Roul, 33400 Talence');
+INSERT INTO coordonnees_parkings (id, latitude, longitude) VALUES (3, 44.807360, -0.592937);
+INSERT INTO situer_parkings (parking, coordonnee) VALUES (3, 3);
+
+INSERT INTO parkings (id, nom, nb_places_max, nb_places_disponibles, payant, nb_places_handicapes, hors_voirie, prive, informations_complementaires) VALUES (4, 'Parking stade de Notre Dame de Sévigné', 140, 140, 0, 0, 1, 0, 'C1, 33400 Talence');
+INSERT INTO coordonnees_parkings (id, latitude, longitude) VALUES (4, 44.810810, -0.594487);
+INSERT INTO situer_parkings (parking, coordonnee) VALUES (4, 4);
+
+INSERT INTO parkings (id, nom, nb_places_max, nb_places_disponibles, payant, nb_places_handicapes, hors_voirie, prive, informations_complementaires) VALUES (5, 'Parking bâtiment A12', 260, 260, 0, 0, 1, 0, 'A12, 33400 Talence');
+INSERT INTO coordonnees_parkings (id, latitude, longitude) VALUES (5, 44.807419, -0.596523);
+INSERT INTO situer_parkings (parking, coordonnee) VALUES (5, 5);
+
+INSERT INTO parkings (id, nom, nb_places_max, nb_places_disponibles, payant, nb_places_handicapes, hors_voirie, prive, informations_complementaires) VALUES (6, 'Parking Béthanie', 160, 160, 0, 0, 1, 0, '144 Av. Roul, 33400 Talence');
+INSERT INTO coordonnees_parkings (id, latitude, longitude) VALUES (6, 44.806307, -0.599201);
+INSERT INTO situer_parkings (parking, coordonnee) VALUES (6, 6);
+
+INSERT INTO parkings (id, nom, nb_places_max, nb_places_disponibles, payant, nb_places_handicapes, hors_voirie, prive, informations_complementaires) VALUES (7, 'Parking PolymerExpert', 60, 60, 0, 0, 1, 1, '3 All. du Doyen Georges Brus, 33600 Pessac');
+INSERT INTO coordonnees_parkings (id, latitude, longitude) VALUES (7, 44.793479, -0.623359);
+INSERT INTO situer_parkings (parking, coordonnee) VALUES (7, 7);
+
+INSERT INTO parkings (id, nom, nb_places_max, nb_places_disponibles, payant, nb_places_handicapes, hors_voirie, prive, informations_complementaires) VALUES (8, 'Parking Cluster Aquitaine Robotics', 110, 110, 0, 0, 1, 0, 'Parc Scientifique Unitec, 6 All. du Doyen Georges Brus, 33600 Pessac');
+INSERT INTO coordonnees_parkings (id, latitude, longitude) VALUES (8, 44.794073, -0.624431);
+INSERT INTO situer_parkings (parking, coordonnee) VALUES (8, 8);
+
+INSERT INTO parkings (id, nom, nb_places_max, nb_places_disponibles, payant, nb_places_handicapes, hors_voirie, prive, informations_complementaires) VALUES (9, 'Parking Cosec', 180, 180, 0, 0, 1, 0, '8 Av. Jean Babin, 33600 Pessac');
+INSERT INTO coordonnees_parkings (id, latitude, longitude) VALUES (9, 44.791010, -0.621348);
+INSERT INTO situer_parkings (parking, coordonnee) VALUES (9, 9);
+
+INSERT INTO parkings (id, nom, nb_places_max, nb_places_disponibles, payant, nb_places_handicapes, hors_voirie, prive, informations_complementaires) VALUES (10, 'Parking', 100, 100, 0, 0, 1, 0, '18 Av. Jean Babin, 33600 Pessac');
+INSERT INTO coordonnees_parkings (id, latitude, longitude) VALUES (10, 44.791882, -0.622788);
+INSERT INTO situer_parkings (parking, coordonnee) VALUES (10, 10);
