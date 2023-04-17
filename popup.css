@@ -1,0 +1,92 @@
+#popup-content{
+    position: fixed;
+    top: 20%;
+    left: 20%;
+    width: 276px;
+    height: 336px;
+    /* background degradé de gris vers blanc de base en bas */
+    background: -webkit-linear-gradient(top, #ffffff, #cfcfcfba);
+    
+    z-index: 999;
+    display: block;
+    /* arondir les bords */
+    -webkit-border-radius: 20px;
+}
+
+body{
+    background: #eecfcf;
+}
+
+#img_popup{
+    position: relative;
+    top: 10px;
+    left: 80%;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 30px;
+    height: 30px;
+    z-index: 2;
+}
+
+
+/* div titre_popup */
+#titre_popup{
+    top : -10px;
+    left: 5%;
+    position: relative;
+    display: block;
+    color: black;
+}
+
+/* div sous_titre_popup */
+#sous_titre_popup{
+    top : -20px;
+    left: 5%;
+    position: relative;
+    display: block;
+    color: gray;
+}
+
+#container_from_to{
+    position: relative;
+    top : -20px;
+    left: 5%;
+    width: 90%;
+    height: 30%;
+    background: #ffffff99;
+    border-radius: 20px;
+    display: block;
+    
+}
+
+#from{
+    position: relative;
+    top: 10px;
+    left: 5%;
+    width: 90%;
+    height: 30%;
+    display: block;
+    color: gray;
+}
+
+#ligne_horizontal{
+    position: relative;
+    top: 10px;
+    left: 5%;
+    width: 90%;
+    height: 2%;
+    display: block;
+    color: gray;
+
+}
+
+#to{
+    position: relative;
+    top: 10px;
+    left: 5%;
+    width: 90%;
+    height: 30%;
+    display: block;
+    color: gray;
+
+}
