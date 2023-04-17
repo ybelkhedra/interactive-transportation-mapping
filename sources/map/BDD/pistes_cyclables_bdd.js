@@ -94,6 +94,67 @@ function afficherPopupPistesCyclablesAPI(piste_cyclable)
     return type_piste;
 }
 
+function color_piste(piste_cyclable)
+{
+    if (piste_cyclable.typamena == "RACCORD") {
+        return 'grey';
+    }
+    else if (piste_cyclable.typamena == "AIRE_PIETONNE") {
+        return 'purple';
+    }
+    else if (piste_cyclable.typamena == "ALLEES_DE_PARCS") {
+        return 'yellow';
+    }
+    else if (piste_cyclable.typamena == "BANDES_CYCL")
+    {
+        return 'orange';
+    }
+    else if (piste_cyclable.typamena == "COULOIRS_BUS")
+    {
+        return 'pink';
+    }
+    else if (piste_cyclable.typamena == "BANDES_CYCL_DBLE_SENS")
+    {
+        return 'red';
+    }
+    else if (piste_cyclable.typamena == "DBLE_SENS_CYCL")
+    {
+        return 'black';
+    }
+    else if (piste_cyclable.typamena == "PIST_CYCL_CONTRESENS")
+    {
+        return 'black';
+    }
+    else if (piste_cyclable.typamena == "DBLE_SENS_PIST_CYCL")
+    {
+        return 'blue';
+    }
+    else if (piste_cyclable.typamena == "PISTES_CYCL")
+    {
+        return 'cadetblue';
+    }
+    else if (type_piste.typamena == "VOIE_VERTE")
+    {
+        return 'green';
+    }
+    else if (type_piste.typamena == "ZONE_RENCONTRE")
+    {
+        return 'lightgreen';
+    }
+    else if (type_piste.typamena == "PASSAGE_PIETONS")
+    {
+        return 'lightred';
+    }
+    else if (type_piste.typamena == "ZONE_30_DBLE_SENS")
+    {
+        return 'lightblue';
+    }
+    else if (type_piste.typamena == "ZONE_30_SENS_UNIQUE")
+    {
+        return 'darkpurple';
+    }
+}
+
 
 function updateBddPisteCyclables(){
     // suppression des marqueurs existants de la carte
@@ -145,18 +206,35 @@ function updateBddPisteCyclables(){
             }
         });
         $.each(data.features, function(key, val) {
-            //inversé les coordonnées val.features.geometry.coordinates
-            for (var i = 0; i < val.geometry.coordinates.length; i++) {
-                    val.geometry.coordinates[i].reverse();
+            try {
+                InCampus = true;
+                //inversé les coordonnées val.features.geometry.coordinates
+                for (var i = 0; i < val.geometry.coordinates.length; i++) {
+                        val.geometry.coordinates[i].reverse();
+                        if (filtreCordonnees(val.geometry.coordinates[i][0],val.geometry.coordinates[i][1])==false)
+                        {
+                            InCampus = false;
+                        }
+                    }
+                    if (InCampus == true)
+                    {
+                        var colorVal = color_piste(val.properties);
+                        var polyline = L.polyline(val.geometry.coordinates, {color: colorVal}).addTo(feature_group_pistes_cyclables_bdd);
+                        polyline.bindPopup(afficherPopupPistesCyclablesAPI(val.properties));
+                    }
             }
-                var polyline = L.polyline(val.geometry.coordinates, {color: 'orange'}).addTo(feature_group_pistes_cyclables_bdd);
-                polyline.bindPopup(afficherPopupPistesCyclablesAPI(val.properties));
-            });
-        }
+            catch(e)
+            {
+                console.log(e);
+            }
 
+
+                });
+            
+        }
         checkSumInitialLoaging++;
         }
-        });
+    });
 }
 
 updateBddPisteCyclables();
