@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+	<head>
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <script>document.getElementsByTagName("html")[0].className += " js";</script>
+	  <link rel="stylesheet" href="css/faq_style.css">
+	  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	  <link rel="stylesheet" href="assets/css/style.css">
+	  <title>FAQ </title>
+	</head>
+	<body>
+	  <header class="cd-header flex flex-column flex-center">
+		<div class="text-component text-center">
+			<h1>Foire Aux Questions</h1>
+			<a href="index.html">Accueil</a>
+			<a href="#">Infos</a>
+            <a href="sources/web/index.html">Admin</a>
+            <a href="#">FAQ</a>
+            <div class="dot"></div>
+		  </div>
+	  </header>
+
+
+<section class="cd-faq js-cd-faq container max-width-md margin-top-lg margin-bottom-lg">
+	<ul class="cd-faq__categories">
+		<li><a class="cd-faq__category cd-faq__category-selected truncate" href="#intro">A quoi sert cette page?</a></li>
+		<li><a class="cd-faq__category truncate" href="#acceuil">Page d'acceuil</a></li>
+		<li><a class="cd-faq__category truncate" href="#carte">Carte</a></li>
+		<li><a class="cd-faq__category truncate" href="#info">Page d'informations</a></li>
+		<li><a class="cd-faq__category truncate" href="#administration">Administration</a></li>
+	</ul> <!-- cd-faq__categories -->
+
+	<div class="cd-faq__items">
+		<ul id="intro" class="cd-faq__group">
+			<li class="cd-faq__title"><h2>Informations générales</h2></li>
+			<li class="cd-faq__item">
+				<a class="cd-faq__trigger" href="#0"><span>Présentation de cette page</span></a>
+				<div class="cd-faq__content">
+          <div class="text-component">
+            <p>Cette page a pour vocation à servir de guide d'utilisation ainsi que de fournir des pistes de solutions en cas de problème. Vous pouvez vous rendre directement à la partie qui vous intéresse en cliquant sur le bandeau à votre gauche, ou en faisant tout simplement dérouler la page.</p>
+          </div>
+		  <li class="cd-faq__item">
+			<a class="cd-faq__trigger" href="#0"><span>Quel est l'objectif de ce site?</span></a>
+			<div class="cd-faq__content">
+	  <div class="text-component">
+		<p>Avant la création de ce site, si de nombreuses informations concernant la mobilité sur le campus universitaire étant trouvables, elles étaient souvent éparpillées dans différentes sources incomplètes, et parfois même certaines inforamtions étaient tout simplement inexistantes. Cela compliquait toute initiative d'étude de ces mobilités ou de plannification d'amélioration de ces mobilités au sein du campus. Grâce à ce site, toutes ces informations sont maintenant accessibles en 1 seul clic, avec une interface graphique permettant d'appréhender rapidement et simplement ces questions de mobilité.</p>
+	  </div>
+			</div> <!-- cd-faq__content -->
+		</li>
+		  <li class="cd-faq__item">
+			<a class="cd-faq__trigger" href="#0"><span>Le site est-il accessible à tout moment?</span></a>
+			<div class="cd-faq__content">
+	  <div class="text-component">
+		<p>Malheureusement, notre équipe ne peut vous offir pour l'instant une utilisation à tout moment. En effet, cette version du site est mise à jour tous les soirs. Ces mises à jour étant très longues, ce site sera très probablement inaccessible pendant la nuit. Rassurez-vous, notre équipe a choisir de faire cette mise à jour la nuit, vers 2 heures du matin, afin de vous garantir une utilisation optimale pendant la très grande partie de la journée, et notre équipe travaille d'arrache pied afin palier à ce défaut.</p>
+	  </div>
+			</div> <!-- cd-faq__content -->
+		</li>
+		</ul> <!-- cd-faq__group -->
+
+		<ul id="acceuil" class="cd-faq__group">
+			<li class="cd-faq__title"><h2>Page d'acceuil</h2></li>
+			<li class="cd-faq__item">
+				<a class="cd-faq__trigger" href="#0"><span>Comment utiliser cette page d'acceuil?</span></a>
+				<div class="cd-faq__content">
+          <div class="text-component">
+            <p>Cette page est celle qui vous acceuille lorsque vous arrivez sur le site. Elle contient l'essentiel de ce que la plupart des utilisateurs vont utiliser. Tout d'abord, vous avez une carte du campus, avec une possibilité d'afficher différents modes de mobilité. Plus d'informations concernant cette carte sont disponibles dans la partie carte.</p>
+			<img src="images/accueil.png" alt="Image acceuil map">
+			<p>Une autre fonctionnalité trouvable sur la page d'acceuil est un ensemble d'informations recueillies sur la campus en direct.</p>
+			<img src="images/tableau_acceuil.png" alt="Image tableau popups">
+			<p>Il faut faire attention bien atteindre jusqu'a ce que le chargement soit totalement complétée avant de naviguer sur d'autres pages du site afin de garantir une bonne utilisation par la suite.</p>
+          </div>
+				</div> <!-- cd-faq__content -->
+			</li>
+
+			<li class="cd-faq__item">
+				<a class="cd-faq__trigger" href="#0"><span>D'où proviennent ces données présentées sur cette page et sont-elles bien à jour?</span></a>
+				<div class="cd-faq__content">
+          <div class="text-component">
+            <p>Dans le cas des données ayant un risque de changement assez faibles tels que le nombre de parkings, ces informations nous proviennent de notre base de données interne. Concernant les données en temps réél tels que le nombre de bus en temps réél, nous ne possédont pas ces informations et elles nous sont fournies par TBM et la métropole.</p>
+          </div>
+				</div> <!-- cd-faq__content -->
+			</li>
+		</ul> <!-- cd-faq__group -->
+
+		<ul id="carte" class="cd-faq__group">
+			<li class="cd-faq__title"><h2>Carte</h2></li>
+			<li class="cd-faq__item">
+				<a class="cd-faq__trigger" href="#0"><span>Quelle est la zone couverte dans le cadre de ce site?</span></a>
+				<div class="cd-faq__content">
+          <div class="text-component">
+            <p>Dans le cadre de ce site, le champ d'étude est concentré autour du campus universitaire de Bordeau. Ce champ d'étude s'étend jusqu'à la gare de Pessac à l'Ouest et la gare de Bordeaux Saint-Jean au Nord Est. Voici ci-dessous la zone couverte, qui est se situe dans la carré rouge.</p>
+			<img src="images/carte_zone.png" alt="Image zone carte">
+          </div>
+				</div> <!-- cd-faq__content -->
+			</li>
+
+			<li class="cd-faq__item">
+				<a class="cd-faq__trigger" href="#0"><span>Menu déroulant de la carte</span></a>
+				<div class="cd-faq__content">
+          <div class="text-component">
+			<img src="images/menu.png" alt="Image Menu">
+            <p>Le menu de navigation de la carte est sur votre gauche et est facile d'utilisation. Les différentes mobilités sont catégorisées en quatre grandes parties: les modes actifs(correspondant à des modes de déplacement nécessitant un effort physique), les transports commun , une catégorie regroupant les informations concernant les voitures, et une partie Autres regroupant les autres informations.</p>
+          </div>
+				</div> <!-- cd-faq__content -->
+			</li>
+
+			<li class="cd-faq__item">
+				<a class="cd-faq__trigger" href="#0"><span>Que signifient les pastilles de couleurs à côté des arrêts de tram?</span></a>
+				<div class="cd-faq__content">
+          <div class="text-component">
+            <p>Ces pastilles de couleur donnent une estimation du temps d'attente avant l'arrivé du prochain tram. Une pastille verte insique que le temps d'attente est inférieur à 5 mins, une pastille orange entre 5 et 10 mins, et la pastille rouge plus de 10 mins</p>
+			<img src="images/temps_tram.png" alt="Image tram">
+		</div>
+				</div> <!-- cd-faq__content -->
+			</li>
+
+			<li class="cd-faq__item">
+				<a class="cd-faq__trigger" href="#0"><span>J'ai affiché ce que vous appelez des isochrones. Que représentent-elles?</span></a>
+				<div class="cd-faq__content">
+          <div class="text-component">
+            <p>En cliquant sur n'importe quel point de la carte(par exemple un arrêt de bus, un arrêt de tram), vous avez la possibilité d'afficher ce que l'on appelle une isochrone. Elle délimite la zone que vous pouvez atteindre à partir de ce point en fonction du temps qu'il vous ait accordé, à pied ou en vélo.</p>
+			<img src="images/isochrone.png" alt="Isochrone">
+			<p>Voici ci-dessus les iscochrones piétons autour de la gare de Pessac. En bleu foncé est la zone qu'il est possible d'atteindre en 5 minutes à pied, en vert en 10 minutes à pied et en bleu clair à 15 minutes en pied. Ce code couleur est le même pour les isochrones vélos.</p>
+          </div>
+				</div> <!-- cd-faq__content -->
+			</li>
+		</ul> <!-- cd-faq__group -->
+
+		<ul id="info" class="cd-faq__group">
+			<li class="cd-faq__title"><h2>Informations</h2></li>
+			<li class="cd-faq__item">
+				<a class="cd-faq__trigger" href="#0"><span>Quelles sont les informations disponibles sur cette page?</span></a>
+				<div class="cd-faq__content">
+          <div class="text-component">
+            <p>Cette page offre de nombreuses informations, notamment sur la Chaire Mobilité et Transports Intelligents de Bordeaux, avec des liens utiles si vous voulez vous renseigner d'avantage sur le sujet.</p>
+          </div>
+				</div> <!-- cd-faq__content -->
+			</li>
+
+		</ul> <!-- cd-faq__group -->
+
+		<ul id="administration" class="cd-faq__group">
+			<li class="cd-faq__title"><h2>Administration</h2></li>
+			<li class="cd-faq__item">
+				<a class="cd-faq__trigger" href="#0"><span>Pour qui est cette page?</span></a>
+				<div class="cd-faq__content">
+          <div class="text-component">
+            <p>Cette page ne sera pas utile pour la majorité des utilisateurs de ce site. En effet, cette page permet avant tout de manipuler les bases de données du site.</p>
+          </div>
+				</div> <!-- cd-faq__content -->
+			</li>
+
+			<li class="cd-faq__item">
+				<a class="cd-faq__trigger" href="#0"><span>Guide de l'acceuil</span></a>
+				<div class="cd-faq__content">
+          <div class="text-component">
+            <p>La première fois que l'on accède au site, le temps de chargement est très long. Cela est dû au fait que nous avons pris parti d'utiliser une véritable application afin d'assurer la sécurité de la page. Après le chargement de l'application, différentes inforamtions sont fournies. </p>
+			<p>En haut à gauche, 3 courbes sont proposées. La courbe bleue indique l'état actuel du traffic, la courbe rouge un traffic très chargé et en vert un traffic considéré comme normal.</p>
+			<img src="images/courbes.png" alt="Courbes">
+			<p>En haut à droite se trouve une jauge qui nous permet de situer l'état du traffic routier sur Bordeaux. Plus la flèche est située à gauche, plus le traffic est considéré comme fluide, et plus elle est située à gauche, plus le traffic est considéré comme emcombré. Cette jauge est relative, c'est à dire que le traffic est fluide ou emcombré par rapport au flux normal à cet horaire?</p>
+			<img src="images/jauge.png" alt="Jauge">
+			<p>Enfin,il y a un menu déroulant retransmettant les annonces TBM au niveau des lignes de tram.</p>
+			<img src="images/menu_tbm.png" alt="Jauge">
+		</div>
+				</div> <!-- cd-faq__content -->
+			</li>
+
+			<li class="cd-faq__item">
+				<a class="cd-faq__trigger" href="#0"><span>Modifications de la base de données</span></a>
+				<div class="cd-faq__content">
+          <div class="text-component">
+            <p>Tout d'abord, avant de pouvoir modifier les bases de données, vous devez vous connecter en utilisant l'icone. Ensuite, appuyez sur l'icone <span style="display: inline-block;"><img src="images/fleche.png" width="20" height="20" alt="Fleche" style="vertical-align: middle;"></span>. Une fois cela fait, vous pouvez interagir avec les bases en cliquant sur l'icone <span style="display: inline-block;"><img src="images/base.png" width="20" height="20" alt="Fleche" style="vertical-align: middle;"></span>.Toutes les bases utilisées sont alors présentées. Pour ajouter une donnée dans une base, appuyez sur le +, rentrez les informations et l'objet est créé directement dans la base de données. Il est également possible de supprimer un objet de la base en cliquant sur la "supprimer" en bas à droite de l'objet..s</p>
+          </div>
+				</div> <!-- cd-faq__content -->
+			</li>
+
+			<li class="cd-faq__item">
+				<a class="cd-faq__trigger" href="#0"><span>Comment extraire des données?</span></a>
+				<div class="cd-faq__content">
+          <div class="text-component">
+            <p>Il est possible d'extraire des données en vous rendant sur l'icone <span style="display: inline-block;"><img src="images/plusun.png" width="20" height="20" alt="Fleche" style="vertical-align: middle;"></span>. Ensuite, vous pouvez choisir les données que vous voulez extraire, choisissez un format, et commencez le téléchargement.</p>
+          </div>
+				</div> <!-- cd-faq__content -->
+			</li>
+		</ul> <!-- cd-faq__group -->
+	</div> <!-- cd-faq__items -->
+
+	<a href="#0" class="cd-faq__close-panel text-replace">Close</a>
+  
+  <div class="cd-faq__overlay" aria-hidden="true"></div>
+</section> <!-- cd-faq -->
+<script src="sources/web/faq_util.js"></script> <!-- util functions included in the CodyHouse framework -->
+<script src="sources/web/faq_main.js"></script> 
+</body>
+</html>
