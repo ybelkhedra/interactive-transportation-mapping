@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:latlong2/latlong.dart';
 import '../table_helper.dart';
 import 'selectData.dart';
 import 'add_coordinates_map.dart';
+import 'coordinates_lines.dart';
 
 class AddToTable extends StatefulWidget {
   final String tableName;
@@ -142,74 +142,25 @@ class _AddToTableState extends State<AddToTable> {
     }
   }
 
-  Widget latLongLine(TextEditingController lat, TextEditingController long,
-      {bool plus = false, bool moins = false, int indexToDel = -1}) {
-    return Row(
-        children: [
-              Flexible(
-                  child: TextFormField(
-                controller: lat,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  hintText: 'Latitude',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Veuillez entrer une latitude';
-                  }
-                  return null;
-                },
-              )),
-              Flexible(
-                child: TextFormField(
-                  controller: long,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    hintText: 'Longitude',
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Veuillez entrer une longitude';
-                    }
-                    return null;
-                  },
-                ),
-              )
-            ] +
-            [
-              if (moins)
-                Flexible(
-                    child: ElevatedButton(
-                        onPressed: () => {
-                              setState(() => {
-                                    widget._listCoordinates.remove(
-                                        widget._listCoordinates[indexToDel]),
-                                  })
-                            },
-                        child: const Icon(Icons.remove)))
-            ] +
-            [
-              if (plus)
-                Flexible(
-                    child: ElevatedButton(
-                        onPressed: () => {
-                              setState(() => {
-                                    widget._listCoordinates.add({
-                                      "latitude": TextEditingController(),
-                                      "longitude": TextEditingController()
-                                    })
-                                  })
-                            },
-                        child: const Icon(Icons.add)))
-            ]);
-  }
-
   @override
   Widget build(BuildContext context) {
     String nomJolie = tableHelper[widget.tableName]!['nom_jolie'];
     return Scaffold(
       appBar: AppBar(
         title: Text('Ajouter un $nomJolie'),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.white,
+        child: ElevatedButton(
+          onPressed: () async {
+            print(widget._selected);
+            print(widget._controllers);
+            print("Selected shown above");
+            await addDataToTable();
+            Navigator.pop(context);
+          },
+          child: const Text('Ajouter'),
+        ),
       ),
       body: Form(
         key: _formKey,
@@ -219,28 +170,12 @@ class _AddToTableState extends State<AddToTable> {
                   makeForm(key),
               ] +
               [
-                if (widget.isThereLatLong)
-                  latLongLine(widget._controllers["latitude"]!,
-                      widget._controllers["longitude"]!)
-                else if (widget.isThereCoordinates)
-                  for (int i = 0; i < widget._listCoordinates.length; ++i)
-                    latLongLine(widget._listCoordinates[i]["latitude"]!,
-                        widget._listCoordinates[i]["longitude"]!,
-                        plus: i == widget._listCoordinates.length - 1,
-                        moins: widget._listCoordinates.length > 1,
-                        indexToDel: i)
-              ] +
-              [
-                ElevatedButton(
-                  onPressed: () async {
-                    print(widget._selected);
-                    print(widget._controllers);
-                    print("Selected shown above");
-                    await addDataToTable();
-                    Navigator.pop(context);
-                  },
-                  child: const Text('Ajouter'),
-                )
+                if (widget.isThereLatLong || widget.isThereCoordinates)
+                  CoordinatesLines(
+                      controllers: widget._controllers,
+                      listCoordinates: widget._listCoordinates,
+                      controllerOrlistCoordinates:
+                          widget.isThereCoordinates ? 1 : 0)
               ] +
               [
                 if (widget.isThereLatLong || widget.isThereCoordinates)

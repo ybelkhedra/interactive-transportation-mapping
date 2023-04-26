@@ -26,6 +26,19 @@ class _AddCoordinatesMapState extends State<AddCoordinatesMap> {
 
   double lat = 44.79517;
   double long = -0.603537;
+  List<double> getLatlong() {
+    double lat = 44.79517;
+    double long = -0.603537;
+    if (widget.controllerOrlistCoordinates == 0) {
+      lat = widget
+          .listCoordinates[widget.listCoordinates.length - 1]['latitude']
+          ?.text as double;
+      long = widget
+          .listCoordinates[widget.listCoordinates.length - 1]['longitude']
+          ?.text as double;
+    }
+    return [lat, long];
+  }
 
   @override
   Widget build(BuildContext context) {
