@@ -14,7 +14,7 @@ echo $sql;
 //exécution de la requête
 if ($db->query($sql)) {
     $id_pt_freefloat_ajouter = $db->insert_id;
-    for($i = 0; $i < count(coordonnees); $i++)
+    for($i = 0; $i < count($coordonnees); $i++)
     {
         $latitude = $coordonnees[$i]['latitude'];
         $longitude = $coordonnees[$i]['longitude'];

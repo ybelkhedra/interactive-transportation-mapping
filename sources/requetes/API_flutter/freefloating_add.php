@@ -5,7 +5,7 @@ $nom = $_GET['nom'];
 $info_complementaires = $_GET['info_complementaires'];
 $latitude = $_GET['latitude'];
 $longitude = $_GET['longitude'];
-$vehicules_autorises = $_GET['vehiculesAutorise'];
+$vehicules_autorises = $_GET['vehicules_freefloating'];
 
 $db = new mysqli("localhost", "root", "@Password0", "campus");
 
