@@ -4,7 +4,7 @@
 $nom = $_GET['nom'];
 $vehicules_freefloating = json_decode($_GET['vehicules_freefloating']);
 $info_complementaires = $_GET['info_complementaires'];
-$coordonnees = json_decode($_GET['coordonnees']);
+$coordonnees = json_decode($_GET['coordonnees'], true);
 
 $db = new mysqli("localhost", "root", "@Password0", "campus");
 
@@ -13,11 +13,15 @@ $sql = "INSERT INTO pt_freefloat (nom, info_complementaires) VALUES ('$nom', '$i
 echo $sql;
 //exécution de la requête
 if ($db->query($sql)) {
+    echo 'ok';
+    echo count($coordonnees);
     $id_pt_freefloat_ajouter = $db->insert_id;
     for($i = 0; $i < count($coordonnees); $i++)
     {
+        echo 'ok';
         $latitude = $coordonnees[$i]['latitude'];
         $longitude = $coordonnees[$i]['longitude'];
+        echo 'oklast';
         $sql = "INSERT INTO coordonnees_pt_freefloat (latitude, longitude) VALUES ('$latitude', '$longitude')";
         echo $sql;
         if ($db->query($sql)) {
