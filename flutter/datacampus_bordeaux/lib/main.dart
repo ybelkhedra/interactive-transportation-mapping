@@ -1,12 +1,8 @@
 import 'package:datacampus_bordeaux/warning.dart';
 import 'package:datacampus_bordeaux/crud_select_table.dart';
 import 'package:flutter/material.dart';
-import 'login.dart';
-import 'CRUD/parkings.dart';
 import 'home.dart';
-import 'CRUD/table_helper.dart';
 import 'login_admin.dart';
-import 'warning.dart';
 import 'export_tables.dart';
 
 import 'global.dart' as globals;
@@ -96,9 +92,9 @@ class _menuState extends State<menu> {
                       onPressed: () {
                         setState(() {
                           if (globals.isLoggedIn == true) {
-                            currentPageIndex = 2;
+                            currentPageIndex = 1;
                           } else {
-                            currentPageIndex = 4;
+                            currentPageIndex = 3;
                           }
                           // currentPageIndex = 2;
                         });
@@ -118,7 +114,7 @@ class _menuState extends State<menu> {
                       icon: const Icon(Icons.login, color: Colors.white),
                       onPressed: () {
                         setState(() {
-                          currentPageIndex = 3;
+                          currentPageIndex = 2;
                         });
                       },
                     ),
@@ -146,15 +142,14 @@ class _menuState extends State<menu> {
           child: IndexedStack(
             index: currentPageIndex,
             children: [
-              Center(
+              const Center(
                 child: home(),
               ),
-              Parkings(),
-              CrudSelectTable(),
+              const CrudSelectTable(),
               //LoginView(),
               LoginPage(),
-              warning(),
-              ExportTable(),
+              const warning(),
+              const ExportTable(),
             ],
           ),
         ),

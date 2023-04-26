@@ -2,7 +2,7 @@
 
 // on recupere le gid du parking à supprimer par get
 $nom = $_GET['nom'];
-$infoComplementaires = $_GET['infoComplementaires'];
+$info_complementaires = $_GET['info_complementaires'];
 $latitude = $_GET['latitude'];
 $longitude = $_GET['longitude'];
 $vehicules_autorises = $_GET['vehiculesAutorise'];
@@ -10,7 +10,7 @@ $vehicules_autorises = $_GET['vehiculesAutorise'];
 $db = new mysqli("localhost", "root", "@Password0", "campus");
 
 //ajouter les données dans la table parking
-$sql = "INSERT INTO pt_freefloat (nom, info_complementaires) VALUES ('$nom','$infoComplementaires')";
+$sql = "INSERT INTO pt_freefloat (nom, info_complementaires) VALUES ('$nom','$info_complementaires')";
 echo $sql;
 //exécution de la requête
 if ($db->query($sql)) {

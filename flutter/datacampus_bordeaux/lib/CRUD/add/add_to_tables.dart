@@ -1,20 +1,8 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
-import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:flutter_map/plugin_api.dart';
-import 'package:http/http.dart' as http;
-import 'package:positioned_tap_detector_2/positioned_tap_detector_2.dart';
-
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../table_helper.dart';
-import '../parkings.dart';
-import 'addParkings.dart';
 import 'selectData.dart';
 import 'add_coordinates_map.dart';
 
@@ -24,37 +12,32 @@ class AddToTable extends StatefulWidget {
   final Map<String, bool> _boolControllers = {};
   final Map<String, List<List<String>>> _listControllers = {};
   final List<Map<String, TextEditingController>> _listCoordinates = [];
-  Map<String, List<String>> _selected = {};
+  final Map<String, List<String>> _selected = {};
   bool isThereLatLong = false;
   bool isThereCoordinates = false;
   bool isForeignKey = false;
   AddToTable({Key? key, required this.tableName}) : super(key: key) {
     for (String key in tableHelper[tableName].keys) {
       if (isValidKey(key)) {
-        if (tableHelper[tableName][key]["type"] == 'bool') {
+        if (isBoolean(key)) {
           _boolControllers[key] = false;
-        } else if (tableHelper[tableName][key]["type"] == 'int' ||
-            tableHelper[tableName][key]["type"] == 'String' ||
-            (tableHelper[tableName][key]["type"] == 'float') &&
-                key != 'latitude' &&
-                key != 'longitude') {
+        } else if (isTypable(key)) {
           if (!tableHelper[tableName][key]["isForeignKey"]) {
             _controllers[key] = TextEditingController();
           } else {
             _listControllers[key] = [];
             isForeignKey = true;
           }
-        } else if (key == 'latitude') {
+        } else if (isLatLong(key)) {
           _controllers['latitude'] = TextEditingController();
           _controllers['longitude'] = TextEditingController();
           isThereLatLong = true;
-        } else if (key == 'coordonnees') {
+        } else if (isCoordinates(key)) {
           _listCoordinates.add({});
           _listCoordinates[0]["latitude"] = TextEditingController();
           _listCoordinates[0]["longitude"] = TextEditingController();
           isThereCoordinates = true;
-        } else if (tableHelper[tableName][key]["type"] == 'List' &&
-            tableHelper[tableName][key]["isForeignKey"]) {
+        } else if (isList(key)) {
           isForeignKey = true;
           _listControllers[key] = [];
         }
@@ -70,16 +53,37 @@ class AddToTable extends StatefulWidget {
         tableHelper[tableName][key]["isSetable"];
   }
 
+  bool isBoolean(String key) {
+    return tableHelper[tableName][key]["type"] == 'bool';
+  }
+
+  bool isTypable(String key) {
+    return tableHelper[tableName][key]["type"] == 'int' ||
+        tableHelper[tableName][key]["type"] == 'String' ||
+        (tableHelper[tableName][key]["type"] == 'float' &&
+            key != 'latitude' &&
+            key != 'longitude');
+  }
+
+  bool isLatLong(String key) {
+    return key == 'latitude';
+  }
+
+  bool isCoordinates(String key) {
+    return key == 'coordonnees';
+  }
+
+  bool isList(String key) {
+    return tableHelper[tableName][key]["type"] == 'List';
+  }
+
   @override
   State<AddToTable> createState() => _AddToTableState();
 }
 
-//page qui affiche un formulaire d'ajout de parking
+//page qui affiche un formulaire d'ajout
 class _AddToTableState extends State<AddToTable> {
   final _formKey = GlobalKey<FormState>();
-  //tableau qui contient les coordonnées de la position du parking (latitude, longitude)
-  int _nbClics = 0;
-  LatLng? _currentPosition;
   double lat = 44.79517;
   double long = -0.603537;
 
@@ -88,49 +92,51 @@ class _AddToTableState extends State<AddToTable> {
     if (widget.isValidKey(key)) {
       type = tableHelper[widget.tableName][key]["type"];
     }
-    if (type == 'int' ||
-        type == 'String' ||
-        (type == 'float' && key != 'latitude' && key != 'longitude')) {
-      if (tableHelper[widget.tableName][key]["isForeignKey"]) {
+    if (widget.isValidKey(key)) {
+      if (widget.isTypable(key)) {
+        if (tableHelper[widget.tableName][key]["isForeignKey"]) {
+          widget._selected[key] = [];
+          return SelectData(
+            tableName: widget.tableName,
+            champs: key,
+            multiple: false,
+            selected: widget._selected[key],
+          );
+        }
+        return TextFormField(
+          controller: widget._controllers[key],
+          decoration: InputDecoration(
+            labelText: tableHelper[widget.tableName][key]["nom"],
+          ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Veuillez remplir ce champ';
+            }
+            return null;
+          },
+        );
+      } else if (type == 'bool') {
+        return CheckboxListTile(
+          title: Text('${tableHelper[widget.tableName][key]["nom"]}'),
+          value: widget._boolControllers[key],
+          onChanged: (bool? value) {
+            setState(() {
+              widget._boolControllers[key] = value!;
+            });
+          },
+        );
+      } else if (type == 'List' &&
+          tableHelper[widget.tableName][key]["isForeignKey"]) {
         widget._selected[key] = [];
         return SelectData(
           tableName: widget.tableName,
           champs: key,
-          multiple: false,
+          multiple: true,
           selected: widget._selected[key],
         );
+      } else {
+        return Container();
       }
-      return TextFormField(
-        controller: widget._controllers[key],
-        decoration: InputDecoration(
-          labelText: tableHelper[widget.tableName][key]["nom"],
-        ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Veuillez remplir ce champ';
-          }
-          return null;
-        },
-      );
-    } else if (type == 'bool') {
-      return CheckboxListTile(
-        title: Text('${tableHelper[widget.tableName][key]["nom"]}'),
-        value: widget._boolControllers[key],
-        onChanged: (bool? value) {
-          setState(() {
-            widget._boolControllers[key] = value!;
-          });
-        },
-      );
-    } else if (type == 'List' &&
-        tableHelper[widget.tableName][key]["isForeignKey"]) {
-      widget._selected[key] = [];
-      return SelectData(
-        tableName: widget.tableName,
-        champs: key,
-        multiple: true,
-        selected: widget._selected[key],
-      );
     } else {
       return Container();
     }
@@ -201,9 +207,6 @@ class _AddToTableState extends State<AddToTable> {
   @override
   Widget build(BuildContext context) {
     String nomJolie = tableHelper[widget.tableName]!['nom_jolie'];
-    if (widget.tableName == "parkings" && false) {
-      return const addParkings();
-    }
     return Scaffold(
       appBar: AppBar(
         title: Text('Ajouter un $nomJolie'),

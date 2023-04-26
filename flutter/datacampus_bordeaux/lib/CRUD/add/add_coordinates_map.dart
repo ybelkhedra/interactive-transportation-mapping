@@ -18,7 +18,6 @@ class AddCoordinatesMap extends StatefulWidget {
 }
 
 class _AddCoordinatesMapState extends State<AddCoordinatesMap> {
-  int _nbClics = 0;
   LatLng? _currentPosition;
 
   LatLng createCoordinate(String lat, String long) {
@@ -44,7 +43,7 @@ class _AddCoordinatesMapState extends State<AddCoordinatesMap> {
           urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
           subdomains: const ['a', 'b', 'c'],
         ),
-        if (widget.listCoordinates.length >= 1)
+        if (widget.listCoordinates.isNotEmpty)
           MarkerLayer(
             markers: [
                   Marker(
@@ -125,7 +124,6 @@ class _AddCoordinatesMapState extends State<AddCoordinatesMap> {
         widget.listCoordinates[widget.listCoordinates.length - 1]['longitude']
             ?.text = _currentPosition!.longitude.toString();
       }
-      _nbClics++;
     });
   }
 }

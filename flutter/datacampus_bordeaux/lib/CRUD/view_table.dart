@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'presentation_card.dart';
 import 'table_helper.dart';
-import 'add/addToTables.dart';
+import 'add/add_to_tables.dart';
 
 class ViewTable extends StatefulWidget {
   final String tableName;

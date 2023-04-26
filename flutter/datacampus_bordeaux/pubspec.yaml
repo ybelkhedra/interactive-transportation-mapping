@@ -44,6 +44,7 @@ dependencies:
   fl_chart: ^0.61.0
   syncfusion_flutter_gauges: ^20.4.52
   accordion: ^2.5.1
+  positioned_tap_detector_2: ^1.0.4 
 
 dev_dependencies:
   flutter_test:
