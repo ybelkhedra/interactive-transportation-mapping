@@ -446,6 +446,21 @@ def ajout_data():
     
     print("Reinitialisation de la base de donnees nouvelle aquitaine ...")
     #suppresion des donnees dans les tables agency, routes, stops, trips, stop_times
+    
+#     ALTER TABLE stop_times DROP FOREIGN KEY stop_times_stop_id_stop_stop_id;
+# ALTER TABLE trips DROP FOREIGN KEY trips_route_id_routes_route_id;
+# ALTER TABLE trips DROP FOREIGN KEY trips_service_id_calendar_service_id;
+# ALTER TABLE routes DROP FOREIGN KEY routes_agency_id_agency_agency_id;
+# ALTER TABLE calendar_dates DROP FOREIGN KEY calendar_dates_service_id_calendar_service_id;
+    try :
+        cursor.execute("ALTER TABLE stop_times DROP FOREIGN KEY stop_times_stop_id_stop_stop_id")
+        cursor.execute("ALTER TABLE trips DROP FOREIGN KEY trips_route_id_routes_route_id")
+        cursor.execute("ALTER TABLE trips DROP FOREIGN KEY trips_service_id_calendar_service_id")
+        cursor.execute("ALTER TABLE routes DROP FOREIGN KEY routes_agency_id_agency_agency_id")
+        cursor.execute("ALTER TABLE calendar_dates DROP FOREIGN KEY calendar_dates_service_id_calendar_service_id")
+    except:
+        print("Pas de cle etrangere a supprimer")
+    
     cursor.execute("DELETE FROM agency")
     cursor.execute("DELETE FROM routes")
     cursor.execute("DELETE FROM stop")
