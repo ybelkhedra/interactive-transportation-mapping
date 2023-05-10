@@ -11,6 +11,12 @@ var feature_group_parkings_relais = L.featureGroup(
 );//.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
 var parkingIcon = L.icon({
+    iconUrl: './sources/icons/parking_relais.png',
+
+    iconSize:     [taille_icon*0.7, taille_icon*0.7], // size of the icon
+});
+
+var parkingbddIcon = L.icon({   
     iconUrl: './sources/icons/parking.png',
 
     iconSize:     [taille_icon, taille_icon], // size of the icon
