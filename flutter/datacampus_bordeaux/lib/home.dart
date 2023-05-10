@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'WIDGETS/jauge_frequentation.dart';
 import 'WIDGETS/messageTbm.dart';
 import 'WIDGETS/jauge_vcub.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
@@ -17,6 +18,15 @@ class home extends StatefulWidget {
 
 class _homeState extends State<home> {
   int currentPageIndex = 0;
+
+  Future<void> _launchURLApp() async {
+    final Uri url = Uri.parse('https://datacampus-bordeaux.fr/');
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   // fonction qui retourne une liste de FlSpot qui sont les points de la courbe en faisant une requete à la base de données
   Future<List<List<FlSpot>>> getSpotsInfoApi() async {
@@ -129,8 +139,8 @@ class _homeState extends State<home> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
-                        children: [
-                          const Padding(
+                        children: const [
+                          Padding(
                             padding: EdgeInsets.only(left: 20.0),
                             child: Text(
                               "Chaire MTI : Innover pour la mobilité intelligente",
@@ -140,7 +150,7 @@ class _homeState extends State<home> {
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.only(left: 10.0),
                             child: Text(
                               "Fédérons l'écosystème néo-aquitain pour anticiper les transports de demain",
@@ -157,7 +167,7 @@ class _homeState extends State<home> {
                         child: Container(
                           height: 100,
                           width: 100,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.white,
                             shape: BoxShape.circle,
                           ),
@@ -190,7 +200,7 @@ class _homeState extends State<home> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Card(
-                    color: Color.fromARGB(160, 247, 250, 255),
+                    color: const Color.fromARGB(160, 247, 250, 255),
                     shadowColor: Colors.black,
                     elevation: 20,
                     shape: RoundedRectangleBorder(
@@ -221,7 +231,7 @@ class _homeState extends State<home> {
                     ),
                   ),
                   Card(
-                    color: Color.fromARGB(160, 247, 250, 255),
+                    color: const Color.fromARGB(160, 247, 250, 255),
                     elevation: 10,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
@@ -253,7 +263,7 @@ class _homeState extends State<home> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Card(
-                    color: Color.fromARGB(160, 247, 250, 255),
+                    color: const Color.fromARGB(160, 247, 250, 255),
                     elevation: 10,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
@@ -283,6 +293,20 @@ class _homeState extends State<home> {
               ),
             ],
           ),
+          const SizedBox(height: 45),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.blue,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(32.0),
+              ),
+            ),
+            onPressed: _launchURLApp,
+            child: const Text(
+              'Retour sur la carte',
+              style: TextStyle(color: Colors.white),
+            ),
+          )
         ],
       ),
     );

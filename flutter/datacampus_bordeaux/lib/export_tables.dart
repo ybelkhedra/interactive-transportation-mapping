@@ -1,18 +1,15 @@
 // Page qui permet à l'utilisateur d'ajouter des tables à la base de données du site web
 
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'CRUD/table_helper.dart';
-
-import 'dart:js';
-
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ExportTable extends StatefulWidget {
-  const ExportTable({Key? key}) : super(key: key);
+  final List<String> tableNames = getTablesNames();
+
+  ExportTable({Key? key}) : super(key: key);
 
   @override
   _ExportTableState createState() => _ExportTableState();
@@ -20,8 +17,20 @@ class ExportTable extends StatefulWidget {
 
 class _ExportTableState extends State<ExportTable> {
   int _currentStep = 0;
-  late String nomTable = "";
-  late String format = "";
+  String nomTable = "";
+  String format = "";
+
+  Future<void> getFile() async {
+    print("nomTable : $nomTable");
+    String fileName = tableHelper[nomTable]!['script'];
+    final Uri url = Uri.https(
+        "https://datacampus-bordeaux.fr/sources/requetes/$fileName.php");
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   // TODO : fonction qui appelle le script php datacampus-bordeaux.fr/sources/requetes/API_flutter/export_table.php avec les paramètres suivants : nom de la table, format, et qui permet de telecharger les donnees en format CSV ou Json
 
@@ -30,11 +39,21 @@ class _ExportTableState extends State<ExportTable> {
     return Stepper(
       steps: [
         Step(
-          isActive: _currentStep == 0,
-          title: const Text('Choisir une table'),
-          content: // menu déroulant pour selectionner la table. La liste des tables est dans table_helper le tableau tableHelper avec le champ nom_jolie
-              Text("Choisir une table"),
-        ),
+            isActive: _currentStep == 0,
+            title: const Text('Choisir une table'),
+            content: // menu déroulant pour selectionner la table. La liste des tables est dans table_helper le tableau tableHelper avec le champ nom_jolie
+                Column(
+                    children: widget.tableNames
+                        .map((e) => CheckboxListTile(
+                              title: Text(tableHelper[e]['nom_jolie']!),
+                              value: e == nomTable,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  nomTable = e;
+                                });
+                              },
+                            ))
+                        .toList())),
         Step(
           isActive: _currentStep == 1,
           title: const Text("Selection du format d'exportation"),
@@ -42,13 +61,22 @@ class _ExportTableState extends State<ExportTable> {
               Column(
             children: [
               Row(
-                children: [
-                  const Text('Format d\'exportation'),
-                  const SizedBox(
+                children: const [
+                  Text('Format d\'exportation'),
+                  SizedBox(
                     width: 10,
                   ),
                 ],
               ),
+              CheckboxListTile(
+                title: const Text('json'),
+                value: format == 'json',
+                onChanged: (bool? value) {
+                  setState(() {
+                    format = 'json';
+                  });
+                },
+              )
             ],
           ),
         ),
@@ -59,7 +87,7 @@ class _ExportTableState extends State<ExportTable> {
               Column(
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: getFile,
                 child: const Text('Télécharger le fichier'),
               ),
             ],
