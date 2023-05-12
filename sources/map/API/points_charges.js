@@ -7,7 +7,7 @@ var feature_group_pdc = L.featureGroup(
 var pdcIcon = L.icon({
     iconUrl: './sources/icons/pdc.png',
 
-    iconSize:     [taille_icon, taille_icon], // size of the icon
+    iconSize:     [taille_icon, taille_icon], 
 });
 
 function afficherInfospdc() {
