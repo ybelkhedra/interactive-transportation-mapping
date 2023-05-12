@@ -9,7 +9,6 @@ if ($result = $db->query("SELECT DISTINCT relationsLignesTronconsData.rs_sv_chem
     // si la requete a réussi, on va parcourir les résultats
     // chaque ligne de la reponse est stockée dans $row (un tableau associatif)
     while ($row = $result->fetch_assoc()) {
-        // $tmp = {"ligne_nb" : $row["rs_sv_chem_l"], "ligne" : ""};
         $ligne_nb = $row["rs_sv_chem_l"];
         if ($result2 = $db->query("SELECT DISTINCT lignesData.libelle FROM lignesData WHERE lignesData.gid = ".$ligne_nb.";")) {
             while ($row2 = $result2->fetch_assoc()) {

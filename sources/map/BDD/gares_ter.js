@@ -17,7 +17,7 @@ function afficherPopupGares(gare)
 var gare_Icon = L.icon({
     iconUrl: './sources/icons/train_station.png',
 
-    iconSize:     [taille_icon, taille_icon], // size of the icon
+    iconSize:     [taille_icon, taille_icon], 
 });
 
 
@@ -34,25 +34,9 @@ function updateBddGares(){
     .then(data => {
         console.log(data);
         data.forEach(function(gare) { // pour chaque gare
-            // if (gare.coordonnees.length == 1) {// si le gare n'a qu'une seule coordonnée
-            // var marker = L.marker([gare.coordonnees[0].latitude, gare.coordonnees[0].longitude]).addTo(feature_group_gares_ter_bdd); // création du marqueur
-            // marker.bindPopup(afficherPopupGares(gare)); // ajout du popup
-            // marker.setStyle({color: 'yellow'}); // on definie la couleur du marker
-            // }
-            // else if (gare.coordonnees.length > 1) { // si le gare a plusieurs coordonnées
-            //     var latlngs = []; // création d'un tableau vide 
-            //     gare.coordonnees.forEach(function(coordonnee) { // pour chaque coordonnée
-            //         latlngs.push([coordonnee.latitude,coordonnee.longitude]); // ajout des coordonnées au tableau latlngs
-            //     }
-            //     );
-            //     var polygon = L.polygon(latlngs).addTo(feature_group_gares_ter_bdd); // création du polygone
-            //     polygon.setStyle({color: 'yellow'}); // changement de la couleur du polygone
-            //     polygon.bindPopup(afficherPopupGares(gare)); // ajout du popup
-            // }
             
             var marker = L.marker([gare.latitude, gare.longitude], {icon: gare_Icon}).addTo(feature_group_gares_ter_bdd); // création du marqueur
             marker.bindPopup(afficherPopupGares(gare)); // ajout du popup
-            //marker.setStyle({color: 'yellow'}); // on definie la couleur du marker
             affichage();
 
 

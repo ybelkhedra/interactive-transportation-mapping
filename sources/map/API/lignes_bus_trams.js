@@ -31,7 +31,6 @@ function chemin_lignes(){
             success: function(data) {
 
             $.each(data, function(key, val) {
-                //console.log("TEST : "+val.type+val.geometry.coordinates);
                 // Récupération des valeurs de latitude et longitude
                 // inverser les coordonnées de val.fields.geo_shape.coordinates
                     for (var i = 0; i < val.geo_shape.geometry.coordinates.length; i++) {
@@ -112,4 +111,3 @@ function chemin_lignes_online()
 }
 
 chemin_lignes();
-//chemin_lignes_online();

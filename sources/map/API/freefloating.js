@@ -5,7 +5,7 @@ var feature_group_freefloating = L.featureGroup(
 var freefloatingIcon = L.icon({
     iconUrl: './sources/icons/freefloating.png',
 
-    iconSize:     [taille_icon, taille_icon], // size of the icon
+    iconSize:     [taille_icon, taille_icon], 
 });
 
 function afficherPopupFreeFloatingAPI(e) {
@@ -24,8 +24,7 @@ function afficherPopupFreeFloatingAPI(e) {
 
 
 
-//try {
-    // récupération des données de position de bus et de tram en utilisant l'URL du WebService GeoJSON
+// récupération des données de position de bus et de tram en utilisant l'URL du WebService GeoJSON
     
 $.ajax({
     url: "https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=st_freefloating_p",
@@ -58,8 +57,5 @@ $.ajax({
 
     }
 });
-//}   
-//catch (e) {
-//    console.log(e);
-//}
+
 
