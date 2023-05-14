@@ -42,7 +42,7 @@ function updateBddParkings(){
         data.forEach(function(parking) { // pour chaque parking
             nb_parkings++;
             if (parking.coordonnees.length == 1) {// si le parking n'a qu'une seule coordonnée
-            var marker = L.marker([parking.coordonnees[0].latitude, parking.coordonnees[0].longitude], {icon : parkingIcon}).addTo(feature_group_parkings); // création du marqueur
+            var marker = L.marker([parking.coordonnees[0].latitude, parking.coordonnees[0].longitude], {icon : parkingbddIcon}).addTo(feature_group_parkings); // création du marqueur
             marker.bindPopup(afficherPopupParkings(parking)); // ajout du popup
             }
             else if (parking.coordonnees.length > 1) { // si le parking a plusieurs coordonnées

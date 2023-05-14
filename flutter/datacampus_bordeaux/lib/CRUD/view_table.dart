@@ -23,8 +23,6 @@ class _ViewTableState extends State<ViewTable> {
     var url =
         Uri.https("datacampus-bordeaux.fr", "/sources/requetes/$fileName.php");
     var response = await http.get(url);
-    //print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
 
     //si la requete ne retourne rien, on affiche un message
     if (response.body == "null") {
