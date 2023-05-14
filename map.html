@@ -36,12 +36,13 @@
     <header>
         <nav class="navMenu">
             <a href="index.html">Accueil</a>
-            <a href="#">Infos</a>
+            <a href="info.html">Infos</a>
             <a href="sources/web/index.html">Admin</a>
-            <a href="#">FAQ</a>
+            <a href="faq.html">FAQ</a>
             <div class="dot"></div>
         </nav>
     </header>
+
 
     <div class="container_card">
         <div class="card">
@@ -411,6 +412,29 @@
                     </div>
 
                     <div>
+                        <input type="checkbox" class="parkingsRelaisCheckbox" unchecked>
+                        <label for="parkingsRelaisCheckbox">Parkings relais</label>
+                        <script>
+                        if ($(".parkingsRelaisCheckbox").is(':checked')) {var parkingsRelaisCheckbox = true;} else {var parkingsRelaisCheckbox = false;}
+                        </script>
+                        <script> $(".parkingsRelaisCheckbox").click(function(){
+                            chargement(1).then(function() {
+                                if (parkingsRelaisCheckbox===true) { 
+                                    layerControlNumber.overlays["Parking relais"].remove();
+                                    parkingsRelaisCheckbox=false;}
+                                else if (parkingsRelaisCheckbox===false) {
+                                    layerControlNumber.overlays["Parking relais"].addTo(mapNumber);
+                                    parkingsRelaisCheckbox=true;}
+                                return chargement(0);
+                            })
+                            .catch(function() {
+                                console.log("Loading element not found");
+                            });
+                        });
+                        </script>
+                    </div>
+
+                    <div>
                         <input type="checkbox" class="covoiturageCheckbox" unchecked>
                         <label for="covoiturageCheckbox">Points de covoiturage</label>
                         <script>
@@ -520,14 +544,26 @@
 
       <section>
         <div class="full_screen_background_map">
+
             <div class="folium-map" id="map_5c3862ba13c7e615013e758f79b1f9bb" >
-                <div class="loader"></div> 
-                <div class="container">
-                    <div class="item item-1"></div>
-                    <div class="item item-2"></div>
-                    <div class="item item-3"></div>
-                    <div class="item item-4"></div>
-                  </div>
+                <div class="loader"></div>               
+
+                  <div class="chargementData">
+                    <div id="icon-container"></div>
+        
+                        <script>
+                          var animation = bodymovin.loadAnimation({
+                          // animationData: { /* ... */ },
+                          container: document.getElementById('icon-container'), // required
+                          path: 'sources/icons/reveal-loading.json', // required
+                          renderer: 'svg', // required
+                          loop: true, // optional
+                          autoplay: true, // optional
+                          name: "Demo Animation", // optional
+                        });
+                        </script>
+                        <div class="chargementText">Chargement des données</div>
+                </div>
             </div>
 
             <script src="sources/init.js"></script>
@@ -558,6 +594,7 @@
             <script src="sources/map/BDD/vcube_bdd.js"></script>
             <script src="sources/map.js"></script>
             <script src="sources/mapHelper.js"></script>
+            <script src="sources/fin.js"></script>
            
             <script>
                 // Ajoute un gestionnaire d'événements à tous les boutons avec la classe "collapsible"
@@ -580,6 +617,7 @@
                     });
                 }
             </script>
+
         </div>
       </section>
 
