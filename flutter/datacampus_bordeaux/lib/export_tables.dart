@@ -86,7 +86,7 @@ class _ExportTableState extends State<ExportTable> {
         ),
         Step(
           isActive: _currentStep == 2,
-          title: const Text('Telecharment du fichier'),
+          title: const Text('Voir les données'),
           content: // bouton qui permet de télécharger le fichier
               Column(
             children: [
