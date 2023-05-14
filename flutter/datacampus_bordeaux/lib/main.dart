@@ -125,9 +125,9 @@ class _menuState extends State<menu> {
                       onPressed: () {
                         setState(() {
                           if (globals.isLoggedIn == true) {
-                            currentPageIndex = 5;
-                          } else {
                             currentPageIndex = 4;
+                          } else {
+                            currentPageIndex = 3;
                           }
                         });
                       },
