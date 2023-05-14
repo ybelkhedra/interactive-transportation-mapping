@@ -16,8 +16,7 @@ if ($conn->connect_error) {
 $arret_gid = $_GET['arret_gid'];
 $lignes_id = $_GET['ligne_id'];
 
-// $arret_gid = "124883";
-// $lignes_id = "1136089";
+
 
 //on recupere les horaires de chaque ligne
 $horaires = array();

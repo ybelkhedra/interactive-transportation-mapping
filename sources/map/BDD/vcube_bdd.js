@@ -1,11 +1,4 @@
 
-
-//var covoiturageIcon = L.icon({
-//    iconUrl: './sources/icons/covoiturage.png',
-//
-//    iconSize:     [17, 17], // size of the icon
-//});
-
 function afficherPopupVcub(e) { 
     var nom = "Nom : " + e.nom;
 

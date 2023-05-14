@@ -9,7 +9,7 @@ var feature_group_covoiturages = L.featureGroup(
 var covoiturageIcon = L.icon({
     iconUrl: './sources/icons/covoiturage.png',
 
-    iconSize:     [taille_icon, taille_icon], // size of the icon
+    iconSize:     [taille_icon, taille_icon], 
 });
 
 function afficherInfoscovoit() {
@@ -52,24 +52,6 @@ function addPopupcovoit(covoit) {
     return popup;
 }
 
-
-// $.ajax({
-//     url: '../../../donnees/json/covoiturage_cord.json',
-//     type: 'GET',
-//     dataType: 'json',
-//     success: function(data) {
-//         $.each(data, function(key, val) {
-//             // Récupération des valeurs de latitude et longitude
-//             var latitude = parseFloat(val.fields.geo_shape.coordinates[1]);
-//             var longitude = parseFloat(val.fields.geo_shape.coordinates[0]);
-//             if (isNaN(latitude) || isNaN(longitude) || !filtreCordonnees(latitude, longitude)) {
-//                 return;
-//             }
-//             // Ajout d'un marker sur la carte
-//             L.marker([latitude, longitude], {icon: L.AwesomeMarkers.icon({icon: 'info-sign', markerColor: 'blue'})}).addTo(feature_group_covoiturages);
-//         });
-//     }
-// });
 
 $.ajax({
     url: 'https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=st_covoiturage_p',
