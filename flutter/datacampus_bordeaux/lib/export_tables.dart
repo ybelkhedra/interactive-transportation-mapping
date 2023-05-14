@@ -2,9 +2,11 @@
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'CRUD/table_helper.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'display_data.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ExportTable extends StatefulWidget {
   final List<String> tableNames = getTablesNames();
@@ -20,16 +22,18 @@ class _ExportTableState extends State<ExportTable> {
   String nomTable = "";
   String format = "";
 
-  Future<void> getFile() async {
-    print("nomTable : $nomTable");
+  Future<String> getFile() async {
     String fileName = tableHelper[nomTable]!['script'];
-    final Uri url = Uri.https(
-        "https://datacampus-bordeaux.fr/sources/requetes/$fileName.php");
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    } else {
-      throw 'Could not launch $url';
-    }
+    final Uri url =
+        Uri.https("datacampus-bordeaux.fr", "/sources/requetes/$fileName.php");
+    // if (await canLaunchUrl(url)) { //on pourrait faire qu'il lance directement le script aussi
+    //   await launchUrl(url);
+    // } else {
+    //   throw 'Could not launch $url';
+    // }
+    var response = await http.get(url);
+    var jsonReponse = jsonDecode(response.body);
+    return jsonReponse.toString();
   }
 
   // TODO : fonction qui appelle le script php datacampus-bordeaux.fr/sources/requetes/API_flutter/export_table.php avec les paramètres suivants : nom de la table, format, et qui permet de telecharger les donnees en format CSV ou Json
@@ -82,12 +86,19 @@ class _ExportTableState extends State<ExportTable> {
         ),
         Step(
           isActive: _currentStep == 2,
-          title: const Text('Telecharment du fichier'),
+          title: const Text('Voir les données'),
           content: // bouton qui permet de télécharger le fichier
               Column(
             children: [
               ElevatedButton(
-                onPressed: getFile,
+                onPressed: () => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DisplayData(textFuture: getFile()),
+                    ),
+                  )
+                },
                 child: const Text('Télécharger le fichier'),
               ),
             ],
