@@ -41,7 +41,6 @@ function updateBddStationsFreeFloating() { //a renommer en updateBddPointsCharge
             pt_freefloating++;
             var marker = L.marker([freefloat.coordonnees[0].latitude, freefloat.coordonnees[0].longitude], {icon: freefloatingIcon}).addTo(feature_group_freefloating_bdd); // création du marqueur
             marker.bindPopup(afficherPopupFreeFloating(freefloat)); // ajout du popup
-            //marker.setStyle({color: 'yellow'}); // on definie la couleur du marker
             affichage();
         });
         checkSumInitialLoaging++;

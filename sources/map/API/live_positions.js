@@ -16,13 +16,13 @@ var feature_group_tram_temps_reel = L.featureGroup(
 var bus_Icon = L.icon({
     iconUrl: './sources/icons/bus.png',
 
-    iconSize:     [17, 17], // size of the icon
+    iconSize:     [17, 17],
 });
 
 var tram_Icon = L.icon({
     iconUrl: './sources/icons/tram.png',
 
-    iconSize:     [17, 17], // size of the icon
+    iconSize:     [17, 17],
 });
 
 async function get_suivant(gid)

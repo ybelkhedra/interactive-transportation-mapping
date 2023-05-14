@@ -1,9 +1,4 @@
-// var feature_group_pdc = L.featureGroup(
-//     {}
-// ).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
-// DEJA DEFINI DANS API/points_charges.js
 
-// PARTIE DE CODE A MODIFIER ==>
 var pdcIcon = L.icon({
     iconUrl: './sources/icons/pdc.png',
 
@@ -42,7 +37,6 @@ function updateBddStationsPointsDeCharges() { //a renommer en updateBddPointsCha
             pt_electriques++;
             var marker = L.marker([pdc.latitude, pdc.longitude],  {icon : pdcIcon}).addTo(feature_group_pdc); // création du marqueur
             marker.bindPopup(afficherPopupPointsDeCharges(pdc)); // ajout du popup
-            //marker.setStyle({color: 'yellow'}); // on definie la couleur du marker
             affichage();
         });
         checkSumInitialLoaging++;

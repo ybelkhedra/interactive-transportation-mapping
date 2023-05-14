@@ -13,13 +13,13 @@ var feature_group_parkings_relais = L.featureGroup(
 var parkingIcon = L.icon({
     iconUrl: './sources/icons/parking_relais.png',
 
-    iconSize:     [taille_icon*0.7, taille_icon*0.7], // size of the icon
+    iconSize:     [taille_icon*0.7, taille_icon*0.7], 
 });
 
 var parkingbddIcon = L.icon({   
     iconUrl: './sources/icons/parking.png',
 
-    iconSize:     [taille_icon, taille_icon], // size of the icon
+    iconSize:     [taille_icon, taille_icon], 
 });
 
 function afficherInfosParking() {
@@ -64,24 +64,6 @@ function addPopupParkings(parking) {
     return popup;
 }
 
-// $.ajax({
-//     url: '../../../donnees/json/parking_cord.json',
-//     type: 'GET',
-//     dataType: 'json',
-//     success: function(data) {
-//         $.each(data, function(key, val) {
-//             // Récupération des valeurs de latitude et longitude
-//             var latitude = parseFloat(val.fields.geo_shape.coordinates[1]);
-//             var longitude = parseFloat(val.fields.geo_shape.coordinates[0]);
-//             if (isNaN(latitude) || isNaN(longitude) || !filtreCordonnees(latitude, longitude)) {
-//                 return;
-//             }
-//             // Ajout d'un marker sur la carte
-//             //console.log(latitude, longitude);
-//             L.marker([latitude, longitude]).addTo(feature_group_parkings);
-//         });
-//     }
-// });
 
 $.ajax({
     url: 'https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=st_park_p',
