@@ -542,6 +542,32 @@
                             </script>
                         </div>
 
+                        <div>
+                            <input type="checkbox" class="capteurCheckbox" unchecked>
+                            <label for="capteurCheckbox">Emplacements Capteurs</label>
+                            <script>
+                            if ($(".capteurCheckbox").is(':checked')) {var capteurCheckbox = true;} else {var capteurCheckbox = false;}
+                            </script>
+                            <script> 
+                                $(".capteurCheckbox").click(function(){
+                                chargement(1).then(function() {
+                                    if (capteurCheckbox===true) { 
+                                        layerControlNumber.overlays["Capteurs bdd"].remove();
+    
+                                        capteurCheckbox=false;}
+                                    else if (capteurCheckbox===false) {
+                                        layerControlNumber.overlays["Capteurs bdd"].addTo(mapNumber);
+                                        capteurCheckbox=true;
+                                    }
+                                    return chargement(0);
+                                })
+                                .catch(function() {
+                                    console.log("Loading element not found");
+                                });
+                            });
+                            </script>
+                        </div>
+
                     </div>
                   </div>
               </div>
@@ -598,6 +624,7 @@
             <script src="sources/map/BDD/pistes_cyclables_bdd.js"></script>
             <script src="sources/map/BDD/points_stationnement_velo_bdd.js"></script>
             <script src="sources/map/BDD/station_freefloating_bdd.js"></script>
+            <script src="sources/map/BDD/capteurs_bdd.js"></script>
             <script src="sources/map/BDD/arrets_cars.js"></script>
             <script src="sources/map/BDD/vcube_bdd.js"></script>
             <script src="sources/map.js"></script>

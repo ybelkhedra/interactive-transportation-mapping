@@ -14,7 +14,7 @@ var vcub_Icon = L.icon({
 
 function addPopupvcube(vcube) {
     var popup = '<div class="popup">';
-    popup += '<h3> Station VCub : ' + vcube.properties.libelle + '</h3>';
+    popup += '<h3> Station VCub : ' + vcube.properties.nom + '</h3>';
     //afficher la si la station est active ou pas avec une petite bille de couleur verte ou rouge État de la connexion de la station :  Liste des valeurs possibles :  CONNECTEE : Station connectée DECONNECTEE : Station déconnectée MAINTENANCE : Station en maintenance
     if(vcube.properties.etat == "CONNECTEE") {
         popup += '<p>Etat : <span style="color:green;">Station connectée</span></p>';

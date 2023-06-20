@@ -26,6 +26,8 @@ var layer_control_643cdab5b83b581cb10d63d05a5a00f0 = {
 
         "Points de freefloating bdd" : feature_group_freefloating_bdd,//ok
 
+        "Capteurs bdd" : feature_group_capteurs_bdd,
+
         "Parking" : feature_group_parkings,//ok
 
         "Points de charge" : feature_group_pdc,//ok
