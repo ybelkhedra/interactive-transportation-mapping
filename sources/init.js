@@ -62,6 +62,13 @@ var feature_isochrone = L.featureGroup(
     {}
 ).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
+navigator.geolocation.getCurrentPosition(function(location) {
+    var lat = location.coords.latitude;
+    var lon = location.coords.longitude;
+    L.marker([lat, lon]).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
+}, function(error) {
+    console.log(error);
+}, { enableHighAccuracy: true });
 
 function supprimer_isochrone()
 {
