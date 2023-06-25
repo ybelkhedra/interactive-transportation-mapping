@@ -206,106 +206,56 @@ INSERT INTO situer_parkings (parking, coordonnee) VALUES (10, 10);
 
 -- Insertion des capteurs
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 1", 'caméra', 9253);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.793676, -0.608054);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (1,1);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 1", 'caméra', 44.793676, -0.608054);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 2", 'radar TagMaster', 2740);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.795955, -0.606845);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (2,2);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 2", 'radar TagMaster', 44.795955, -0.606845);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 3", 'radar TagMaster', 11256);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.798725, -0.604840);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (3,3);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 3", 'radar TagMaster', 44.798725, -0.604840);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 4", 'double radar Viking (1 par sens)', 16823);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.801930, -0.598160);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (4,4);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 4", 'double radar Viking (1 par sens)', 44.801930, -0.598160);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 5", 'simple radar Viking (pour les 2 sens)', 4123);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.805100, -0.601285);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (5,5);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 5", 'simple radar Viking (pour les 2 sens)', 44.805100, -0.601285);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 6 (sans données)", 'caméra', 0);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.806624, -0.600472);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (6,6);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 6", 'caméra', 44.806624, -0.600472);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 7", 'caméra', 1185);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.806329, -0.600102);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (7,7);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 7", 'caméra', 44.806329, -0.600102);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 8", 'caméra', 2669);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.807904, -0.598249);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (8,8);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 8", 'caméra', 44.807904, -0.598249);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 9", 'tube Mixtra', 4318);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.808745, -0.596255);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (9,9);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 9", 'tube Mixtra', 44.808745, -0.596255);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 10", 'caméra', 583);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.809965, -0.595267);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (10,10);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 10", 'caméra', 44.809965, -0.595267);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 11", 'tube Mixtra', 0);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.809855, -0.594220);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (11,11);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 11", 'tube Mixtra', 44.809855, -0.594220);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 12", 'caméra', 2010);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.809073, -0.592110);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (12,12);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 12", 'caméra', 44.809073, -0.592110);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 13", 'caméra', 3100);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.807627, -0.603279);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (13,13);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 13", 'caméra', 44.807627, -0.603279);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 14", 'caméra', 786);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.805924, -0.606976);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (14,14);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 14", 'caméra', 44.805924, -0.606976);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 15", 'tube cycliste Delta', 1298);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.804900, -0.605485);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (15,15);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 15", 'tube cycliste Delta', 44.804900, -0.605485);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 16 (sans données)", 'caméra', 0);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.800822, -0.609455);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (16,16);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 16 (sans données)", 'caméra', 44.800822, -0.609455);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 17", 'double radar Viking (1 par sens)', 12736);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.803100, -0.610180);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (17,17);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 17", 'double radar Viking (1 par sens)', 44.803100, -0.610180);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 18 (sans données)", 'caméra', 0);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.802224, -0.612889);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (18,18);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 18", 'caméra', 44.802224, -0.612889);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 19", 'tube Mixtra', 2066);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.799970, -0.616420);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (19,19);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 19", 'tube Mixtra', 44.799970, -0.616420);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 20", 'caméra', 875);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.797881, -0.619399);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (20,20);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 20", 'caméra', 44.797881, -0.619399);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 21 (sans données)", 'caméra', 0);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.796562, -0.620754);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (21,21);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 21", 'caméra', 44.796562, -0.620754);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 22 (sans données)", 'caméra', 0);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.793596, -0.623093);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (22,22);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 22", 'caméra', 44.793596, -0.623093);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 23", 'tube Mixtra', 3165);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.792770, -0.619310);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (23,23);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 23", 'tube Mixtra', 44.792770, -0.619310);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 24", 'tube Mixtra', 3018);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.791040, -0.621735);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (24,24);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 24", 'tube Mixtra', 44.791040, -0.621735);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 25", 'caméra', 3723);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.790336, -0.613347);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (25,25);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 25", 'caméra', 44.790336, -0.613347);
 
-INSERT INTO capteurs(nom, type_capteur, entree_sortie) VALUES ("Poste 26", 'tube Mixtra', 6197);
-INSERT INTO coordonnees_capteurs(latitude, longitude) VALUES (44.792600, -0.613200);
-INSERT INTO situer_capteurs(capteur, coordonnee) VALUES (26,26);
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 26", 'tube Mixtra', 44.792600, -0.613200);
+
+INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 27", 'caméra', 44.796368, -0.609520);

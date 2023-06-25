@@ -19,8 +19,7 @@ ALTER TABLE situer_gares_ter DROP FOREIGN KEY situer_gares_ter_gare_ter_gares_te
 ALTER TABLE situer_gares_ter DROP FOREIGN KEY situer_gares_ter_coordonnee_coordonnees_gares_ter_id;
 ALTER TABLE situer_pt_freefloat DROP FOREIGN KEY situer_pt_freefloat_pt_freefloat_pt_freefloat_id;
 ALTER TABLE situer_pt_freefloat DROP FOREIGN KEY situer_pt_freefloat_coordonnee_coordonnees_pt_freefloat_id;
-ALTER TABLE situer_capteurs DROP FOREIGN KEY situer_capteurs_capteur_capteurs_id;
-ALTER TABLE situer_capteurs DROP FOREIGN KEY situer_capteurs_coordonnee_coordonnees_capteurs_id;
+ALTER TABLE donnees_capteurs DROP FOREIGN KEY donnees_capteurs_capteur_capteurs_id;
 ALTER TABLE autoriser DROP FOREIGN KEY autoriser_pt_freefloat_pt_freefloat_id;
 ALTER TABLE autoriser DROP FOREIGN KEY autoriser_vehicule_vehicules_freefloating_id;
 ALTER TABLE installer DROP FOREIGN KEY installer_type_accroche_types_accroches_velo_id;
@@ -87,8 +86,7 @@ DROP TABLE IF EXISTS coordonnees_pt_freefloat;
 DROP TABLE IF EXISTS situer_pt_freefloat;
 DROP TABLE IF EXISTS vehicules_freefloating;
 DROP TABLE IF EXISTS capteurs;
-DROP TABLE IF EXISTS coordonnees_capteurs;
-DROP TABLE IF EXISTS situer_capteurs;
+DROP TABLE IF EXISTS donnees_capteurs;
 DROP TABLE IF EXISTS autoriser;
 DROP TABLE IF EXISTS horaires;
 
@@ -482,17 +480,13 @@ CREATE TABLE capteurs (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 nom TEXT,
 type_capteur TEXT,
-entree_sortie INT);
-
-CREATE TABLE coordonnees_capteurs (
-id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 latitude FLOAT NOT NULL,
 longitude FLOAT NOT NULL);
 
-CREATE TABLE situer_capteurs (
+CREATE TABLE donnees_capteurs (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
-capteur INT NOT NULL,
-coordonnee INT NOT NULL);
+horodate TEXT,
+capteur INT);
 
 -- CREATE TABLE stations_vcube (
 -- id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
@@ -591,9 +585,7 @@ ALTER TABLE autoriser ADD CONSTRAINT autoriser_vehicule_vehicules_freefloating_i
 ALTER TABLE horaires ADD CONSTRAINT horaires_ligne_lignes_id FOREIGN KEY (ligne) REFERENCES lignes(id) ON DELETE CASCADE;
 ALTER TABLE horaires ADD CONSTRAINT horaires_arret_arrets_id FOREIGN KEY (arret) REFERENCES arrets(id) ON DELETE CASCADE;
 ALTER TABLE horaires ADD CONSTRAINT horaires_direction_arrets_id FOREIGN KEY (direction) REFERENCES arrets(id) ON DELETE CASCADE;
-ALTER TABLE situer_capteurs ADD CONSTRAINT situer_capteurs_capteur_capteurs_id FOREIGN KEY (capteur) REFERENCES capteurs(id) ON DELETE CASCADE;
-ALTER TABLE situer_capteurs ADD CONSTRAINT situer_capteurs_coordonnee_coordonnees_capteurs_id FOREIGN KEY (coordonnee) REFERENCES coordonnees_capteurs(id) ON DELETE CASCADE;
-
+ALTER TABLE donnees_capteurs ADD CONSTRAINT donnees_capteurs_capteur_capteurs_id FOREIGN KEY (capteur) REFERENCES capteurs(id) ON DELETE CASCADE;
 
 
 ALTER TABLE lignesData ADD CONSTRAINT lignesData_rs_sv_ligne_a_nomCommercialData_gid FOREIGN KEY (rs_sv_ligne_a) REFERENCES nomCommercialData(gid);
