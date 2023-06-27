@@ -13,12 +13,6 @@ function afficherPopupCapteurs(capteur)
     return popup;
 }
 
-var capteur_Icon = L.icon({
-    iconUrl: './sources/icons/capteur.png',
-
-    iconSize:     [taille_icon, taille_icon], 
-});
-
 
 function updateBddCapteurs(){
     // suppression des marqueurs existants de la carte
@@ -33,8 +27,18 @@ function updateBddCapteurs(){
     .then(data => {
         console.log(data);
         data.forEach(function(capteur) {
-            var marker = L.marker([capteur.latitude, capteur.longitude], {icon: capteur_Icon}).addTo(feature_group_capteurs_bdd); // création du marqueur
-            marker.bindPopup(afficherPopupCapteurs(capteur)); // ajout du popup
+            var iconUrl = './sources/icons/capteur.png';
+
+            if (capteur.type_capteur.includes("radar")) {
+            iconUrl = './sources/icons/radar.png';
+            } else if (capteur.type_capteur.includes("caméra")) {
+            iconUrl = './sources/icons/camera.png';
+            } else if (capteur.type_capteur.includes("tube")) {
+            iconUrl = './sources/icons/tube.png';
+            }
+
+            var marker = L.marker([capteur.latitude, capteur.longitude], { icon: L.icon({ iconUrl: iconUrl, iconSize: [taille_icon, taille_icon] }) }).addTo(feature_group_capteurs_bdd);
+            marker.bindPopup(afficherPopupCapteurs(capteur));
             
             // if (capteur.entree_sortie > 0) {
             //     var circleColor;
