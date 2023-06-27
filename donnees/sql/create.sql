@@ -20,6 +20,7 @@ ALTER TABLE situer_gares_ter DROP FOREIGN KEY situer_gares_ter_coordonnee_coordo
 ALTER TABLE situer_pt_freefloat DROP FOREIGN KEY situer_pt_freefloat_pt_freefloat_pt_freefloat_id;
 ALTER TABLE situer_pt_freefloat DROP FOREIGN KEY situer_pt_freefloat_coordonnee_coordonnees_pt_freefloat_id;
 ALTER TABLE donnees_capteurs DROP FOREIGN KEY donnees_capteurs_capteur_capteurs_id;
+ALTER TABLE donnees_capteurs DROP FOREIGN KEY donnees_capteurs_classe_vehicule_classes_vehicules_id;
 ALTER TABLE autoriser DROP FOREIGN KEY autoriser_pt_freefloat_pt_freefloat_id;
 ALTER TABLE autoriser DROP FOREIGN KEY autoriser_vehicule_vehicules_freefloating_id;
 ALTER TABLE installer DROP FOREIGN KEY installer_type_accroche_types_accroches_velo_id;
@@ -87,6 +88,7 @@ DROP TABLE IF EXISTS situer_pt_freefloat;
 DROP TABLE IF EXISTS vehicules_freefloating;
 DROP TABLE IF EXISTS capteurs;
 DROP TABLE IF EXISTS donnees_capteurs;
+DROP TABLE IF EXISTS classes_vehicules;
 DROP TABLE IF EXISTS autoriser;
 DROP TABLE IF EXISTS horaires;
 
@@ -485,8 +487,13 @@ longitude FLOAT NOT NULL);
 
 CREATE TABLE donnees_capteurs (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
-horodate TEXT,
+horodate DATETIME,
+classe_vehicule INT,
 capteur INT);
+
+CREATE TABLE classes_vehicules (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
+classe TEXT);
 
 -- CREATE TABLE stations_vcube (
 -- id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
@@ -586,6 +593,7 @@ ALTER TABLE horaires ADD CONSTRAINT horaires_ligne_lignes_id FOREIGN KEY (ligne)
 ALTER TABLE horaires ADD CONSTRAINT horaires_arret_arrets_id FOREIGN KEY (arret) REFERENCES arrets(id) ON DELETE CASCADE;
 ALTER TABLE horaires ADD CONSTRAINT horaires_direction_arrets_id FOREIGN KEY (direction) REFERENCES arrets(id) ON DELETE CASCADE;
 ALTER TABLE donnees_capteurs ADD CONSTRAINT donnees_capteurs_capteur_capteurs_id FOREIGN KEY (capteur) REFERENCES capteurs(id) ON DELETE CASCADE;
+ALTER TABLE donnees_capteurs ADD CONSTRAINT donnees_capteurs_classe_vehicule_classes_vehicules_id FOREIGN KEY (classe_vehicule) REFERENCES classes_vehicules(id) ON DELETE CASCADE;
 
 
 ALTER TABLE lignesData ADD CONSTRAINT lignesData_rs_sv_ligne_a_nomCommercialData_gid FOREIGN KEY (rs_sv_ligne_a) REFERENCES nomCommercialData(gid);

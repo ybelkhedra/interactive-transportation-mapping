@@ -259,3 +259,29 @@ INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 25",
 INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 26", 'tube Mixtra', 44.792600, -0.613200);
 
 INSERT INTO capteurs(nom, type_capteur, latitude, longitude) VALUES ("Poste 27", 'caméra', 44.796368, -0.609520);
+
+-- Insertion des classe des vehicules
+
+INSERT INTO classes_vehicules(classe) VALUES ("EDPM/Trottinette");
+
+INSERT INTO classes_vehicules(classe) VALUES ("VELO");
+
+INSERT INTO classes_vehicules(classe) VALUES ("MOTO");
+
+INSERT INTO classes_vehicules(classe) VALUES ("Deux roues/2RM/2R");
+
+INSERT INTO classes_vehicules(classe) VALUES ("VL");
+
+INSERT INTO classes_vehicules(classe) VALUES ("BUS");
+
+INSERT INTO classes_vehicules(classe) VALUES ("PL");
+
+INSERT INTO classes_vehicules(classe) VALUES ("PL_1");
+
+INSERT INTO classes_vehicules(classe) VALUES ("PL_2");
+
+INSERT INTO classes_vehicules(classe) VALUES ("PL/BUS");
+
+INSERT INTO classes_vehicules(classe) VALUES ("UT");
+
+INSERT INTO classes_vehicules(classe) VALUES ("PT");
