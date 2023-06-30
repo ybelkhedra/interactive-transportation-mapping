@@ -27,6 +27,12 @@ var layer_control_643cdab5b83b581cb10d63d05a5a00f0 = {
         "Points de freefloating bdd" : feature_group_freefloating_bdd,//ok
 
         "Capteurs bdd" : feature_group_capteurs_bdd,
+        
+        "Trafic par jour bdd" : feature_group_trafic_jour_bdd,
+
+        "Moyenne trafic bdd" : feature_group_moyenne_trafic_bdd,
+
+        "Trafic par heure bdd" : feature_group_trafic_heure_bdd,
 
         "Parking" : feature_group_parkings,//ok
 

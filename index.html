@@ -541,36 +541,173 @@
                             });
                             </script>
                         </div>
+                    </div>
+                </div>
 
+                <div class="accordion">
+                    <input type="radio" name="radio-a" id="check5">
+                    <label class="accordion-label" for="check5">Capteurs</label>
+                    <div class="accordion-content">
+                
                         <div>
-                            <input type="checkbox" class="capteurCheckbox" unchecked>
-                            <label for="capteurCheckbox">Emplacements Capteurs</label>
-                            <script>
-                            if ($(".capteurCheckbox").is(':checked')) {var capteurCheckbox = true;} else {var capteurCheckbox = false;}
-                            </script>
-                            <script> 
-                                $(".capteurCheckbox").click(function(){
-                                chargement(1).then(function() {
-                                    if (capteurCheckbox===true) { 
-                                        layerControlNumber.overlays["Capteurs bdd"].remove();
-    
-                                        capteurCheckbox=false;}
-                                    else if (capteurCheckbox===false) {
-                                        layerControlNumber.overlays["Capteurs bdd"].addTo(mapNumber);
-                                        capteurCheckbox=true;
-                                    }
-                                    return chargement(0);
-                                })
-                                .catch(function() {
-                                    console.log("Loading element not found");
-                                });
-                            });
-                            </script>
+                            <input type="radio" name="capteurRadio" id="capteurRadio" class="capteurRadio exclude-radio">
+                            <label for="capteurRadio">Emplacements Capteurs</label>
+                        </div>
+                
+                        <div>
+                            <input type="radio" name="capteurRadio" id="traficJourRadio" class="traficJourRadio exclude-radio">
+                            <label for="traficJourRadio">Trafic par jour</label>
+                        </div>
+                
+                        <div>
+                            <input type="radio" name="capteurRadio" id="moyenneTraficRadio" class="moyenneTraficRadio exclude-radio">
+                            <label for="moyenneTraficRadio">Moyenne de trafic par jour</label>
+                        </div>
+                
+                        <div>
+                            <input type="radio" name="capteurRadio" id="traficHeureRadio" class="traficHeureRadio exclude-radio">
+                            <label for="traficHeureRadio">Trafic par heure</label>
                         </div>
 
+                        <input type="date" id="datepicker">
+
+                        <script>
+                            var capteurRadio = false;
+                            var traficJourRadio = false;
+                            var moyenneTraficRadio = false;
+                            var traficHeureRadio = false;
+
+                            document.getElementById("datepicker").style.visibility = 'hidden';
+                          
+                            $(".capteurRadio").click(function () {
+                                if (!capteurRadio) {
+                                    chargement(1).then(function () {
+                                        if (traficJourRadio) {
+                                            layerControlNumber.overlays["Trafic par jour bdd"].remove();
+                                            document.getElementById("datepicker").style.visibility = 'hidden';
+                                            traficJourRadio = false;
+                                        } else if (moyenneTraficRadio) {
+                                            layerControlNumber.overlays["Moyenne trafic bdd"].remove();
+                                            moyenneTraficRadio = false;
+                                        } else if (traficHeureRadio) {
+                                            layerControlNumber.overlays["Trafic par heure bdd"].remove();
+                                            document.getElementById("datepicker").style.visibility = 'hidden';
+                                            traficHeureRadio = false;
+                                        }
+                                        layerControlNumber.overlays["Capteurs bdd"].addTo(mapNumber);
+                                        capteurRadio = true;
+                                        return chargement(0);
+                                    })
+                                    .catch(function () {
+                                        console.log("Loading element not found");
+                                    });
+                                } else {
+                                    $(".capteurRadio").prop("checked", false);
+                                    layerControlNumber.overlays["Capteurs bdd"].remove();
+                                    capteurRadio = false;
+                                }
+                            });
+                          
+                            $(".traficJourRadio").click(function(){
+                                if (!traficJourRadio) {
+                                    chargement(1).then(function() {
+                                        if(capteurRadio) {
+                                            layerControlNumber.overlays["Capteurs bdd"].remove();
+                                            capteurRadio=false;
+                                        } else if(moyenneTraficRadio) {
+                                            layerControlNumber.overlays["Moyenne trafic bdd"].remove();
+                                            moyenneTraficRadio=false;
+                                        } else if(traficHeureRadio) {
+                                            layerControlNumber.overlays["Trafic par heure bdd"].remove();
+                                            traficHeureRadio=false;
+                                        }
+                                        layerControlNumber.overlays["Trafic par jour bdd"].addTo(mapNumber);
+                                        document.getElementById("datepicker").style.visibility = 'visible';
+                                        traficJourRadio=true;
+                                        return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
+                                } else {
+                                    $(".traficJourRadio").prop("checked", false);
+                                    layerControlNumber.overlays["Trafic par jour bdd"].remove();
+                                    document.getElementById("datepicker").style.visibility = 'hidden';
+                                    traficJourRadio = false;
+                                }
+                            });
+
+                            $(".moyenneTraficRadio").click(function(){
+                                if (!moyenneTraficRadio) {
+                                    chargement(1).then(function() {
+                                        if(capteurRadio) {
+                                            layerControlNumber.overlays["Capteurs bdd"].remove();
+                                            capteurRadio=false;
+                                        } else if(traficJourRadio) {
+                                            layerControlNumber.overlays["Trafic par jour bdd"].remove();
+                                            document.getElementById("datepicker").style.visibility = 'hidden';
+                                            traficJourRadio=false;
+                                        } else if(traficHeureRadio) {
+                                            layerControlNumber.overlays["Trafic par heure bdd"].remove();
+                                            document.getElementById("datepicker").style.visibility = 'hidden';
+                                            traficHeureRadio=false;
+                                        }
+                                        layerControlNumber.overlays["Moyenne trafic bdd"].addTo(mapNumber);
+                                        moyenneTraficRadio=true;
+                                        return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
+                                } else {
+                                    $(".moyenneTraficRadio").prop("checked", false);
+                                    layerControlNumber.overlays["Moyenne trafic bdd"].remove();
+                                    moyenneTraficRadio = false;
+                                }
+                            });
+
+                            $(".traficHeureRadio").click(function(){
+                                if (!traficHeureRadio) {
+                                    chargement(1).then(function() {
+                                        if(capteurRadio) {
+                                            layerControlNumber.overlays["Capteurs bdd"].remove();
+                                            capteurRadio=false;
+                                        } else if(traficJourRadio) {
+                                            layerControlNumber.overlays["Trafic par jour bdd"].remove();
+                                            traficJourRadio=false;
+                                        } else if(moyenneTraficRadio) {
+                                            layerControlNumber.overlays["Moyenne trafic bdd"].remove();
+                                            moyenneTraficRadio=false;
+                                        }
+                                        layerControlNumber.overlays["Trafic par heure bdd"].addTo(mapNumber);
+                                        document.getElementById("datepicker").style.visibility = 'visible';
+                                        traficHeureRadio=true;
+                                        return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
+                                } else {
+                                    $(".traficHeureRadio").prop("checked", false);
+                                    layerControlNumber.overlays["Trafic par heure bdd"].remove();
+                                    document.getElementById("datepicker").style.visibility = 'hidden';
+                                    traficHeureRadio = false;
+                                }
+                            });
+
+                            const datepicker = document.getElementById("datepicker");
+                            datepicker.addEventListener("change", function() {
+                                updateBddTraficJour();
+                                updateBddTraficHeure();
+                            });
+                        </script>
+                
                     </div>
-                  </div>
-              </div>
+                </div>
+                
+
+
+                </div>                            
             </ul>
           </div>
         </div>
@@ -625,6 +762,9 @@
             <script src="sources/map/BDD/points_stationnement_velo_bdd.js"></script>
             <script src="sources/map/BDD/station_freefloating_bdd.js"></script>
             <script src="sources/map/BDD/capteurs_bdd.js"></script>
+            <script src="sources/map/BDD/trafic_jour_bdd.js"></script>
+            <script src="sources/map/BDD/moyenne_trafic_bdd.js"></script>
+            <script src="sources/map/BDD/trafic_heure_bdd.js"></script>
             <script src="sources/map/BDD/arrets_cars.js"></script>
             <script src="sources/map/BDD/vcube_bdd.js"></script>
             <script src="sources/map.js"></script>

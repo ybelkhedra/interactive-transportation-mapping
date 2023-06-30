@@ -9,7 +9,7 @@ function afficherPopupCapteurs(capteur)
     var type = "Matériel Utilisé : " + capteur.type_capteur;
     // var e_s = "Entrée/Sortie total : " + capteur.entree_sortie;
     
-    var popup = nom + "<br>" + type;
+    var popup = nom + "<br>" + type + "<br> Capteurs";
     return popup;
 }
 
@@ -39,31 +39,6 @@ function updateBddCapteurs(){
 
             var marker = L.marker([capteur.latitude, capteur.longitude], { icon: L.icon({ iconUrl: iconUrl, iconSize: [taille_icon, taille_icon] }) }).addTo(feature_group_capteurs_bdd);
             marker.bindPopup(afficherPopupCapteurs(capteur));
-            
-            // if (capteur.entree_sortie > 0) {
-            //     var circleColor;
-            //     var circleRadius = 40 + Math.floor(capteur.entree_sortie / 200);
-                
-            //     if (capteur.entree_sortie >= 15000) {
-            //         circleColor = "darkred";
-            //     } else if (capteur.entree_sortie >= 10000) {
-            //         circleColor = "red";
-            //     } else if (capteur.entree_sortie >= 5000) {
-            //         circleColor = "orange";
-            //     } else if (capteur.entree_sortie >= 2500) {
-            //         circleColor = "yellow";
-            //     } else {
-            //         circleColor = "green";
-            //     }
-                
-            //     L.circle([capteur.latitude, capteur.longitude], {
-            //         color: circleColor,
-            //         fillColor: circleColor,
-            //         fillOpacity: 0.5,
-            //         radius: circleRadius,
-            //         stroke: false
-            //     }).addTo(feature_group_capteurs_bdd);
-            // }
             
             affichage();
         });                
