@@ -8,7 +8,7 @@ function afficherPopupTraficJour(capteur)
     var nom = "Nom : " + capteur.nom;
     var type = "Matériel Utilisé : " + capteur.type_capteur;
     
-    var popup = nom + "<br>" + type + "<br> Trafic par jour: " + document.getElementById("datepicker").value;
+    var popup = nom + "<br>" + type + "<br> Trafic par jour: " + document.getElementById("datepicker1").value;
     popup += "<br>Total Véhicules : " + capteur.total_vehicules;
     popup += "<br>EDPM/Trottinette : " + capteur.total_vehicules_EDPM_Trottinette;
     popup += "<br>VELO : " + capteur.total_vehicules_VELO;
@@ -28,7 +28,7 @@ function afficherPopupTraficJour(capteur)
 
 
 function updateBddTraficJour(){
-    var selectedDate = document.getElementById("datepicker").value;
+    var selectedDate = document.getElementById("datepicker1").value;
     if (selectedDate === "") {
         return;
     }

@@ -7,14 +7,36 @@ function afficherPopupMoyenneTrafic(capteur)
 {
     var nom = "Nom : " + capteur.nom;
     var type = "Matériel Utilisé : " + capteur.type_capteur;
-    // var e_s = "Entrée/Sortie total : " + capteur.entree_sortie;
     
-    var popup = nom + "<br>" + type + "<br> Moyenne trafic";
+    var popup = nom + "<br>" + type + "<br> Moyenne de trafic entre " + document.getElementById("datepicker1").value + " et " + document.getElementById("datepicker2").value;
+    popup += "<br>Total Véhicules : " + capteur.moyenne_vehicules;
+    popup += "<br>EDPM/Trottinette : " + capteur.moyenne_vehicules_EDPM_Trottinette;
+    popup += "<br>VELO : " + capteur.moyenne_vehicules_VELO;
+    popup += "<br>MOTO : " + capteur.moyenne_vehicules_MOTO;
+    popup += "<br>Deux roues/2RM/2R : " + capteur.moyenne_vehicules_Deux_roues_2RM_2R;
+    popup += "<br>VL : " + capteur.moyenne_vehicules_VL;
+    popup += "<br>BUS : " + capteur.moyenne_vehicules_BUS;
+    popup += "<br>PL : " + capteur.moyenne_vehicules_PL;
+    popup += "<br>PL_1 : " + capteur.moyenne_vehicules_PL_1;
+    popup += "<br>PL_2 : " + capteur.moyenne_vehicules_PL_2;
+    popup += "<br>PL/BUS : " + capteur.moyenne_vehicules_PL_BUS;
+    popup += "<br>UT : " + capteur.moyenne_vehicules_UT;
+    popup += "<br>PT : " + capteur.moyenne_vehicules_PT;
+
     return popup;
 }
 
 
 function updateBddMoyenneTrafic(){
+    var selectedDate1 = document.getElementById("datepicker1").value;
+    var selectedDate2 = document.getElementById("datepicker2").value;
+    if (selectedDate1 === "" || selectedDate2 === "") {
+        console.log("Please select a date");
+        return;
+    }
+
+    console.log("date1: " + selectedDate1 + "    date2: " + selectedDate2);
+
     // suppression des marqueurs existants de la carte
     feature_group_moyenne_trafic_bdd.eachLayer(function (layer) {
         if (layer instanceof L.Marker) {
@@ -22,7 +44,7 @@ function updateBddMoyenneTrafic(){
         }
         });
     //récupération des données de la bdd
-    fetch('./sources/requetes/moyenne_trafic.php')
+    fetch('./sources/requetes/moyenne_trafic.php?date1=' + selectedDate1 + '&date2=' + selectedDate2)
     .then(response => response.json())
     .then(data => {
         console.log(data);
@@ -40,30 +62,30 @@ function updateBddMoyenneTrafic(){
             var marker = L.marker([capteur.latitude, capteur.longitude], { icon: L.icon({ iconUrl: iconUrl, iconSize: [taille_icon, taille_icon] }) }).addTo(feature_group_moyenne_trafic_bdd);
             marker.bindPopup(afficherPopupMoyenneTrafic(capteur));
             
-            // if (capteur.entree_sortie > 0) {
-            //     var circleColor;
-            //     var circleRadius = 40 + Math.floor(capteur.entree_sortie / 200);
+            if (capteur.moyenne_vehicules > 0) {
+                var circleColor;
+                var circleRadius = 40 + Math.floor(capteur.moyenne_vehicules / 200);
                 
-            //     if (capteur.entree_sortie >= 15000) {
-            //         circleColor = "darkred";
-            //     } else if (capteur.entree_sortie >= 10000) {
-            //         circleColor = "red";
-            //     } else if (capteur.entree_sortie >= 5000) {
-            //         circleColor = "orange";
-            //     } else if (capteur.entree_sortie >= 2500) {
-            //         circleColor = "yellow";
-            //     } else {
-            //         circleColor = "green";
-            //     }
+                if (capteur.moyenne_vehicules >= 15000) {
+                    circleColor = "darkred";
+                } else if (capteur.moyenne_vehicules >= 10000) {
+                    circleColor = "red";
+                } else if (capteur.moyenne_vehicules >= 5000) {
+                    circleColor = "orange";
+                } else if (capteur.moyenne_vehicules >= 2500) {
+                    circleColor = "yellow";
+                } else {
+                    circleColor = "green";
+                }
                 
-            //     L.circle([capteur.latitude, capteur.longitude], {
-            //         color: circleColor,
-            //         fillColor: circleColor,
-            //         fillOpacity: 0.5,
-            //         radius: circleRadius,
-            //         stroke: false
-            //     }).addTo(feature_group_moyenne_trafic_bdd);
-            // }
+                L.circle([capteur.latitude, capteur.longitude], {
+                    color: circleColor,
+                    fillColor: circleColor,
+                    fillOpacity: 0.5,
+                    radius: circleRadius,
+                    stroke: false
+                }).addTo(feature_group_moyenne_trafic_bdd);
+            }
             
             affichage();
         });                

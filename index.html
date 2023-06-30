@@ -569,7 +569,8 @@
                             <label for="traficHeureRadio">Trafic par heure</label>
                         </div>
 
-                        <input type="date" id="datepicker">
+                        <input type="date" id="datepicker1">
+                        <input type="date" id="datepicker2">
 
                         <script>
                             var capteurRadio = false;
@@ -577,21 +578,24 @@
                             var moyenneTraficRadio = false;
                             var traficHeureRadio = false;
 
-                            document.getElementById("datepicker").style.visibility = 'hidden';
+                            document.getElementById("datepicker1").style.visibility = 'hidden';
+                            document.getElementById("datepicker2").style.visibility = 'hidden';
                           
                             $(".capteurRadio").click(function () {
                                 if (!capteurRadio) {
                                     chargement(1).then(function () {
                                         if (traficJourRadio) {
                                             layerControlNumber.overlays["Trafic par jour bdd"].remove();
-                                            document.getElementById("datepicker").style.visibility = 'hidden';
+                                            document.getElementById("datepicker1").style.visibility = 'hidden';
                                             traficJourRadio = false;
                                         } else if (moyenneTraficRadio) {
                                             layerControlNumber.overlays["Moyenne trafic bdd"].remove();
                                             moyenneTraficRadio = false;
+                                            document.getElementById("datepicker1").style.visibility = 'hidden';
+                                            document.getElementById("datepicker2").style.visibility = 'hidden';
                                         } else if (traficHeureRadio) {
                                             layerControlNumber.overlays["Trafic par heure bdd"].remove();
-                                            document.getElementById("datepicker").style.visibility = 'hidden';
+                                            document.getElementById("datepicker1").style.visibility = 'hidden';
                                             traficHeureRadio = false;
                                         }
                                         layerControlNumber.overlays["Capteurs bdd"].addTo(mapNumber);
@@ -617,12 +621,13 @@
                                         } else if(moyenneTraficRadio) {
                                             layerControlNumber.overlays["Moyenne trafic bdd"].remove();
                                             moyenneTraficRadio=false;
+                                            document.getElementById("datepicker2").style.visibility = 'hidden';
                                         } else if(traficHeureRadio) {
                                             layerControlNumber.overlays["Trafic par heure bdd"].remove();
                                             traficHeureRadio=false;
                                         }
                                         layerControlNumber.overlays["Trafic par jour bdd"].addTo(mapNumber);
-                                        document.getElementById("datepicker").style.visibility = 'visible';
+                                        document.getElementById("datepicker1").style.visibility = 'visible';
                                         traficJourRadio=true;
                                         return chargement(0);
                                     })
@@ -632,7 +637,7 @@
                                 } else {
                                     $(".traficJourRadio").prop("checked", false);
                                     layerControlNumber.overlays["Trafic par jour bdd"].remove();
-                                    document.getElementById("datepicker").style.visibility = 'hidden';
+                                    document.getElementById("datepicker1").style.visibility = 'hidden';
                                     traficJourRadio = false;
                                 }
                             });
@@ -645,14 +650,14 @@
                                             capteurRadio=false;
                                         } else if(traficJourRadio) {
                                             layerControlNumber.overlays["Trafic par jour bdd"].remove();
-                                            document.getElementById("datepicker").style.visibility = 'hidden';
                                             traficJourRadio=false;
                                         } else if(traficHeureRadio) {
                                             layerControlNumber.overlays["Trafic par heure bdd"].remove();
-                                            document.getElementById("datepicker").style.visibility = 'hidden';
                                             traficHeureRadio=false;
                                         }
                                         layerControlNumber.overlays["Moyenne trafic bdd"].addTo(mapNumber);
+                                        document.getElementById("datepicker1").style.visibility = 'visible';
+                                        document.getElementById("datepicker2").style.visibility = 'visible';
                                         moyenneTraficRadio=true;
                                         return chargement(0);
                                     })
@@ -662,6 +667,8 @@
                                 } else {
                                     $(".moyenneTraficRadio").prop("checked", false);
                                     layerControlNumber.overlays["Moyenne trafic bdd"].remove();
+                                    document.getElementById("datepicker1").style.visibility = 'hidden';
+                                    document.getElementById("datepicker2").style.visibility = 'hidden';
                                     moyenneTraficRadio = false;
                                 }
                             });
@@ -677,10 +684,11 @@
                                             traficJourRadio=false;
                                         } else if(moyenneTraficRadio) {
                                             layerControlNumber.overlays["Moyenne trafic bdd"].remove();
+                                            document.getElementById("datepicker2").style.visibility = 'hidden';
                                             moyenneTraficRadio=false;
                                         }
                                         layerControlNumber.overlays["Trafic par heure bdd"].addTo(mapNumber);
-                                        document.getElementById("datepicker").style.visibility = 'visible';
+                                        document.getElementById("datepicker1").style.visibility = 'visible';
                                         traficHeureRadio=true;
                                         return chargement(0);
                                     })
@@ -690,15 +698,20 @@
                                 } else {
                                     $(".traficHeureRadio").prop("checked", false);
                                     layerControlNumber.overlays["Trafic par heure bdd"].remove();
-                                    document.getElementById("datepicker").style.visibility = 'hidden';
+                                    document.getElementById("datepicker1").style.visibility = 'hidden';
                                     traficHeureRadio = false;
                                 }
                             });
 
-                            const datepicker = document.getElementById("datepicker");
-                            datepicker.addEventListener("change", function() {
+                            const datepicker1 = document.getElementById("datepicker1");
+                            datepicker1.addEventListener("change", function() {
                                 updateBddTraficJour();
                                 updateBddTraficHeure();
+                            });
+
+                            const datepicker2 = document.getElementById("datepicker2");
+                            datepicker2.addEventListener("change", function() {
+                                updateBddMoyenneTrafic();
                             });
                         </script>
                 
