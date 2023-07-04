@@ -534,34 +534,248 @@
                             </script>
                         </div>
 
-                        <div>
-                            <input type="checkbox" class="capteurCheckbox" unchecked>
-                            <label for="capteurCheckbox">Emplacements Capteurs</label>
-                            <script>
-                            if ($(".capteurCheckbox").is(':checked')) {var capteurCheckbox = true;} else {var capteurCheckbox = false;}
-                            </script>
-                            <script> 
-                                $(".capteurCheckbox").click(function(){
-                                chargement(1).then(function() {
-                                    if (capteurCheckbox===true) { 
-                                        layerControlNumber.overlays["Capteurs bdd"].remove();
-    
-                                        capteurCheckbox=false;}
-                                    else if (capteurCheckbox===false) {
-                                        layerControlNumber.overlays["Capteurs bdd"].addTo(mapNumber);
-                                        capteurCheckbox=true;
-                                    }
-                                    return chargement(0);
-                                })
-                                .catch(function() {
-                                    console.log("Loading element not found");
-                                });
-                            });
-                            </script>
-                        </div>
-
                     </div>
                   </div>
+
+                  <div class="accordion">
+                    <input type="radio" name="radio-a" id="check5">
+                    <label class="accordion-label" for="check5">Capteurs</label>
+                    <div class="accordion-content">
+                
+                        <div>
+                            <input type="radio" name="capteurRadio" id="capteurRadio" class="capteurRadio exclude-radio">
+                            <label for="capteurRadio">Emplacements Capteurs</label>
+                        </div>
+                
+                        <div>
+                            <input type="radio" name="capteurRadio" id="traficJourRadio" class="traficJourRadio exclude-radio">
+                            <label for="traficJourRadio">Trafic par jour</label>
+                        </div>
+                
+                        <div>
+                            <input type="radio" name="capteurRadio" id="moyenneTraficRadio" class="moyenneTraficRadio exclude-radio">
+                            <label for="moyenneTraficRadio">Moyenne de trafic par jour</label>
+                        </div>
+                
+                        <div>
+                            <input type="radio" name="capteurRadio" id="traficHeureRadio" class="traficHeureRadio exclude-radio">
+                            <label for="traficHeureRadio">Trafic par heure</label>
+                        </div>
+
+                        <input type="date" id="datepicker1">
+                        <input type="date" id="datepicker2">
+
+                        <form id="trafic_heure">
+                            <div>
+                                <label for="timepicker1">Début :</label>
+                                <input type="time" id="timepicker1" required>
+                                <label for="timepicker2">Fin :</label>
+                                <input type="time" id="timepicker2" required>
+                            </div>
+                            <div>
+                                <label for="periode">Période :</label>
+                                <input type="text" id="periode" required>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="choix_min">
+                                <label for="choix_min">min</label>
+                                <input type="checkbox" id="choix_heur">
+                                <label for="choix_heur">h</label>
+                            </div>
+                            <input type="button" id="start" value="Afficher">
+                        </form>
+
+                        <script>
+                            var capteurRadio = false;
+                            var traficJourRadio = false;
+                            var moyenneTraficRadio = false;
+                            var traficHeureRadio = false;
+
+                            document.getElementById("datepicker1").style.visibility = 'hidden';
+                            document.getElementById("datepicker2").style.visibility = 'hidden';
+                            document.getElementById("trafic_heure").style.visibility = 'hidden';
+                          
+                            $(".capteurRadio").click(function () {
+                                if (!capteurRadio) {
+                                    chargement(1).then(function () {
+                                        if (traficJourRadio) {
+                                            layerControlNumber.overlays["Trafic par jour bdd"].remove();
+                                            document.getElementById("datepicker1").style.visibility = 'hidden';
+                                            traficJourRadio = false;
+                                        } else if (moyenneTraficRadio) {
+                                            layerControlNumber.overlays["Moyenne trafic bdd"].remove();
+                                            moyenneTraficRadio = false;
+                                            document.getElementById("datepicker1").style.visibility = 'hidden';
+                                            document.getElementById("datepicker2").style.visibility = 'hidden';
+                                        } else if (traficHeureRadio) {
+                                            layerControlNumber.overlays["Trafic par heure bdd"].remove();
+                                            document.getElementById("datepicker1").style.visibility = 'hidden';
+                                            document.getElementById("trafic_heure").style.visibility = 'hidden';
+                                            traficHeureRadio = false;
+                                        }
+                                        layerControlNumber.overlays["Capteurs bdd"].addTo(mapNumber);
+                                        capteurRadio = true;
+                                        return chargement(0);
+                                    })
+                                    .catch(function () {
+                                        console.log("Loading element not found");
+                                    });
+                                } else {
+                                    $(".capteurRadio").prop("checked", false);
+                                    layerControlNumber.overlays["Capteurs bdd"].remove();
+                                    capteurRadio = false;
+                                }
+                            });
+                          
+                            $(".traficJourRadio").click(function(){
+                                if (!traficJourRadio) {
+                                    chargement(1).then(function() {
+                                        if(capteurRadio) {
+                                            layerControlNumber.overlays["Capteurs bdd"].remove();
+                                            capteurRadio=false;
+                                        } else if(moyenneTraficRadio) {
+                                            layerControlNumber.overlays["Moyenne trafic bdd"].remove();
+                                            moyenneTraficRadio=false;
+                                            document.getElementById("datepicker2").style.visibility = 'hidden';
+                                        } else if(traficHeureRadio) {
+                                            layerControlNumber.overlays["Trafic par heure bdd"].remove();
+                                            document.getElementById("trafic_heure").style.visibility = 'hidden';
+                                            traficHeureRadio=false;
+                                        }
+                                        layerControlNumber.overlays["Trafic par jour bdd"].addTo(mapNumber);
+                                        document.getElementById("datepicker1").style.visibility = 'visible';
+                                        traficJourRadio=true;
+                                        return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
+                                } else {
+                                    $(".traficJourRadio").prop("checked", false);
+                                    layerControlNumber.overlays["Trafic par jour bdd"].remove();
+                                    document.getElementById("datepicker1").style.visibility = 'hidden';
+                                    traficJourRadio = false;
+                                }
+                            });
+
+                            $(".moyenneTraficRadio").click(function(){
+                                if (!moyenneTraficRadio) {
+                                    chargement(1).then(function() {
+                                        if(capteurRadio) {
+                                            layerControlNumber.overlays["Capteurs bdd"].remove();
+                                            capteurRadio=false;
+                                        } else if(traficJourRadio) {
+                                            layerControlNumber.overlays["Trafic par jour bdd"].remove();
+                                            traficJourRadio=false;
+                                        } else if(traficHeureRadio) {
+                                            layerControlNumber.overlays["Trafic par heure bdd"].remove();
+                                            document.getElementById("trafic_heure").style.visibility = 'hidden';
+                                            traficHeureRadio=false;
+                                        }
+                                        layerControlNumber.overlays["Moyenne trafic bdd"].addTo(mapNumber);
+                                        document.getElementById("datepicker1").style.visibility = 'visible';
+                                        document.getElementById("datepicker2").style.visibility = 'visible';
+                                        moyenneTraficRadio=true;
+                                        return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
+                                } else {
+                                    $(".moyenneTraficRadio").prop("checked", false);
+                                    layerControlNumber.overlays["Moyenne trafic bdd"].remove();
+                                    document.getElementById("datepicker1").style.visibility = 'hidden';
+                                    document.getElementById("datepicker2").style.visibility = 'hidden';
+                                    moyenneTraficRadio = false;
+                                }
+                            });
+
+                            $(".traficHeureRadio").click(function(){
+                                if (!traficHeureRadio) {
+                                    chargement(1).then(function() {
+                                        if(capteurRadio) {
+                                            layerControlNumber.overlays["Capteurs bdd"].remove();
+                                            capteurRadio=false;
+                                        } else if(traficJourRadio) {
+                                            layerControlNumber.overlays["Trafic par jour bdd"].remove();
+                                            traficJourRadio=false;
+                                        } else if(moyenneTraficRadio) {
+                                            layerControlNumber.overlays["Moyenne trafic bdd"].remove();
+                                            document.getElementById("datepicker2").style.visibility = 'hidden';
+                                            moyenneTraficRadio=false;
+                                        }
+                                        layerControlNumber.overlays["Trafic par heure bdd"].addTo(mapNumber);
+                                        document.getElementById("datepicker1").style.visibility = 'visible';
+                                        document.getElementById("trafic_heure").style.visibility = 'visible';
+                                        traficHeureRadio=true;
+                                        return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
+                                } else {
+                                    $(".traficHeureRadio").prop("checked", false);
+                                    layerControlNumber.overlays["Trafic par heure bdd"].remove();
+                                    document.getElementById("datepicker1").style.visibility = 'hidden';
+                                    document.getElementById("trafic_heure").style.visibility = 'hidden';
+                                    traficHeureRadio = false;
+                                }
+                            });
+
+                            const datepicker1 = document.getElementById("datepicker1");
+                            datepicker1.addEventListener("change", function() {
+                                updateBddTraficJour();
+                            });
+
+                            const datepicker2 = document.getElementById("datepicker2");
+                            datepicker2.addEventListener("change", function() {
+                                updateBddMoyenneTrafic();
+                            });
+
+                            document.addEventListener('DOMContentLoaded', function() {
+                                // const periodeInput = document.getElementById('periode');
+                                // const minCheckbox = document.getElementById('choix_min');
+                                // const heurCheckbox = document.getElementById('choix_heur');
+                                const startButton = document.getElementById('start');
+
+                                startButton.addEventListener('click', function() {
+                                    var selectedDate = document.getElementById("datepicker1").value;
+                                    if (selectedDate === "") {
+                                        alert("Veuillez entrer une date.");
+                                        return;
+                                    }
+
+                                    var debut = document.getElementById("timepicker1").value;
+                                    var fin = document.getElementById("timepicker2").value;
+                                    if (debut === "" || fin === "") {
+                                        alert("Veuillez entrer une heure de début et de fin.");
+                                        return;
+                                    }
+
+                                    // // Vérifier si l'entrée de période est un entier
+                                    // const periodeValue = periodeInput.value;
+                                    // if (!Number.isInteger(parseInt(periodeValue))) {
+                                    //     alert("Veuillez entrer un nombre entier dans le champ Période.");
+                                    //     return;
+                                    // }
+
+                                    // // Vérifier qu'un et un seul checkbox est sélectionné
+                                    // const minChecked = minCheckbox.checked;
+                                    // const heurChecked = heurCheckbox.checked;
+                                    // if (!(minChecked ^ heurChecked)) {
+                                    //     alert("Veuillez sélectionner un seul format de période (min ou h).");
+                                    //     return;
+                                    // }
+
+                                    // Exécuter la fonction updateBddTraficHeure()
+                                    updateBddTraficHeure();
+                                });
+                            });
+                        </script>
+                
+                    </div>
+                </div>
+                
               </div>
             </ul>
           </div>
