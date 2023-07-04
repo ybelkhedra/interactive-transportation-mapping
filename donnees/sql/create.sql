@@ -89,6 +89,8 @@ DROP TABLE IF EXISTS vehicules_freefloating;
 DROP TABLE IF EXISTS capteurs;
 DROP TABLE IF EXISTS donnees_capteurs;
 DROP TABLE IF EXISTS classes_vehicules;
+DROP TABLE IF EXISTS trajets;
+DROP TABLE IF EXISTS capturer;
 DROP TABLE IF EXISTS autoriser;
 DROP TABLE IF EXISTS horaires;
 
@@ -488,12 +490,23 @@ longitude FLOAT NOT NULL);
 CREATE TABLE donnees_capteurs (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 horodate DATETIME,
+sens INT,
 classe_vehicule INT,
 capteur INT);
 
 CREATE TABLE classes_vehicules (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
 classe TEXT);
+
+CREATE TABLE trajets (
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,
+nom TEXT);
+
+CREATE TABLE capturer (
+capteur INT,
+trajet INT,
+PRIMARY KEY (capteur, trajet)
+);
 
 -- CREATE TABLE stations_vcube (
 -- id INT PRIMARY KEY AUTO_INCREMENT NOT NULL UNIQUE,

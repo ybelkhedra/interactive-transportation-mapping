@@ -285,3 +285,191 @@ INSERT INTO classes_vehicules(classe) VALUES ("PL/BUS");
 INSERT INTO classes_vehicules(classe) VALUES ("UT");
 
 INSERT INTO classes_vehicules(classe) VALUES ("PT");
+
+-- Insertion des trajets
+
+INSERT INTO trajets(nom) VALUES ("CROUS");
+
+INSERT INTO trajets(nom) VALUES ("Cours de la Libération");
+
+INSERT INTO trajets(nom) VALUES ("Entrée Fac");
+
+INSERT INTO trajets(nom) VALUES ("Sortie Fac");
+
+INSERT INTO trajets(nom) VALUES ("Entrée");
+
+INSERT INTO trajets(nom) VALUES ("Sortie");
+
+INSERT INTO trajets(nom) VALUES ("Giratoire");
+
+INSERT INTO trajets(nom) VALUES ("Résidences Université");
+
+INSERT INTO trajets(nom) VALUES ("entrée du site");
+
+INSERT INTO trajets(nom) VALUES ("parking cafeteria");
+
+INSERT INTO trajets(nom) VALUES ("fac");
+
+INSERT INTO trajets(nom) VALUES ("parking");
+
+INSERT INTO trajets(nom) VALUES ("Fac");
+
+INSERT INTO trajets(nom) VALUES ("Talence");
+
+INSERT INTO trajets(nom) VALUES ("Entrant");
+
+INSERT INTO trajets(nom) VALUES ("Sortant");
+
+INSERT INTO trajets(nom) VALUES ("bibliothèque");
+
+INSERT INTO trajets(nom) VALUES ("carrefour à feux Av. Roul");
+
+INSERT INTO trajets(nom) VALUES ("Avenue Schweitzer");
+
+INSERT INTO trajets(nom) VALUES ("P16");
+
+INSERT INTO trajets(nom) VALUES ("entrée du site");
+
+INSERT INTO trajets(nom) VALUES ("parking cafeteria");
+
+INSERT INTO trajets(nom) VALUES ("avenue Léon Duguit");
+
+INSERT INTO trajets(nom) VALUES ("parking des professeurs");
+
+INSERT INTO trajets(nom) VALUES ("sortie (tram)");
+
+INSERT INTO trajets(nom) VALUES ("Entrée");
+
+INSERT INTO trajets(nom) VALUES ("BEC");
+
+INSERT INTO trajets(nom) VALUES ("COSEC");
+
+INSERT INTO trajets(nom) VALUES ("Fac");
+
+INSERT INTO trajets(nom) VALUES ("Rocade");
+
+INSERT INTO trajets(nom) VALUES ("giratoire");
+
+INSERT INTO trajets(nom) VALUES ("Av Camille Julian");
+
+INSERT INTO trajets(nom) VALUES ("Av de Villemejan");
+
+INSERT INTO trajets(nom) VALUES ("Av des Arts");
+
+INSERT INTO trajets(nom) VALUES ("Av de Bardanac");
+
+INSERT INTO trajets(nom) VALUES ("Av de la Paillère");
+
+-- Insertion des liens capteurs_trajets (table capturer)
+
+INSERT INTO capturer(capteur, trajet) VALUES (1, 1);
+
+INSERT INTO capturer(capteur, trajet) VALUES (1, 2);
+
+INSERT INTO capturer(capteur, trajet) VALUES (2, 3);
+
+INSERT INTO capturer(capteur, trajet) VALUES (2, 4);
+
+INSERT INTO capturer(capteur, trajet) VALUES (3, 3);
+
+INSERT INTO capturer(capteur, trajet) VALUES (3, 4);
+
+INSERT INTO capturer(capteur, trajet) VALUES (4, 5);
+
+INSERT INTO capturer(capteur, trajet) VALUES (4, 6);
+
+INSERT INTO capturer(capteur, trajet) VALUES (5, 3);
+
+INSERT INTO capturer(capteur, trajet) VALUES (5, 4);
+
+INSERT INTO capturer(capteur, trajet) VALUES (6, 7);
+
+INSERT INTO capturer(capteur, trajet) VALUES (6, 8);
+
+INSERT INTO capturer(capteur, trajet) VALUES (7, 3);
+
+INSERT INTO capturer(capteur, trajet) VALUES (7, 4);
+
+INSERT INTO capturer(capteur, trajet) VALUES (8, 9);
+
+INSERT INTO capturer(capteur, trajet) VALUES (8, 10);
+
+INSERT INTO capturer(capteur, trajet) VALUES (8, 11);
+
+INSERT INTO capturer(capteur, trajet) VALUES (8, 12);
+
+INSERT INTO capturer(capteur, trajet) VALUES (9, 13);
+
+INSERT INTO capturer(capteur, trajet) VALUES (9, 14);
+
+INSERT INTO capturer(capteur, trajet) VALUES (10, 5);
+
+INSERT INTO capturer(capteur, trajet) VALUES (10, 6);
+
+INSERT INTO capturer(capteur, trajet) VALUES (11, 5);
+
+INSERT INTO capturer(capteur, trajet) VALUES (11, 6);
+
+INSERT INTO capturer(capteur, trajet) VALUES (12, 15);
+
+INSERT INTO capturer(capteur, trajet) VALUES (12, 16);
+
+INSERT INTO capturer(capteur, trajet) VALUES (13, 17);
+
+INSERT INTO capturer(capteur, trajet) VALUES (13, 18);
+
+INSERT INTO capturer(capteur, trajet) VALUES (14, 5);
+
+INSERT INTO capturer(capteur, trajet) VALUES (14, 6);
+
+INSERT INTO capturer(capteur, trajet) VALUES (17, 19);
+
+INSERT INTO capturer(capteur, trajet) VALUES (17, 20);
+
+INSERT INTO capturer(capteur, trajet) VALUES (18, 5);
+
+INSERT INTO capturer(capteur, trajet) VALUES (18, 6);
+
+INSERT INTO capturer(capteur, trajet) VALUES (19, 5);
+
+INSERT INTO capturer(capteur, trajet) VALUES (19, 6);
+
+INSERT INTO capturer(capteur, trajet) VALUES (20, 21);
+
+INSERT INTO capturer(capteur, trajet) VALUES (20, 22);
+
+INSERT INTO capturer(capteur, trajet) VALUES (20, 23);
+
+INSERT INTO capturer(capteur, trajet) VALUES (20, 24);
+
+INSERT INTO capturer(capteur, trajet) VALUES (21, 25);
+
+INSERT INTO capturer(capteur, trajet) VALUES (21, 26);
+
+INSERT INTO capturer(capteur, trajet) VALUES (22, 5);
+
+INSERT INTO capturer(capteur, trajet) VALUES (22, 6);
+
+INSERT INTO capturer(capteur, trajet) VALUES (23, 27);
+
+INSERT INTO capturer(capteur, trajet) VALUES (23, 28);
+
+INSERT INTO capturer(capteur, trajet) VALUES (24, 29);
+
+INSERT INTO capturer(capteur, trajet) VALUES (24, 30);
+
+INSERT INTO capturer(capteur, trajet) VALUES (25, 31);
+
+INSERT INTO capturer(capteur, trajet) VALUES (25, 32);
+
+INSERT INTO capturer(capteur, trajet) VALUES (26, 29);
+
+INSERT INTO capturer(capteur, trajet) VALUES (26, 30);
+
+INSERT INTO capturer(capteur, trajet) VALUES (27, 33);
+
+INSERT INTO capturer(capteur, trajet) VALUES (27, 34);
+
+INSERT INTO capturer(capteur, trajet) VALUES (27, 35);
+
+INSERT INTO capturer(capteur, trajet) VALUES (27, 36);
