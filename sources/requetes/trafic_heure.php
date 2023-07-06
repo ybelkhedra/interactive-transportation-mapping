@@ -27,7 +27,8 @@ if(isset($_GET['date']) && isset($_GET['heure1']) && isset($_GET['heure2'])) {
             LEFT JOIN classes_vehicules cv ON d.classe_vehicule = cv.id
             WHERE 
                 DATE(d.horodate) = '$date'
-                AND TIME(d.horodate) BETWEEN '$heure1' AND '$heure2'
+                AND TIME(d.horodate) >= '$heure1' 
+                AND TIME(d.horodate) < '$heure2'
             GROUP BY c.id, c.nom, c.type_capteur";
 
     // Exécution de la requête

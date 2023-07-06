@@ -580,16 +580,15 @@
                                 <input type="time" id="timepicker2" required>
                             </div>
                             <div>
-                                <label for="periode">Période :</label>
-                                <input type="text" id="periode" required>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="choix_min">
-                                <label for="choix_min">min</label>
+                                Période : 
+                                <input type="checkbox" id="choix_demi_heur">
+                                <label for="choix_demi_heur">30min</label>
                                 <input type="checkbox" id="choix_heur">
-                                <label for="choix_heur">h</label>
+                                <label for="choix_heur">1h</label>
                             </div>
                             <input type="button" id="start" value="Afficher">
+                            <input type="button" id="next" value="Suivant">
+                            <input type="button" id="reset" value="Réinitialiser">
                         </form>
 
                         <script>
@@ -597,10 +596,13 @@
                             var traficJourRadio = false;
                             var moyenneTraficRadio = false;
                             var traficHeureRadio = false;
+                            var estAffiche = false;
 
                             document.getElementById("datepicker1").style.visibility = 'hidden';
                             document.getElementById("datepicker2").style.visibility = 'hidden';
                             document.getElementById("trafic_heure").style.visibility = 'hidden';
+                            document.getElementById("next").style.visibility = 'hidden';
+                            document.getElementById("reset").style.visibility = 'hidden';
                           
                             $(".capteurRadio").click(function () {
                                 if (!capteurRadio) {
@@ -618,6 +620,8 @@
                                             layerControlNumber.overlays["Trafic par heure bdd"].remove();
                                             document.getElementById("datepicker1").style.visibility = 'hidden';
                                             document.getElementById("trafic_heure").style.visibility = 'hidden';
+                                            document.getElementById("next").style.visibility = 'hidden';
+                                            document.getElementById("reset").style.visibility = 'hidden';
                                             traficHeureRadio = false;
                                         }
                                         layerControlNumber.overlays["Capteurs bdd"].addTo(mapNumber);
@@ -647,6 +651,8 @@
                                         } else if(traficHeureRadio) {
                                             layerControlNumber.overlays["Trafic par heure bdd"].remove();
                                             document.getElementById("trafic_heure").style.visibility = 'hidden';
+                                            document.getElementById("next").style.visibility = 'hidden';
+                                            document.getElementById("reset").style.visibility = 'hidden';
                                             traficHeureRadio=false;
                                         }
                                         layerControlNumber.overlays["Trafic par jour bdd"].addTo(mapNumber);
@@ -677,6 +683,8 @@
                                         } else if(traficHeureRadio) {
                                             layerControlNumber.overlays["Trafic par heure bdd"].remove();
                                             document.getElementById("trafic_heure").style.visibility = 'hidden';
+                                            document.getElementById("next").style.visibility = 'hidden';
+                                            document.getElementById("reset").style.visibility = 'hidden';
                                             traficHeureRadio=false;
                                         }
                                         layerControlNumber.overlays["Moyenne trafic bdd"].addTo(mapNumber);
@@ -714,6 +722,10 @@
                                         layerControlNumber.overlays["Trafic par heure bdd"].addTo(mapNumber);
                                         document.getElementById("datepicker1").style.visibility = 'visible';
                                         document.getElementById("trafic_heure").style.visibility = 'visible';
+                                        if(estAffiche) {
+                                            document.getElementById("next").style.visibility = 'visible';
+                                            document.getElementById("reset").style.visibility = 'visible';
+                                        }
                                         traficHeureRadio=true;
                                         return chargement(0);
                                     })
@@ -725,6 +737,8 @@
                                     layerControlNumber.overlays["Trafic par heure bdd"].remove();
                                     document.getElementById("datepicker1").style.visibility = 'hidden';
                                     document.getElementById("trafic_heure").style.visibility = 'hidden';
+                                    document.getElementById("next").style.visibility = 'hidden';
+                                    document.getElementById("reset").style.visibility = 'hidden';
                                     traficHeureRadio = false;
                                 }
                             });
@@ -738,44 +752,168 @@
                             datepicker2.addEventListener("change", function() {
                                 updateBddMoyenneTrafic();
                             });
+                            
+                            var debut;
+                            var fin;
+                            var debutIntervalle;
+                            var finIntervalle;
+                            var demiHeurChecked;
+                            var heurChecked;
+                            var heuresDebut;
+                            var minutesDebut;
+                            var heuresSuivantes;
+                            var minutesSuivantes;
+                            var heuresFin;
 
                             document.addEventListener('DOMContentLoaded', function() {
-                                // const periodeInput = document.getElementById('periode');
-                                // const minCheckbox = document.getElementById('choix_min');
-                                // const heurCheckbox = document.getElementById('choix_heur');
+                                const demiHeurCheckbox = document.getElementById('choix_demi_heur');
+                                const heurCheckbox = document.getElementById('choix_heur');
                                 const startButton = document.getElementById('start');
+                                const nextButton = document.getElementById('next');
+                                const resetButton = document.getElementById('reset');
 
                                 startButton.addEventListener('click', function() {
-                                    var selectedDate = document.getElementById("datepicker1").value;
-                                    if (selectedDate === "") {
-                                        alert("Veuillez entrer une date.");
-                                        return;
+                                    if(!estAffiche) {
+                                        var selectedDate = document.getElementById("datepicker1").value;
+                                        if (selectedDate === "") {
+                                            alert("Veuillez entrer une date.");
+                                            return;
+                                        }
+    
+                                        debut = document.getElementById("timepicker1").value;
+                                        fin = document.getElementById("timepicker2").value;
+                                        if (debut === "" || fin === "") {
+                                            alert("Veuillez entrer une heure de début et de fin.");
+                                            return;
+                                        }
+
+                                        heuresDebut = parseInt(debut.split(':')[0]);
+                                        minutesDebut = parseInt(debut.split(':')[1])
+                                        heuresFin = parseInt(fin.split(':')[0]);
+                                        minutesFin = parseInt(fin.split(':')[1]);
+                                        
+                                        // Vérifier qu'un et un seul checkbox est sélectionné
+                                        demiHeurChecked = demiHeurCheckbox.checked;
+                                        heurChecked = heurCheckbox.checked;
+                                        if (!(demiHeurChecked ^ heurChecked)) {
+                                            alert("Veuillez sélectionner une seule période (30min ou 1h).");
+                                            return;
+                                        }
+
+                                        if(heurChecked) {
+                                            heuresSuivantes = heuresDebut + 1;
+                                            if (heuresSuivantes > heuresFin || (heuresSuivantes === heuresFin && minutesDebut > minutesFin)) {
+                                                heuresSuivantes = heuresDebut;
+                                                return;
+                                            }
+                                            
+                                            heuresDebut = heuresSuivantes;
+                                            debutIntervalle = debut;
+                                            finIntervalle = heuresSuivantes.toString().padStart(2, '0') + ":" + debut.split(':')[1];
+                                        } else {
+                                            heuresSuivantes = (minutesDebut+30) >= 60 ? heuresDebut + 1 : heuresDebut;
+                                            minutesSuivantes = (minutesDebut + 30) % 60;
+                                            
+                                            if (!(heuresSuivantes < heuresFin || (heuresSuivantes === heuresFin && minutesSuivantes <= minutesFin))) {
+                                                heuresSuivantes = heuresDebut;
+                                                minutesSuivantes = minutesDebut;
+                                                return;
+                                            }
+                                            heuresDebut = heuresSuivantes;
+                                            minutesDebut = minutesSuivantes;
+                                            
+                                            debutIntervalle = debut;
+                                            finIntervalle = heuresSuivantes.toString().padStart(2, '0') + ":" + minutesSuivantes.toString().padStart(2, '0');
+                                        }
+    
+                                        // Exécuter la fonction updateBddTraficHeure()
+                                        updateBddTraficHeure();
+                                        estAffiche = true;
+                                        document.getElementById("next").style.visibility = 'visible';
+                                        document.getElementById("reset").style.visibility = 'visible';
+                                        document.getElementById("start").value = 'Précédent';
+                                        document.getElementById("start").disabled = true;
+                                    } else {
+                                        if(heurChecked) {
+                                            heuresSuivantes = heuresDebut;
+                                            heuresDebut = heuresDebut - 1;
+                                            if (heuresDebut < parseInt(debut.split(':')[0]) || (heuresDebut === debut.split(':')[0] && minutesDebut < parseInt(debut.split(':')[1]))) {
+                                                heuresDebut = heuresSuivantes;
+                                                return;
+                                            }
+                                            
+                                            finIntervalle = debutIntervalle;
+                                            debutIntervalle = heuresDebut.toString().padStart(2, '0') + ":" + finIntervalle.split(':')[1];
+                                        } else {
+                                            heuresSuivantes = heuresDebut;
+                                            minutesSuivantes = minutesDebut;
+
+                                            if((minutesDebut-30) < 0) {
+                                                minutesDebut = heuresDebut - 1;
+                                                minutesDebut = minutesDebut + 30;
+                                            } else {
+                                                minutesDebut = minutesDebut - 30;
+                                            }
+
+                                            if (!(heuresDebut > parseInt(debut.split(':')[0]) || (heuresDebut === parseInt(debut.split(':')[0]) && minutesDebut >= parseInt(debut.split(':')[1])))) {
+                                                heuresDebut = heuresSuivantes;
+                                                minutesDebut = minutesSuivantes;
+                                                return;
+                                            }
+                                            
+                                            finIntervalle = debutIntervalle;
+                                            debutIntervalle = heuresDebut.toString().padStart(2, '0') + ":" + minutesDebut.toString().padStart(2, '0');
+                                        }
+
+                                        // Exécuter la fonction updateBddTraficHeure()
+                                        updateBddTraficHeure();
+                                    }
+                                });
+
+                                nextButton.addEventListener('click', function() {
+                                    if(heurChecked) {
+                                        heuresDebut = heuresSuivantes;
+                                        heuresSuivantes = heuresDebut + 1;
+                                        if (heuresSuivantes > heuresFin || (heuresSuivantes === heuresFin && minutesDebut > minutesFin)) {
+                                            heuresSuivantes = heuresDebut;
+                                            return;
+                                        }
+                                        
+                                        debutIntervalle = finIntervalle;
+                                        finIntervalle = heuresSuivantes.toString().padStart(2, '0') + ":" + finIntervalle.split(':')[1];
+                                    } else {
+                                        heuresDebut = heuresSuivantes;
+                                        minutesDebut = minutesSuivantes;
+                                        heuresSuivantes = (minutesDebut+30) >= 60 ? heuresDebut + 1 : heuresDebut;
+                                        minutesSuivantes = (minutesDebut + 30) % 60;
+
+                                        if (!(heuresSuivantes < heuresFin || (heuresSuivantes === heuresFin && minutesSuivantes <= minutesFin))) {
+                                            heuresSuivantes = heuresDebut;
+                                            minutesSuivantes = minutesDebut;
+                                            return;
+                                        }
+
+                                        debutIntervalle = finIntervalle;
+                                        finIntervalle = heuresSuivantes.toString().padStart(2, '0') + ":" + minutesSuivantes.toString().padStart(2, '0');
                                     }
 
-                                    var debut = document.getElementById("timepicker1").value;
-                                    var fin = document.getElementById("timepicker2").value;
-                                    if (debut === "" || fin === "") {
-                                        alert("Veuillez entrer une heure de début et de fin.");
-                                        return;
-                                    }
-
-                                    // // Vérifier si l'entrée de période est un entier
-                                    // const periodeValue = periodeInput.value;
-                                    // if (!Number.isInteger(parseInt(periodeValue))) {
-                                    //     alert("Veuillez entrer un nombre entier dans le champ Période.");
-                                    //     return;
-                                    // }
-
-                                    // // Vérifier qu'un et un seul checkbox est sélectionné
-                                    // const minChecked = minCheckbox.checked;
-                                    // const heurChecked = heurCheckbox.checked;
-                                    // if (!(minChecked ^ heurChecked)) {
-                                    //     alert("Veuillez sélectionner un seul format de période (min ou h).");
-                                    //     return;
-                                    // }
+                                    document.getElementById("start").disabled = false;
 
                                     // Exécuter la fonction updateBddTraficHeure()
                                     updateBddTraficHeure();
+                                });
+
+                                resetButton.addEventListener('click', function() {
+                                    document.getElementById("datepicker1").value = "";
+                                    document.getElementById("timepicker1").value = "";
+                                    document.getElementById("timepicker2").value = "";
+                                    document.getElementById('choix_demi_heur').checked = false;
+                                    document.getElementById('choix_heur').checked = false;
+                                    document.getElementById("start").value = "Afficher";
+                                    document.getElementById("next").style.visibility = 'hidden';
+                                    document.getElementById("reset").style.visibility = 'hidden';
+                                    estAffiche = false;
+                                    removeBddTraficHeure();
                                 });
                             });
                         </script>
