@@ -86,6 +86,19 @@ function updateBddMoyenneTrafic(){
                     stroke: false
                 }).addTo(feature_group_moyenne_trafic_bdd);
             }
+
+            fetch('./sources/requetes/sens_moyenne_trafic.php?id=' + capteur.id + '&date1=' + selectedDate1 + '&date2=' + selectedDate2)
+            .then(response => response.json())
+            .then(data => {
+            var popupContent = afficherPopupMoyenneTrafic(capteur);
+
+            data.forEach(function (sens) {
+                popupContent += `<br>Moyenne de véhicules vers ${sens.nom} : ${sens.moyenne_vehicules}`;
+            });
+
+            marker.getPopup().setContent(popupContent);
+            })
+            .catch(error => console.error(error));
             
             affichage();
         });                

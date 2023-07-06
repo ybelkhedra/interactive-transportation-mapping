@@ -14,7 +14,7 @@ function afficherPopupTraficHeure(capteur)
     + document.getElementById("timepicker1").value + " et " 
     + document.getElementById("timepicker2").value;
 
-    popup += "<br>Total Véhicules : " + capteur.total_vehicules;
+    popup += "<br>Total véhicules : " + capteur.total_vehicules;
     popup += "<br>EDPM/Trottinette : " + capteur.total_vehicules_EDPM_Trottinette;
     popup += "<br>VELO : " + capteur.total_vehicules_VELO;
     popup += "<br>MOTO : " + capteur.total_vehicules_MOTO;
@@ -113,6 +113,19 @@ function updateBddTraficHeure() {
                         stroke: false
                     }).addTo(feature_group_trafic_heure_bdd);
                 }
+
+                fetch('./sources/requetes/sens_trafic_heure.php?id=' + capteur.id + '&date=' + selectedDate + '&heure1=' + debut + '&heure2=' + fin)
+                .then(response => response.json())
+                .then(data => {
+                var popupContent = afficherPopupTraficHeure(capteur);
+
+                data.forEach(function (sens) {
+                    popupContent += `<br>Total véhicules vers ${sens.nom} : ${sens.total_vehicules}`;
+                });
+
+                marker.getPopup().setContent(popupContent);
+                })
+                .catch(error => console.error(error));
                 
                 affichage();
             });                

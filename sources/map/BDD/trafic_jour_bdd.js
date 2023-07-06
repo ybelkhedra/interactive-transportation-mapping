@@ -9,7 +9,7 @@ function afficherPopupTraficJour(capteur)
     var type = "Matériel Utilisé : " + capteur.type_capteur;
     
     var popup = nom + "<br>" + type + "<br> Trafic par jour: " + document.getElementById("datepicker1").value;
-    popup += "<br>Total Véhicules : " + capteur.total_vehicules;
+    popup += "<br>Total véhicules : " + capteur.total_vehicules;
     popup += "<br>EDPM/Trottinette : " + capteur.total_vehicules_EDPM_Trottinette;
     popup += "<br>VELO : " + capteur.total_vehicules_VELO;
     popup += "<br>MOTO : " + capteur.total_vehicules_MOTO;
@@ -82,6 +82,19 @@ function updateBddTraficJour(){
                     stroke: false
                 }).addTo(feature_group_trafic_jour_bdd);
             }
+
+            fetch('./sources/requetes/sens_trafic_jour.php?id=' + capteur.id + '&date=' + selectedDate)
+            .then(response => response.json())
+            .then(data => {
+            var popupContent = afficherPopupTraficJour(capteur);
+
+            data.forEach(function (sens) {
+                popupContent += `<br>Total véhicules vers ${sens.nom} : ${sens.total_vehicules}`;
+            });
+
+            marker.getPopup().setContent(popupContent);
+            })
+            .catch(error => console.error(error));
             
             affichage();
         });                
