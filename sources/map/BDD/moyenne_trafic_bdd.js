@@ -103,8 +103,6 @@ function updateBddMoyenneTrafic(){
             affichage();
         });                
         checkSumInitialLoaging++;
-        
-        legend.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
     })
     .catch(error => console.error(error)); 
 }
