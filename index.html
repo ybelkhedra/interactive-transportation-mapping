@@ -793,9 +793,7 @@
                             var datepicker2 = document.getElementById("datepicker2");
 
                             datepicker1.addEventListener("change", function() {
-                                if(document.getElementById("traficJourRadio").checked){
-                                    updateBddTraficJour();
-                                }
+                                updateBddTraficJour();
                                 if(document.getElementById("moyenneTraficRadio").checked && datepicker2.value !== ""){
                                     updateBddMoyenneTrafic();
                                 }
