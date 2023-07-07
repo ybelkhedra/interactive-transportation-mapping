@@ -62,13 +62,13 @@ function updateBddTraficJour(){
                 var circleColor;
                 var circleRadius = 40 + Math.floor(capteur.total_vehicules / 200);
                 
-                if (capteur.total_vehicules >= 15000) {
+                if (capteur.total_vehicules > 15000) {
                     circleColor = "darkred";
-                } else if (capteur.total_vehicules >= 10000) {
+                } else if (capteur.total_vehicules > 10000) {
                     circleColor = "red";
-                } else if (capteur.total_vehicules >= 5000) {
+                } else if (capteur.total_vehicules > 5000) {
                     circleColor = "orange";
-                } else if (capteur.total_vehicules >= 2500) {
+                } else if (capteur.total_vehicules > 2500) {
                     circleColor = "yellow";
                 } else {
                     circleColor = "green";
@@ -99,7 +99,8 @@ function updateBddTraficJour(){
             affichage();
         });                
         checkSumInitialLoaging++;
-        
+
+        legend.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
     })
     .catch(error => console.error(error)); 
 }

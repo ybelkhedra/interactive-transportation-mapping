@@ -66,13 +66,13 @@ function updateBddMoyenneTrafic(){
                 var circleColor;
                 var circleRadius = 40 + Math.floor(capteur.moyenne_vehicules / 200);
                 
-                if (capteur.moyenne_vehicules >= 15000) {
+                if (capteur.moyenne_vehicules > 15000) {
                     circleColor = "darkred";
-                } else if (capteur.moyenne_vehicules >= 10000) {
+                } else if (capteur.moyenne_vehicules > 10000) {
                     circleColor = "red";
-                } else if (capteur.moyenne_vehicules >= 5000) {
+                } else if (capteur.moyenne_vehicules > 5000) {
                     circleColor = "orange";
-                } else if (capteur.moyenne_vehicules >= 2500) {
+                } else if (capteur.moyenne_vehicules > 2500) {
                     circleColor = "yellow";
                 } else {
                     circleColor = "green";
@@ -104,6 +104,7 @@ function updateBddMoyenneTrafic(){
         });                
         checkSumInitialLoaging++;
         
+        legend.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
     })
     .catch(error => console.error(error)); 
 }

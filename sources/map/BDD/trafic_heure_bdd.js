@@ -33,36 +33,42 @@ function afficherPopupTraficHeure(capteur)
 
 function updateBddTraficHeure() {
     var selectedDate = document.getElementById("datepicker1").value;
-    if (selectedDate === "") {
+    if (!estAffiche) {
         return;
     }
     
     console.log("debutIntervalle: " + debutIntervalle + "   finIntervalle: " + finIntervalle);
 
-    var debut = document.getElementById("timepicker1").value;
-    var fin = document.getElementById("timepicker2").value;
+    var minRougeFonce;
+    var minRouge;
+    var minOrange;
+    var minJaune;
+    var coeff;
 
-    var [heureDebut, minuteDebut] = debut.split(':');
-    heureDebut = parseInt(heureDebut, 10);
-    minuteDebut = parseInt(minuteDebut, 10);
+    if(document.getElementById('choix_demi_heur').checked) {
+        minRougeFonce = Math.round(15000/48);
+        minRouge = Math.round(10000/48);
+        minOrange = Math.round(5000/48);
+        minJaune = Math.round(2500/48);
+        coeff = 48;
+    } else {
+        minRougeFonce = Math.round(15000/24);
+        minRouge = Math.round(10000/24);
+        minOrange = Math.round(5000/24);
+        minJaune = Math.round(2500/24);
+        coeff = 24;
+    }
 
-    // Obtenir l'heure et les minutes de la fin
-    var [heureFin, minuteFin] = fin.split(':');
-    heureFin = parseInt(heureFin, 10);
-    minuteFin = parseInt(minuteFin, 10);
-
-    // Créer les objets Date pour calculer la différence
-    var dateDebut = new Date();
-    dateDebut.setHours(heureDebut);
-    dateDebut.setMinutes(minuteDebut);
-
-    var dateFin = new Date();
-    dateFin.setHours(heureFin);
-    dateFin.setMinutes(minuteFin);
-
-    // Calculer la différence en minutes
-    var differenceMs = dateFin.getTime() - dateDebut.getTime();
-    var differenceMin = Math.round(differenceMs / 60000);
+    legendHeure.onAdd = function (map) {
+        var div = L.DomUtil.create('div', 'legend');
+        div.innerHTML += '<h4>Nombre total des véhicules</h4>';
+        div.innerHTML += '<div><span class="legend-circle" style="background-color: green;"></span>Entre 1 et ' + minJaune + ' véhicules</div>';
+        div.innerHTML += '<div><span class="legend-circle" style="background-color: yellow;"></span>Entre ' + (minJaune+1) + ' et ' + minOrange + ' véhicules</div>';
+        div.innerHTML += '<div><span class="legend-circle" style="background-color: orange;"></span>Entre ' + (minOrange+1) + ' et ' + minRouge + ' véhicules</div>';
+        div.innerHTML += '<div><span class="legend-circle" style="background-color: red;"></span>Entre ' + (minRouge+1) + ' et ' + minRougeFonce + ' véhicules</div>';
+        div.innerHTML += '<div><span class="legend-circle" style="background-color: darkred;"></span>Supérieur à ' + minRougeFonce + ' véhicules</div>';
+        return div;
+    };
 
     feature_group_trafic_heure_bdd.eachLayer(function (layer) {
         if (layer instanceof L.Marker || layer instanceof L.Circle) {
@@ -88,18 +94,16 @@ function updateBddTraficHeure() {
                 marker.bindPopup(afficherPopupTraficHeure(capteur));
 
                 if (capteur.total_vehicules > 0) {
-                    var total = Math.round(1440 * capteur.total_vehicules / differenceMin);
-
                     var circleColor;
-                    var circleRadius = 40 + Math.floor(total / 200);
+                    var circleRadius = 40 + Math.floor(coeff * capteur.total_vehicules / 200);
                     
-                    if (total >= 15000) {
+                    if (capteur.total_vehicules > minRougeFonce) {
                         circleColor = "darkred";
-                    } else if (total >= 10000) {
+                    } else if (capteur.total_vehicules > minRouge) {
                         circleColor = "red";
-                    } else if (total >= 5000) {
+                    } else if (capteur.total_vehicules > minOrange) {
                         circleColor = "orange";
-                    } else if (total >= 2500) {
+                    } else if (capteur.total_vehicules > minJaune) {
                         circleColor = "yellow";
                     } else {
                         circleColor = "green";
@@ -130,6 +134,8 @@ function updateBddTraficHeure() {
                 affichage();
             });                
             checkSumInitialLoaging++;
+
+            legendHeure.addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
         })
         .catch(error => console.error(error));        
 }

@@ -71,6 +71,22 @@ L.control.layers(
 ).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
 
+var legend = L.control({ position: 'bottomright' });
+
+var legendHeure = L.control({ position: 'bottomright' });
+
+legend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'legend');
+    div.innerHTML += '<h4>Nombre total des véhicules</h4>';
+    div.innerHTML += '<div><span class="legend-circle" style="background-color: green;"></span>Entre 1 et 2500 véhicules</div>';
+    div.innerHTML += '<div><span class="legend-circle" style="background-color: yellow;"></span>Entre 2501 et 5000 véhicules</div>';
+    div.innerHTML += '<div><span class="legend-circle" style="background-color: orange;"></span>Entre 5001 et 10000 véhicules</div>';
+    div.innerHTML += '<div><span class="legend-circle" style="background-color: red;"></span>Entre 10001 et 15000 véhicules</div>';
+    div.innerHTML += '<div><span class="legend-circle" style="background-color: darkred;"></span>Supérieur à 15000 véhicules</div>';
+    return div;
+};
+
+
 function chargement(bool) {
     return new Promise(function(resolve, reject) {
         var loader = document.getElementsByClassName("chargementText")[0];
