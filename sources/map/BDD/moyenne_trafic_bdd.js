@@ -39,7 +39,7 @@ function updateBddMoyenneTrafic(){
 
     // suppression des marqueurs existants de la carte
     feature_group_moyenne_trafic_bdd.eachLayer(function (layer) {
-        if (layer instanceof L.Marker) {
+        if (layer instanceof L.Marker || layer instanceof L.Circle) {
             feature_group_moyenne_trafic_bdd.removeLayer(layer);
         }
         });

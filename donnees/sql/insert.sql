@@ -288,77 +288,77 @@ INSERT INTO classes_vehicules(classe) VALUES ("PT");
 
 -- Insertion des trajets
 
-INSERT INTO trajets(nom) VALUES ("CROUS");
+INSERT INTO trajets(nom) VALUES ("CROUS"); -- 1
 
-INSERT INTO trajets(nom) VALUES ("Cours de la Libération");
+INSERT INTO trajets(nom) VALUES ("Cours de la Libération"); -- 2
 
-INSERT INTO trajets(nom) VALUES ("Entrée Fac");
+INSERT INTO trajets(nom) VALUES ("Entrée Fac"); -- 3
 
-INSERT INTO trajets(nom) VALUES ("Sortie Fac");
+INSERT INTO trajets(nom) VALUES ("Sortie Fac"); -- 4
 
-INSERT INTO trajets(nom) VALUES ("Entrée");
+INSERT INTO trajets(nom) VALUES ("Entrée"); -- 5
 
-INSERT INTO trajets(nom) VALUES ("Sortie");
+INSERT INTO trajets(nom) VALUES ("Sortie"); -- 6
 
-INSERT INTO trajets(nom) VALUES ("Giratoire");
+INSERT INTO trajets(nom) VALUES ("Giratoire"); -- 7
 
-INSERT INTO trajets(nom) VALUES ("Résidences Université");
+INSERT INTO trajets(nom) VALUES ("Résidences Université"); -- 8
 
-INSERT INTO trajets(nom) VALUES ("entrée du site");
+INSERT INTO trajets(nom) VALUES ("entrée du site"); -- 9
 
-INSERT INTO trajets(nom) VALUES ("parking cafeteria");
+INSERT INTO trajets(nom) VALUES ("parking cafeteria");  -- 10
 
-INSERT INTO trajets(nom) VALUES ("fac");
+INSERT INTO trajets(nom) VALUES ("fac"); -- 11
 
-INSERT INTO trajets(nom) VALUES ("parking");
+INSERT INTO trajets(nom) VALUES ("parking"); -- 12
 
-INSERT INTO trajets(nom) VALUES ("Fac");
+INSERT INTO trajets(nom) VALUES ("Fac"); -- 13
 
-INSERT INTO trajets(nom) VALUES ("Talence");
+INSERT INTO trajets(nom) VALUES ("Talence"); -- 14
 
-INSERT INTO trajets(nom) VALUES ("Entrant");
+INSERT INTO trajets(nom) VALUES ("Entrant"); -- 15
 
-INSERT INTO trajets(nom) VALUES ("Sortant");
+INSERT INTO trajets(nom) VALUES ("Sortant"); -- 16
 
-INSERT INTO trajets(nom) VALUES ("bibliothèque");
+INSERT INTO trajets(nom) VALUES ("bibliothèque"); -- 17
 
-INSERT INTO trajets(nom) VALUES ("carrefour à feux Av. Roul");
+INSERT INTO trajets(nom) VALUES ("carrefour à feux Av. Roul"); -- 18
 
-INSERT INTO trajets(nom) VALUES ("Avenue Schweitzer");
+INSERT INTO trajets(nom) VALUES ("Avenue Schweitzer"); -- 19
 
-INSERT INTO trajets(nom) VALUES ("P16");
+INSERT INTO trajets(nom) VALUES ("P16"); -- 20
 
-INSERT INTO trajets(nom) VALUES ("entrée du site");
+INSERT INTO trajets(nom) VALUES ("entrée du site"); -- 21
 
-INSERT INTO trajets(nom) VALUES ("parking cafeteria");
+INSERT INTO trajets(nom) VALUES ("parking cafeteria"); -- 22
 
-INSERT INTO trajets(nom) VALUES ("avenue Léon Duguit");
+INSERT INTO trajets(nom) VALUES ("avenue Léon Duguit"); -- 23
 
-INSERT INTO trajets(nom) VALUES ("parking des professeurs");
+INSERT INTO trajets(nom) VALUES ("parking des professeurs"); -- 24
 
-INSERT INTO trajets(nom) VALUES ("sortie (tram)");
+INSERT INTO trajets(nom) VALUES ("sortie (tram)"); -- 25
 
-INSERT INTO trajets(nom) VALUES ("Entrée");
+INSERT INTO trajets(nom) VALUES ("Entrée"); -- 26
 
-INSERT INTO trajets(nom) VALUES ("BEC");
+INSERT INTO trajets(nom) VALUES ("BEC"); -- 27
 
-INSERT INTO trajets(nom) VALUES ("COSEC");
+INSERT INTO trajets(nom) VALUES ("COSEC"); -- 28
 
-INSERT INTO trajets(nom) VALUES ("Fac");
+INSERT INTO trajets(nom) VALUES ("Fac"); -- 29
 
-INSERT INTO trajets(nom) VALUES ("Rocade");
+INSERT INTO trajets(nom) VALUES ("Rocade"); -- 30
 
-INSERT INTO trajets(nom) VALUES ("giratoire");
+INSERT INTO trajets(nom) VALUES ("giratoire"); -- 31
 
-INSERT INTO trajets(nom) VALUES ("Av Camille Julian");
+INSERT INTO trajets(nom) VALUES ("Av Camille Julian"); -- 32
 
-INSERT INTO trajets(nom) VALUES ("Av de Villemejan");
+INSERT INTO trajets(nom) VALUES ("Av de Villemejan"); -- 33
 
-INSERT INTO trajets(nom) VALUES ("Av des Arts");
+INSERT INTO trajets(nom) VALUES ("Av des Arts"); -- 34
 
-INSERT INTO trajets(nom) VALUES ("Av de Bardanac");
+INSERT INTO trajets(nom) VALUES ("Av de Bardanac"); -- 35
 
-INSERT INTO trajets(nom) VALUES ("Av de la Paillère");
+INSERT INTO trajets(nom) VALUES ("Av de la Paillère"); -- 36
 
 -- Insertion des liens capteurs_trajets (table capturer)
 
