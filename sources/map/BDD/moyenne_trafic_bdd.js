@@ -7,22 +7,27 @@ function afficherPopupMoyenneTrafic(capteur)
 {
     var nom = "Nom : " + capteur.nom;
     var type = "Matériel Utilisé : " + capteur.type_capteur;
+    var popup = nom + "<br>" + type;
     
-    var popup = nom + "<br>" + type + "<br> Moyenne de trafic entre " + document.getElementById("datepicker1").value + " et " + document.getElementById("datepicker2").value;
-    popup += "<br>Total Véhicules : " + capteur.moyenne_vehicules;
-    popup += "<br>EDPM/Trottinette : " + capteur.moyenne_vehicules_EDPM_Trottinette;
-    popup += "<br>VELO : " + capteur.moyenne_vehicules_VELO;
-    popup += "<br>MOTO : " + capteur.moyenne_vehicules_MOTO;
-    popup += "<br>Deux roues/2RM/2R : " + capteur.moyenne_vehicules_Deux_roues_2RM_2R;
-    popup += "<br>VL : " + capteur.moyenne_vehicules_VL;
-    popup += "<br>BUS : " + capteur.moyenne_vehicules_BUS;
-    popup += "<br>PL : " + capteur.moyenne_vehicules_PL;
-    popup += "<br>PL_1 : " + capteur.moyenne_vehicules_PL_1;
-    popup += "<br>PL_2 : " + capteur.moyenne_vehicules_PL_2;
-    popup += "<br>PL/BUS : " + capteur.moyenne_vehicules_PL_BUS;
-    popup += "<br>UT : " + capteur.moyenne_vehicules_UT;
-    popup += "<br>PT : " + capteur.moyenne_vehicules_PT;
-
+    if(capteur.moyenne_vehicules == null){
+        popup += "<br> Aucune donnée entre " + document.getElementById("datepicker1").value + " et " + document.getElementById("datepicker2").value;
+    } else {
+        popup += "<br> Moyenne de trafic entre " + document.getElementById("datepicker1").value + " et " + document.getElementById("datepicker2").value;
+        popup += "<br>Total Véhicules : " + capteur.moyenne_vehicules;
+        popup += "<br>EDPM/Trottinette : " + capteur.moyenne_vehicules_EDPM_Trottinette;
+        popup += "<br>VELO : " + capteur.moyenne_vehicules_VELO;
+        popup += "<br>MOTO : " + capteur.moyenne_vehicules_MOTO;
+        popup += "<br>Deux roues/2RM/2R : " + capteur.moyenne_vehicules_Deux_roues_2RM_2R;
+        popup += "<br>VL : " + capteur.moyenne_vehicules_VL;
+        popup += "<br>BUS : " + capteur.moyenne_vehicules_BUS;
+        popup += "<br>PL : " + capteur.moyenne_vehicules_PL;
+        popup += "<br>PL_1 : " + capteur.moyenne_vehicules_PL_1;
+        popup += "<br>PL_2 : " + capteur.moyenne_vehicules_PL_2;
+        popup += "<br>PL/BUS : " + capteur.moyenne_vehicules_PL_BUS;
+        popup += "<br>UT : " + capteur.moyenne_vehicules_UT;
+        popup += "<br>PT : " + capteur.moyenne_vehicules_PT;
+    }
+    
     return popup;
 }
 
