@@ -23,11 +23,11 @@ if(isset($_GET['date'])) {
             FROM
             capteurs c
             LEFT JOIN
-            donnees_capteurs d ON c.id = d.capteur AND DATE(d.horodate) = '2022-10-10'
+            donnees_capteurs d ON c.id = d.capteur AND DATE(d.horodate) = '$date'
             LEFT JOIN
             classes_vehicules cv ON d.classe_vehicule = cv.id
             WHERE
-            DATE(d.horodate) = '2022-10-10' OR d.horodate IS NULL
+            DATE(d.horodate) = '$date' OR d.horodate IS NULL
             GROUP BY
             c.id, c.nom, c.type_capteur;
         ";
