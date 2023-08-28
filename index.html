@@ -818,7 +818,7 @@
                                         }
 
                                         heuresDebut = parseInt(debut.split(':')[0]);
-                                        minutesDebut = parseInt(debut.split(':')[1])
+                                        minutesDebut = parseInt(debut.split(':')[1]);
                                         heuresFin = parseInt(fin.split(':')[0]);
                                         minutesFin = parseInt(fin.split(':')[1]);
                                         
@@ -873,8 +873,6 @@
                                             finIntervalle = debutIntervalle;
                                             debutIntervalle = heuresDebut.toString().padStart(2, '0') + ":" + finIntervalle.split(':')[1];
                                         } else {
-                                            console.log("heuresDebut: " + heuresDebut + "   minutesDebut: " + minutesDebut);
-                                            console.log("heuresSuivantes: " + heuresSuivantes + "   minutesSuivantes: " + minutesSuivantes);
                                             if((minutesDebut-30) < 0) {
                                                 heuresAux = heuresDebut - 1;
                                                 minutesAux = minutesDebut + 30;
@@ -882,8 +880,6 @@
                                                 heuresAux = heuresDebut;
                                                 minutesAux = minutesDebut - 30;
                                             }
-
-                                            console.log("heuresAux: " + heuresAux + "   minutesAux: " + minutesAux);
 
                                             if (!(heuresAux > parseInt(debut.split(':')[0]) || (heuresAux === parseInt(debut.split(':')[0]) && minutesAux >= parseInt(debut.split(':')[1])))) {
                                                 return;
@@ -893,9 +889,6 @@
                                             minutesSuivantes = minutesDebut;
                                             heuresDebut = heuresAux;
                                             minutesDebut = minutesAux;
-
-                                            console.log("heuresDebut: " + heuresDebut + "   minutesDebut: " + minutesDebut);
-                                            console.log("heuresSuivantes: " + heuresSuivantes + "   minutesSuivantes: " + minutesSuivantes);
                                             
                                             finIntervalle = debutIntervalle;
                                             debutIntervalle = heuresDebut.toString().padStart(2, '0') + ":" + minutesDebut.toString().padStart(2, '0');

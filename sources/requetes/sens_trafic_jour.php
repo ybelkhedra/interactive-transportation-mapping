@@ -7,9 +7,9 @@ if(isset($_GET['id']) && isset($_GET['date'])) {
 
     // Requête SQL pour sélectionner les informations des capteurs et le nombre total de véhicules par classe pour la date donnée
     $sql = "SELECT
-                dc.sens,
+                t.id,
                 t.nom,
-                COUNT(dc.classe_vehicule) AS total_vehicules
+                COUNT(dc.classe_vehicule) AS nombre_vehicules
             FROM donnees_capteurs dc
             JOIN trajets t ON dc.sens = t.id
             WHERE dc.capteur = $id

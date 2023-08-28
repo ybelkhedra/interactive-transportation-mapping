@@ -5,21 +5,18 @@ if(isset($_GET['id']) && isset($_GET['date1']) && isset($_GET['date2'])) {
     $id = $_GET['id'];
     $date1 = $_GET['date1'];
     $date2 = $_GET['date2'];
-    $heure1 = $_GET['heure1'];
-    $heure2 = $_GET['heure2'];
 
     // Requête SQL pour sélectionner les informations des capteurs et le nombre total de véhicules par classe pour la date donnée
     $sql = "SELECT
                 t.id,
                 t.nom,
-                ROUND(AVG(daily_counts.total_vehicules)) AS moyenne_vehicules
+                IFNULL(ROUND(AVG(daily_counts.total_vehicules)), 0) AS moyenne_vehicules
             FROM
                 trajets t
-            JOIN (
+            LEFT JOIN (
                 SELECT
-                    capteur,
-                    DATE(horodate) AS date,
                     sens,
+                    DATE(horodate) AS jour,
                     COUNT(classe_vehicule) AS total_vehicules
                 FROM
                     donnees_capteurs
@@ -27,10 +24,14 @@ if(isset($_GET['id']) && isset($_GET['date1']) && isset($_GET['date2'])) {
                     capteur = $id
                     AND DATE(horodate) BETWEEN '$date1' AND '$date2'
                 GROUP BY
-                    capteur,
-                    DATE(horodate),
-                    sens
+                    sens, DATE(horodate)
             ) AS daily_counts ON t.id = daily_counts.sens
+            WHERE
+                t.id IN (
+                    SELECT trajet
+                    FROM capturer
+                    WHERE capteur = $id
+                )
             GROUP BY
                 t.id,
                 t.nom;

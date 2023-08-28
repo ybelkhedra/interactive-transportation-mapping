@@ -9,27 +9,44 @@ if(isset($_GET['date']) && isset($_GET['heure1']) && isset($_GET['heure2'])) {
     // Requête SQL pour sélectionner les informations des capteurs et le nombre total de véhicules par classe pour la date donnée
     $sql = "SELECT
                 c.*,
-                COUNT(d.classe_vehicule) AS total_vehicules,
-                COUNT(CASE WHEN cv.classe = 'EDPM/Trottinette' THEN d.classe_vehicule END) AS total_vehicules_EDPM_Trottinette,
-                COUNT(CASE WHEN cv.classe = 'VELO' THEN d.classe_vehicule END) AS total_vehicules_VELO,
-                COUNT(CASE WHEN cv.classe = 'MOTO' THEN d.classe_vehicule END) AS total_vehicules_MOTO,
-                COUNT(CASE WHEN cv.classe = 'Deux roues/2RM/2R' THEN d.classe_vehicule END) AS total_vehicules_Deux_roues_2RM_2R,
-                COUNT(CASE WHEN cv.classe = 'VL' THEN d.classe_vehicule END) AS total_vehicules_VL,
-                COUNT(CASE WHEN cv.classe = 'BUS' THEN d.classe_vehicule END) AS total_vehicules_BUS,
-                COUNT(CASE WHEN cv.classe = 'PL' THEN d.classe_vehicule END) AS total_vehicules_PL,
-                COUNT(CASE WHEN cv.classe = 'PL_1' THEN d.classe_vehicule END) AS total_vehicules_PL_1,
-                COUNT(CASE WHEN cv.classe = 'PL_2' THEN d.classe_vehicule END) AS total_vehicules_PL_2,
-                COUNT(CASE WHEN cv.classe = 'PL/BUS' THEN d.classe_vehicule END) AS total_vehicules_PL_BUS,
-                COUNT(CASE WHEN cv.classe = 'UT' THEN d.classe_vehicule END) AS total_vehicules_UT,
-                COUNT(CASE WHEN cv.classe = 'PT' THEN d.classe_vehicule END) AS total_vehicules_PT
+                IFNULL(total_vehicules, 0) AS total_vehicules,
+                IFNULL(total_vehicules_EDPM_Trottinette, 0) AS total_vehicules_EDPM_Trottinette,
+                IFNULL(total_vehicules_VELO, 0) AS total_vehicules_VELO,
+                IFNULL(total_vehicules_MOTO, 0) AS total_vehicules_MOTO,
+                IFNULL(total_vehicules_Deux_roues_2RM_2R, 0) AS total_vehicules_Deux_roues_2RM_2R,
+                IFNULL(total_vehicules_VL, 0) AS total_vehicules_VL,
+                IFNULL(total_vehicules_BUS, 0) AS total_vehicules_BUS,
+                IFNULL(total_vehicules_PL, 0) AS total_vehicules_PL,
+                IFNULL(total_vehicules_PL_1, 0) AS total_vehicules_PL_1,
+                IFNULL(total_vehicules_PL_2, 0) AS total_vehicules_PL_2,
+                IFNULL(total_vehicules_PL_BUS, 0) AS total_vehicules_PL_BUS,
+                IFNULL(total_vehicules_UT, 0) AS total_vehicules_UT,
+                IFNULL(total_vehicules_PT, 0) AS total_vehicules_PT
             FROM capteurs c
-            LEFT JOIN donnees_capteurs d ON c.id = d.capteur
-            LEFT JOIN classes_vehicules cv ON d.classe_vehicule = cv.id
-            WHERE 
-                DATE(d.horodate) = '$date'
-                AND TIME(d.horodate) >= '$heure1' 
-                AND TIME(d.horodate) < '$heure2'
-            GROUP BY c.id, c.nom, c.type_capteur";
+            LEFT JOIN (
+                SELECT
+                    capteur,
+                    COUNT(classe_vehicule) AS total_vehicules,
+                    COUNT(CASE WHEN cv.classe = 'EDPM/Trottinette' THEN classe_vehicule END) AS total_vehicules_EDPM_Trottinette,
+                    COUNT(CASE WHEN cv.classe = 'VELO' THEN classe_vehicule END) AS total_vehicules_VELO,
+                    COUNT(CASE WHEN cv.classe = 'MOTO' THEN classe_vehicule END) AS total_vehicules_MOTO,
+                    COUNT(CASE WHEN cv.classe = 'Deux roues/2RM/2R' THEN classe_vehicule END) AS total_vehicules_Deux_roues_2RM_2R,
+                    COUNT(CASE WHEN cv.classe = 'VL' THEN classe_vehicule END) AS total_vehicules_VL,
+                    COUNT(CASE WHEN cv.classe = 'BUS' THEN classe_vehicule END) AS total_vehicules_BUS,
+                    COUNT(CASE WHEN cv.classe = 'PL' THEN classe_vehicule END) AS total_vehicules_PL,
+                    COUNT(CASE WHEN cv.classe = 'PL_1' THEN classe_vehicule END) AS total_vehicules_PL_1,
+                    COUNT(CASE WHEN cv.classe = 'PL_2' THEN classe_vehicule END) AS total_vehicules_PL_2,
+                    COUNT(CASE WHEN cv.classe = 'PL/BUS' THEN classe_vehicule END) AS total_vehicules_PL_BUS,
+                    COUNT(CASE WHEN cv.classe = 'UT' THEN classe_vehicule END) AS total_vehicules_UT,
+                    COUNT(CASE WHEN cv.classe = 'PT' THEN classe_vehicule END) AS total_vehicules_PT
+                FROM donnees_capteurs d
+                LEFT JOIN classes_vehicules cv ON d.classe_vehicule = cv.id
+                WHERE DATE(d.horodate) = '$date'
+                    AND TIME(d.horodate) >= '$heure1'
+                    AND TIME(d.horodate) < '$heure2'
+                GROUP BY capteur
+            ) AS dc ON c.id = dc.capteur;
+            ";
 
     // Exécution de la requête
     $result = $db->query($sql);
