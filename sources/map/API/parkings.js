@@ -78,7 +78,12 @@ $.ajax({
                 return;
             }
             nb_parkings++;
-            L.marker([latitude, longitude], {icon: parkingIcon}).bindPopup(addPopupParkings(val)).addTo(feature_group_parkings_relais);
+            
+            if (val.properties.nom.includes('Parc-Relais')) {
+                L.marker([latitude, longitude], {icon: parkingIcon}).bindPopup(addPopupParkings(val)).addTo(feature_group_parkings_relais);
+            } else {
+                L.marker([latitude, longitude], {icon: parkingbddIcon}).bindPopup(addPopupParkings(val)).addTo(feature_group_parkings);
+            }
             affichage();
         });
         checkSumInitialLoaging++;
