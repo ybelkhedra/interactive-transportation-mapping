@@ -135,7 +135,7 @@ img, svg {
 /* div class logo_text : centré, police 25 */
 .logo-text {
   position: absolute;
-  top: 50%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: 'Roboto', sans-serif;
@@ -145,7 +145,7 @@ img, svg {
 
 .navMenu {
 position: absolute;
-top: 50%;
+top: 44%;
 left: 50%;
 -webkit-transform: translate(-50%, -50%);
 transform: translate(-50%, -50%);
@@ -222,13 +222,9 @@ opacity: 1;
 
 
 .card{
-  /* width: 300px; */
-  /* height: 420px; */
-  /* position à 50% du haut de l'ecran */
   position: absolute;
   top: 56%;
   left: 5.5%;
-  width: 20%;
   height: 77%;
   background-color: #1E2B32;
   border-radius: 10px 10px;
@@ -247,6 +243,7 @@ h3{
   color: #FFFFFF;
   font-family: 'Roboto', sans-serif;
   margin-left: 1rem;
+  margin-right: 200px;
 }
 
 .iconM{
@@ -378,16 +375,6 @@ input:checked ~ .accordion-content {
   padding: 16px;
 display: block;
 }
-
-
-
-
-
-
-
-
-
-
 
 ul.ks-cboxtags {
   list-style: none;
@@ -629,8 +616,6 @@ background-color: #000;
       left: 0;
       right: 0;
       margin: auto;
-      /* mettre au premier plan */
-      z-index: 10000;
       display: none;
     }
     

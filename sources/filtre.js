@@ -3,7 +3,6 @@ function filtreCordonnees(lat, lon) {
         return true;
     }
     return false;
-    console.log("Filtre: " + lat + " " + lon);
 }
 
 function filtreCordonneesTab(tab) {

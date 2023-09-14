@@ -3,6 +3,8 @@
 <head>
     <title>Data Campus Bordeaux</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/index.css" media="screen" type="text/css" />
     <link rel="stylesheet" href="css/legend.css"/>
 
@@ -20,6 +22,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
     
             <meta name="viewport" content="width=device-width,
@@ -34,12 +37,15 @@
 </head>
 <body>
 
-
     
 
 
     <!-- Faire le HEADER -->
     <header>
+        <a class="group" id="page-wrap" target="_blank" rel="external noopener"><svg class="logo" xmlns="http://www.w3.org/2000/svg" width="102" height="96" viewBox="0 0 85 80" preserveAspectRatio="xMinYMin meet"><path d="03-48v18.65c2.24-.14 4.42-.13 6.56-.45 6-.84 9.6-5.3 9.3-11.1-.2-3.66-1.7-5.5-5.3-6.36-3.5-.83-7.07-.7-10.6-.7zM0 68.53c.43.1.88.14 1.3.28C4.6 70 8 70.6 11.53 70.5c.9-.03 1.8-.12 2.66-.32 2.8-.64 4.3-2.64 4.7-5.37.3-2 .6-4.1.6-6.1V.1h14l-.1 1.25c0 18.4.05 36.8-.04 55.2 0 3.2-.38 6.44-.94 9.6-.7 3.8-2.3 7.25-5.4 9.8-2.6 2.08-5.63 3.13-8.86 3.64-1.54.2-3.12.3-4.7.5h-2.9c-1.14-.14-2.3-.2-3.46-.4-2.36-.38-4.7-.8-7.12-1.2"/></svg><div id="inner-wrap"><svg class="waves" xmlns="http://www.w3.org/2000/svg" width="1440" height="321.75" viewBox="0 0 960 214.5" preserveAspectRatio="xMinYMid meet"><defs><style>.waves>path{-webkit-animation:a 17390ms ease-in-out infinite alternate-reverse both;-moz-animation:a 17390ms ease-in-out infinite alternate-reverse both;-ms-animation:a 17390ms ease-in-out infinite alternate-reverse both;-o-animation:a 17390ms ease-in-out infinite alternate-reverse both;animation:a 17390ms ease-in-out infinite alternate-reverse both;-webkit-animation-timing-function:cubic-bezier(.25,0,.75,1);-moz-animation-timing-function:cubic-bezier(.25,0,.75,1);-ms-animation-timing-function:cubic-bezier(.25,0,.75,1);-o-animation-timing-function:cubic-bezier(.25,0,.75,1);animation-timing-function:cubic-bezier(.25,0,.75,1);-webkit-will-change:transform;-moz-will-change:transform;-ms-will-change:transform;-o-will-change:transform;will-change:transform}.waves>path:nth-of-type(1){-webkit-animation-duration:20580ms;-moz-animation-duration:20580ms;-ms-animation-duration:20580ms;-o-animation-duration:20580ms;animation-duration:20580ms}.waves>path:nth-of-type(2){-webkit-animation-delay:-2690ms;-moz-animation-delay:-2690ms;-ms-animation-delay:-2690ms;-o-animation-delay:-2690ms;animation-delay:-2690ms;-webkit-animation-duration:13580ms;-moz-animation-duration:13580ms;-ms-animation-duration:13580ms;-o-animation-duration:13580ms;animation-duration:13580ms}g>path:nth-of-type(1){-webkit-animation-delay:-820ms;-moz-animation-delay:-820ms;-ms-animation-delay:-820ms;-o-animation-delay:-820ms;animation-delay:-820ms;-webkit-animation-duration:10730ms;-moz-animation-duration:10730ms;-ms-animation-duration:10730ms;-o-animation-duration:10730ms;animation-duration:10730ms}.waves>path:nth-of-type(1),g>path:nth-of-type(2){-webkit-animation-direction:alternate;-moz-animation-direction:alternate;-ms-animation-direction:alternate;-o-animation-direction:alternate;animation-direction:alternate}@-webkit-keyframes a{0%{-webkit-transform:translateX(-750px);transform:translateX(-750px)}100%{-webkit-transform:translateX(-20px);transform:translateX(-20px)}}@-moz-keyframes a{0%{-moz-transform:translateX(-750px);transform:translateX(-750px)}100%{-moz-transform:translateX(-20px);transform:translateX(-20px)}}@-ms-keyframes a{0%{-ms-transform:translateX(-750px);transform:translateX(-750px)}100%{-ms-transform:translateX(-20px);transform:translateX(-20px)}}@-o-keyframes a{0%{-o-transform:translateX(-750px);transform:translateX(-750px)}100%{-o-transform:translateX(-20px);transform:translateX(-20px)}}@keyframes a{0%{-webkit-transform:translateX(-750px);-moz-transform:translateX(-750px);-ms-transform:translateX(-750px);-o-transform:translateX(-750px);transform:translateX(-750px)}100%{-webkit-transform:translateX(-20px);-moz-transform:translateX(-20px);-ms-transform:translateX(-20px);-o-transform:translateX(-20px);transform:translateX(-20px)}}</style><linearGradient id="a"><stop stop-color="#00A8DE"/><stop offset="0.2" stop-color="#333391"/><stop offset="0.4" stop-color="#E91388"/><stop offset="0.6" stop-color="#EB2D2E"/></linearGradient></defs><path fill="url(#a)" d="M2662.6 1S2532 41.2 2435 40.2c-19.6-.2-37.3-1.3-53.5-2.8 0 0-421.3-59.4-541-28.6-119.8 30.6-206.2 75.7-391 73.3-198.8-2-225.3-15-370.2-50-145-35-218 37-373.3 36-19.6 0-37.5-1-53.7-3 0 0-282.7-36-373.4-38C139 26 75 46-1 46v106c17-1.4 20-2.3 37.6-1.2 130.6 8.4 210 56.3 287 62.4 77 6 262-25 329.3-23.6 67 1.4 107 22.6 193 23.4 155 1.5 249-71 380-62.5 130 8.5 209 56.3 287 62.5 77 6 126-18 188-18 61.4 0 247-38 307.4-46 159.3-20 281.2 29 348.4 30 67 2 132.2 6 217.4 7 39.3 0 87-11 87-11V1z"/><path fill="#F2F5F5" d="M2663.6 73.2S2577 92 2529 89c-130.7-8.5-209.5-56.3-286.7-62.4s-125.7 18-188.3 18c-5 0-10-.4-14.5-.7-52-5-149.2-43-220.7-39-31.7 2-64 14-96.4 30-160.4 80-230.2-5.6-340.4-18-110-12-146.6 20-274 36S820.4 0 605.8 0C450.8 0 356 71 225.2 62.2 128 56 60.7 28-.3 11.2V104c22 7.3 46 14.2 70.4 16.7 110 12.3 147-19.3 275-35.5s350 39.8 369 43c27 4.3 59 8 94 10 13 .5 26 1 39 1 156 2 250-70.3 381-62 130.5 8.2 209.5 56.3 286.7 62 77 6.4 125.8-18 188.3-17.5 5 0 10 .2 14.3.6 52 5 145 49.5 220.7 38.2 32-5 64-15 96.6-31 160.5-79.4 230.3 6 340 18.4 110 12 146.3-20 273.7-36l15.5-2V73l1-.5z"/><g fill="none" stroke="#E2E9E9" stroke-width="1"><path d="M0 51.4c3.4.6 7.7 1.4 11 2.3 133.2 34 224.3 34 308.6 34 110.2 0 116.7 36.6 229.8 26 113-11 128.7-44 222-42.6C865 73 889 38 1002 27c113-10.8 119.6 25.6 229.8 25.6 84.4 0 175.4 0 308.6 34 133 34.2 277-73 379.4-84.3 204-22.5 283.6 128.7 283.6 128.7"/><path d="M0 6C115.7-6 198.3 76.6 308 76.6c109.6 0 131.8-20 223-28.3 114.3-10.2 238.2 0 238.2 0s124 10.2 238.3 0c91-8.2 113.2-28 223-28S1425 103 1541 91c115.8-11.8 153.3-69 269.3-84.6 116-15.5 198.4 71 308 71 109.8 0 131.8-20 223-28 114-10.2 237.7 0 237.7 0s37.4 2.4 82.8 3.7"/></g>
+        </svg>
+        <div class="logo-text">DataCampus de Bordeaux</div>
+        </div></a>
         <nav class="navMenu">
             <a href="map.html">Carte</a>
             <a href="info.html">Infos</a>
@@ -47,142 +53,94 @@
             <a href="faq.html">FAQ</a>
             <div class="dot"></div>
         </nav>
-        <a class="group" id="page-wrap" target="_blank" rel="external noopener"><svg class="logo" xmlns="http://www.w3.org/2000/svg" width="102" height="96" viewBox="0 0 85 80" preserveAspectRatio="xMinYMin meet"><path d="03-48v18.65c2.24-.14 4.42-.13 6.56-.45 6-.84 9.6-5.3 9.3-11.1-.2-3.66-1.7-5.5-5.3-6.36-3.5-.83-7.07-.7-10.6-.7zM0 68.53c.43.1.88.14 1.3.28C4.6 70 8 70.6 11.53 70.5c.9-.03 1.8-.12 2.66-.32 2.8-.64 4.3-2.64 4.7-5.37.3-2 .6-4.1.6-6.1V.1h14l-.1 1.25c0 18.4.05 36.8-.04 55.2 0 3.2-.38 6.44-.94 9.6-.7 3.8-2.3 7.25-5.4 9.8-2.6 2.08-5.63 3.13-8.86 3.64-1.54.2-3.12.3-4.7.5h-2.9c-1.14-.14-2.3-.2-3.46-.4-2.36-.38-4.7-.8-7.12-1.2"/></svg><div id="inner-wrap"><svg class="waves" xmlns="http://www.w3.org/2000/svg" width="1440" height="321.75" viewBox="0 0 960 214.5" preserveAspectRatio="xMinYMid meet"><defs><style>.waves>path{-webkit-animation:a 17390ms ease-in-out infinite alternate-reverse both;-moz-animation:a 17390ms ease-in-out infinite alternate-reverse both;-ms-animation:a 17390ms ease-in-out infinite alternate-reverse both;-o-animation:a 17390ms ease-in-out infinite alternate-reverse both;animation:a 17390ms ease-in-out infinite alternate-reverse both;-webkit-animation-timing-function:cubic-bezier(.25,0,.75,1);-moz-animation-timing-function:cubic-bezier(.25,0,.75,1);-ms-animation-timing-function:cubic-bezier(.25,0,.75,1);-o-animation-timing-function:cubic-bezier(.25,0,.75,1);animation-timing-function:cubic-bezier(.25,0,.75,1);-webkit-will-change:transform;-moz-will-change:transform;-ms-will-change:transform;-o-will-change:transform;will-change:transform}.waves>path:nth-of-type(1){-webkit-animation-duration:20580ms;-moz-animation-duration:20580ms;-ms-animation-duration:20580ms;-o-animation-duration:20580ms;animation-duration:20580ms}.waves>path:nth-of-type(2){-webkit-animation-delay:-2690ms;-moz-animation-delay:-2690ms;-ms-animation-delay:-2690ms;-o-animation-delay:-2690ms;animation-delay:-2690ms;-webkit-animation-duration:13580ms;-moz-animation-duration:13580ms;-ms-animation-duration:13580ms;-o-animation-duration:13580ms;animation-duration:13580ms}g>path:nth-of-type(1){-webkit-animation-delay:-820ms;-moz-animation-delay:-820ms;-ms-animation-delay:-820ms;-o-animation-delay:-820ms;animation-delay:-820ms;-webkit-animation-duration:10730ms;-moz-animation-duration:10730ms;-ms-animation-duration:10730ms;-o-animation-duration:10730ms;animation-duration:10730ms}.waves>path:nth-of-type(1),g>path:nth-of-type(2){-webkit-animation-direction:alternate;-moz-animation-direction:alternate;-ms-animation-direction:alternate;-o-animation-direction:alternate;animation-direction:alternate}@-webkit-keyframes a{0%{-webkit-transform:translateX(-750px);transform:translateX(-750px)}100%{-webkit-transform:translateX(-20px);transform:translateX(-20px)}}@-moz-keyframes a{0%{-moz-transform:translateX(-750px);transform:translateX(-750px)}100%{-moz-transform:translateX(-20px);transform:translateX(-20px)}}@-ms-keyframes a{0%{-ms-transform:translateX(-750px);transform:translateX(-750px)}100%{-ms-transform:translateX(-20px);transform:translateX(-20px)}}@-o-keyframes a{0%{-o-transform:translateX(-750px);transform:translateX(-750px)}100%{-o-transform:translateX(-20px);transform:translateX(-20px)}}@keyframes a{0%{-webkit-transform:translateX(-750px);-moz-transform:translateX(-750px);-ms-transform:translateX(-750px);-o-transform:translateX(-750px);transform:translateX(-750px)}100%{-webkit-transform:translateX(-20px);-moz-transform:translateX(-20px);-ms-transform:translateX(-20px);-o-transform:translateX(-20px);transform:translateX(-20px)}}</style><linearGradient id="a"><stop stop-color="#00A8DE"/><stop offset="0.2" stop-color="#333391"/><stop offset="0.4" stop-color="#E91388"/><stop offset="0.6" stop-color="#EB2D2E"/></linearGradient></defs><path fill="url(#a)" d="M2662.6 1S2532 41.2 2435 40.2c-19.6-.2-37.3-1.3-53.5-2.8 0 0-421.3-59.4-541-28.6-119.8 30.6-206.2 75.7-391 73.3-198.8-2-225.3-15-370.2-50-145-35-218 37-373.3 36-19.6 0-37.5-1-53.7-3 0 0-282.7-36-373.4-38C139 26 75 46-1 46v106c17-1.4 20-2.3 37.6-1.2 130.6 8.4 210 56.3 287 62.4 77 6 262-25 329.3-23.6 67 1.4 107 22.6 193 23.4 155 1.5 249-71 380-62.5 130 8.5 209 56.3 287 62.5 77 6 126-18 188-18 61.4 0 247-38 307.4-46 159.3-20 281.2 29 348.4 30 67 2 132.2 6 217.4 7 39.3 0 87-11 87-11V1z"/><path fill="#F2F5F5" d="M2663.6 73.2S2577 92 2529 89c-130.7-8.5-209.5-56.3-286.7-62.4s-125.7 18-188.3 18c-5 0-10-.4-14.5-.7-52-5-149.2-43-220.7-39-31.7 2-64 14-96.4 30-160.4 80-230.2-5.6-340.4-18-110-12-146.6 20-274 36S820.4 0 605.8 0C450.8 0 356 71 225.2 62.2 128 56 60.7 28-.3 11.2V104c22 7.3 46 14.2 70.4 16.7 110 12.3 147-19.3 275-35.5s350 39.8 369 43c27 4.3 59 8 94 10 13 .5 26 1 39 1 156 2 250-70.3 381-62 130.5 8.2 209.5 56.3 286.7 62 77 6.4 125.8-18 188.3-17.5 5 0 10 .2 14.3.6 52 5 145 49.5 220.7 38.2 32-5 64-15 96.6-31 160.5-79.4 230.3 6 340 18.4 110 12 146.3-20 273.7-36l15.5-2V73l1-.5z"/><g fill="none" stroke="#E2E9E9" stroke-width="1"><path d="M0 51.4c3.4.6 7.7 1.4 11 2.3 133.2 34 224.3 34 308.6 34 110.2 0 116.7 36.6 229.8 26 113-11 128.7-44 222-42.6C865 73 889 38 1002 27c113-10.8 119.6 25.6 229.8 25.6 84.4 0 175.4 0 308.6 34 133 34.2 277-73 379.4-84.3 204-22.5 283.6 128.7 283.6 128.7"/><path d="M0 6C115.7-6 198.3 76.6 308 76.6c109.6 0 131.8-20 223-28.3 114.3-10.2 238.2 0 238.2 0s124 10.2 238.3 0c91-8.2 113.2-28 223-28S1425 103 1541 91c115.8-11.8 153.3-69 269.3-84.6 116-15.5 198.4 71 308 71 109.8 0 131.8-20 223-28 114-10.2 237.7 0 237.7 0s37.4 2.4 82.8 3.7"/></g>
-        </svg>
-        <div class="logo-text">DataCampus de Bordeaux</div>
-        </div></a>
     </header>
 
-    <div class="container_card">
-        <div class="card">
-          <div class="header">
-            <h3>Menu IU <i class="fas fa-angle-down iconM"></i></h3>
-          </div>
-          <div class="body">
-            <ul>
-              <div class="accordion-wrapper">
-                <div class="accordion">
-                  <input type="radio" name="radio-a" id="check1" checked>
-                  <label class="accordion-label" for="check1">Modes actifs</label>
-                  <div class="accordion-content">
-                    <!-- ajouter une checkbox -->
-                    <div>
-                        <input type="checkbox" class="voiesCyclablesCheckbox" unchecked> <!--Génère une checkbox-->
-                        <label for="voiesCyclablesCheckbox">Voies cyclables</label>
-                        <script> 
-                        if ($(".voiesCyclablesCheckbox").is(':checked')) {var voiesCyclablesCheckbox = true;} else {var voiesCyclablesCheckbox = false;}
-                        </script>
-                        <script> 
-                            $(".voiesCyclablesCheckbox").click(function(){
+    <div class="menu-container">
+        <div class="menu-toggle">
+			<div class="hamburger">
+				<span></span>
+			</div>
+		</div>
+        
+        <div class="sidebar">
+            <div class="card">
+              <div class="header">
+                <h3>Menu IU</h3>
+              </div>
+              <div class="body">
+                <ul id="menuList">
+                  <div class="accordion-wrapper">
+                    <div class="accordion">
+                      <input type="radio" name="radio-a" id="check1" checked>
+                      <label class="accordion-label" for="check1">Modes actifs</label>
+                      <div class="accordion-content">
+                        <!-- ajouter une checkbox -->
+                        <div>
+                            <input type="checkbox" class="voiesCyclablesCheckbox" unchecked> <!--Génère une checkbox-->
+                            <label for="voiesCyclablesCheckbox">Voies cyclables</label>
+                            <script> 
+                            if ($(".voiesCyclablesCheckbox").is(':checked')) {var voiesCyclablesCheckbox = true;} else {var voiesCyclablesCheckbox = false;}
+                            </script>
+                            <script> 
+                                $(".voiesCyclablesCheckbox").click(function(){
+                                    document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                    document.querySelector('.sidebar').classList.toggle('is-active');
+                                    chargement(1).then(function() {
+                                        if (voiesCyclablesCheckbox===true) { 
+                                            layerControlNumber.overlays["Pistes cyclables"].remove(); // Si au click, la checkbox est true, il faut alors enlever le contenu
+                                            voiesCyclablesCheckbox=false}
+                                        else if (voiesCyclablesCheckbox===false) {
+                                            layerControlNumber.overlays["Pistes cyclables"].addTo(mapNumber); // Sinon, on rajoute le contenu
+                                            voiesCyclablesCheckbox=true}
+                                    return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
+                                });
+                            </script>
+                        </div>
+                        <div>
+                            <input type="checkbox" class="stationnementVeloCheckbox" unchecked>
+                            <label for="stationnementVeloCheckbox">Stationnements vélo</label>
+                            <script> 
+                            if ($(".stationnementVeloCheckbox").is(':checked')) {var stationnementVeloCheckbox = true;} else {var stationnementVeloCheckbox = false;}
+                            </script>
+                            <script> $(".stationnementVeloCheckbox").click(function(){
+                                document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                document.querySelector('.sidebar').classList.toggle('is-active');
                                 chargement(1).then(function() {
-                                    if (voiesCyclablesCheckbox===true) { 
-                                        layerControlNumber.overlays["Pistes cyclables"].remove(); // Si au click, la checkbox est true, il faut alors enlever le contenu
-                                        voiesCyclablesCheckbox=false}
-                                    else if (voiesCyclablesCheckbox===false) {
-                                        layerControlNumber.overlays["Pistes cyclables"].addTo(mapNumber); // Sinon, on rajoute le contenu
-                                        voiesCyclablesCheckbox=true}
+                                    if (stationnementVeloCheckbox===true) { 
+                                        layerControlNumber.overlays["Points de stationnement velo"].remove();
+                                        stationnementVeloCheckbox=false;}
+                                    else if (stationnementVeloCheckbox===false) {
+                                        layerControlNumber.overlays["Points de stationnement velo"].addTo(mapNumber);
+                                        stationnementVeloCheckbox=true;}
                                 return chargement(0);
                                 })
                                 .catch(function() {
                                     console.log("Loading element not found");
                                 });
                             });
-                        </script>
-                    </div>
-                    <div>
-                        <input type="checkbox" class="stationnementVeloCheckbox" unchecked>
-                        <label for="stationnementVeloCheckbox">Stationnements vélo</label>
-                        <script> 
-                        if ($(".stationnementVeloCheckbox").is(':checked')) {var stationnementVeloCheckbox = true;} else {var stationnementVeloCheckbox = false;}
-                        </script>
-                        <script> $(".stationnementVeloCheckbox").click(function(){
-                            chargement(1).then(function() {
-                                if (stationnementVeloCheckbox===true) { 
-                                    layerControlNumber.overlays["Points de stationnement velo"].remove();
-                                    stationnementVeloCheckbox=false;}
-                                else if (stationnementVeloCheckbox===false) {
-                                    layerControlNumber.overlays["Points de stationnement velo"].addTo(mapNumber);
-                                    stationnementVeloCheckbox=true;}
-                            return chargement(0);
-                            })
-                            .catch(function() {
-                                console.log("Loading element not found");
-                            });
-                        });
-                        </script>
-                    </div>
-                    <div>
-                        <input type="checkbox" class="stationsVcubCheckbox" unchecked>
-                        <label for="stationsVcubCheckbox">Stations Vcub</label>
-                        <script>
-                        if ($(".stationsVcubCheckbox").is(':checked')) {var stationsVcubCheckbox = true;} else {var stationsVcubCheckbox = false;}
-                        </script>
-                        <script> $(".stationsVcubCheckbox").click(function(){
-                            chargement(1).then(function() {
-                                if (stationsVcubCheckbox===true) { 
-                                    layerControlNumber.overlays["Stations Vcube"].remove();
-                                    stationsVcubCheckbox=false;}
-                                else if (stationsVcubCheckbox===false) {
-                                    layerControlNumber.overlays["Stations Vcube"].addTo(mapNumber);
-                                    stationsVcubCheckbox=true;
-                                }
-                                return chargement(0);
-                            })
-                            .catch(function() {
-                                console.log("Loading element not found");
-                            });
-                        });
-                        </script>
-                    </div>
-                    <div>
-                        <input type="checkbox" class="freefloatingCheckbox" unchecked>
-                        <label for="freefloatingCheckbox">Emplacements Freefloating</label>
-                        <script>
-                        if ($(".freefloatingCheckbox").is(':checked')) {var freefloatingCheckbox = true;} else {var freefloatingCheckbox = false;}
-                        </script>
-                        <script> 
-                            $(".freefloatingCheckbox").click(function(){
-                            chargement(1).then(function() {
-                                if (freefloatingCheckbox===true) { 
-                                    layerControlNumber.overlays["Points de freefloating"].remove();
-                                    layerControlNumber.overlays["Points de freefloating bdd"].remove();
-
-                                    freefloatingCheckbox=false;}
-                                else if (freefloatingCheckbox===false) {
-                                    layerControlNumber.overlays["Points de freefloating"].addTo(mapNumber);
-                                    layerControlNumber.overlays["Points de freefloating bdd"].addTo(mapNumber);
-                                    freefloatingCheckbox=true;
-                                }
-                                return chargement(0);
-                            })
-                            .catch(function() {
-                                console.log("Loading element not found");
-                            });
-                        });
-                        </script>
-                    </div>
-                </div>
-                <div class="accordion">
-                  <input type="radio" name="radio-a" id="check2">
-                  <label class="accordion-label" for="check2">Transports en commun</label>
-                  <div class="accordion-content">
-
-
-                    <div class="categorie">
-                        <div>
-                            <input type="checkbox" class="arretsBusCheckbox" unchecked>
-                            <label for="arretsBusCheckbox">Arrets de bus</label>
-                            <script>
-                            if ($(".arretsBusCheckbox").is(':checked')) {var arretsBusCheckbox = true;} else {var arretsBusCheckbox = false;}
                             </script>
-                            <script> $(".arretsBusCheckbox").click(function(){
+                        </div>
+                        <div>
+                            <input type="checkbox" class="stationsVcubCheckbox" unchecked>
+                            <label for="stationsVcubCheckbox">Stations Vcub</label>
+                            <script>
+                            if ($(".stationsVcubCheckbox").is(':checked')) {var stationsVcubCheckbox = true;} else {var stationsVcubCheckbox = false;}
+                            </script>
+                            <script> $(".stationsVcubCheckbox").click(function(){
+                                document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                document.querySelector('.sidebar').classList.toggle('is-active');
                                 chargement(1).then(function() {
-                                    if (arretsBusCheckbox===true) { 
-                                        layerControlNumber.overlays["Arrets de bus"].remove();
-                                        arretsBusCheckbox=false;}
-                                    else if (arretsBusCheckbox===false) {
-                                        layerControlNumber.overlays["Arrets de bus"].addTo(mapNumber);
-                                        arretsBusCheckbox=true;}
+                                    if (stationsVcubCheckbox===true) { 
+                                        layerControlNumber.overlays["Stations Vcube"].remove();
+                                        stationsVcubCheckbox=false;}
+                                    else if (stationsVcubCheckbox===false) {
+                                        layerControlNumber.overlays["Stations Vcube"].addTo(mapNumber);
+                                        stationsVcubCheckbox=true;
+                                    }
                                     return chargement(0);
                                 })
                                 .catch(function() {
@@ -191,44 +149,27 @@
                             });
                             </script>
                         </div>
-
                         <div>
-                            <input type="checkbox" class="lignesBusCheckbox" unchecked>
-                            <label for="lignesBusCheckbox">Lignes de bus</label>
+                            <input type="checkbox" class="freefloatingCheckbox" unchecked>
+                            <label for="freefloatingCheckbox">Emplacements Freefloating</label>
                             <script>
-                            if ($(".lignesBusCheckbox").is(':checked')) {var lignesBusCheckbox = true;} else {var lignesBusCheckbox = false;}
+                            if ($(".freefloatingCheckbox").is(':checked')) {var freefloatingCheckbox = true;} else {var freefloatingCheckbox = false;}
                             </script>
-                            <script> $(".lignesBusCheckbox").click(function(){
+                            <script> 
+                                $(".freefloatingCheckbox").click(function(){
+                                document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                document.querySelector('.sidebar').classList.toggle('is-active');
                                 chargement(1).then(function() {
-                                    if (lignesBusCheckbox===true) { 
-                                        layerControlNumber.overlays["Lignes de BUS"].remove();
-                                        lignesBusCheckbox=false;}
-                                    else if (lignesBusCheckbox===false) {
-                                        layerControlNumber.overlays["Lignes de BUS"].addTo(mapNumber);
-                                        lignesBusCheckbox=true;}
-                                    return chargement(0);
-                                })
-                                .catch(function() {
-                                    console.log("Loading element not found");
-                                });
-                            });
-                            </script>
-                        </div>
-
-                        <div>
-                            <input type="checkbox" class="tempsReelBusCheckbox" unchecked>
-                            <label for="tempsReelBusCheckbox">Bus en temps reel</label>
-                            <script>
-                            if ($(".tempsReelBusCheckbox").is(':checked')) {var tempsReelBusCheckbox = true;} else {var tempsReelBusCheckbox = false;}
-                            </script>
-                            <script> $(".tempsReelBusCheckbox").click(function(){
-                                chargement(1).then(function() {
-                                    if (tempsReelBusCheckbox===true) { 
-                                        layerControlNumber.overlays["Bus en temps reel"].remove();
-                                        tempsReelBusCheckbox=false;}
-                                    else if (tempsReelBusCheckbox===false) {
-                                        layerControlNumber.overlays["Bus en temps reel"].addTo(mapNumber);
-                                        tempsReelBusCheckbox=true;}
+                                    if (freefloatingCheckbox===true) { 
+                                        layerControlNumber.overlays["Points de freefloating"].remove();
+                                        layerControlNumber.overlays["Points de freefloating bdd"].remove();
+    
+                                        freefloatingCheckbox=false;}
+                                    else if (freefloatingCheckbox===false) {
+                                        layerControlNumber.overlays["Points de freefloating"].addTo(mapNumber);
+                                        layerControlNumber.overlays["Points de freefloating bdd"].addTo(mapNumber);
+                                        freefloatingCheckbox=true;
+                                    }
                                     return chargement(0);
                                 })
                                 .catch(function() {
@@ -238,279 +179,275 @@
                             </script>
                         </div>
                     </div>
-<!-- fin categorie bus -->
-
-                    <div class="categorie">
-                        <div>
-                            <input type="checkbox" class="arretsTramCheckbox" unchecked>
-                            <label for="arretsTramCheckbox">Arrets de Tram</label>
-                            <script>
-                            if ($(".arretsTramCheckbox").is(':checked')) {var arretsTramCheckbox = true;} else {var arretsTramCheckbox = false;}
-                            </script>
-                            <script> $(".arretsTramCheckbox").click(function(){
-                                chargement(1).then(function() {
-                                    if (arretsTramCheckbox===true) { 
-                                        layerControlNumber.overlays["Arrets de tram"].remove();
-                                        arretsTramCheckbox=false;}
-                                    else if (arretsTramCheckbox===false) {
-                                        layerControlNumber.overlays["Arrets de tram"].addTo(mapNumber);
-                                        arretsTramCheckbox=true;}
-                                    return chargement(0);
-                                })
-                                .catch(function() {
-                                    console.log("Loading element not found");
+                    <div class="accordion">
+                      <input type="radio" name="radio-a" id="check2">
+                      <label class="accordion-label" for="check2">Transports en commun</label>
+                      <div class="accordion-content">
+    
+    
+                        <div class="categorie">
+                            <div>
+                                <input type="checkbox" class="arretsBusCheckbox" unchecked>
+                                <label for="arretsBusCheckbox">Arrets de bus</label>
+                                <script>
+                                if ($(".arretsBusCheckbox").is(':checked')) {var arretsBusCheckbox = true;} else {var arretsBusCheckbox = false;}
+                                </script>
+                                <script> $(".arretsBusCheckbox").click(function(){
+                                    document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                    document.querySelector('.sidebar').classList.toggle('is-active');
+                                    chargement(1).then(function() {
+                                        if (arretsBusCheckbox===true) { 
+                                            layerControlNumber.overlays["Arrets de bus"].remove();
+                                            arretsBusCheckbox=false;}
+                                        else if (arretsBusCheckbox===false) {
+                                            layerControlNumber.overlays["Arrets de bus"].addTo(mapNumber);
+                                            arretsBusCheckbox=true;}
+                                        return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
                                 });
-                            });
-                            </script>
-                        </div>
-
-                        <div>
-                            <input type="checkbox" class="lignesTramCheckbox" unchecked>
-                            <label for="lignesTramCheckbox">Lignes de Tram</label>
-                            <script>
-                            if ($(".lignesTramCheckbox").is(':checked')) {var lignesTramCheckbox = true;} else {var lignesTramCheckbox = false;}
-                            </script>
-                            <script> $(".lignesTramCheckbox").click(function(){
-                                chargement(1).then(function() {
-                                    if (lignesTramCheckbox===true) { 
-                                        layerControlNumber.overlays["Lignes de TRAM"].remove();
-                                        lignesTramCheckbox=false;}
-                                    else if (lignesTramCheckbox===false) {
-                                        layerControlNumber.overlays["Lignes de TRAM"].addTo(mapNumber);
-                                        lignesTramCheckbox=true;}
-                                    return chargement(0);
-                                })
-                                .catch(function() {
-                                    console.log("Loading element not found");
+                                </script>
+                            </div>
+    
+                            <div>
+                                <input type="checkbox" class="lignesBusCheckbox" unchecked>
+                                <label for="lignesBusCheckbox">Lignes de bus</label>
+                                <script>
+                                if ($(".lignesBusCheckbox").is(':checked')) {var lignesBusCheckbox = true;} else {var lignesBusCheckbox = false;}
+                                </script>
+                                <script> $(".lignesBusCheckbox").click(function(){
+                                    document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                    document.querySelector('.sidebar').classList.toggle('is-active');
+                                    chargement(1).then(function() {
+                                        if (lignesBusCheckbox===true) { 
+                                            layerControlNumber.overlays["Lignes de BUS"].remove();
+                                            lignesBusCheckbox=false;}
+                                        else if (lignesBusCheckbox===false) {
+                                            layerControlNumber.overlays["Lignes de BUS"].addTo(mapNumber);
+                                            lignesBusCheckbox=true;}
+                                        return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
                                 });
-                            });
-                            </script>
-                        </div>
-
-                        <div>
-                            <input type="checkbox" class="tempsReelTramCheckbox" unchecked>
-                            <label for="tempsReelTramCheckbox">Tram en temps reel</label>
-                            <script>
-                            if ($(".tempsReelTramCheckbox").is(':checked')) {var tempsReelTramCheckbox = true;} else {var tempsReelTramCheckbox = false;}
-                            </script>
-                            <script> $(".tempsReelTramCheckbox").click(function(){
-                                chargement(1).then(function() {
-                                    if (tempsReelTramCheckbox===true) { 
-                                        layerControlNumber.overlays["Tram en temps reel"].remove();
-                                        tempsReelTramCheckbox=false;}
-                                    else if (tempsReelTramCheckbox===false) {
-                                        layerControlNumber.overlays["Tram en temps reel"].addTo(mapNumber);
-                                        tempsReelTramCheckbox=true;}
-                                    return chargement(0);
-                                })
-                                .catch(function() {
-                                    console.log("Loading element not found");
+                                </script>
+                            </div>
+    
+                            <div>
+                                <input type="checkbox" class="tempsReelBusCheckbox" unchecked>
+                                <label for="tempsReelBusCheckbox">Bus en temps reel</label>
+                                <script>
+                                if ($(".tempsReelBusCheckbox").is(':checked')) {var tempsReelBusCheckbox = true;} else {var tempsReelBusCheckbox = false;}
+                                </script>
+                                <script> $(".tempsReelBusCheckbox").click(function(){
+                                    document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                    document.querySelector('.sidebar').classList.toggle('is-active');
+                                    chargement(1).then(function() {
+                                        if (tempsReelBusCheckbox===true) { 
+                                            layerControlNumber.overlays["Bus en temps reel"].remove();
+                                            tempsReelBusCheckbox=false;}
+                                        else if (tempsReelBusCheckbox===false) {
+                                            layerControlNumber.overlays["Bus en temps reel"].addTo(mapNumber);
+                                            tempsReelBusCheckbox=true;}
+                                        return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
                                 });
-                            });
-                            </script>
+                                </script>
+                            </div>
                         </div>
-                    </div>
-                    <!-- fin categorie tram -->
-
-                    <div class="categorie">
-
-                        <div>
-                            <input type="checkbox" class="arretCarsCheckbox" unchecked>
-                            <label for="arretCarsCheckbox">Arrets de Car</label>
-                            <script>
-                            if ($(".arretCarsCheckbox").is(':checked')) {var arretCarsCheckbox = true;} else {var arretCarsCheckbox = false;}
-                            </script>
-                            <script> $(".arretCarsCheckbox").click(function(){
-                                chargement(1).then(function() {
-                                    if (arretCarsCheckbox===true) { 
-                                        layerControlNumber.overlays["Arrets cars"].remove();
-                                        arretCarsCheckbox=false;}
-                                    else if (arretCarsCheckbox===false) {
-                                        layerControlNumber.overlays["Arrets cars"].addTo(mapNumber);
-                                        arretCarsCheckbox=true;}
-                                    return chargement(0);
-                                })
-                                .catch(function() {
-                                    console.log("Loading element not found");
+    <!-- fin categorie bus -->
+    
+                        <div class="categorie">
+                            <div>
+                                <input type="checkbox" class="arretsTramCheckbox" unchecked>
+                                <label for="arretsTramCheckbox">Arrets de Tram</label>
+                                <script>
+                                if ($(".arretsTramCheckbox").is(':checked')) {var arretsTramCheckbox = true;} else {var arretsTramCheckbox = false;}
+                                </script>
+                                <script> $(".arretsTramCheckbox").click(function(){
+                                    document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                    document.querySelector('.sidebar').classList.toggle('is-active');
+                                    chargement(1).then(function() {
+                                        if (arretsTramCheckbox===true) { 
+                                            layerControlNumber.overlays["Arrets de tram"].remove();
+                                            arretsTramCheckbox=false;}
+                                        else if (arretsTramCheckbox===false) {
+                                            layerControlNumber.overlays["Arrets de tram"].addTo(mapNumber);
+                                            arretsTramCheckbox=true;}
+                                        return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
                                 });
-                            });
-                            </script>
-                        </div>
-
-                        <div>
-                            <input type="checkbox" class="lignesCarsCheckbox" unchecked>
-                            <label for="lignesCarsCheckbox">Lignes de Car</label>
-                            <script>
-                            if ($(".lignesCarsCheckbox").is(':checked')) {var lignesCarsCheckbox = true;} else {var lignesCarsCheckbox = false;}
-                            </script>
-                            <script> $(".lignesCarsCheckbox").click(function(){
-                                chargement(1).then(function() {
-                                    if (lignesCarsCheckbox===true) { 
-                                        layerControlNumber.overlays["Lignes de car"].remove();
-                                        lignesCarsCheckbox=false;}
-                                    else if (lignesCarsCheckbox===false) {
-                                        layerControlNumber.overlays["Lignes de car"].addTo(mapNumber);
-                                        lignesCarsCheckbox=true;}
-                                    return chargement(0);
-                                })
-                                .catch(function() {
-                                    console.log("Loading element not found");
+                                </script>
+                            </div>
+    
+                            <div>
+                                <input type="checkbox" class="lignesTramCheckbox" unchecked>
+                                <label for="lignesTramCheckbox">Lignes de Tram</label>
+                                <script>
+                                if ($(".lignesTramCheckbox").is(':checked')) {var lignesTramCheckbox = true;} else {var lignesTramCheckbox = false;}
+                                </script>
+                                <script> $(".lignesTramCheckbox").click(function(){
+                                    document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                    document.querySelector('.sidebar').classList.toggle('is-active');
+                                    chargement(1).then(function() {
+                                        if (lignesTramCheckbox===true) { 
+                                            layerControlNumber.overlays["Lignes de TRAM"].remove();
+                                            lignesTramCheckbox=false;}
+                                        else if (lignesTramCheckbox===false) {
+                                            layerControlNumber.overlays["Lignes de TRAM"].addTo(mapNumber);
+                                            lignesTramCheckbox=true;}
+                                        return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
                                 });
-                            });
-                            </script>
-                        </div>
-
-                    </div>
-                    <!-- fin categorie car -->
-
-                    <div class="categorie">
-
-                        <div>
-                            <input type="checkbox" class="garesTerCheckbox" unchecked>
-                            <label for="garesTerCheckbox">Gares TER</label>
-                            <script>
-                            if ($(".garesTerCheckbox").is(':checked')) {var garesTerCheckbox = true;} else {var garesTerCheckbox = false;}
-                            </script>
-                            <script> $(".garesTerCheckbox").click(function(){
-                                chargement(1).then(function() {
-                                    if (garesTerCheckbox===true) { 
-                                        layerControlNumber.overlays["Gare TER"].remove();
-                                        garesTerCheckbox=false;}
-                                    else if (garesTerCheckbox===false) {
-                                        layerControlNumber.overlays["Gare TER"].addTo(mapNumber);
-                                        garesTerCheckbox=true;}
-                                    return chargement(0);
-                                })
-                                .catch(function() {
-                                    console.log("Loading element not found");
+                                </script>
+                            </div>
+    
+                            <div>
+                                <input type="checkbox" class="tempsReelTramCheckbox" unchecked>
+                                <label for="tempsReelTramCheckbox">Tram en temps reel</label>
+                                <script>
+                                if ($(".tempsReelTramCheckbox").is(':checked')) {var tempsReelTramCheckbox = true;} else {var tempsReelTramCheckbox = false;}
+                                </script>
+                                <script> $(".tempsReelTramCheckbox").click(function(){
+                                    document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                    document.querySelector('.sidebar').classList.toggle('is-active');
+                                    chargement(1).then(function() {
+                                        if (tempsReelTramCheckbox===true) { 
+                                            layerControlNumber.overlays["Tram en temps reel"].remove();
+                                            tempsReelTramCheckbox=false;}
+                                        else if (tempsReelTramCheckbox===false) {
+                                            layerControlNumber.overlays["Tram en temps reel"].addTo(mapNumber);
+                                            tempsReelTramCheckbox=true;}
+                                        return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
                                 });
-                            });
-                            </script>
+                                </script>
+                            </div>
                         </div>
-
+                        <!-- fin categorie tram -->
+    
+                        <div class="categorie">
+    
+                            <div>
+                                <input type="checkbox" class="arretCarsCheckbox" unchecked>
+                                <label for="arretCarsCheckbox">Arrets de Car</label>
+                                <script>
+                                if ($(".arretCarsCheckbox").is(':checked')) {var arretCarsCheckbox = true;} else {var arretCarsCheckbox = false;}
+                                </script>
+                                <script> $(".arretCarsCheckbox").click(function(){
+                                    document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                    document.querySelector('.sidebar').classList.toggle('is-active');
+                                    chargement(1).then(function() {
+                                        if (arretCarsCheckbox===true) { 
+                                            layerControlNumber.overlays["Arrets cars"].remove();
+                                            arretCarsCheckbox=false;}
+                                        else if (arretCarsCheckbox===false) {
+                                            layerControlNumber.overlays["Arrets cars"].addTo(mapNumber);
+                                            arretCarsCheckbox=true;}
+                                        return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
+                                });
+                                </script>
+                            </div>
+    
+                            <div>
+                                <input type="checkbox" class="lignesCarsCheckbox" unchecked>
+                                <label for="lignesCarsCheckbox">Lignes de Car</label>
+                                <script>
+                                if ($(".lignesCarsCheckbox").is(':checked')) {var lignesCarsCheckbox = true;} else {var lignesCarsCheckbox = false;}
+                                </script>
+                                <script> $(".lignesCarsCheckbox").click(function(){
+                                    document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                    document.querySelector('.sidebar').classList.toggle('is-active');
+                                    chargement(1).then(function() {
+                                        if (lignesCarsCheckbox===true) { 
+                                            layerControlNumber.overlays["Lignes de car"].remove();
+                                            lignesCarsCheckbox=false;}
+                                        else if (lignesCarsCheckbox===false) {
+                                            layerControlNumber.overlays["Lignes de car"].addTo(mapNumber);
+                                            lignesCarsCheckbox=true;}
+                                        return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
+                                });
+                                </script>
+                            </div>
+    
+                        </div>
+                        <!-- fin categorie car -->
+    
+                        <div class="categorie">
+    
+                            <div>
+                                <input type="checkbox" class="garesTerCheckbox" unchecked>
+                                <label for="garesTerCheckbox">Gares TER</label>
+                                <script>
+                                if ($(".garesTerCheckbox").is(':checked')) {var garesTerCheckbox = true;} else {var garesTerCheckbox = false;}
+                                </script>
+                                <script> $(".garesTerCheckbox").click(function(){
+                                    document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                    document.querySelector('.sidebar').classList.toggle('is-active');
+                                    chargement(1).then(function() {
+                                        if (garesTerCheckbox===true) { 
+                                            layerControlNumber.overlays["Gare TER"].remove();
+                                            garesTerCheckbox=false;}
+                                        else if (garesTerCheckbox===false) {
+                                            layerControlNumber.overlays["Gare TER"].addTo(mapNumber);
+                                            garesTerCheckbox=true;}
+                                        return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
+                                });
+                                </script>
+                            </div>
+    
+                        </div>
+    
+                      </div>
                     </div>
-
-                  </div>
-                </div>
-                <div class="accordion">
-                  <input type="radio" name="radio-a" id="check3">
-                  <label class="accordion-label" for="check3">Voitures</label>
-                  <div class="accordion-content">
-                
-                    <div>
-                        <input type="checkbox" class="parkingsCheckbox" unchecked>
-                        <label for="parkingsCheckbox">Parkings</label>
-                        <script>
-                        if ($(".parkingsCheckbox").is(':checked')) {var parkingsCheckbox = true;} else {var parkingsCheckbox = false;}
-                        </script>
-                        <script> $(".parkingsCheckbox").click(function(){
-                            chargement(1).then(function() {
-                                if (parkingsCheckbox===true) { 
-                                    layerControlNumber.overlays["Parking"].remove();
-                                    parkingsCheckbox=false;}
-                                else if (parkingsCheckbox===false) {
-                                    layerControlNumber.overlays["Parking"].addTo(mapNumber);
-                                    parkingsCheckbox=true;}
-                                return chargement(0);
-                            })
-                            .catch(function() {
-                                console.log("Loading element not found");
-                            });
-                        });
-                        </script>
-                    </div>
-
-                    <div>
-                        <input type="checkbox" class="parkingsRelaisCheckbox" unchecked>
-                        <label for="parkingsRelaisCheckbox">Parkings relais</label>
-                        <script>
-                        if ($(".parkingsRelaisCheckbox").is(':checked')) {var parkingsRelaisCheckbox = true;} else {var parkingsRelaisCheckbox = false;}
-                        </script>
-                        <script> $(".parkingsRelaisCheckbox").click(function(){
-                            chargement(1).then(function() {
-                                if (parkingsRelaisCheckbox===true) { 
-                                    layerControlNumber.overlays["Parking relais"].remove();
-                                    parkingsRelaisCheckbox=false;}
-                                else if (parkingsRelaisCheckbox===false) {
-                                    layerControlNumber.overlays["Parking relais"].addTo(mapNumber);
-                                    parkingsRelaisCheckbox=true;}
-                                return chargement(0);
-                            })
-                            .catch(function() {
-                                console.log("Loading element not found");
-                            });
-                        });
-                        </script>
-                    </div>
-
-                    <div>
-                        <input type="checkbox" class="covoiturageCheckbox" unchecked>
-                        <label for="covoiturageCheckbox">Points de covoiturage</label>
-                        <script>
-                        if ($(".covoiturageCheckbox").is(':checked')) {var covoiturageCheckbox = true;} else {var covoiturageCheckbox = false;}
-                        </script>
-                        <script> $(".covoiturageCheckbox").click(function(){
-                            chargement(1).then(function() {
-                                if (covoiturageCheckbox===true) { 
-                                    layerControlNumber.overlays["Covoiturage"].remove();
-                                    covoiturageCheckbox=false;}
-                                else if (covoiturageCheckbox===false) {
-                                    layerControlNumber.overlays["Covoiturage"].addTo(mapNumber);
-                                    covoiturageCheckbox=true;}
-                                return chargement(0);
-                            })
-                            .catch(function() {
-                                console.log("Loading element not found");
-                            });
-                        });
-                        </script>
-                    </div>
-
-                    <div>
-                        <input type="checkbox" class="autopartagesCheckbox" unchecked>
-                        <label for="autopartagesCheckbox">Points d'autopartage</label>
-                        <script>
-                        if ($(".autopartagesCheckbox").is(':checked')) {var autopartagesCheckbox = true;} else {var autopartagesCheckbox = false;}
-                        </script>
-                        <script> $(".autopartagesCheckbox").click(function(){
-                            chargement(1).then(function() {
-                                if (autopartagesCheckbox===true) { 
-                                    layerControlNumber.overlays["Autopartage"].remove();
-                                    autopartagesCheckbox=false;}
-                                else if (autopartagesCheckbox===false) {
-                                    layerControlNumber.overlays["Autopartage"].addTo(mapNumber);
-                                    autopartagesCheckbox=true;}
-                                return chargement(0);
-                            })
-                            .catch(function() {
-                                console.log("Loading element not found");
-                            });
-                        });
-                        </script>
-                    </div>
-
-
-                  </div>
-                </div>
-                <div class="accordion">
-                    <input type="radio" name="radio-a" id="check4">
-                    <label class="accordion-label" for="check4">Autres</label>
-                    <div class="accordion-content">
-                      
+                    <div class="accordion">
+                      <input type="radio" name="radio-a" id="check3">
+                      <label class="accordion-label" for="check3">Voitures</label>
+                      <div class="accordion-content">
+                    
                         <div>
-                            <input type="checkbox" class="pdcCheckbox" unchecked>
-                            <label for="pdcCheckbox">Infrastructures de recharge de véhicules électriques</label>
+                            <input type="checkbox" class="parkingsCheckbox" unchecked>
+                            <label for="parkingsCheckbox">Parkings</label>
                             <script>
-                            if ($(".pdcCheckbox").is(':checked')) {var pdcCheckbox = true;} else {var pdcCheckbox = false;}
+                            if ($(".parkingsCheckbox").is(':checked')) {var parkingsCheckbox = true;} else {var parkingsCheckbox = false;}
                             </script>
-                            <script> $(".pdcCheckbox").click(function(){
+                            <script> $(".parkingsCheckbox").click(function(){
+                                document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                document.querySelector('.sidebar').classList.toggle('is-active');
                                 chargement(1).then(function() {
-                                    if (pdcCheckbox===true) { 
-                                        layerControlNumber.overlays["Points de charge"].remove();
-                                        pdcCheckbox=false;}
-                                    else if (pdcCheckbox===false) {
-                                        layerControlNumber.overlays["Points de charge"].addTo(mapNumber);
-                                        pdcCheckbox=true;}
+                                    if (parkingsCheckbox===true) { 
+                                        layerControlNumber.overlays["Parking"].remove();
+                                        parkingsCheckbox=false;}
+                                    else if (parkingsCheckbox===false) {
+                                        layerControlNumber.overlays["Parking"].addTo(mapNumber);
+                                        parkingsCheckbox=true;}
                                     return chargement(0);
                                 })
                                 .catch(function() {
@@ -521,19 +458,21 @@
                         </div>
     
                         <div>
-                            <input type="checkbox" class="etatTraficCheckbox" unchecked>
-                            <label for="etatTraficCheckbox">Etat du trafic</label>
+                            <input type="checkbox" class="parkingsRelaisCheckbox" unchecked>
+                            <label for="parkingsRelaisCheckbox">Parkings relais</label>
                             <script>
-                            if ($(".etatTraficCheckbox").is(':checked')) {var etatTraficCheckbox = true;} else {var etatTraficCheckbox = false;}
+                            if ($(".parkingsRelaisCheckbox").is(':checked')) {var parkingsRelaisCheckbox = true;} else {var parkingsRelaisCheckbox = false;}
                             </script>
-                            <script> $(".etatTraficCheckbox").click(function(){
+                            <script> $(".parkingsRelaisCheckbox").click(function(){
+                                document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                document.querySelector('.sidebar').classList.toggle('is-active');
                                 chargement(1).then(function() {
-                                    if (etatTraficCheckbox===true) { 
-                                        layerControlNumber.overlays["Etat du traffic"].remove();
-                                        etatTraficCheckbox=false;}
-                                    else if (etatTraficCheckbox===false) {
-                                        layerControlNumber.overlays["Etat du traffic"].addTo(mapNumber);
-                                        etatTraficCheckbox=true;}
+                                    if (parkingsRelaisCheckbox===true) { 
+                                        layerControlNumber.overlays["Parking relais"].remove();
+                                        parkingsRelaisCheckbox=false;}
+                                    else if (parkingsRelaisCheckbox===false) {
+                                        layerControlNumber.overlays["Parking relais"].addTo(mapNumber);
+                                        parkingsRelaisCheckbox=true;}
                                     return chargement(0);
                                 })
                                 .catch(function() {
@@ -542,422 +481,564 @@
                             });
                             </script>
                         </div>
-                    </div>
-                </div>
-
-                <div class="accordion">
-                    <input type="radio" name="radio-a" id="check5">
-                    <label class="accordion-label" for="check5">Capteurs</label>
-                    <div class="accordion-content">
-                
-                        <div>
-                            <input type="radio" name="capteurRadio" id="capteurRadio" class="capteurRadio exclude-radio">
-                            <label for="capteurRadio">Emplacements Capteurs</label>
-                        </div>
-                
-                        <div>
-                            <input type="radio" name="capteurRadio" id="traficJourRadio" class="traficJourRadio exclude-radio">
-                            <label for="traficJourRadio">Trafic par jour</label>
-                        </div>
-                
-                        <div>
-                            <input type="radio" name="capteurRadio" id="moyenneTraficRadio" class="moyenneTraficRadio exclude-radio">
-                            <label for="moyenneTraficRadio">Moyenne du trafic par jour</label>
-                        </div>
-                
-                        <div>
-                            <input type="radio" name="capteurRadio" id="traficHeureRadio" class="traficHeureRadio exclude-radio">
-                            <label for="traficHeureRadio">Trafic par heure</label>
-                        </div>
-
-                        <input type="date" id="datepicker1">
-                        <input type="date" id="datepicker2">
-
-                        <form id="trafic_heure">
-                            <div>
-                                <label for="timepicker1">Début :</label>
-                                <input type="time" id="timepicker1" required>
-                                <label for="timepicker2">Fin :</label>
-                                <input type="time" id="timepicker2" required>
-                            </div>
-                            <div>
-                                Période : 
-                                <input type="checkbox" id="choix_demi_heur">
-                                <label for="choix_demi_heur">30min</label>
-                                <input type="checkbox" id="choix_heur">
-                                <label for="choix_heur">1h</label>
-                            </div>
-                            <input type="button" id="start" value="Afficher">
-                            <input type="button" id="next" value="Suivant">
-                            <input type="button" id="reset" value="Réinitialiser">
-                        </form>
-
-                        <script>
-                            var capteurRadio = false;
-                            var traficJourRadio = false;
-                            var moyenneTraficRadio = false;
-                            var traficHeureRadio = false;
-                            var estAffiche = false;
-
-                            document.getElementById("datepicker1").style.visibility = 'hidden';
-                            document.getElementById("datepicker2").style.visibility = 'hidden';
-                            document.getElementById("trafic_heure").style.visibility = 'hidden';
-                            document.getElementById("next").style.visibility = 'hidden';
-                            document.getElementById("reset").style.visibility = 'hidden';
-                          
-                            $(".capteurRadio").click(function () {
-                                if (!capteurRadio) {
-                                    chargement(1).then(function () {
-                                        if (traficJourRadio) {
-                                            layerControlNumber.overlays["Trafic par jour bdd"].remove();
-                                            legend.remove();
-                                            document.getElementById("datepicker1").style.visibility = 'hidden';
-                                            document.getElementById("datepicker2").style.visibility = 'hidden';
-                                            traficJourRadio = false;
-                                        } else if (moyenneTraficRadio) {
-                                            layerControlNumber.overlays["Moyenne trafic bdd"].remove();
-                                            legend.remove();
-                                            moyenneTraficRadio = false;
-                                            document.getElementById("datepicker1").style.visibility = 'hidden';
-                                        } else if (traficHeureRadio) {
-                                            layerControlNumber.overlays["Trafic par heure bdd"].remove();
-                                            if(estAffiche) {
-                                                legendHeure.remove();
-                                            }
-                                            document.getElementById("datepicker1").style.visibility = 'hidden';
-                                            document.getElementById("trafic_heure").style.visibility = 'hidden';
-                                            document.getElementById("next").style.visibility = 'hidden';
-                                            document.getElementById("reset").style.visibility = 'hidden';
-                                            traficHeureRadio = false;
-                                        }
-                                        layerControlNumber.overlays["Capteurs bdd"].addTo(mapNumber);
-                                        capteurRadio = true;
-                                        return chargement(0);
-                                    })
-                                    .catch(function () {
-                                        console.log("Loading element not found");
-                                    });
-                                } else {
-                                    $(".capteurRadio").prop("checked", false);
-                                    layerControlNumber.overlays["Capteurs bdd"].remove();
-                                    capteurRadio = false;
-                                }
-                            });
-                          
-                            $(".traficJourRadio").click(function(){
-                                if (!traficJourRadio) {
-                                    chargement(1).then(function() {
-                                        if(capteurRadio) {
-                                            layerControlNumber.overlays["Capteurs bdd"].remove();
-                                            capteurRadio=false;
-                                        } else if(moyenneTraficRadio) {
-                                            layerControlNumber.overlays["Moyenne trafic bdd"].remove();
-                                            legend.remove();
-                                            moyenneTraficRadio=false;
-                                            document.getElementById("datepicker2").style.visibility = 'hidden';
-                                        } else if(traficHeureRadio) {
-                                            layerControlNumber.overlays["Trafic par heure bdd"].remove();
-                                            if(estAffiche) {
-                                                legendHeure.remove();
-                                            }
-                                            document.getElementById("trafic_heure").style.visibility = 'hidden';
-                                            document.getElementById("next").style.visibility = 'hidden';
-                                            document.getElementById("reset").style.visibility = 'hidden';
-                                            traficHeureRadio=false;
-                                        }
-                                        layerControlNumber.overlays["Trafic par jour bdd"].addTo(mapNumber);
-                                        legend.addTo(mapNumber);
-                                        document.getElementById("datepicker1").style.visibility = 'visible';
-                                        traficJourRadio=true;
-                                        return chargement(0);
-                                    })
-                                    .catch(function() {
-                                        console.log("Loading element not found");
-                                    });
-                                } else {
-                                    $(".traficJourRadio").prop("checked", false);
-                                    layerControlNumber.overlays["Trafic par jour bdd"].remove();
-                                    legend.remove();
-                                    document.getElementById("datepicker1").style.visibility = 'hidden';
-                                    traficJourRadio = false;
-                                }
-                            });
-
-                            $(".moyenneTraficRadio").click(function(){
-                                if (!moyenneTraficRadio) {
-                                    chargement(1).then(function() {
-                                        if(capteurRadio) {
-                                            layerControlNumber.overlays["Capteurs bdd"].remove();
-                                            capteurRadio=false;
-                                        } else if(traficJourRadio) {
-                                            layerControlNumber.overlays["Trafic par jour bdd"].remove();
-                                            legend.remove();
-                                            traficJourRadio=false;
-                                        } else if(traficHeureRadio) {
-                                            layerControlNumber.overlays["Trafic par heure bdd"].remove();
-                                            if(estAffiche) {
-                                                legendHeure.remove();
-                                            }
-                                            document.getElementById("trafic_heure").style.visibility = 'hidden';
-                                            document.getElementById("next").style.visibility = 'hidden';
-                                            document.getElementById("reset").style.visibility = 'hidden';
-                                            traficHeureRadio=false;
-                                        }
-                                        layerControlNumber.overlays["Moyenne trafic bdd"].addTo(mapNumber);
-                                        legend.addTo(mapNumber);
-                                        document.getElementById("datepicker1").style.visibility = 'visible';
-                                        document.getElementById("datepicker2").style.visibility = 'visible';
-                                        moyenneTraficRadio=true;
-                                        return chargement(0);
-                                    })
-                                    .catch(function() {
-                                        console.log("Loading element not found");
-                                    });
-                                } else {
-                                    $(".moyenneTraficRadio").prop("checked", false);
-                                    layerControlNumber.overlays["Moyenne trafic bdd"].remove();
-                                    legend.remove();
-                                    document.getElementById("datepicker1").style.visibility = 'hidden';
-                                    document.getElementById("datepicker2").style.visibility = 'hidden';
-                                    moyenneTraficRadio = false;
-                                }
-                            });
-
-                            $(".traficHeureRadio").click(function(){
-                                if (!traficHeureRadio) {
-                                    chargement(1).then(function() {
-                                        if(capteurRadio) {
-                                            layerControlNumber.overlays["Capteurs bdd"].remove();
-                                            capteurRadio=false;
-                                        } else if(traficJourRadio) {
-                                            layerControlNumber.overlays["Trafic par jour bdd"].remove();
-                                            legend.remove();
-                                            traficJourRadio=false;
-                                        } else if(moyenneTraficRadio) {
-                                            layerControlNumber.overlays["Moyenne trafic bdd"].remove();
-                                            legend.remove();
-                                            document.getElementById("datepicker2").style.visibility = 'hidden';
-                                            moyenneTraficRadio=false;
-                                        }
-                                        layerControlNumber.overlays["Trafic par heure bdd"].addTo(mapNumber);
-                                        document.getElementById("datepicker1").style.visibility = 'visible';
-                                        document.getElementById("trafic_heure").style.visibility = 'visible';
-                                        if(estAffiche) {
-                                            legendHeure.addTo(mapNumber);
-                                            document.getElementById("next").style.visibility = 'visible';
-                                            document.getElementById("reset").style.visibility = 'visible';
-                                        }
-                                        traficHeureRadio=true;
-                                        return chargement(0);
-                                    })
-                                    .catch(function() {
-                                        console.log("Loading element not found");
-                                    });
-                                } else {
-                                    $(".traficHeureRadio").prop("checked", false);
-                                    layerControlNumber.overlays["Trafic par heure bdd"].remove();
-                                    legendHeure.remove();
-                                    document.getElementById("datepicker1").style.visibility = 'hidden';
-                                    document.getElementById("trafic_heure").style.visibility = 'hidden';
-                                    document.getElementById("next").style.visibility = 'hidden';
-                                    document.getElementById("reset").style.visibility = 'hidden';
-                                    traficHeureRadio = false;
-                                }
-                            });
-
-                            var datepicker1 = document.getElementById("datepicker1");
-                            var datepicker2 = document.getElementById("datepicker2");
-
-                            datepicker1.addEventListener("change", function() {
-                                updateBddTraficJour();
-                                if(document.getElementById("moyenneTraficRadio").checked && datepicker2.value !== ""){
-                                    updateBddMoyenneTrafic();
-                                }
-                            });
-
-                            datepicker2.addEventListener("change", function() {
-                                if(document.getElementById("moyenneTraficRadio").checked && datepicker1.value !== ""){
-                                    updateBddMoyenneTrafic();
-                                }
-                            });
-                            
-                            var debut;
-                            var fin;
-                            var debutIntervalle;
-                            var finIntervalle;
-                            var demiHeurChecked;
-                            var heurChecked;
-                            var heuresDebut;
-                            var minutesDebut;
-                            var heuresSuivantes;
-                            var minutesSuivantes;
-                            var heuresAux;
-                            var minutesAux;
-                            var heuresFin;
-
-                            document.addEventListener('DOMContentLoaded', function() {
-                                const demiHeurCheckbox = document.getElementById('choix_demi_heur');
-                                const heurCheckbox = document.getElementById('choix_heur');
-                                const startButton = document.getElementById('start');
-                                const nextButton = document.getElementById('next');
-                                const resetButton = document.getElementById('reset');
-
-                                startButton.addEventListener('click', function() {
-                                    if(!estAffiche) {
-                                        var selectedDate = document.getElementById("datepicker1").value;
-                                        if (selectedDate === "") {
-                                            alert("Veuillez entrer une date.");
-                                            return;
-                                        }
     
-                                        debut = document.getElementById("timepicker1").value;
-                                        fin = document.getElementById("timepicker2").value;
-                                        if (debut === "" || fin === "") {
-                                            alert("Veuillez entrer une heure de début et de fin.");
-                                            return;
-                                        }
-
-                                        heuresDebut = parseInt(debut.split(':')[0]);
-                                        minutesDebut = parseInt(debut.split(':')[1]);
-                                        heuresFin = parseInt(fin.split(':')[0]);
-                                        minutesFin = parseInt(fin.split(':')[1]);
-                                        
-                                        // Vérifier qu'un et un seul checkbox est sélectionné
-                                        demiHeurChecked = demiHeurCheckbox.checked;
-                                        heurChecked = heurCheckbox.checked;
-                                        if (!(demiHeurChecked ^ heurChecked)) {
-                                            alert("Veuillez sélectionner une seule période (30min ou 1h).");
-                                            return;
-                                        }
-
-                                        if(heurChecked) {
-                                            if (heuresDebut+1 > heuresFin || (heuresDebut+1 === heuresFin && minutesDebut > minutesFin)) {
+                        <div>
+                            <input type="checkbox" class="covoiturageCheckbox" unchecked>
+                            <label for="covoiturageCheckbox">Points de covoiturage</label>
+                            <script>
+                            if ($(".covoiturageCheckbox").is(':checked')) {var covoiturageCheckbox = true;} else {var covoiturageCheckbox = false;}
+                            </script>
+                            <script> $(".covoiturageCheckbox").click(function(){
+                                document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                document.querySelector('.sidebar').classList.toggle('is-active');
+                                chargement(1).then(function() {
+                                    if (covoiturageCheckbox===true) { 
+                                        layerControlNumber.overlays["Covoiturage"].remove();
+                                        covoiturageCheckbox=false;}
+                                    else if (covoiturageCheckbox===false) {
+                                        layerControlNumber.overlays["Covoiturage"].addTo(mapNumber);
+                                        covoiturageCheckbox=true;}
+                                    return chargement(0);
+                                })
+                                .catch(function() {
+                                    console.log("Loading element not found");
+                                });
+                            });
+                            </script>
+                        </div>
+    
+                        <div>
+                            <input type="checkbox" class="autopartagesCheckbox" unchecked>
+                            <label for="autopartagesCheckbox">Points d'autopartage</label>
+                            <script>
+                            if ($(".autopartagesCheckbox").is(':checked')) {var autopartagesCheckbox = true;} else {var autopartagesCheckbox = false;}
+                            </script>
+                            <script> $(".autopartagesCheckbox").click(function(){
+                                document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                document.querySelector('.sidebar').classList.toggle('is-active');
+                                chargement(1).then(function() {
+                                    if (autopartagesCheckbox===true) { 
+                                        layerControlNumber.overlays["Autopartage"].remove();
+                                        autopartagesCheckbox=false;}
+                                    else if (autopartagesCheckbox===false) {
+                                        layerControlNumber.overlays["Autopartage"].addTo(mapNumber);
+                                        autopartagesCheckbox=true;}
+                                    return chargement(0);
+                                })
+                                .catch(function() {
+                                    console.log("Loading element not found");
+                                });
+                            });
+                            </script>
+                        </div>
+    
+    
+                      </div>
+                    </div>
+                    <div class="accordion">
+                        <input type="radio" name="radio-a" id="check4">
+                        <label class="accordion-label" for="check4">Autres</label>
+                        <div class="accordion-content">
+                          
+                            <div>
+                                <input type="checkbox" class="pdcCheckbox" unchecked>
+                                <label for="pdcCheckbox">Infrastructures de recharge de véhicules électriques</label>
+                                <script>
+                                if ($(".pdcCheckbox").is(':checked')) {var pdcCheckbox = true;} else {var pdcCheckbox = false;}
+                                </script>
+                                <script> $(".pdcCheckbox").click(function(){
+                                    document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                    document.querySelector('.sidebar').classList.toggle('is-active');
+                                    chargement(1).then(function() {
+                                        if (pdcCheckbox===true) { 
+                                            layerControlNumber.overlays["Points de charge"].remove();
+                                            pdcCheckbox=false;}
+                                        else if (pdcCheckbox===false) {
+                                            layerControlNumber.overlays["Points de charge"].addTo(mapNumber);
+                                            pdcCheckbox=true;}
+                                        return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
+                                });
+                                </script>
+                            </div>
+        
+                            <div>
+                                <input type="checkbox" class="etatTraficCheckbox" unchecked>
+                                <label for="etatTraficCheckbox">Etat du trafic</label>
+                                <script>
+                                if ($(".etatTraficCheckbox").is(':checked')) {var etatTraficCheckbox = true;} else {var etatTraficCheckbox = false;}
+                                </script>
+                                <script> $(".etatTraficCheckbox").click(function(){
+                                    document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                    document.querySelector('.sidebar').classList.toggle('is-active');
+                                    chargement(1).then(function() {
+                                        if (etatTraficCheckbox===true) { 
+                                            layerControlNumber.overlays["Etat du traffic"].remove();
+                                            etatTraficCheckbox=false;}
+                                        else if (etatTraficCheckbox===false) {
+                                            layerControlNumber.overlays["Etat du traffic"].addTo(mapNumber);
+                                            etatTraficCheckbox=true;}
+                                        return chargement(0);
+                                    })
+                                    .catch(function() {
+                                        console.log("Loading element not found");
+                                    });
+                                });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="accordion">
+                        <input type="radio" name="radio-a" id="check5">
+                        <label class="accordion-label" for="check5">Capteurs</label>
+                        <div class="accordion-content">
+                    
+                            <div>
+                                <input type="radio" name="capteurRadio" id="capteurRadio" class="capteurRadio exclude-radio">
+                                <label for="capteurRadio">Emplacements Capteurs</label>
+                            </div>
+                    
+                            <div>
+                                <input type="radio" name="capteurRadio" id="traficJourRadio" class="traficJourRadio exclude-radio">
+                                <label for="traficJourRadio">Trafic par jour</label>
+                            </div>
+                    
+                            <div>
+                                <input type="radio" name="capteurRadio" id="moyenneTraficRadio" class="moyenneTraficRadio exclude-radio">
+                                <label for="moyenneTraficRadio">Moyenne du trafic par jour</label>
+                            </div>
+                    
+                            <div>
+                                <input type="radio" name="capteurRadio" id="traficHeureRadio" class="traficHeureRadio exclude-radio">
+                                <label for="traficHeureRadio">Trafic par heure</label>
+                            </div>
+    
+                            <input type="date" id="datepicker1">
+                            <input type="date" id="datepicker2">
+    
+                            <form id="trafic_heure">
+                                <div>
+                                    <label for="timepicker1">Début :</label>
+                                    <input type="time" id="timepicker1" required>
+                                    <label for="timepicker2">Fin :</label>
+                                    <input type="time" id="timepicker2" required>
+                                </div>
+                                <div>
+                                    Période : 
+                                    <input type="checkbox" id="choix_demi_heur">
+                                    <label for="choix_demi_heur">30min</label>
+                                    <input type="checkbox" id="choix_heur">
+                                    <label for="choix_heur">1h</label>
+                                </div>
+                                <input type="button" id="start" value="Afficher">
+                                <input type="button" id="next" value="Suivant">
+                                <input type="button" id="reset" value="Réinitialiser">
+                            </form>
+    
+                            <script>
+                                var capteurRadio = false;
+                                var traficJourRadio = false;
+                                var moyenneTraficRadio = false;
+                                var traficHeureRadio = false;
+                                var estAffiche = false;
+    
+                                document.getElementById("datepicker1").style.visibility = 'hidden';
+                                document.getElementById("datepicker2").style.visibility = 'hidden';
+                                document.getElementById("trafic_heure").style.visibility = 'hidden';
+                                document.getElementById("next").style.visibility = 'hidden';
+                                document.getElementById("reset").style.visibility = 'hidden';
+                              
+                                $(".capteurRadio").click(function () {
+                                    document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                    document.querySelector('.sidebar').classList.toggle('is-active');
+                                    if (!capteurRadio) {
+                                        chargement(1).then(function () {
+                                            if (traficJourRadio) {
+                                                layerControlNumber.overlays["Trafic par jour bdd"].remove();
+                                                legend.remove();
+                                                document.getElementById("datepicker1").style.visibility = 'hidden';
+                                                document.getElementById("datepicker2").style.visibility = 'hidden';
+                                                traficJourRadio = false;
+                                            } else if (moyenneTraficRadio) {
+                                                layerControlNumber.overlays["Moyenne trafic bdd"].remove();
+                                                legend.remove();
+                                                moyenneTraficRadio = false;
+                                                document.getElementById("datepicker1").style.visibility = 'hidden';
+                                            } else if (traficHeureRadio) {
+                                                layerControlNumber.overlays["Trafic par heure bdd"].remove();
+                                                if(estAffiche) {
+                                                    legendHeure.remove();
+                                                }
+                                                document.getElementById("datepicker1").style.visibility = 'hidden';
+                                                document.getElementById("trafic_heure").style.visibility = 'hidden';
+                                                document.getElementById("next").style.visibility = 'hidden';
+                                                document.getElementById("reset").style.visibility = 'hidden';
+                                                traficHeureRadio = false;
+                                            }
+                                            layerControlNumber.overlays["Capteurs bdd"].addTo(mapNumber);
+                                            capteurRadio = true;
+                                            return chargement(0);
+                                        })
+                                        .catch(function () {
+                                            console.log("Loading element not found");
+                                        });
+                                    } else {
+                                        $(".capteurRadio").prop("checked", false);
+                                        layerControlNumber.overlays["Capteurs bdd"].remove();
+                                        capteurRadio = false;
+                                    }
+                                });
+                              
+                                $(".traficJourRadio").click(function(){
+                                    if (!traficJourRadio) {
+                                        chargement(1).then(function() {
+                                            if(capteurRadio) {
+                                                layerControlNumber.overlays["Capteurs bdd"].remove();
+                                                capteurRadio=false;
+                                            } else if(moyenneTraficRadio) {
+                                                layerControlNumber.overlays["Moyenne trafic bdd"].remove();
+                                                legend.remove();
+                                                moyenneTraficRadio=false;
+                                                document.getElementById("datepicker2").style.visibility = 'hidden';
+                                            } else if(traficHeureRadio) {
+                                                layerControlNumber.overlays["Trafic par heure bdd"].remove();
+                                                if(estAffiche) {
+                                                    legendHeure.remove();
+                                                }
+                                                document.getElementById("trafic_heure").style.visibility = 'hidden';
+                                                document.getElementById("next").style.visibility = 'hidden';
+                                                document.getElementById("reset").style.visibility = 'hidden';
+                                                traficHeureRadio=false;
+                                            }
+                                            layerControlNumber.overlays["Trafic par jour bdd"].addTo(mapNumber);
+                                            legend.addTo(mapNumber);
+                                            document.getElementById("datepicker1").style.visibility = 'visible';
+                                            traficJourRadio=true;
+                                            return chargement(0);
+                                        })
+                                        .catch(function() {
+                                            console.log("Loading element not found");
+                                        });
+                                    } else {
+                                        document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                        document.querySelector('.sidebar').classList.toggle('is-active');
+                                        $(".traficJourRadio").prop("checked", false);
+                                        layerControlNumber.overlays["Trafic par jour bdd"].remove();
+                                        legend.remove();
+                                        document.getElementById("datepicker1").style.visibility = 'hidden';
+                                        traficJourRadio = false;
+                                    }
+                                });
+    
+                                $(".moyenneTraficRadio").click(function(){
+                                    if (!moyenneTraficRadio) {
+                                        chargement(1).then(function() {
+                                            if(capteurRadio) {
+                                                layerControlNumber.overlays["Capteurs bdd"].remove();
+                                                capteurRadio=false;
+                                            } else if(traficJourRadio) {
+                                                layerControlNumber.overlays["Trafic par jour bdd"].remove();
+                                                legend.remove();
+                                                traficJourRadio=false;
+                                            } else if(traficHeureRadio) {
+                                                layerControlNumber.overlays["Trafic par heure bdd"].remove();
+                                                if(estAffiche) {
+                                                    legendHeure.remove();
+                                                }
+                                                document.getElementById("trafic_heure").style.visibility = 'hidden';
+                                                document.getElementById("next").style.visibility = 'hidden';
+                                                document.getElementById("reset").style.visibility = 'hidden';
+                                                traficHeureRadio=false;
+                                            }
+                                            layerControlNumber.overlays["Moyenne trafic bdd"].addTo(mapNumber);
+                                            legend.addTo(mapNumber);
+                                            document.getElementById("datepicker1").style.visibility = 'visible';
+                                            document.getElementById("datepicker2").style.visibility = 'visible';
+                                            moyenneTraficRadio=true;
+                                            return chargement(0);
+                                        })
+                                        .catch(function() {
+                                            console.log("Loading element not found");
+                                        });
+                                    } else {
+                                        document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                        document.querySelector('.sidebar').classList.toggle('is-active');
+                                        $(".moyenneTraficRadio").prop("checked", false);
+                                        layerControlNumber.overlays["Moyenne trafic bdd"].remove();
+                                        legend.remove();
+                                        document.getElementById("datepicker1").style.visibility = 'hidden';
+                                        document.getElementById("datepicker2").style.visibility = 'hidden';
+                                        moyenneTraficRadio = false;
+                                    }
+                                });
+    
+                                $(".traficHeureRadio").click(function(){
+                                    if (!traficHeureRadio) {
+                                        chargement(1).then(function() {
+                                            if(capteurRadio) {
+                                                layerControlNumber.overlays["Capteurs bdd"].remove();
+                                                capteurRadio=false;
+                                            } else if(traficJourRadio) {
+                                                layerControlNumber.overlays["Trafic par jour bdd"].remove();
+                                                legend.remove();
+                                                traficJourRadio=false;
+                                            } else if(moyenneTraficRadio) {
+                                                layerControlNumber.overlays["Moyenne trafic bdd"].remove();
+                                                legend.remove();
+                                                document.getElementById("datepicker2").style.visibility = 'hidden';
+                                                moyenneTraficRadio=false;
+                                            }
+                                            layerControlNumber.overlays["Trafic par heure bdd"].addTo(mapNumber);
+                                            document.getElementById("datepicker1").style.visibility = 'visible';
+                                            document.getElementById("trafic_heure").style.visibility = 'visible';
+                                            if(estAffiche) {
+                                                legendHeure.addTo(mapNumber);
+                                                document.getElementById("next").style.visibility = 'visible';
+                                                document.getElementById("reset").style.visibility = 'visible';
+                                            }
+                                            traficHeureRadio=true;
+                                            return chargement(0);
+                                        })
+                                        .catch(function() {
+                                            console.log("Loading element not found");
+                                        });
+                                    } else {
+                                        document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                        document.querySelector('.sidebar').classList.toggle('is-active');
+                                        $(".traficHeureRadio").prop("checked", false);
+                                        layerControlNumber.overlays["Trafic par heure bdd"].remove();
+                                        legendHeure.remove();
+                                        document.getElementById("datepicker1").style.visibility = 'hidden';
+                                        document.getElementById("trafic_heure").style.visibility = 'hidden';
+                                        document.getElementById("next").style.visibility = 'hidden';
+                                        document.getElementById("reset").style.visibility = 'hidden';
+                                        traficHeureRadio = false;
+                                    }
+                                });
+    
+                                var datepicker1 = document.getElementById("datepicker1");
+                                var datepicker2 = document.getElementById("datepicker2");
+    
+                                datepicker1.addEventListener("change", function() {
+                                    if(document.getElementById("moyenneTraficRadio").checked && datepicker2.value !== ""){
+                                        document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                        document.querySelector('.sidebar').classList.toggle('is-active');
+                                        updateBddMoyenneTrafic();
+                                    } else if(document.getElementById("traficJourRadio").checked) {
+                                        document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                        document.querySelector('.sidebar').classList.toggle('is-active');
+                                        updateBddTraficJour();
+                                    }
+                                });
+    
+                                datepicker2.addEventListener("change", function() {
+                                    if(document.getElementById("moyenneTraficRadio").checked && datepicker1.value !== ""){
+                                        document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                        document.querySelector('.sidebar').classList.toggle('is-active');
+                                        updateBddMoyenneTrafic();
+                                    }
+                                });
+                                
+                                var debut;
+                                var fin;
+                                var debutIntervalle;
+                                var finIntervalle;
+                                var demiHeurChecked;
+                                var heurChecked;
+                                var heuresDebut;
+                                var minutesDebut;
+                                var heuresSuivantes;
+                                var minutesSuivantes;
+                                var heuresAux;
+                                var minutesAux;
+                                var heuresFin;
+    
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    const demiHeurCheckbox = document.getElementById('choix_demi_heur');
+                                    const heurCheckbox = document.getElementById('choix_heur');
+                                    const startButton = document.getElementById('start');
+                                    const nextButton = document.getElementById('next');
+                                    const resetButton = document.getElementById('reset');
+    
+                                    startButton.addEventListener('click', function() {
+                                        if(!estAffiche) {
+                                            var selectedDate = document.getElementById("datepicker1").value;
+                                            if (selectedDate === "") {
+                                                alert("Veuillez entrer une date.");
                                                 return;
                                             }
                                             
-                                            heuresSuivantes = heuresDebut + 1;
-
-                                            debutIntervalle = debut;
-                                            finIntervalle = heuresSuivantes.toString().padStart(2, '0') + ":" + debut.split(':')[1];
-                                        } else {
-                                            heuresAux = (minutesDebut+30) >= 60 ? heuresDebut + 1 : heuresDebut;
-                                            minutesAux = (minutesDebut + 30) % 60;
+                                            debut = document.getElementById("timepicker1").value;
+                                            fin = document.getElementById("timepicker2").value;
+                                            if (debut === "" || fin === "") {
+                                                alert("Veuillez entrer une heure de début et de fin.");
+                                                return;
+                                            }
                                             
+                                            heuresDebut = parseInt(debut.split(':')[0]);
+                                            minutesDebut = parseInt(debut.split(':')[1]);
+                                            heuresFin = parseInt(fin.split(':')[0]);
+                                            minutesFin = parseInt(fin.split(':')[1]);
+                                            
+                                            // Vérifier qu'un et un seul checkbox est sélectionné
+                                            demiHeurChecked = demiHeurCheckbox.checked;
+                                            heurChecked = heurCheckbox.checked;
+                                            if (!(demiHeurChecked ^ heurChecked)) {
+                                                alert("Veuillez sélectionner une seule période (30min ou 1h).");
+                                                return;
+                                            }
+                                            document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                            document.querySelector('.sidebar').classList.toggle('is-active');
+                                            
+                                            if(heurChecked) {
+                                                if (heuresDebut+1 > heuresFin || (heuresDebut+1 === heuresFin && minutesDebut > minutesFin)) {
+                                                    return;
+                                                }
+                                                
+                                                heuresSuivantes = heuresDebut + 1;
+    
+                                                debutIntervalle = debut;
+                                                finIntervalle = heuresSuivantes.toString().padStart(2, '0') + ":" + debut.split(':')[1];
+                                            } else {
+                                                heuresAux = (minutesDebut+30) >= 60 ? heuresDebut + 1 : heuresDebut;
+                                                minutesAux = (minutesDebut + 30) % 60;
+                                                
+                                                if (!(heuresAux < heuresFin || (heuresAux === heuresFin && minutesAux <= minutesFin))) {
+                                                    return;
+                                                }
+    
+                                                heuresSuivantes = heuresAux;
+                                                minutesSuivantes = minutesAux;
+                                                
+                                                debutIntervalle = debut;
+                                                finIntervalle = heuresSuivantes.toString().padStart(2, '0') + ":" + minutesSuivantes.toString().padStart(2, '0');
+                                            }
+        
+                                            estAffiche = true;
+                                            // Exécuter la fonction updateBddTraficHeure()
+                                            updateBddTraficHeure();
+                                            document.getElementById("next").style.visibility = 'visible';
+                                            document.getElementById("reset").style.visibility = 'visible';
+                                            document.getElementById("start").value = 'Précédent';
+                                            document.getElementById("start").disabled = true;
+                                        } else {
+                                            document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                            document.querySelector('.sidebar').classList.toggle('is-active');
+
+                                            if(heurChecked) {
+                                                if (heuresDebut-1 < parseInt(debut.split(':')[0]) || (heuresDebut-1 === debut.split(':')[0] && minutesDebut < parseInt(debut.split(':')[1]))) {
+                                                    return;
+                                                }
+    
+                                                heuresSuivantes = heuresDebut;
+                                                heuresDebut = heuresDebut - 1;
+                                                
+                                                finIntervalle = debutIntervalle;
+                                                debutIntervalle = heuresDebut.toString().padStart(2, '0') + ":" + finIntervalle.split(':')[1];
+                                            } else {
+                                                if((minutesDebut-30) < 0) {
+                                                    heuresAux = heuresDebut - 1;
+                                                    minutesAux = minutesDebut + 30;
+                                                } else {
+                                                    heuresAux = heuresDebut;
+                                                    minutesAux = minutesDebut - 30;
+                                                }
+    
+                                                if (!(heuresAux > parseInt(debut.split(':')[0]) || (heuresAux === parseInt(debut.split(':')[0]) && minutesAux >= parseInt(debut.split(':')[1])))) {
+                                                    return;
+                                                }
+    
+                                                heuresSuivantes = heuresDebut;
+                                                minutesSuivantes = minutesDebut;
+                                                heuresDebut = heuresAux;
+                                                minutesDebut = minutesAux;
+                                                
+                                                finIntervalle = debutIntervalle;
+                                                debutIntervalle = heuresDebut.toString().padStart(2, '0') + ":" + minutesDebut.toString().padStart(2, '0');
+                                            }
+    
+                                            // Exécuter la fonction updateBddTraficHeure()
+                                            updateBddTraficHeure();
+                                        }
+                                    });
+    
+                                    nextButton.addEventListener('click', function() {
+                                        document.querySelector('.menu-toggle').classList.toggle('is-active');
+                                        document.querySelector('.sidebar').classList.toggle('is-active');
+                                        if(heurChecked) {
+                                            if (heuresSuivantes+1 > heuresFin || (heuresSuivantes+1 === heuresFin && minutesDebut > minutesFin)) {
+                                                return;
+                                            }
+                                            heuresDebut = heuresSuivantes;
+                                            heuresSuivantes = heuresSuivantes + 1;
+    
+                                            debutIntervalle = finIntervalle;
+                                            finIntervalle = heuresSuivantes.toString().padStart(2, '0') + ":" + finIntervalle.split(':')[1];
+                                        } else {
+                                            heuresAux = (minutesSuivantes+30) >= 60 ? heuresSuivantes + 1 : heuresSuivantes;
+                                            minutesAux = (minutesSuivantes + 30) % 60;
+    
                                             if (!(heuresAux < heuresFin || (heuresAux === heuresFin && minutesAux <= minutesFin))) {
                                                 return;
                                             }
-
+    
+                                            heuresDebut = heuresSuivantes;
+                                            minutesDebut = minutesSuivantes;
                                             heuresSuivantes = heuresAux;
                                             minutesSuivantes = minutesAux;
-                                            
-                                            debutIntervalle = debut;
+    
+                                            debutIntervalle = finIntervalle;
                                             finIntervalle = heuresSuivantes.toString().padStart(2, '0') + ":" + minutesSuivantes.toString().padStart(2, '0');
                                         }
     
-                                        estAffiche = true;
+                                        document.getElementById("start").disabled = false;
+    
                                         // Exécuter la fonction updateBddTraficHeure()
                                         updateBddTraficHeure();
-                                        document.getElementById("next").style.visibility = 'visible';
-                                        document.getElementById("reset").style.visibility = 'visible';
-                                        document.getElementById("start").value = 'Précédent';
-                                        document.getElementById("start").disabled = true;
-                                    } else {
-                                        if(heurChecked) {
-                                            if (heuresDebut-1 < parseInt(debut.split(':')[0]) || (heuresDebut-1 === debut.split(':')[0] && minutesDebut < parseInt(debut.split(':')[1]))) {
-                                                return;
-                                            }
-
-                                            heuresSuivantes = heuresDebut;
-                                            heuresDebut = heuresDebut - 1;
-                                            
-                                            finIntervalle = debutIntervalle;
-                                            debutIntervalle = heuresDebut.toString().padStart(2, '0') + ":" + finIntervalle.split(':')[1];
-                                        } else {
-                                            if((minutesDebut-30) < 0) {
-                                                heuresAux = heuresDebut - 1;
-                                                minutesAux = minutesDebut + 30;
-                                            } else {
-                                                heuresAux = heuresDebut;
-                                                minutesAux = minutesDebut - 30;
-                                            }
-
-                                            if (!(heuresAux > parseInt(debut.split(':')[0]) || (heuresAux === parseInt(debut.split(':')[0]) && minutesAux >= parseInt(debut.split(':')[1])))) {
-                                                return;
-                                            }
-
-                                            heuresSuivantes = heuresDebut;
-                                            minutesSuivantes = minutesDebut;
-                                            heuresDebut = heuresAux;
-                                            minutesDebut = minutesAux;
-                                            
-                                            finIntervalle = debutIntervalle;
-                                            debutIntervalle = heuresDebut.toString().padStart(2, '0') + ":" + minutesDebut.toString().padStart(2, '0');
-                                        }
-
-                                        // Exécuter la fonction updateBddTraficHeure()
-                                        updateBddTraficHeure();
-                                    }
+                                    });
+    
+                                    resetButton.addEventListener('click', function() {
+                                        document.getElementById("timepicker1").value = "";
+                                        document.getElementById("timepicker2").value = "";
+                                        document.getElementById('choix_demi_heur').checked = false;
+                                        document.getElementById('choix_heur').checked = false;
+                                        document.getElementById("start").value = "Afficher";
+                                        document.getElementById("start").disabled = false;
+                                        document.getElementById("next").style.visibility = 'hidden';
+                                        document.getElementById("reset").style.visibility = 'hidden';
+                                        estAffiche = false;
+                                        legendHeure.remove();
+                                        removeBddTraficHeure();
+                                    });
                                 });
-
-                                nextButton.addEventListener('click', function() {
-                                    if(heurChecked) {
-                                        if (heuresSuivantes+1 > heuresFin || (heuresSuivantes+1 === heuresFin && minutesDebut > minutesFin)) {
-                                            return;
-                                        }
-                                        heuresDebut = heuresSuivantes;
-                                        heuresSuivantes = heuresSuivantes + 1;
-
-                                        debutIntervalle = finIntervalle;
-                                        finIntervalle = heuresSuivantes.toString().padStart(2, '0') + ":" + finIntervalle.split(':')[1];
-                                    } else {
-                                        heuresAux = (minutesSuivantes+30) >= 60 ? heuresSuivantes + 1 : heuresSuivantes;
-                                        minutesAux = (minutesSuivantes + 30) % 60;
-
-                                        if (!(heuresAux < heuresFin || (heuresAux === heuresFin && minutesAux <= minutesFin))) {
-                                            return;
-                                        }
-
-                                        heuresDebut = heuresSuivantes;
-                                        minutesDebut = minutesSuivantes;
-                                        heuresSuivantes = heuresAux;
-                                        minutesSuivantes = minutesAux;
-
-                                        debutIntervalle = finIntervalle;
-                                        finIntervalle = heuresSuivantes.toString().padStart(2, '0') + ":" + minutesSuivantes.toString().padStart(2, '0');
-                                    }
-
-                                    document.getElementById("start").disabled = false;
-
-                                    // Exécuter la fonction updateBddTraficHeure()
-                                    updateBddTraficHeure();
-                                });
-
-                                resetButton.addEventListener('click', function() {
-                                    document.getElementById("timepicker1").value = "";
-                                    document.getElementById("timepicker2").value = "";
-                                    document.getElementById('choix_demi_heur').checked = false;
-                                    document.getElementById('choix_heur').checked = false;
-                                    document.getElementById("start").value = "Afficher";
-                                    document.getElementById("start").disabled = false;
-                                    document.getElementById("next").style.visibility = 'hidden';
-                                    document.getElementById("reset").style.visibility = 'hidden';
-                                    estAffiche = false;
-                                    legendHeure.remove();
-                                    removeBddTraficHeure();
-                                });
-                            });
-                        </script>
-                
+                            </script>
+                    
+                        </div>
                     </div>
-                </div>
-                
-
-
-                </div>                            
-            </ul>
+                    
+    
+    
+                    </div>                            
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
+
+        <script>
+            const menu_toggle = document.querySelector('.menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+
+            menu_toggle.addEventListener('click', () => {
+                menu_toggle.classList.toggle('is-active');
+                sidebar.classList.toggle('is-active');
+            });
+        </script>          
       </div>
+      
 
       <section>
         <div class="full_screen_background_map">
