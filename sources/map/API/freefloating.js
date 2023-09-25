@@ -27,7 +27,7 @@ function afficherPopupFreeFloatingAPI(e) {
 // récupération des données de position de bus et de tram en utilisant l'URL du WebService GeoJSON
     
 $.ajax({
-    url: "https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=st_freefloating_p",
+    url: "https://data.bordeaux-metropole.fr/geojson?key=177BEEMTWZ&typename=st_freefloating_s",
     dataType: "json",
     cache: false,
     success: function(data) 
