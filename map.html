@@ -135,12 +135,10 @@
                             $(".freefloatingCheckbox").click(function(){
                             chargement(1).then(function() {
                                 if (freefloatingCheckbox===true) { 
-                                    layerControlNumber.overlays["Points de freefloating"].remove();
                                     layerControlNumber.overlays["Points de freefloating bdd"].remove();
 
                                     freefloatingCheckbox=false;}
                                 else if (freefloatingCheckbox===false) {
-                                    layerControlNumber.overlays["Points de freefloating"].addTo(mapNumber);
                                     layerControlNumber.overlays["Points de freefloating bdd"].addTo(mapNumber);
                                     freefloatingCheckbox=true;
                                 }
@@ -810,12 +808,10 @@
             <script src="sources/filtre.js"></script>
             <script src="sources/map/API/stations_vcube.js"></script>
             <script src="sources/map/API/arrets.js"></script>
-            <script src="sources/map/API/freefloating.js"></script>
             <script src="sources/map/API/lignes_bus_trams.js"></script>
             <script src="sources/map/API/live_positions.js"></script>
             <script src="sources/map/API/live_traffic.js"></script>
             <script src="sources/map/API/parkings.js"></script>
-            <script src="sources/map/API/points_charges.js"></script>
             <script src="sources/map/API/points_covoiturages.js"></script>
             <script src="sources/map/API/points_autopartages.js"></script>
             <script src="sources/map/BDD/parkings_bdd.js"></script>

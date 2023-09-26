@@ -36,7 +36,6 @@ function updateBddMoyenneTrafic(){
     var selectedDate1 = document.getElementById("datepicker1").value;
     var selectedDate2 = document.getElementById("datepicker2").value;
     if (selectedDate1 === "" || selectedDate2 === "") {
-        console.log("Please select a date");
         return;
     }
 

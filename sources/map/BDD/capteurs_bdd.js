@@ -25,7 +25,6 @@ function updateBddCapteurs(){
     fetch('./sources/requetes/capteurs.php')
     .then(response => response.json())
     .then(data => {
-        console.log(data);
         data.forEach(function(capteur) {
             var iconUrl = './sources/icons/capteur.png';
 

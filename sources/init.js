@@ -42,6 +42,7 @@ var layer_control_643cdab5b83b581cb10d63d05a5a00f0 = L.featureGroup(
 
 ).addTo(map_5c3862ba13c7e615013e758f79b1f9bb);
 
+var baseURL = 'http://127.0.0.1:8000/api/v1/';
 
 var taille_icon = 30;
 

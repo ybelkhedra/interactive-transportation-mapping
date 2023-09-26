@@ -32,7 +32,6 @@ function updateBddGares(){
     fetch('./sources/requetes/gares_ter.php')
     .then(response => response.json())
     .then(data => {
-        console.log(data);
         data.forEach(function(gare) { // pour chaque gare
             
             var marker = L.marker([gare.latitude, gare.longitude], {icon: gare_Icon}).addTo(feature_group_gares_ter_bdd); // création du marqueur

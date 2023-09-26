@@ -22,8 +22,6 @@ var layer_control_643cdab5b83b581cb10d63d05a5a00f0 = {
 
         "Gare TER" : feature_group_gares_ter_bdd,//ok
 
-        "Points de freefloating" : feature_group_freefloating,//ok
-
         "Points de freefloating bdd" : feature_group_freefloating_bdd,//ok
 
         "Capteurs bdd" : feature_group_capteurs_bdd,
